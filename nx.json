@@ -31,5 +31,9 @@
       }
     ]
   },
-  "projects": {}
+  "projects": {
+    "backend": {
+      "tags": []
+    }
+  }
 }
