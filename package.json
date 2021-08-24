@@ -27,7 +27,8 @@
     "db:migrate:recreate-initial": "rm -rf apps/backend/prisma/migrations/* && prisma migrate dev --create-only --skip-seed -n initial && git add apps/backend/prisma/migrations/* && prisma generate",
     "db:migrate:reset": "prisma migrate reset",
     "db:migrate:ci": "prisma migrate reset --skip-generate --skip-seed --force",
-    "db:migrate:deploy": "prisma migrate deploy"
+    "db:migrate:deploy": "prisma migrate deploy",
+    "swagger:schema:generate": "cd apps/backend && TS_NODE_PROJECT=tsconfig.app.json ts-node src/generateSchema.ts"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^8.0.6",
     "@nestjs/platform-express": "^8.0.6",
+    "@nestjs/swagger": "^5.0.9",
     "@prisma/client": "^2.30.0",
     "joi": "^17.4.2",
     "reflect-metadata": "^0.1.13",
