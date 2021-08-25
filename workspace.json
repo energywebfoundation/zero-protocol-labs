@@ -13,7 +13,8 @@
             "outputPath": "dist/apps/backend",
             "main": "apps/backend/src/main.ts",
             "tsConfig": "apps/backend/tsconfig.app.json",
-            "assets": ["apps/backend/src/assets"]
+            "assets": ["apps/backend/src/assets"],
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -27,6 +28,19 @@
                 }
               ]
             }
+          }
+        },
+        "docker-image-build": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              "nx build backend --prod",
+              "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
+              "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
+              "docker build ./dist/apps/backend/ -t zero-pl-backend",
+              "rm -r ./dist/apps/backend/prisma ./dist/apps/backend/Dockerfile"
+            ]
           }
         },
         "serve": {
