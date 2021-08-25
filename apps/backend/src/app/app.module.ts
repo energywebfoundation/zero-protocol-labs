@@ -19,7 +19,8 @@ import * as Joi from 'joi';
           .valid('development', 'production', 'test', 'provision')
           .default('development'),
 
-        PORT: Joi.number().default(3333)
+        PORT: Joi.number().default(3333),
+        LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
       })
     })
   ],
