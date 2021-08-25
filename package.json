@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "nx serve",
+    "start": "concurrently --names 'FRONTEND,BACKEND' -c 'yellow,cyan'  'nx serve frontend --port=3000' 'nx serve backend'",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
@@ -79,6 +79,7 @@
     "@typescript-eslint/eslint-plugin": "~4.28.3",
     "@typescript-eslint/parser": "~4.28.3",
     "babel-jest": "27.0.6",
+    "concurrently": "^6.2.1",
     "cypress": "^7.3.0",
     "dotenv": "~10.0.0",
     "eslint": "7.22.0",
