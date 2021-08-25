@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  frontend:
+    image: zero-pl-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '8080:80'
+    environment:
+      API_BASE_URL: http://localhost:3333
+    networks:
+      zero-pl-dev:
+
+  backend:
+    image: zero-pl-backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - '3333:3333'
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/zero-protocol-labs"
+
+  db:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    volumes:
+    - zero-pl-pg-data-dev:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: zero-protocol-labs
+    networks:
+      zero-pl-dev:
+
+volumes:
+  zero-pl-pg-data-dev:
+
+networks:
+  zero-pl-dev:

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+    - zero-pl-pg-data-dev:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: zero-protocol-labs
+    networks:
+      zero-pl-dev:
+
+volumes:
+  zero-pl-pg-data-dev:
+
+networks:
+  zero-pl-dev:
