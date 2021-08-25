@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { PrismaModule } from "../prisma/prisma.module";
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import * as Joi from 'joi';
         CORS_ORIGIN: Joi.string().default('*'),
         CORS_MAX_AGE: Joi.number().default(900)
       })
-    })
+    }),
+    PrismaModule
   ],
   controllers: [AppController],
   providers: [AppService],
