@@ -6,6 +6,7 @@
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
+    "build:docker": "nx run-many --target=docker-image-build --projects=backend,frontend",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
