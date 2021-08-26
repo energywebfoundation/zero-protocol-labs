@@ -21,6 +21,8 @@ import * as Joi from 'joi';
 
         PORT: Joi.number().default(3333),
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
+        CORS_ORIGIN: Joi.string().default('*'),
+        CORS_MAX_AGE: Joi.number().default(900)
       })
     })
   ],

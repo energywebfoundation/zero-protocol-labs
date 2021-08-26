@@ -18,6 +18,12 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN,
+    maxAge: parseInt(process.env.CORS_MAX_AGE)
+  });
+
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
