@@ -30,7 +30,7 @@ services:
     image: postgres:13-alpine
     restart: unless-stopped
     volumes:
-    - zero-pl-pg-data-dev:/var/lib/postgresql/data
+    - zero-pl-pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -39,7 +39,7 @@ services:
       zero-pl-dev:
 
 volumes:
-  zero-pl-pg-data-dev:
+  zero-pl-pg-data:
 
 networks:
   zero-pl-dev:
