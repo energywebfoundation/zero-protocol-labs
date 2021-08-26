@@ -22,6 +22,9 @@ services:
       - '3333:3333'
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/zero-protocol-labs"
+      API_KEY: somethingsecret
+    networks:
+      zero-pl-dev:
 
   db:
     image: postgres:13-alpine
