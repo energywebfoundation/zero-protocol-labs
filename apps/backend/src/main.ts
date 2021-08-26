@@ -8,6 +8,8 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { intersection } from 'lodash';
+import { SwaggerModule } from "@nestjs/swagger";
+import { getSwaggerDocumentationConfig } from "./swagger/SwaggerDocumentConfig";
 
 const logger = new Logger('bootstrap', { timestamp: true });
 
@@ -18,6 +20,14 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+
+  const document = SwaggerModule.createDocument(app, getSwaggerDocumentationConfig());
+  SwaggerModule.setup('swagger', app, document, {
+    customSiteTitle: 'Swagger documentation for Energy Web Zero API',
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   app.enableCors({
     origin: process.env.CORS_ORIGIN,
