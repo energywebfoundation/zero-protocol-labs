@@ -6,3 +6,13 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model File {
+  id        String   @id @default(uuid())
+  fileName  String
+  mimeType  String
+  createdAt DateTime @default(now())
+  content   Bytes
+
+  @@index([createdAt])
+}
