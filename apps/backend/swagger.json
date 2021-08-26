@@ -1,0 +1,241 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": {
+      "get": {
+        "operationId": "AppController_getData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/files": {
+      "post": {
+        "operationId": "FilesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetadataDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "files"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "FilesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FileMetadataDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "files"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/files/{id}": {
+      "get": {
+        "operationId": "FilesController_getFileContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "binary file content"
+          }
+        },
+        "tags": [
+          "files"
+        ]
+      },
+      "delete": {
+        "operationId": "FilesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetadataDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "files"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/files/{id}/metadata": {
+      "get": {
+        "operationId": "FilesController_getFileMetadata",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetadataDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "files"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Energy Web Zero API",
+    "description": "",
+    "version": "0.3",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "http://localhost:3333"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "api-key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    },
+    "schemas": {
+      "UploadFileDto": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "required": [
+          "file"
+        ]
+      },
+      "FileMetadataDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "certificate.pdf"
+          },
+          "mimeType": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2021-08-26T18:20:30.633Z"
+          }
+        },
+        "required": [
+          "id",
+          "fileName",
+          "mimeType",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

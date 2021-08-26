@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { PrismaModule } from "../prisma/prisma.module";
 import { AuthModule } from "../auth/auth.module";
+import { FilesModule } from "../files/files.module";
 
 @Module({
   imports: [
@@ -24,11 +25,13 @@ import { AuthModule } from "../auth/auth.module";
         PORT: Joi.number().default(3333),
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
         CORS_ORIGIN: Joi.string().default('*'),
-        CORS_MAX_AGE: Joi.number().default(900)
+        CORS_MAX_AGE: Joi.number().default(900),
+        UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000)
       })
     }),
     PrismaModule,
-    AuthModule
+    AuthModule,
+    FilesModule
   ],
   controllers: [AppController],
   providers: [AppService],
