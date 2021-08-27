@@ -7,6 +7,7 @@ import * as Joi from 'joi';
 import { PrismaModule } from "../prisma/prisma.module";
 import { AuthModule } from "../auth/auth.module";
 import { FilesModule } from "../files/files.module";
+import { PurchasesModule } from "../purchases/purchases.module";
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { FilesModule } from "../files/files.module";
     }),
     PrismaModule,
     AuthModule,
-    FilesModule
+    FilesModule,
+    PurchasesModule
   ],
   controllers: [AppController],
   providers: [AppService],
