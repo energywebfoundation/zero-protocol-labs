@@ -13,8 +13,9 @@ import {
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { ApiSecurity, ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
+import { PurchaseDto } from "./dto/purchase.dto";
 
 @Controller('/partners/filecoin/purchases')
 @ApiTags('Filecoin purchases')
@@ -37,6 +38,7 @@ export class PurchasesController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: PurchaseDto })
   findOne(@Param('id') id: string) {
     return this.purchasesService.findOne(+id);
   }
