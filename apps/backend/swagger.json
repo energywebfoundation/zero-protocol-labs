@@ -173,6 +173,152 @@
           }
         ]
       }
+    },
+    "/api/partners/filecoin/purchases": {
+      "post": {
+        "operationId": "PurchasesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePurchaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "PurchasesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/purchases/{id}": {
+      "get": {
+        "operationId": "PurchasesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ]
+      },
+      "put": {
+        "operationId": "PurchasesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePurchaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "PurchasesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -185,6 +331,9 @@
   "servers": [
     {
       "url": "http://localhost:3333"
+    },
+    {
+      "url": "http://54.242.133.171:3333"
     }
   ],
   "components": {
@@ -235,6 +384,191 @@
           "mimeType",
           "createdAt"
         ]
+      },
+      "CreatePurchaseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "Seller": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "contactPerson"
+        ]
+      },
+      "Buyer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1ebe1520-b42c-4497-93c9-e1e6e72e25e2"
+          },
+          "filecoinMinerId": {
+            "type": "string",
+            "example": "f0112027"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          }
+        },
+        "required": [
+          "id",
+          "filecoinMinerId",
+          "name"
+        ]
+      },
+      "Certificate": {
+        "type": "object",
+        "properties": {
+          "sellerId": {
+            "type": "string",
+            "example": "118007"
+          },
+          "generatorName": {
+            "type": "string",
+            "example": "Solar 1 - Non Bua Lampon"
+          },
+          "generatorId": {
+            "type": "string",
+            "example": "NA"
+          },
+          "namePlateCapacity": {
+            "type": "string",
+            "example": "59.595"
+          },
+          "namePlateCapacityUnit": {
+            "type": "string",
+            "example": "MW"
+          },
+          "fuelType": {
+            "type": "string",
+            "example": "Solar"
+          },
+          "recsSold": {
+            "type": "number",
+            "example": 3
+          },
+          "generationStart": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2020-11-01T00:00:00.000Z"
+          },
+          "generationEnd": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2021-06-01T23:59:59.999Z"
+          }
+        },
+        "required": [
+          "sellerId",
+          "generatorName",
+          "generatorId",
+          "namePlateCapacity",
+          "namePlateCapacityUnit",
+          "fuelType",
+          "recsSold",
+          "generationStart",
+          "generationEnd"
+        ]
+      },
+      "AnnualTransactions": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "amount": {
+            "type": "number",
+            "example": 2
+          }
+        },
+        "required": [
+          "year",
+          "amount"
+        ]
+      },
+      "File": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "certificate.pdf"
+          },
+          "mimeType": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "PurchaseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4bfce36e-3fcd-4a41-b752-94a5298b8eb6"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/Seller"
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/Buyer"
+          },
+          "certificate": {
+            "$ref": "#/components/schemas/Certificate"
+          },
+          "recsTransactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnnualTransactions"
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "seller",
+          "buyer",
+          "certificate",
+          "recsTransactions",
+          "files"
+        ]
+      },
+      "UpdatePurchaseDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }
