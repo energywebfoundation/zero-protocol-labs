@@ -23,7 +23,7 @@ export class PurchasesService {
       },
       include: {
         seller: true,
-        buyer: true,
+        buyer: { include: { FilecoinNode: true } },
         certificate: true
       }
     })

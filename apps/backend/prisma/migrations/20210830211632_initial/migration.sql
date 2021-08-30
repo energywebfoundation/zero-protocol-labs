@@ -43,6 +43,14 @@ CREATE TABLE "Certificate" (
 );
 
 -- CreateTable
+CREATE TABLE "FilecoinNode" (
+    "id" TEXT NOT NULL,
+    "buyerId" TEXT,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Purchase" (
     "id" TEXT NOT NULL,
     "certificateId" TEXT NOT NULL,
@@ -59,6 +67,9 @@ CREATE INDEX "File.createdAt_index" ON "File"("createdAt");
 
 -- AddForeignKey
 ALTER TABLE "File" ADD FOREIGN KEY ("purchaseId") REFERENCES "Purchase"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FilecoinNode" ADD FOREIGN KEY ("buyerId") REFERENCES "Buyer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("certificateId") REFERENCES "Certificate"("id") ON DELETE CASCADE ON UPDATE CASCADE;

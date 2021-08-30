@@ -20,9 +20,10 @@ model File {
 }
 
 model Buyer {
-  id       String     @id @default(uuid())
-  name     String?
-  Purchase Purchase[]
+  id           String         @id @default(uuid())
+  name         String?
+  Purchase     Purchase[]
+  FilecoinNode FilecoinNode[]
 }
 
 model Seller {
@@ -43,6 +44,12 @@ model Certificate {
   generationStart       DateTime
   generationEnd         DateTime
   Purchase              Purchase[]
+}
+
+model FilecoinNode {
+  id      String  @id
+  Buyer   Buyer?  @relation(fields: [buyerId], references: [id])
+  buyerId String?
 }
 
 model Purchase {

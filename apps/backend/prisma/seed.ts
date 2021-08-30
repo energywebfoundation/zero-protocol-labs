@@ -34,6 +34,12 @@ async function main() {
     }
   })
 
+  await prisma.filecoinNode.create({ data: { id: "f0112027", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f123242", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f5435435", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f3413434", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f5667899", buyerId: buyer.id } })
+
   const seller = await prisma.seller.create({
     data: {
       id: "68926364-a0ba-4160-b3ea-1ee70c2690dd",
