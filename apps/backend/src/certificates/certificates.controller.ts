@@ -16,10 +16,11 @@ import { UpdateCertificateDto } from './dto/update-certificate.dto';
 import { ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { CertificateDto } from "./dto/certificate.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 
 @Controller('/partners/filecoin/certificates')
 @ApiTags('Filecoin certificates')
-@UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 

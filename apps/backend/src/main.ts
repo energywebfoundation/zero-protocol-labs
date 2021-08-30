@@ -26,8 +26,6 @@ async function bootstrap() {
 
   app.useGlobalFilters(new PrismaClientExceptionFilter(app.getHttpAdapter()));
 
-  app.useGlobalInterceptors(new NoDataInterceptor());
-
   const document = SwaggerModule.createDocument(app, getSwaggerDocumentationConfig());
   SwaggerModule.setup('swagger', app, document, {
     customSiteTitle: 'Swagger documentation for Energy Web Zero API',

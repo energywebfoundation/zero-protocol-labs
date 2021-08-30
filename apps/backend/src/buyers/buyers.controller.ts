@@ -15,10 +15,11 @@ import { UpdateBuyerDto } from './dto/update-buyer.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { BuyerDto } from "./dto/buyer.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 
 @Controller('/partners/filecoin/buyers')
 @ApiTags('Filecoin buyers')
-@UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
 export class BuyersController {
   constructor(private readonly buyersService: BuyersService) {}
 

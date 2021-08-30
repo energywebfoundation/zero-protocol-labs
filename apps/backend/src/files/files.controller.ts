@@ -21,6 +21,7 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { Express, Response } from 'express';
 import * as multer from 'multer';
 import { AuthGuard } from "@nestjs/passport";
+import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 
 @Controller('files')
 @ApiTags('files')
@@ -36,7 +37,7 @@ export class FilesController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UploadFileDto })
   @ApiCreatedResponse({ type: FileMetadataDto })
-  @UseInterceptors(FileInterceptor('file', {
+  @UseInterceptors(NoDataInterceptor, FileInterceptor('file', {
     storage: multer.memoryStorage(),
     limits: {
       fileSize: parseInt(process.env.UPLOADED_FILE_SIZE_LIMIT)
@@ -54,6 +55,7 @@ export class FilesController {
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   @ApiOkResponse({ type: [FileMetadataDto] })
+  @UseInterceptors(NoDataInterceptor)
   findAll() {
     return this.filesService.findAll();
   }
@@ -80,6 +82,7 @@ export class FilesController {
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   @ApiOkResponse({ type: FileMetadataDto })
+  @UseInterceptors(NoDataInterceptor)
   async getFileMetadata(@Param('id') id: string) {
     const file = await this.filesService.findOne(id);
 
@@ -94,6 +97,7 @@ export class FilesController {
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   @ApiOkResponse({ type: FileMetadataDto })
+  @UseInterceptors(NoDataInterceptor)
   remove(@Param('id') id: string) {
     return this.filesService.remove(id);
   }
