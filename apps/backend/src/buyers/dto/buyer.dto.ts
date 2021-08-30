@@ -7,4 +7,8 @@ export class BuyerDto implements Buyer{
 
   @ApiProperty({ example: '-' })
   name: string;
+
+  constructor(partial: Partial<BuyerDto>) {
+    Object.assign(this, partial);
+  }
 }

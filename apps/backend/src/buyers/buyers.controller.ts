@@ -12,7 +12,7 @@ import {
 import { BuyersService } from './buyers.service';
 import { CreateBuyerDto } from './dto/create-buyer.dto';
 import { UpdateBuyerDto } from './dto/update-buyer.dto';
-import { ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
 import { BuyerDto } from "./dto/buyer.dto";
 import { AuthGuard } from "@nestjs/passport";
 
@@ -25,6 +25,7 @@ export class BuyersController {
   @Post()
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiCreatedResponse({ type: BuyerDto })
   create(@Body() createBuyerDto: CreateBuyerDto) {
     return this.buyersService.create(createBuyerDto);
   }
@@ -32,6 +33,7 @@ export class BuyersController {
   @Get()
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: [BuyerDto] })
   findAll() {
     return this.buyersService.findAll();
   }
@@ -39,20 +41,22 @@ export class BuyersController {
   @Get(':id')
   @ApiOkResponse({ type: BuyerDto })
   findOne(@Param('id') id: string) {
-    return this.buyersService.findOne(+id);
+    return this.buyersService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: BuyerDto })
   update(@Param('id') id: string, @Body() updateBuyerDto: UpdateBuyerDto) {
-    return this.buyersService.update(+id, updateBuyerDto);
+    return this.buyersService.update(id, updateBuyerDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: BuyerDto })
   remove(@Param('id') id: string) {
-    return this.buyersService.remove(+id);
+    return this.buyersService.remove(id);
   }
 }

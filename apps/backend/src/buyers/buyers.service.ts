@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBuyerDto } from './dto/create-buyer.dto';
 import { UpdateBuyerDto } from './dto/update-buyer.dto';
+import { BuyerDto } from "./dto/buyer.dto";
+import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class BuyersService {
-  create(createBuyerDto: CreateBuyerDto) {
-    return 'This action adds a new buyer';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createBuyerDto: CreateBuyerDto) {
+    return new BuyerDto(await this.prisma.buyer.create({ data: createBuyerDto }));
   }
 
-  findAll() {
-    return `This action returns all buyers`;
+  async findAll() {
+    return (await this.prisma.buyer.findMany()).map((r) => new BuyerDto(r));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} buyer`;
+  async findOne(id: string) {
+    return new BuyerDto(await this.prisma.buyer.findUnique({where:{filecoinMinerId: id}}));
   }
 
-  update(id: number, updateBuyerDto: UpdateBuyerDto) {
-    return `This action updates a #${id} buyer`;
+  async update(id: string, updateBuyerDto: UpdateBuyerDto) {
+    return new BuyerDto(await this.prisma.buyer.update({where:{filecoinMinerId: id}, data: updateBuyerDto}));
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} buyer`;
+  async remove(id: string) {
+    return new BuyerDto(await this.prisma.buyer.delete({where:{filecoinMinerId: id}}));
   }
 }

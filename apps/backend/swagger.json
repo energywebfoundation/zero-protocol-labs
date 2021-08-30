@@ -336,7 +336,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -355,7 +362,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuyerDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -423,7 +440,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -451,7 +475,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1031,11 +1062,33 @@
       },
       "CreateBuyerDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "filecoinMinerId": {
+            "type": "string",
+            "example": "f0112027"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          }
+        },
+        "required": [
+          "filecoinMinerId",
+          "name"
+        ]
       },
       "UpdateBuyerDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "filecoinMinerId": {
+            "type": "string",
+            "example": "f0112027"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          }
+        }
       },
       "CreateSellerDto": {
         "type": "object",
