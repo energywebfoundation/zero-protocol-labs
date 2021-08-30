@@ -43,6 +43,7 @@ export class PurchasesController {
     return new PurchaseDto({
       "id": "6ffdd03c-8110-46a9-beb3-c91ddd2e159d",
       "seller": {
+        "irecId": "118007",
         "name": "Monsoon Carbon",
         "address": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France",
         "contactPerson": "Paul Atreides"
@@ -63,7 +64,6 @@ export class PurchasesController {
         { year: 2021, amount: 1 }
       ],
       "certificate": {
-        sellerId: "118007",
         generatorName: "Solar 1 - Non Bua Lampon",
         generatorId: "NA",
         namePlateCapacity: "59.595",

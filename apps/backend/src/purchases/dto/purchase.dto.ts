@@ -2,6 +2,9 @@ import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
 import { FileMetadataDto } from "../../files/dto/file-metadata.dto";
 
 class Seller {
+  @ApiProperty({ example: '118007' })
+  irecId: string;
+
   @ApiProperty({ example: 'Monsoon Carbon' })
   name: string;
 
@@ -26,9 +29,6 @@ class File extends PartialType(PickType(FileMetadataDto, ["id", "fileName", "mim
 }
 
 class Certificate {
-  @ApiProperty({ example: "118007" })
-  sellerId: string;
-
   @ApiProperty({ example: "Solar 1 - Non Bua Lampon" })
   generatorName: string;
 
