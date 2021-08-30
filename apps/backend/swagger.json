@@ -909,9 +909,9 @@
       "BuyerDto": {
         "type": "object",
         "properties": {
-          "filecoinMinerId": {
+          "id": {
             "type": "string",
-            "example": "f0112027"
+            "example": "29e25d61-103a-4710-b03d-ee12df765066"
           },
           "name": {
             "type": "string",
@@ -919,7 +919,7 @@
           }
         },
         "required": [
-          "filecoinMinerId",
+          "id",
           "name"
         ]
       },
@@ -1063,9 +1063,9 @@
       "CreateBuyerDto": {
         "type": "object",
         "properties": {
-          "filecoinMinerId": {
+          "id": {
             "type": "string",
-            "example": "f0112027"
+            "example": "00000000-0000-0000-0000-000000000000"
           },
           "name": {
             "type": "string",
@@ -1073,16 +1073,16 @@
           }
         },
         "required": [
-          "filecoinMinerId",
+          "id",
           "name"
         ]
       },
       "UpdateBuyerDto": {
         "type": "object",
         "properties": {
-          "filecoinMinerId": {
+          "id": {
             "type": "string",
-            "example": "f0112027"
+            "example": "00000000-0000-0000-0000-000000000000"
           },
           "name": {
             "type": "string",

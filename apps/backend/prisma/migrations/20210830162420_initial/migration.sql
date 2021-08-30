@@ -12,10 +12,10 @@ CREATE TABLE "File" (
 
 -- CreateTable
 CREATE TABLE "Buyer" (
-    "filecoinMinerId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT,
 
-    PRIMARY KEY ("filecoinMinerId")
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -46,7 +46,7 @@ CREATE TABLE "Certificate" (
 CREATE TABLE "Purchase" (
     "id" TEXT NOT NULL,
     "certificateId" TEXT NOT NULL,
-    "buyerFilecoinMinerId" TEXT,
+    "buyerId" TEXT,
     "sellerId" TEXT,
     "recsSold" INTEGER NOT NULL,
     "recsTransactions" JSONB NOT NULL,
@@ -64,7 +64,7 @@ ALTER TABLE "File" ADD FOREIGN KEY ("purchaseId") REFERENCES "Purchase"("id") ON
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("certificateId") REFERENCES "Certificate"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Purchase" ADD FOREIGN KEY ("buyerFilecoinMinerId") REFERENCES "Buyer"("filecoinMinerId") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Purchase" ADD FOREIGN KEY ("buyerId") REFERENCES "Buyer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE SET NULL ON UPDATE CASCADE;

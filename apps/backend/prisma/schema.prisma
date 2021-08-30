@@ -20,9 +20,9 @@ model File {
 }
 
 model Buyer {
-  filecoinMinerId String     @id
-  name            String?
-  Purchase        Purchase[]
+  id       String     @id @default(uuid())
+  name     String?
+  Purchase Purchase[]
 }
 
 model Seller {
@@ -46,14 +46,14 @@ model Certificate {
 }
 
 model Purchase {
-  id                   String      @id @default(uuid())
-  certificate          Certificate @relation(fields: [certificateId], references: [id])
-  certificateId        String
-  buyer                Buyer?      @relation(fields: [buyerFilecoinMinerId], references: [filecoinMinerId])
-  buyerFilecoinMinerId String?
-  seller               Seller?     @relation(fields: [sellerId], references: [id])
-  sellerId             String?
-  file                 File[]
-  recsSold             Int
-  recsTransactions     Json
+  id               String      @id @default(uuid())
+  certificate      Certificate @relation(fields: [certificateId], references: [id])
+  certificateId    String
+  buyer            Buyer?      @relation(fields: [buyerId], references: [id])
+  buyerId          String?
+  seller           Seller?     @relation(fields: [sellerId], references: [id])
+  sellerId         String?
+  file             File[]
+  recsSold         Int
+  recsTransactions Json
 }

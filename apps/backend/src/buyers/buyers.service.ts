@@ -17,14 +17,14 @@ export class BuyersService {
   }
 
   async findOne(id: string) {
-    return new BuyerDto(await this.prisma.buyer.findUnique({where:{filecoinMinerId: id}}));
+    return new BuyerDto(await this.prisma.buyer.findUnique({ where: { id } }));
   }
 
   async update(id: string, updateBuyerDto: UpdateBuyerDto) {
-    return new BuyerDto(await this.prisma.buyer.update({where:{filecoinMinerId: id}, data: updateBuyerDto}));
+    return new BuyerDto(await this.prisma.buyer.update({ where: { id }, data: updateBuyerDto }));
   }
 
   async remove(id: string) {
-    return new BuyerDto(await this.prisma.buyer.delete({where:{filecoinMinerId: id}}));
+    return new BuyerDto(await this.prisma.buyer.delete({ where: { id } }));
   }
 }

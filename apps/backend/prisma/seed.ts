@@ -29,7 +29,7 @@ async function main() {
 
   const buyer = await prisma.buyer.create({
     data: {
-      filecoinMinerId: "f0112027",
+      id: "29e25d61-103a-4710-b03d-ee12df765066",
       name: "-"
     }
   })
@@ -47,7 +47,7 @@ async function main() {
     data: {
       id: "04a7155d-ced1-4981-8660-48670a0735dd",
       certificateId: certificate.id,
-      buyerFilecoinMinerId: buyer.filecoinMinerId,
+      buyerId: buyer.id,
       sellerId: seller.id,
       recsSold: 3,
       recsTransactions: [
