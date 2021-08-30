@@ -60,7 +60,7 @@ model Purchase {
   buyerId          String?
   seller           Seller?     @relation(fields: [sellerId], references: [id])
   sellerId         String?
-  file             File[]
+  files            File[]
   recsSold         Int
   recsTransactions Json
 }
