@@ -8,6 +8,7 @@ import { PrismaModule } from "../prisma/prisma.module";
 import { AuthModule } from "../auth/auth.module";
 import { FilesModule } from "../files/files.module";
 import { PurchasesModule } from "../purchases/purchases.module";
+import { BuyersModule } from "../buyers/buyers.module";
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { PurchasesModule } from "../purchases/purchases.module";
     PrismaModule,
     AuthModule,
     FilesModule,
-    PurchasesModule
+    PurchasesModule,
+    BuyersModule
   ],
   controllers: [AppController],
   providers: [AppService],

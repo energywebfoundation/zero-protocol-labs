@@ -1,5 +1,6 @@
 import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
 import { FileMetadataDto } from "../../files/dto/file-metadata.dto";
+import { BuyerDto } from "../../buyers/dto/buyer.dto";
 
 class Seller {
   @ApiProperty({ example: '118007' })
@@ -13,14 +14,6 @@ class Seller {
 
   @ApiProperty({ example: 'Paul Atreides' })
   contactPerson: string;
-}
-
-class Buyer {
-  @ApiProperty({ example: 'f0112027' })
-  filecoinMinerId: string;
-
-  @ApiProperty({ example: '-' })
-  name: string;
 }
 
 class File extends PartialType(PickType(FileMetadataDto, ["id", "fileName", "mimeType"] as const)) {
@@ -69,8 +62,8 @@ export class PurchaseDto {
   @ApiProperty({ type: Seller })
   seller: Seller;
 
-  @ApiProperty({ type: Buyer })
-  buyer: Buyer;
+  @ApiProperty({ type: BuyerDto })
+  buyer: BuyerDto;
 
   @ApiProperty()
   certificate: Certificate;
