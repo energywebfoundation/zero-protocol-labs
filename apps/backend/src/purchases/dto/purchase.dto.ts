@@ -1,20 +1,7 @@
 import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
 import { FileMetadataDto } from "../../files/dto/file-metadata.dto";
 import { BuyerDto } from "../../buyers/dto/buyer.dto";
-
-class Seller {
-  @ApiProperty({ example: '118007' })
-  irecId: string;
-
-  @ApiProperty({ example: 'Monsoon Carbon' })
-  name: string;
-
-  @ApiProperty({ example: 'Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France' })
-  address: string;
-
-  @ApiProperty({ example: 'Paul Atreides' })
-  contactPerson: string;
-}
+import { SellerDto } from "../../sellers/dto/seller.dto";
 
 class File extends PartialType(PickType(FileMetadataDto, ["id", "fileName", "mimeType"] as const)) {
   @ApiProperty({ example: "https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60" })
@@ -59,8 +46,8 @@ export class PurchaseDto {
   @ApiProperty({ example: '4bfce36e-3fcd-4a41-b752-94a5298b8eb6' })
   id: string;
 
-  @ApiProperty({ type: Seller })
-  seller: Seller;
+  @ApiProperty({ type: SellerDto })
+  seller: SellerDto;
 
   @ApiProperty({ type: BuyerDto })
   buyer: BuyerDto;

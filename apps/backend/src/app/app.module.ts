@@ -9,6 +9,7 @@ import { AuthModule } from "../auth/auth.module";
 import { FilesModule } from "../files/files.module";
 import { PurchasesModule } from "../purchases/purchases.module";
 import { BuyersModule } from "../buyers/buyers.module";
+import { SellersModule } from "../sellers/sellers.module";
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { BuyersModule } from "../buyers/buyers.module";
     AuthModule,
     FilesModule,
     PurchasesModule,
-    BuyersModule
+    BuyersModule,
+    SellersModule
   ],
   controllers: [AppController],
   providers: [AppService],
