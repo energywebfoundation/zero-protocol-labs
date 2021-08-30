@@ -12,6 +12,7 @@ import { intersection } from 'lodash';
 import { SwaggerModule } from "@nestjs/swagger";
 import { getSwaggerDocumentationConfig } from "./swagger/SwaggerDocumentConfig";
 import { PrismaClientExceptionFilter } from "./exception-filters/PrismaClientExceptionFilter";
+import { NoDataInterceptor } from "./interceptors/NoDataInterceptor";
 
 const logger = new Logger('bootstrap', { timestamp: true });
 
@@ -24,6 +25,8 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.useGlobalFilters(new PrismaClientExceptionFilter(app.getHttpAdapter()));
+
+  app.useGlobalInterceptors(new NoDataInterceptor());
 
   const document = SwaggerModule.createDocument(app, getSwaggerDocumentationConfig());
   SwaggerModule.setup('swagger', app, document, {
