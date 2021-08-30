@@ -17,7 +17,7 @@ class AnnualTransactions {
   amount: number;
 }
 
-export class PurchaseDto {
+export class PurchaseDto { // TODO: should implement Purchase interface
   @ApiProperty({ example: '4bfce36e-3fcd-4a41-b752-94a5298b8eb6' })
   id: string;
 

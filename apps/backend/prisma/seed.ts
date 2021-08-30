@@ -7,9 +7,60 @@ const prisma = new PrismaClient();
 async function main() {
   const imageFile = await prisma.file.create({
     data: {
+      id: "2f948f9d-166d-4b36-874e-f8dd668d4c40",
       fileName: 'test.png',
       mimeType: 'image/png',
       content: Buffer.from(base64Image, 'base64')
+    }
+  })
+
+  const certificate = await prisma.certificate.create({
+    data: {
+      id: "973d48bb-15da-4eaf-8040-b6cb66e22023",
+      generatorName: "Solar 1 - Non Bua Lampon",
+      generatorId: "NA",
+      namePlateCapacity: "59.595",
+      namePlateCapacityUnit: "MW",
+      fuelType: "Solar",
+      generationStart: "2020-11-01T00:00:00.000Z",
+      generationEnd: "2021-06-01T23:59:59.999Z"
+    }
+  })
+
+  const buyer = await prisma.buyer.create({
+    data: {
+      filecoinMinerId: "f0112027",
+      name: "-"
+    }
+  })
+
+  const seller = await prisma.seller.create({
+    data: {
+      irecId: "118007",
+      name: "Monsoon Carbon",
+      address: "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France",
+      contactPerson: "Paul Atreides"
+    }
+  })
+
+  const purchase = await prisma.purchase.create({
+    data: {
+      id: "04a7155d-ced1-4981-8660-48670a0735dd",
+      certificateId: certificate.id,
+      buyerFilecoinMinerId: buyer.filecoinMinerId,
+      sellerIrecId: seller.irecId,
+      recsSold: 3,
+      recsTransactions: [
+        {year: 2020, amount: 2},
+        {year: 2021, amount: 1},
+      ]
+    }
+  });
+
+  await prisma.file.update({
+    where: {id: imageFile.id},
+    data: {
+      purchaseId: purchase.id
     }
   })
 }

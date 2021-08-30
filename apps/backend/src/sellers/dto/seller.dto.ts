@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Seller } from "@prisma/client";
 
-export class SellerDto {
+export class SellerDto implements Seller{
   @ApiProperty({ example: '118007' })
   irecId: string;
 

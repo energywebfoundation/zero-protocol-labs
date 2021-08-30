@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Expose } from "class-transformer";
 import { File } from '@prisma/client'
 
@@ -19,6 +19,10 @@ export class FileMetadataDto implements File {
   @ApiProperty( { example: "2021-08-26T18:20:30.633Z" })
   @Expose()
   createdAt: Date;
+
+  @ApiPropertyOptional( { example: "3fc9c8da-4b6f-4976-be25-facfd13c5787" })
+  @Expose()
+  purchaseId: string;
 
   content: Buffer;
 

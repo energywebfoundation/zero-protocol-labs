@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Buyer } from "@prisma/client";
 
-export class BuyerDto {
+export class BuyerDto implements Buyer{
   @ApiProperty({ example: 'f0112027' })
   filecoinMinerId: string;
 
