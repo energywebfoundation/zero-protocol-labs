@@ -17,7 +17,7 @@ export class SellersService {
   }
 
   async findOne(id: string) {
-    const row = await this.prisma.seller.findUnique({where: {irecId: id}});
+    const row = await this.prisma.seller.findUnique({ where: { id } });
 
     if (!row) {
       return null;
@@ -28,12 +28,12 @@ export class SellersService {
 
   async update(id: string, updateSellerDto: UpdateSellerDto) {
     return new SellerDto(await this.prisma.seller.update({
-      where: {irecId: id},
+      where: { id },
       data: updateSellerDto
     }));
   }
 
   async remove(id: string) {
-    return new SellerDto(await this.prisma.seller.delete({where: {irecId: id}}));
+    return new SellerDto(await this.prisma.seller.delete({ where: { id } }));
   }
 }

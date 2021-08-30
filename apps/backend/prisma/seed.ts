@@ -36,7 +36,7 @@ async function main() {
 
   const seller = await prisma.seller.create({
     data: {
-      irecId: "118007",
+      id: "68926364-a0ba-4160-b3ea-1ee70c2690dd",
       name: "Monsoon Carbon",
       address: "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France",
       contactPerson: "Paul Atreides"
@@ -48,7 +48,7 @@ async function main() {
       id: "04a7155d-ced1-4981-8660-48670a0735dd",
       certificateId: certificate.id,
       buyerFilecoinMinerId: buyer.filecoinMinerId,
-      sellerIrecId: seller.irecId,
+      sellerId: seller.id,
       recsSold: 3,
       recsTransactions: [
         {year: 2020, amount: 2},

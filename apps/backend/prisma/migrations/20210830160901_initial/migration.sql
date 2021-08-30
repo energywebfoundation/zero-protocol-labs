@@ -20,12 +20,12 @@ CREATE TABLE "Buyer" (
 
 -- CreateTable
 CREATE TABLE "Seller" (
-    "irecId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "contactPerson" TEXT NOT NULL,
 
-    PRIMARY KEY ("irecId")
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -47,7 +47,7 @@ CREATE TABLE "Purchase" (
     "id" TEXT NOT NULL,
     "certificateId" TEXT NOT NULL,
     "buyerFilecoinMinerId" TEXT,
-    "sellerIrecId" TEXT,
+    "sellerId" TEXT,
     "recsSold" INTEGER NOT NULL,
     "recsTransactions" JSONB NOT NULL,
 
@@ -67,4 +67,4 @@ ALTER TABLE "Purchase" ADD FOREIGN KEY ("certificateId") REFERENCES "Certificate
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("buyerFilecoinMinerId") REFERENCES "Buyer"("filecoinMinerId") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Purchase" ADD FOREIGN KEY ("sellerIrecId") REFERENCES "Seller"("irecId") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Purchase" ADD FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE SET NULL ON UPDATE CASCADE;

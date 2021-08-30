@@ -26,7 +26,7 @@ model Buyer {
 }
 
 model Seller {
-  irecId        String     @id
+  id            String     @id @default(uuid())
   name          String
   address       String
   contactPerson String
@@ -51,8 +51,8 @@ model Purchase {
   certificateId        String
   buyer                Buyer?      @relation(fields: [buyerFilecoinMinerId], references: [filecoinMinerId])
   buyerFilecoinMinerId String?
-  seller               Seller?     @relation(fields: [sellerIrecId], references: [irecId])
-  sellerIrecId         String?
+  seller               Seller?     @relation(fields: [sellerId], references: [id])
+  sellerId             String?
   file                 File[]
   recsSold             Int
   recsTransactions     Json

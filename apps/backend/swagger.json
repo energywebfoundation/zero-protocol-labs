@@ -882,9 +882,9 @@
       "SellerDto": {
         "type": "object",
         "properties": {
-          "irecId": {
+          "id": {
             "type": "string",
-            "example": "118007"
+            "example": "59f4b540-373b-452f-9145-dae41afa1977"
           },
           "name": {
             "type": "string",
@@ -900,7 +900,7 @@
           }
         },
         "required": [
-          "irecId",
+          "id",
           "name",
           "address",
           "contactPerson"
@@ -1093,9 +1093,9 @@
       "CreateSellerDto": {
         "type": "object",
         "properties": {
-          "irecId": {
+          "id": {
             "type": "string",
-            "example": "118007"
+            "example": "00000000-0000-0000-0000-000000000000"
           },
           "name": {
             "type": "string",
@@ -1111,7 +1111,7 @@
           }
         },
         "required": [
-          "irecId",
+          "id",
           "name",
           "address",
           "contactPerson"
@@ -1120,9 +1120,9 @@
       "UpdateSellerDto": {
         "type": "object",
         "properties": {
-          "irecId": {
+          "id": {
             "type": "string",
-            "example": "118007"
+            "example": "00000000-0000-0000-0000-000000000000"
           },
           "name": {
             "type": "string",
