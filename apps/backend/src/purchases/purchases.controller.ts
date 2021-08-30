@@ -48,7 +48,6 @@ export class PurchasesController {
         "contactPerson": "Paul Atreides"
       },
       "buyer": {
-        "id": '5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60',
         "filecoinMinerId": "f0112027",
         "name": "-"
       },

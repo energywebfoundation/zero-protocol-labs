@@ -13,9 +13,6 @@ class Seller {
 }
 
 class Buyer {
-  @ApiProperty({ example: '1ebe1520-b42c-4497-93c9-e1e6e72e25e2' })
-  id: string;
-
   @ApiProperty({ example: 'f0112027' })
   filecoinMinerId: string;
 
