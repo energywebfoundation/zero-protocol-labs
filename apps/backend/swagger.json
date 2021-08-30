@@ -990,7 +990,7 @@
           "generationEnd"
         ]
       },
-      "AnnualTransactions": {
+      "AnnualTransactionsDto": {
         "type": "object",
         "properties": {
           "year": {
@@ -1054,7 +1054,7 @@
           "recsTransactions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AnnualTransactions"
+              "$ref": "#/components/schemas/AnnualTransactionsDto"
             }
           },
           "files": {
