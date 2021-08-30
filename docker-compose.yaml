@@ -21,8 +21,13 @@ services:
     ports:
       - '3333:3333'
     environment:
+      LOG_LEVELS: "log,error,warn,debug,verbose"
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/zero-protocol-labs"
       API_KEY: somethingsecret
+      CORS_ORIGIN: "*"
+      CORS_MAX_AGE: 900
+      UPLOADED_FILE_SIZE_LIMIT: 200000
+
     networks:
       zero-pl-dev:
 
