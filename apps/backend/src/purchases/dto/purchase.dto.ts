@@ -30,6 +30,9 @@ export class PurchaseDto {
   @ApiProperty({ type: CertificateDto })
   certificate: CertificateDto;
 
+  @ApiProperty({ example: 2 })
+  recsSold: number;
+
   @ApiProperty({ type: [AnnualTransactions] })
   recsTransactions: AnnualTransactions[];
 

@@ -59,6 +59,7 @@ export class PurchasesController {
           "url": "https://localhost:3333/api/files/3e0367d7-0472-4840-bc2d-5e90d84ff5f4"
         }
       ],
+      recsSold: 3,
       recsTransactions: [
         { year: 2020, amount: 2 },
         { year: 2021, amount: 1 }
@@ -69,7 +70,6 @@ export class PurchasesController {
         namePlateCapacity: "59.595",
         namePlateCapacityUnit: "MW",
         fuelType: "Solar",
-        recsSold: 3,
         generationStart: new Date("2020-11-01T00:00:00.000Z"),
         generationEnd: new Date("2021-06-01T23:59:59.999Z")
       }

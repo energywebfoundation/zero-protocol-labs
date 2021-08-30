@@ -16,9 +16,6 @@ export class CertificateDto {
   @ApiProperty({ example: "Solar" })
   fuelType: string;
 
-  @ApiProperty({ example: 3 })
-  recsSold: number;
-
   @ApiProperty({ example: new Date("2020-11-01T00:00:00.000Z") })
   generationStart: Date;
 
