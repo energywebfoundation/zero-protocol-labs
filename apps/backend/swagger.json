@@ -906,6 +906,17 @@
           "contactPerson"
         ]
       },
+      "FilecoinNodeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
       "BuyerDto": {
         "type": "object",
         "properties": {
@@ -916,11 +927,18 @@
           "name": {
             "type": "string",
             "example": "-"
+          },
+          "filecoinNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilecoinNodeDto"
+            }
           }
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "filecoinNodes"
         ]
       },
       "CertificateDto": {
