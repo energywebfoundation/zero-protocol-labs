@@ -10,6 +10,7 @@ import { FilesModule } from "../files/files.module";
 import { PurchasesModule } from "../purchases/purchases.module";
 import { BuyersModule } from "../buyers/buyers.module";
 import { SellersModule } from "../sellers/sellers.module";
+import { CertificatesModule } from "../certificates/certificates.module";
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { SellersModule } from "../sellers/sellers.module";
     FilesModule,
     PurchasesModule,
     BuyersModule,
-    SellersModule
+    SellersModule,
+    CertificatesModule
   ],
   controllers: [AppController],
   providers: [AppService],

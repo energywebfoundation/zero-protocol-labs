@@ -2,36 +2,11 @@ import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
 import { FileMetadataDto } from "../../files/dto/file-metadata.dto";
 import { BuyerDto } from "../../buyers/dto/buyer.dto";
 import { SellerDto } from "../../sellers/dto/seller.dto";
+import { CertificateDto } from "../../certificates/dto/certificate.dto";
 
 class File extends PartialType(PickType(FileMetadataDto, ["id", "fileName", "mimeType"] as const)) {
   @ApiProperty({ example: "https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60" })
   url: string
-}
-
-class Certificate {
-  @ApiProperty({ example: "Solar 1 - Non Bua Lampon" })
-  generatorName: string;
-
-  @ApiProperty({ example: "NA" })
-  generatorId: string;
-
-  @ApiProperty({ example: "59.595" })
-  namePlateCapacity: string;
-
-  @ApiProperty({ example: "MW" })
-  namePlateCapacityUnit: string;
-
-  @ApiProperty({ example: "Solar" })
-  fuelType: string;
-
-  @ApiProperty({ example: 3 })
-  recsSold: number;
-
-  @ApiProperty({ example: new Date("2020-11-01T00:00:00.000Z") })
-  generationStart: Date;
-
-  @ApiProperty({ example: new Date("2021-06-01T23:59:59.999Z") })
-  generationEnd: Date;
 }
 
 class AnnualTransactions {
@@ -52,8 +27,8 @@ export class PurchaseDto {
   @ApiProperty({ type: BuyerDto })
   buyer: BuyerDto;
 
-  @ApiProperty()
-  certificate: Certificate;
+  @ApiProperty({ type: CertificateDto })
+  certificate: CertificateDto;
 
   @ApiProperty({ type: [AnnualTransactions] })
   recsTransactions: AnnualTransactions[];
