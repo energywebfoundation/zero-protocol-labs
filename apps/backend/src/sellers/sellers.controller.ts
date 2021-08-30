@@ -33,6 +33,7 @@ export class SellersController {
   @Get()
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: [SellerDto] })
   findAll() {
     return this.sellersService.findAll();
   }
@@ -40,20 +41,21 @@ export class SellersController {
   @Get(':id')
   @ApiOkResponse({ type: SellerDto })
   findOne(@Param('id') id: string) {
-    return this.sellersService.findOne(+id);
+    return this.sellersService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   update(@Param('id') id: string, @Body() updateSellerDto: UpdateSellerDto) {
-    return this.sellersService.update(+id, updateSellerDto);
+    return this.sellersService.update(id, updateSellerDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: SellerDto })
   remove(@Param('id') id: string) {
-    return this.sellersService.remove(+id);
+    return this.sellersService.remove(id);
   }
 }

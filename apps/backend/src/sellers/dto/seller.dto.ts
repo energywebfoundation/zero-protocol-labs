@@ -13,4 +13,8 @@ export class SellerDto implements Seller{
 
   @ApiProperty({ example: 'Paul Atreides' })
   contactPerson: string;
+
+  constructor(partial: Partial<SellerDto>) {
+    Object.assign(this, partial);
+  }
 }

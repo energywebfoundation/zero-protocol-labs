@@ -501,7 +501,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SellerDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -597,7 +607,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SellerDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1022,11 +1039,51 @@
       },
       "CreateSellerDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "irecId": {
+            "type": "string",
+            "example": "118007"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        },
+        "required": [
+          "irecId",
+          "name",
+          "address",
+          "contactPerson"
+        ]
       },
       "UpdateSellerDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "irecId": {
+            "type": "string",
+            "example": "118007"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        }
       },
       "CreateCertificateDto": {
         "type": "object",
