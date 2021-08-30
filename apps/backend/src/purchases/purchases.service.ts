@@ -24,7 +24,8 @@ export class PurchasesService {
       include: {
         seller: true,
         buyer: { include: { FilecoinNode: true } },
-        certificate: true
+        certificate: true,
+        file: { select: { id: true, fileName: true, mimeType: true } }
       }
     })
 
