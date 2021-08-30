@@ -29,7 +29,10 @@ export class PurchasesService {
       }
     })
 
-    return data;
+    return {
+      ...data,
+      files: data.files.map(f => ({...f, url: `${process.env.FILES_BASE_URL}/${f.id}`}))
+    };
   }
 
   update(id: number, updatePurchaseDto: UpdatePurchaseDto) {
