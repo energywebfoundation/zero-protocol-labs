@@ -35,15 +35,14 @@ model Seller {
 }
 
 model Certificate {
-  id                    String     @id @default(uuid())
-  generatorName         String
-  generatorId           String
-  namePlateCapacity     String
-  namePlateCapacityUnit String
-  fuelType              String
-  generationStart       DateTime
-  generationEnd         DateTime
-  Purchase              Purchase[]
+  id              String     @id @default(uuid())
+  generatorName   String
+  generatorId     String
+  country         String
+  energySource    String
+  generationStart DateTime
+  generationEnd   DateTime
+  Purchase        Purchase[]
 }
 
 model FilecoinNode {

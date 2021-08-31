@@ -19,9 +19,8 @@ async function main() {
       id: "973d48bb-15da-4eaf-8040-b6cb66e22023",
       generatorName: "Solar 1 - Non Bua Lampon",
       generatorId: "NA",
-      namePlateCapacity: "59.595",
-      namePlateCapacityUnit: "MW",
-      fuelType: "Solar",
+      country: "China",
+      energySource: "Wind",
       generationStart: "2020-11-01T00:00:00.000Z",
       generationEnd: "2021-06-01T23:59:59.999Z"
     }

@@ -33,9 +33,8 @@ CREATE TABLE "Certificate" (
     "id" TEXT NOT NULL,
     "generatorName" TEXT NOT NULL,
     "generatorId" TEXT NOT NULL,
-    "namePlateCapacity" TEXT NOT NULL,
-    "namePlateCapacityUnit" TEXT NOT NULL,
-    "fuelType" TEXT NOT NULL,
+    "country" TEXT NOT NULL,
+    "energySource" TEXT NOT NULL,
     "generationStart" TIMESTAMP(3) NOT NULL,
     "generationEnd" TIMESTAMP(3) NOT NULL,
 
