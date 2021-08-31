@@ -20,10 +20,10 @@ model File {
 }
 
 model Buyer {
-  id           String         @id @default(uuid())
-  name         String?
-  Purchase     Purchase[]
-  FilecoinNode FilecoinNode[]
+  id            String         @id @default(uuid())
+  name          String?
+  Purchase      Purchase[]
+  filecoinNodes FilecoinNode[]
 }
 
 model Seller {
