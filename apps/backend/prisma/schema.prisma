@@ -29,7 +29,8 @@ model Buyer {
 model Seller {
   id            String     @id @default(uuid())
   name          String
-  address       String
+  addressLine1  String
+  addressLine2  String
   contactPerson String
   Purchase      Purchase[]
 }

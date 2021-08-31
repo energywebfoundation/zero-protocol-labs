@@ -43,7 +43,8 @@ async function main() {
     data: {
       id: "68926364-a0ba-4160-b3ea-1ee70c2690dd",
       name: "Monsoon Carbon",
-      address: "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France",
+      addressLine1: "Mt Arrakis 42, Dune plains",
+      addressLine2: "Aix en Provence, 12345, France",
       contactPerson: "Paul Atreides"
     }
   })

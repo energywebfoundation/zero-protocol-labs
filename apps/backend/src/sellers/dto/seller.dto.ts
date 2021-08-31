@@ -8,8 +8,11 @@ export class SellerDto implements Seller{
   @ApiProperty({ example: 'Monsoon Carbon' })
   name: string;
 
-  @ApiProperty({ example: 'Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France' })
-  address: string;
+  @ApiProperty({ example: 'Mt Arrakis 42, Dune plains' })
+  addressLine1: string;
+
+  @ApiProperty({ example: 'Aix en Provence, 12345, France' })
+  addressLine2: string;
 
   @ApiProperty({ example: 'Paul Atreides' })
   contactPerson: string;

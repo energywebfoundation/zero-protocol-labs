@@ -22,7 +22,8 @@ CREATE TABLE "Buyer" (
 CREATE TABLE "Seller" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
+    "addressLine1" TEXT NOT NULL,
+    "addressLine2" TEXT NOT NULL,
     "contactPerson" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
