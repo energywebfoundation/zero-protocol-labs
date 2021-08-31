@@ -173,6 +173,654 @@
           }
         ]
       }
+    },
+    "/api/partners/filecoin/purchases": {
+      "post": {
+        "operationId": "PurchasesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePurchaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "PurchasesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "04a7155d-ced1-4981-8660-48670a0735dd"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/purchases/{id}": {
+      "get": {
+        "operationId": "PurchasesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ]
+      },
+      "put": {
+        "operationId": "PurchasesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePurchaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "PurchasesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin purchases"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/buyers": {
+      "post": {
+        "operationId": "BuyersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBuyerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin buyers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "BuyersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuyerDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin buyers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/buyers/{id}": {
+      "get": {
+        "operationId": "BuyersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin buyers"
+        ]
+      },
+      "patch": {
+        "operationId": "BuyersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBuyerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin buyers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "BuyersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin buyers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/sellers": {
+      "post": {
+        "operationId": "SellersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSellerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin sellers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "SellersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SellerDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin sellers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/sellers/{id}": {
+      "get": {
+        "operationId": "SellersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SellerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin sellers"
+        ]
+      },
+      "patch": {
+        "operationId": "SellersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSellerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin sellers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "SellersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SellerDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin sellers"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/certificates": {
+      "post": {
+        "operationId": "CertificatesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCertificateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin certificates"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "operationId": "CertificatesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin certificates"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/partners/filecoin/certificates/{id}": {
+      "get": {
+        "operationId": "CertificatesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin certificates"
+        ]
+      },
+      "patch": {
+        "operationId": "CertificatesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCertificateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin certificates"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "CertificatesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Filecoin certificates"
+        ],
+        "security": [
+          {
+            "api-key": [
+              "api-key"
+            ]
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -185,6 +833,9 @@
   "servers": [
     {
       "url": "http://localhost:3333"
+    },
+    {
+      "url": "http://54.242.133.171:3333"
     }
   ],
   "components": {
@@ -227,6 +878,10 @@
             "format": "date-time",
             "type": "string",
             "example": "2021-08-26T18:20:30.633Z"
+          },
+          "purchaseId": {
+            "type": "string",
+            "example": "3fc9c8da-4b6f-4976-be25-facfd13c5787"
           }
         },
         "required": [
@@ -235,6 +890,295 @@
           "mimeType",
           "createdAt"
         ]
+      },
+      "CreatePurchaseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "SellerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "59f4b540-373b-452f-9145-dae41afa1977"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "address",
+          "contactPerson"
+        ]
+      },
+      "FilecoinNodeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "BuyerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "29e25d61-103a-4710-b03d-ee12df765066"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          },
+          "filecoinNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilecoinNodeDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "filecoinNodes"
+        ]
+      },
+      "CertificateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "973d48bb-15da-4eaf-8040-b6cb66e22023"
+          },
+          "generatorName": {
+            "type": "string",
+            "example": "Solar 1 - Non Bua Lampon"
+          },
+          "generatorId": {
+            "type": "string",
+            "example": "NA"
+          },
+          "namePlateCapacity": {
+            "type": "string",
+            "example": "59.595"
+          },
+          "namePlateCapacityUnit": {
+            "type": "string",
+            "example": "MW"
+          },
+          "fuelType": {
+            "type": "string",
+            "example": "Solar"
+          },
+          "generationStart": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2020-11-01T00:00:00.000Z"
+          },
+          "generationEnd": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2021-06-01T23:59:59.999Z"
+          }
+        },
+        "required": [
+          "id",
+          "generatorName",
+          "generatorId",
+          "namePlateCapacity",
+          "namePlateCapacityUnit",
+          "fuelType",
+          "generationStart",
+          "generationEnd"
+        ]
+      },
+      "AnnualTransactionsDto": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "amount": {
+            "type": "number",
+            "example": 2
+          }
+        },
+        "required": [
+          "year",
+          "amount"
+        ]
+      },
+      "File": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "certificate.pdf"
+          },
+          "mimeType": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "PurchaseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4bfce36e-3fcd-4a41-b752-94a5298b8eb6"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/SellerDto"
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/BuyerDto"
+          },
+          "certificate": {
+            "$ref": "#/components/schemas/CertificateDto"
+          },
+          "recsSold": {
+            "type": "number",
+            "example": 2
+          },
+          "recsTransactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnnualTransactionsDto"
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "seller",
+          "buyer",
+          "certificate",
+          "recsSold",
+          "recsTransactions",
+          "files"
+        ]
+      },
+      "UpdatePurchaseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateBuyerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "UpdateBuyerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "name": {
+            "type": "string",
+            "example": "-"
+          }
+        }
+      },
+      "CreateSellerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "address",
+          "contactPerson"
+        ]
+      },
+      "UpdateSellerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "name": {
+            "type": "string",
+            "example": "Monsoon Carbon"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+          },
+          "contactPerson": {
+            "type": "string",
+            "example": "Paul Atreides"
+          }
+        }
+      },
+      "CreateCertificateDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateCertificateDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }

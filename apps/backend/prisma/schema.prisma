@@ -8,11 +8,59 @@ generator client {
 }
 
 model File {
-  id        String   @id @default(uuid())
-  fileName  String
-  mimeType  String
-  createdAt DateTime @default(now())
-  content   Bytes
+  id         String    @id @default(uuid())
+  fileName   String
+  mimeType   String
+  createdAt  DateTime  @default(now())
+  content    Bytes
+  Purchase   Purchase? @relation(fields: [purchaseId], references: [id])
+  purchaseId String?
 
   @@index([createdAt])
+}
+
+model Buyer {
+  id            String         @id @default(uuid())
+  name          String?
+  Purchase      Purchase[]
+  filecoinNodes FilecoinNode[]
+}
+
+model Seller {
+  id            String     @id @default(uuid())
+  name          String
+  addressLine1  String
+  addressLine2  String
+  contactPerson String
+  Purchase      Purchase[]
+}
+
+model Certificate {
+  id              String     @id @default(uuid())
+  generatorName   String
+  generatorId     String
+  country         String
+  energySource    String
+  generationStart DateTime
+  generationEnd   DateTime
+  Purchase        Purchase[]
+}
+
+model FilecoinNode {
+  id      String  @id
+  Buyer   Buyer?  @relation(fields: [buyerId], references: [id])
+  buyerId String?
+}
+
+model Purchase {
+  id               String      @id @default(uuid())
+  certificate      Certificate @relation(fields: [certificateId], references: [id])
+  certificateId    String
+  buyer            Buyer?      @relation(fields: [buyerId], references: [id])
+  buyerId          String?
+  seller           Seller?     @relation(fields: [sellerId], references: [id])
+  sellerId         String?
+  files            File[]
+  recsSold         Int
+  recsTransactions Json
 }

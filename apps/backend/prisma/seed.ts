@@ -7,9 +7,66 @@ const prisma = new PrismaClient();
 async function main() {
   const imageFile = await prisma.file.create({
     data: {
+      id: "2f948f9d-166d-4b36-874e-f8dd668d4c40",
       fileName: 'test.png',
       mimeType: 'image/png',
       content: Buffer.from(base64Image, 'base64')
+    }
+  })
+
+  const certificate = await prisma.certificate.create({
+    data: {
+      id: "973d48bb-15da-4eaf-8040-b6cb66e22023",
+      generatorName: "Solar 1 - Non Bua Lampon",
+      generatorId: "NA",
+      country: "China",
+      energySource: "Wind",
+      generationStart: "2020-11-01T00:00:00.000Z",
+      generationEnd: "2021-06-01T23:59:59.999Z"
+    }
+  })
+
+  const buyer = await prisma.buyer.create({
+    data: {
+      id: "29e25d61-103a-4710-b03d-ee12df765066",
+      name: "-"
+    }
+  })
+
+  await prisma.filecoinNode.create({ data: { id: "f0112027", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f123242", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f5435435", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f3413434", buyerId: buyer.id } })
+  await prisma.filecoinNode.create({ data: { id: "f5667899", buyerId: buyer.id } })
+
+  const seller = await prisma.seller.create({
+    data: {
+      id: "68926364-a0ba-4160-b3ea-1ee70c2690dd",
+      name: "Monsoon Carbon",
+      addressLine1: "Mt Arrakis 42, Dune plains",
+      addressLine2: "Aix en Provence, 12345, France",
+      contactPerson: "Paul Atreides"
+    }
+  })
+
+  const purchase = await prisma.purchase.create({
+    data: {
+      id: "04a7155d-ced1-4981-8660-48670a0735dd",
+      certificateId: certificate.id,
+      buyerId: buyer.id,
+      sellerId: seller.id,
+      recsSold: 3,
+      recsTransactions: [
+        {year: 2020, amount: 2},
+        {year: 2021, amount: 1},
+      ]
+    }
+  });
+
+  await prisma.file.update({
+    where: {id: imageFile.id},
+    data: {
+      purchaseId: purchase.id
     }
   })
 }

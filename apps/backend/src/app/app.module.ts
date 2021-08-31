@@ -7,6 +7,10 @@ import * as Joi from 'joi';
 import { PrismaModule } from "../prisma/prisma.module";
 import { AuthModule } from "../auth/auth.module";
 import { FilesModule } from "../files/files.module";
+import { PurchasesModule } from "../purchases/purchases.module";
+import { BuyersModule } from "../buyers/buyers.module";
+import { SellersModule } from "../sellers/sellers.module";
+import { CertificatesModule } from "../certificates/certificates.module";
 
 @Module({
   imports: [
@@ -26,12 +30,17 @@ import { FilesModule } from "../files/files.module";
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
         CORS_ORIGIN: Joi.string().default('*'),
         CORS_MAX_AGE: Joi.number().default(900),
-        UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000)
+        UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000),
+        FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files')
       })
     }),
     PrismaModule,
     AuthModule,
-    FilesModule
+    FilesModule,
+    PurchasesModule,
+    BuyersModule,
+    SellersModule,
+    CertificatesModule
   ],
   controllers: [AppController],
   providers: [AppService],
