@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
 import { UpdateCertificateDto } from './dto/update-certificate.dto';
+import { PrismaService } from "../prisma/prisma.service";
+import { CertificateDto } from "./dto/certificate.dto";
 
 @Injectable()
 export class CertificatesService {
-  create(createCertificateDto: CreateCertificateDto) {
-    return 'This action adds a new certificate';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createCertificateDto: CreateCertificateDto) {
+    return new CertificateDto(await this.prisma.certificate.create({ data: createCertificateDto }));
   }
 
-  findAll() {
-    return `This action returns all certificates`;
+  async findAll() {
+    return (await this.prisma.certificate.findMany()).map((r) => new CertificateDto(r));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} certificate`;
+  async findOne(id: string) {
+    return new CertificateDto(await this.prisma.certificate.findUnique({ where: { id } }));
   }
 
-  update(id: number, updateCertificateDto: UpdateCertificateDto) {
-    return `This action updates a #${id} certificate`;
+  async update(id: string, updateCertificateDto: UpdateCertificateDto) {
+    return new CertificateDto(await this.prisma.certificate.update({ where: { id }, data: updateCertificateDto }));
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} certificate`;
   }
 }

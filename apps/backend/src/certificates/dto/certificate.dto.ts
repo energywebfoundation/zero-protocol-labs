@@ -25,4 +25,8 @@ export class CertificateDto implements Certificate{
 
   @ApiProperty({ example: new Date("2021-06-01T23:59:59.999Z") })
   generationEnd: Date;
+
+  constructor(partial: Partial<CertificateDto>) {
+    Object.assign(this, partial);
+  }
 }

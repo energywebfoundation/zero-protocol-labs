@@ -34,6 +34,7 @@ export class CertificatesController {
   @Get()
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({ type: [CertificateDto] })
   findAll() {
     return this.certificatesService.findAll();
   }
@@ -41,20 +42,20 @@ export class CertificatesController {
   @Get(':id')
   @ApiOkResponse({ type: CertificateDto })
   findOne(@Param('id') id: string) {
-    return this.certificatesService.findOne(+id);
+    return this.certificatesService.findOne(id);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   update(@Param('id') id: string, @Body() updateCertificateDto: UpdateCertificateDto) {
-    return this.certificatesService.update(+id, updateCertificateDto);
+    return this.certificatesService.update(id, updateCertificateDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   remove(@Param('id') id: string) {
-    return this.certificatesService.remove(+id);
+    return this.certificatesService.remove(id);
   }
 }
