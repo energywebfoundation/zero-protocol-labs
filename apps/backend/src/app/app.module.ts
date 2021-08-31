@@ -11,6 +11,7 @@ import { PurchasesModule } from "../purchases/purchases.module";
 import { BuyersModule } from "../buyers/buyers.module";
 import { SellersModule } from "../sellers/sellers.module";
 import { CertificatesModule } from "../certificates/certificates.module";
+import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { CertificatesModule } from "../certificates/certificates.module";
     PurchasesModule,
     BuyersModule,
     SellersModule,
-    CertificatesModule
+    CertificatesModule,
+    FilecoinNodesModule
   ],
   controllers: [AppController],
   providers: [AppService],
