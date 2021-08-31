@@ -30,7 +30,8 @@ import { CertificatesModule } from "../certificates/certificates.module";
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
         CORS_ORIGIN: Joi.string().default('*'),
         CORS_MAX_AGE: Joi.number().default(900),
-        UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000)
+        UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000),
+        FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files')
       })
     }),
     PrismaModule,
