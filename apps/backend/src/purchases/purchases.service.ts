@@ -29,6 +29,10 @@ export class PurchasesService {
       }
     })
 
+    if (!data) {
+      return null;
+    }
+
     return {
       ...data,
       files: data.files.map(f => ({...f, url: `${process.env.FILES_BASE_URL}/${f.id}`}))
