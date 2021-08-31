@@ -8,8 +8,8 @@ import { PurchaseDto } from "./dto/purchase.dto";
 export class PurchasesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createPurchaseDto: CreatePurchaseDto) {
-    return 'This action adds a new purchase';
+  async create(createPurchaseDto: CreatePurchaseDto) {
+    return await this.prisma.purchase.create({ data: createPurchaseDto });
   }
 
   async findAll() {
@@ -39,11 +39,11 @@ export class PurchasesService {
     };
   }
 
-  update(id: number, updatePurchaseDto: UpdatePurchaseDto) {
-    return `This action updates a #${id} purchase`;
+  async update(id: string, updatePurchaseDto: UpdatePurchaseDto) {
+    return await this.prisma.purchase.update({ where: { id }, data: updatePurchaseDto });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} purchase`;
   }
 }

@@ -5,8 +5,8 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
   UseGuards,
   UseInterceptors
 } from '@nestjs/common';
@@ -50,17 +50,17 @@ export class PurchasesController {
     return this.purchasesService.findOne(id)
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   update(@Param('id') id: string, @Body() updatePurchaseDto: UpdatePurchaseDto) {
-    return this.purchasesService.update(+id, updatePurchaseDto);
+    return this.purchasesService.update(id, updatePurchaseDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
   remove(@Param('id') id: string) {
-    return this.purchasesService.remove(+id);
+    return this.purchasesService.remove(id);
   }
 }
