@@ -34,6 +34,12 @@ export class PurchasesController {
   @Get()
   @UseGuards(AuthGuard('api-key'))
   @ApiSecurity('api-key', ['api-key'])
+  @ApiOkResponse({
+    schema: {
+      type: "array",
+      items: { type: "object", properties: { id: { type: "string", example: "04a7155d-ced1-4981-8660-48670a0735dd" } } }
+    }
+  })
   findAll() {
     return this.purchasesService.findAll();
   }

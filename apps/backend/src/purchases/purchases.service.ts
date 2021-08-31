@@ -12,8 +12,8 @@ export class PurchasesService {
     return 'This action adds a new purchase';
   }
 
-  findAll() {
-    return `This action returns all purchases`;
+  async findAll() {
+    return await this.prisma.purchase.findMany({ select: { id: true } });
   }
 
   async findOne(id: string) {
@@ -35,7 +35,7 @@ export class PurchasesService {
 
     return {
       ...data,
-      files: data.files.map(f => ({...f, url: `${process.env.FILES_BASE_URL}/${f.id}`}))
+      files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` }))
     };
   }
 
