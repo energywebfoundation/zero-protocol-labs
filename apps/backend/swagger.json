@@ -711,7 +711,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CertificateDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -833,9 +843,6 @@
   "servers": [
     {
       "url": "http://localhost:3333"
-    },
-    {
-      "url": "http://54.242.133.171:3333"
     }
   ],
   "components": {
@@ -906,9 +913,13 @@
             "type": "string",
             "example": "Monsoon Carbon"
           },
-          "address": {
+          "addressLine1": {
             "type": "string",
-            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+            "example": "Mt Arrakis 42, Dune plains"
+          },
+          "addressLine2": {
+            "type": "string",
+            "example": "Aix en Provence, 12345, France"
           },
           "contactPerson": {
             "type": "string",
@@ -918,7 +929,8 @@
         "required": [
           "id",
           "name",
-          "address",
+          "addressLine1",
+          "addressLine2",
           "contactPerson"
         ]
       },
@@ -972,17 +984,13 @@
             "type": "string",
             "example": "NA"
           },
-          "namePlateCapacity": {
+          "country": {
             "type": "string",
-            "example": "59.595"
+            "example": "China"
           },
-          "namePlateCapacityUnit": {
+          "energySource": {
             "type": "string",
-            "example": "MW"
-          },
-          "fuelType": {
-            "type": "string",
-            "example": "Solar"
+            "example": "Wind"
           },
           "generationStart": {
             "format": "date-time",
@@ -999,9 +1007,8 @@
           "id",
           "generatorName",
           "generatorId",
-          "namePlateCapacity",
-          "namePlateCapacityUnit",
-          "fuelType",
+          "country",
+          "energySource",
           "generationStart",
           "generationEnd"
         ]
@@ -1135,9 +1142,13 @@
             "type": "string",
             "example": "Monsoon Carbon"
           },
-          "address": {
+          "addressLine1": {
             "type": "string",
-            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+            "example": "Mt Arrakis 42, Dune plains"
+          },
+          "addressLine2": {
+            "type": "string",
+            "example": "Aix en Provence, 12345, France"
           },
           "contactPerson": {
             "type": "string",
@@ -1147,7 +1158,8 @@
         "required": [
           "id",
           "name",
-          "address",
+          "addressLine1",
+          "addressLine2",
           "contactPerson"
         ]
       },
@@ -1162,9 +1174,13 @@
             "type": "string",
             "example": "Monsoon Carbon"
           },
-          "address": {
+          "addressLine1": {
             "type": "string",
-            "example": "Mt Arrakis 42, Dune plains, \nAix en Provence, 12345, France"
+            "example": "Mt Arrakis 42, Dune plains"
+          },
+          "addressLine2": {
+            "type": "string",
+            "example": "Aix en Provence, 12345, France"
           },
           "contactPerson": {
             "type": "string",
@@ -1174,11 +1190,82 @@
       },
       "CreateCertificateDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "973d48bb-15da-4eaf-8040-b6cb66e22023"
+          },
+          "generatorName": {
+            "type": "string",
+            "example": "Solar 1 - Non Bua Lampon"
+          },
+          "generatorId": {
+            "type": "string",
+            "example": "NA"
+          },
+          "country": {
+            "type": "string",
+            "example": "China"
+          },
+          "energySource": {
+            "type": "string",
+            "example": "Wind"
+          },
+          "generationStart": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2020-11-01T00:00:00.000Z"
+          },
+          "generationEnd": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2021-06-01T23:59:59.999Z"
+          }
+        },
+        "required": [
+          "id",
+          "generatorName",
+          "generatorId",
+          "country",
+          "energySource",
+          "generationStart",
+          "generationEnd"
+        ]
       },
       "UpdateCertificateDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "973d48bb-15da-4eaf-8040-b6cb66e22023"
+          },
+          "generatorName": {
+            "type": "string",
+            "example": "Solar 1 - Non Bua Lampon"
+          },
+          "generatorId": {
+            "type": "string",
+            "example": "NA"
+          },
+          "country": {
+            "type": "string",
+            "example": "China"
+          },
+          "energySource": {
+            "type": "string",
+            "example": "Wind"
+          },
+          "generationStart": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2020-11-01T00:00:00.000Z"
+          },
+          "generationEnd": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2021-06-01T23:59:59.999Z"
+          }
+        }
       }
     }
   }

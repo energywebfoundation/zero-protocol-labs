@@ -112,11 +112,11 @@
             }
           }
         },
-        "docker-image-build" : {
-          "builder": "@nrwl/workspace:run-commands",
-          "options" : {
-            "parallel" : false,
-            "commands" : [
+        "docker-image-build": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
               "nx build frontend --prod",
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
               "cp -R ./apps/frontend/bin ./dist/apps/frontend/bin",
