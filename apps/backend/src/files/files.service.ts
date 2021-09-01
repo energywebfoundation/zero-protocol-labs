@@ -5,6 +5,9 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { PrismaService } from "../prisma/prisma.service";
 import { FileMetadataDto } from "./dto/file-metadata.dto";
+import { UpdateFileMetadataDto } from "./dto/update-file-metadata.dto";
+import { Simulate } from "react-dom/test-utils";
+import select = Simulate.select;
 
 @Injectable()
 export class FilesService {
@@ -39,6 +42,20 @@ export class FilesService {
 
   findOne(id: string) {
     return this.prisma.file.findUnique({ where: { id } })
+  }
+
+  async update(id: string, updateFileMetadata: UpdateFileMetadataDto) {
+    return (await this.prisma.file.update({
+      where: { id },
+      data: updateFileMetadata,
+      select: {
+        id: true,
+        fileName: true,
+        mimeType: true,
+        createdAt: true,
+        purchaseId: true
+      }
+    }));
   }
 
   async remove(id: string) {
