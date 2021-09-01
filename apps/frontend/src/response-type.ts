@@ -1,13 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const env = require('../bin/env-config.json');
+
 export const getWithResponseType = <T>(
   config: AxiosRequestConfig
 ): Promise<T> => {
   const source = axios.CancelToken.source();
   const promise = axios({
     ...config,
-    baseURL: env.API_BASE_URL,
     cancelToken: source.token,
   }).then(({ data }) => data);
 
