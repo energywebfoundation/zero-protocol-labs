@@ -172,51 +172,6 @@
             ]
           }
         ]
-      },
-      "patch": {
-        "operationId": "FilesController_updateFileMetadata",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateFileMetadataDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileMetadataDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "files"
-        ],
-        "security": [
-          {
-            "api-key": [
-              "api-key"
-            ]
-          }
-        ]
       }
     },
     "/api/partners/filecoin/purchases": {
@@ -314,7 +269,7 @@
           "Filecoin purchases"
         ]
       },
-      "patch": {
+      "put": {
         "operationId": "PurchasesController_update",
         "parameters": [
           {
@@ -876,183 +831,6 @@
           }
         ]
       }
-    },
-    "/api/partners/filecoin/nodes": {
-      "post": {
-        "operationId": "FilecoinNodesController_create",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateFilecoinNodeDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilecoinNodeDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Filecoin nodes"
-        ],
-        "security": [
-          {
-            "api-key": [
-              "api-key"
-            ]
-          }
-        ]
-      },
-      "get": {
-        "operationId": "FilecoinNodesController_findAll",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FilecoinNodeDto"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Filecoin nodes"
-        ],
-        "security": [
-          {
-            "api-key": [
-              "api-key"
-            ]
-          }
-        ]
-      }
-    },
-    "/api/partners/filecoin/nodes/{id}": {
-      "get": {
-        "operationId": "FilecoinNodesController_findOne",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilecoinNodeDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Filecoin nodes"
-        ]
-      },
-      "patch": {
-        "operationId": "FilecoinNodesController_update",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateFilecoinNodeDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilecoinNodeDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Filecoin nodes"
-        ],
-        "security": [
-          {
-            "api-key": [
-              "api-key"
-            ]
-          }
-        ]
-      },
-      "delete": {
-        "operationId": "FilecoinNodesController_remove",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilecoinNodeDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Filecoin nodes"
-        ],
-        "security": [
-          {
-            "api-key": [
-              "api-key"
-            ]
-          }
-        ]
-      }
     }
   },
   "info": {
@@ -1065,9 +843,6 @@
   "servers": [
     {
       "url": "http://localhost:3333"
-    },
-    {
-      "url": "http://54.242.133.171:3333"
     }
   ],
   "components": {
@@ -1123,72 +898,9 @@
           "createdAt"
         ]
       },
-      "UpdateFileMetadataDto": {
-        "type": "object",
-        "properties": {
-          "fileName": {
-            "type": "string",
-            "example": "certificate.pdf"
-          },
-          "mimeType": {
-            "type": "string",
-            "example": "application/pdf"
-          },
-          "purchaseId": {
-            "type": "string",
-            "example": "3fc9c8da-4b6f-4976-be25-facfd13c5787"
-          }
-        },
-        "required": [
-          "fileName",
-          "mimeType"
-        ]
-      },
       "CreatePurchaseDto": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "04a7155d-ced1-4981-8660-48670a0735dd"
-          },
-          "certificateId": {
-            "type": "string",
-            "example": "973d48bb-15da-4eaf-8040-b6cb66e22023"
-          },
-          "buyerId": {
-            "type": "string",
-            "example": "29e25d61-103a-4710-b03d-ee12df765066"
-          },
-          "sellerId": {
-            "type": "string",
-            "example": "68926364-a0ba-4160-b3ea-1ee70c2690dd"
-          },
-          "recsSold": {
-            "type": "number",
-            "example": 3
-          },
-          "recsTransactions": {
-            "type": "object",
-            "example": [
-              {
-                "year": 2020,
-                "amount": 2
-              },
-              {
-                "year": 2021,
-                "amount": 1
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "certificateId",
-          "buyerId",
-          "sellerId",
-          "recsSold",
-          "recsTransactions"
-        ]
+        "properties": {}
       },
       "SellerDto": {
         "type": "object",
@@ -1226,17 +938,11 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "example": "f0112027"
-          },
-          "buyerId": {
-            "type": "string",
-            "example": "29e25d61-103a-4710-b03d-ee12df765066"
+            "type": "string"
           }
         },
         "required": [
-          "id",
-          "buyerId"
+          "id"
         ]
       },
       "BuyerDto": {
@@ -1393,41 +1099,7 @@
       },
       "UpdatePurchaseDto": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "04a7155d-ced1-4981-8660-48670a0735dd"
-          },
-          "certificateId": {
-            "type": "string",
-            "example": "973d48bb-15da-4eaf-8040-b6cb66e22023"
-          },
-          "buyerId": {
-            "type": "string",
-            "example": "29e25d61-103a-4710-b03d-ee12df765066"
-          },
-          "sellerId": {
-            "type": "string",
-            "example": "68926364-a0ba-4160-b3ea-1ee70c2690dd"
-          },
-          "recsSold": {
-            "type": "number",
-            "example": 3
-          },
-          "recsTransactions": {
-            "type": "object",
-            "example": [
-              {
-                "year": 2020,
-                "amount": 2
-              },
-              {
-                "year": 2021,
-                "amount": 1
-              }
-            ]
-          }
-        }
+        "properties": {}
       },
       "CreateBuyerDto": {
         "type": "object",
@@ -1592,36 +1264,6 @@
             "format": "date-time",
             "type": "string",
             "example": "2021-06-01T23:59:59.999Z"
-          }
-        }
-      },
-      "CreateFilecoinNodeDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "f0112027"
-          },
-          "buyerId": {
-            "type": "string",
-            "example": "29e25d61-103a-4710-b03d-ee12df765066"
-          }
-        },
-        "required": [
-          "id",
-          "buyerId"
-        ]
-      },
-      "UpdateFilecoinNodeDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "f0112027"
-          },
-          "buyerId": {
-            "type": "string",
-            "example": "29e25d61-103a-4710-b03d-ee12df765066"
           }
         }
       }
