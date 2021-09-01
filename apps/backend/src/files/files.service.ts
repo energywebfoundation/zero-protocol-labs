@@ -29,7 +29,8 @@ export class FilesService {
         id: true,
         fileName: true,
         mimeType: true,
-        createdAt: true
+        createdAt: true,
+        purchaseId: true
       }
     });
 
