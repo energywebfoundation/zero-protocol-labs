@@ -1,19 +1,26 @@
 import { Grid } from '@material-ui/core';
 import BuyerInformation from '../buyer-information/buyer-information';
 import SellerInformation from '../seller-information/seller-information';
-import { AnnualTransactionsDto, BuyerDto, SellerDto } from '../../api';
+import {
+  AnnualTransactionsDto,
+  BuyerDto,
+  FilecoinNodeDto,
+  SellerDto,
+} from '../../api';
 
 /* eslint-disable-next-line */
 export interface BuyerSellerInformationProps {
   recsTransactions: AnnualTransactionsDto[];
   buyer: BuyerDto;
   seller: SellerDto;
+  filecoinMinerIdList: FilecoinNodeDto[];
 }
 
 export const BuyerSellerInformation = ({
   buyer,
   seller,
   recsTransactions,
+  filecoinMinerIdList,
 }: BuyerSellerInformationProps) => (
   <Grid columnGap={3} wrap={'nowrap'} container>
     <Grid item sm={6}>
@@ -28,7 +35,7 @@ export const BuyerSellerInformation = ({
       <BuyerInformation
         buyerId={buyer.id}
         buyerName={buyer.name}
-        filecoinMinerIdList={buyer.filecoinNodes}
+        filecoinMinerIdList={filecoinMinerIdList}
         recsAmount={recsTransactions}
       />
     </Grid>

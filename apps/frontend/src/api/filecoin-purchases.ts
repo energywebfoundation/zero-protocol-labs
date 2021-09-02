@@ -132,7 +132,7 @@ export const purchasesControllerUpdate = <TData = unknown>(
     updatePurchaseDto: UpdatePurchaseDto,
  options?: SecondParameter<typeof purchasesControllerUpdateMutator>) => {
       return purchasesControllerUpdateMutator<TData>(
-      {url: `/api/partners/filecoin/purchases/${id}`, method: 'put',
+      {url: `/api/partners/filecoin/purchases/${id}`, method: 'patch',
       data: updatePurchaseDto
     },
       // eslint-disable-next-line

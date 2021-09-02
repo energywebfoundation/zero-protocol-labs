@@ -20,7 +20,7 @@ export function FieldValueList({ valueList = [] }: FieldValueListProps) {
       {valueList.map((value, index) => (
         <Box component={'span'} key={index}>
           {value}
-          {index < valueList.length && ', '}
+          {index < valueList.length - 1 && ', '}
         </Box>
       ))}
     </StyledFieldValueList>

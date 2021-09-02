@@ -50,6 +50,7 @@ and consumption, and are widely used for renewable energy procurement.`}
           }
         >
           <BuyerSellerInformation
+            filecoinMinerIdList={data.filecoinNodes}
             recsTransactions={data.recsTransactions}
             buyer={data.buyer}
             seller={data.seller}
