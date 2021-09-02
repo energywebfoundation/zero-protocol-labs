@@ -3,6 +3,7 @@ import { CreateBuyerDto } from './dto/create-buyer.dto';
 import { UpdateBuyerDto } from './dto/update-buyer.dto';
 import { BuyerDto } from "./dto/buyer.dto";
 import { PrismaService } from "../prisma/prisma.service";
+import { FilecoinNodeDto } from "../filecoin-nodes/dto/filecoin-node.dto";
 
 @Injectable()
 export class BuyersService {
@@ -17,13 +18,16 @@ export class BuyersService {
   }
 
   async findOne(id: string) {
-    const row = await this.prisma.buyer.findUnique({ where: { id } });
+    const row = await this.prisma.buyer.findUnique({
+      where: { id },
+      include: { filecoinNodes: true }
+    });
 
     if (!row) {
       return null;
     }
 
-    return new BuyerDto(row);
+    return new BuyerDto({ ...row, filecoinNodes: row.filecoinNodes.map((r) => new FilecoinNodeDto(r)) });
   }
 
   async update(id: string, updateBuyerDto: UpdateBuyerDto) {
