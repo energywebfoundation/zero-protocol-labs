@@ -17,7 +17,13 @@ export class BuyersService {
   }
 
   async findOne(id: string) {
-    return new BuyerDto(await this.prisma.buyer.findUnique({ where: { id } }));
+    const row = await this.prisma.buyer.findUnique({ where: { id } });
+
+    if (!row) {
+      return null;
+    }
+
+    return new BuyerDto(row);
   }
 
   async update(id: string, updateBuyerDto: UpdateBuyerDto) {
