@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { PrismaService } from "../prisma/prisma.service";
@@ -65,9 +65,38 @@ export class PurchasesService {
   async update(id: string, updatePurchaseDto: UpdatePurchaseDto) {
     const { filecoinNodes, ...purchase } = updatePurchaseDto;
 
-    return await this.prisma.purchase.update({
-      where: { id },
-      data: purchase
+    return await this.prisma.$transaction(async (prisma) => {
+      if (filecoinNodes) {
+        const existingRecord = await prisma.purchase.findUnique({ where: { id } });
+
+        if (!existingRecord) {
+          throw new NotFoundException();
+        }
+
+        await prisma.filecoinNodesOnPurchases.deleteMany({
+          where: { purchaseId: id }
+        });
+
+        await prisma.filecoinNodesOnPurchases.createMany({
+          data: filecoinNodes.map((n) => ({
+            buyerId: existingRecord.buyerId,
+            purchaseId: id,
+            filecoinNodeId: n.id
+          }))
+        });
+      }
+
+      await this.prisma.purchase.update({
+        where: { id },
+        data: purchase
+      });
+
+      const data = await prisma.purchase.findUnique({
+        where: { id },
+        include: { filecoinNodes: { select: { filecoinNode: true } } }
+      });
+
+      return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
     });
   }
 
