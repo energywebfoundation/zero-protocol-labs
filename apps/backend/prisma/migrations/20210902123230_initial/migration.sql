@@ -45,7 +45,7 @@ CREATE TABLE "Certificate" (
 -- CreateTable
 CREATE TABLE "FilecoinNode" (
     "id" TEXT NOT NULL,
-    "buyerId" TEXT,
+    "buyerId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -62,14 +62,29 @@ CREATE TABLE "Purchase" (
     PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "FilecoinNodesOnPurchases" (
+    "purchaseId" TEXT NOT NULL,
+    "filecoinNodeId" TEXT NOT NULL,
+    "buyerId" TEXT NOT NULL,
+
+    PRIMARY KEY ("purchaseId","filecoinNodeId","buyerId")
+);
+
 -- CreateIndex
 CREATE INDEX "File.createdAt_index" ON "File"("createdAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "FilecoinNode.id_buyerId_unique" ON "FilecoinNode"("id", "buyerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Purchase.id_buyerId_unique" ON "Purchase"("id", "buyerId");
 
 -- AddForeignKey
 ALTER TABLE "File" ADD FOREIGN KEY ("purchaseId") REFERENCES "Purchase"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "FilecoinNode" ADD FOREIGN KEY ("buyerId") REFERENCES "Buyer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "FilecoinNode" ADD FOREIGN KEY ("buyerId") REFERENCES "Buyer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("certificateId") REFERENCES "Certificate"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -79,3 +94,9 @@ ALTER TABLE "Purchase" ADD FOREIGN KEY ("buyerId") REFERENCES "Buyer"("id") ON D
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FilecoinNodesOnPurchases" ADD FOREIGN KEY ("purchaseId", "buyerId") REFERENCES "Purchase"("id", "buyerId") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FilecoinNodesOnPurchases" ADD FOREIGN KEY ("filecoinNodeId", "buyerId") REFERENCES "FilecoinNode"("id", "buyerId") ON DELETE CASCADE ON UPDATE CASCADE;

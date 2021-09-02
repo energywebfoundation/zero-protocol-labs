@@ -24,6 +24,7 @@ export class PurchasesService {
       include: {
         seller: true,
         buyer: { include: { filecoinNodes: true } },
+        filecoinNodes: { include: {filecoinNode: true} },
         certificate: true,
         files: { select: { id: true, fileName: true, mimeType: true } }
       }
@@ -35,7 +36,8 @@ export class PurchasesService {
 
     return {
       ...data,
-      files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` }))
+      files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` })),
+      filecoinNodes: data.filecoinNodes.map((r) => r.filecoinNode)
     };
   }
 

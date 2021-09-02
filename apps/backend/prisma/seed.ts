@@ -63,6 +63,14 @@ async function main() {
     }
   });
 
+  await prisma.filecoinNodesOnPurchases.createMany({
+    data: [
+      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f0112027'},
+      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f123242'},
+      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f5435435'}
+    ]
+  })
+
   await prisma.file.update({
     where: {id: imageFile.id},
     data: {
