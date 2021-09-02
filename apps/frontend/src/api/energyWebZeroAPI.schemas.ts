@@ -16,8 +16,22 @@ export interface FileMetadataDto {
   purchaseId?: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface CreatePurchaseDto {}
+export interface UpdateFileMetadataDto {
+  fileName: string;
+  mimeType: string;
+  purchaseId?: string;
+}
+
+export type CreatePurchaseDtoRecsTransactions = {};
+
+export interface CreatePurchaseDto {
+  id: string;
+  certificateId: string;
+  buyerId: string;
+  sellerId: string;
+  recsSold: number;
+  recsTransactions: CreatePurchaseDtoRecsTransactions;
+}
 
 export interface SellerDto {
   id: string;
@@ -29,6 +43,7 @@ export interface SellerDto {
 
 export interface FilecoinNodeDto {
   id: string;
+  buyerId: string;
 }
 
 export interface BuyerDto {
@@ -66,11 +81,20 @@ export interface PurchaseDto {
   certificate: CertificateDto;
   recsSold: number;
   recsTransactions: AnnualTransactionsDto[];
+  filecoinNodes: FilecoinNodeDto[];
   files: File[];
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface UpdatePurchaseDto {}
+export type UpdatePurchaseDtoRecsTransactions = {};
+
+export interface UpdatePurchaseDto {
+  id?: string;
+  certificateId?: string;
+  buyerId?: string;
+  sellerId?: string;
+  recsSold?: number;
+  recsTransactions?: UpdatePurchaseDtoRecsTransactions;
+}
 
 export interface CreateBuyerDto {
   id: string;
@@ -116,6 +140,16 @@ export interface UpdateCertificateDto {
   energySource?: string;
   generationStart?: string;
   generationEnd?: string;
+}
+
+export interface CreateFilecoinNodeDto {
+  id: string;
+  buyerId: string;
+}
+
+export interface UpdateFilecoinNodeDto {
+  id?: string;
+  buyerId?: string;
 }
 
 export type PurchasesControllerFindAll200Item = {

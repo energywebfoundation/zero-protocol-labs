@@ -13,7 +13,10 @@ export const useProductPageEffects = () => {
           axios.defaults.baseURL = value.data.API_BASE_URL;
           setIsBaseUrlSet(true);
         })
-        .catch((reason) => {});
+        .catch((reason) => {
+          axios.defaults.baseURL = 'http://localhost:3333';
+          setIsBaseUrlSet(true);
+        });
     }
   });
   const { productId } = useParams();

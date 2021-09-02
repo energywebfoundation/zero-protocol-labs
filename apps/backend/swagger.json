@@ -1065,12 +1065,6 @@
   "servers": [
     {
       "url": "http://localhost:3333"
-    },
-    {
-      "url": "http://localhost:3334"
-    },
-    {
-      "url": "https://zero.energyweb.org/"
     }
   ],
   "components": {

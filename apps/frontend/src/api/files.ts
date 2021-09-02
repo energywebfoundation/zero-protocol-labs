@@ -12,13 +12,15 @@ import {
 } from 'react-query'
 import type {
   FileMetadataDto,
-  UploadFileDto
+  UploadFileDto,
+  UpdateFileMetadataDto
 } from './energyWebZeroAPI.schemas'
 import filesControllerCreateMutator from '../response-type'
 import filesControllerFindAllMutator from '../response-type'
 import filesControllerGetFileContentMutator from '../response-type'
 import filesControllerRemoveMutator from '../response-type'
 import filesControllerGetFileMetadataMutator from '../response-type'
+import filesControllerUpdateFileMetadataMutator from '../response-type'
 
 
 type AsyncReturnType<
@@ -183,3 +185,32 @@ export const useFilesControllerGetFileMetadata = <TQueryFnData = AsyncReturnType
   }
 }
 
+export const filesControllerUpdateFileMetadata = <TData = FileMetadataDto>(
+    id: string,
+    updateFileMetadataDto: UpdateFileMetadataDto,
+ options?: SecondParameter<typeof filesControllerUpdateFileMetadataMutator>) => {
+      return filesControllerUpdateFileMetadataMutator<TData>(
+      {url: `/api/files/${id}/metadata`, method: 'patch',
+      data: updateFileMetadataDto
+    },
+      // eslint-disable-next-line
+// @ts-ignore
+ options);
+    }
+  
+
+
+    export const useFilesControllerUpdateFileMetadata = <TData = AsyncReturnType<typeof filesControllerUpdateFileMetadata,FileMetadataDto>,
+    TError = unknown,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{id: string;data: UpdateFileMetadataDto}, TContext>, request?: SecondParameter<typeof filesControllerUpdateFileMetadataMutator>}
+) => {
+      const {mutation: mutationOptions, request: requestOptions} = options || {}
+
+      return useMutation<TData, TError, {id: string;data: UpdateFileMetadataDto}, TContext>((props) => {
+        const {id,data} = props || {};
+
+        return  filesControllerUpdateFileMetadata<TData>(id,data,requestOptions)
+      }, mutationOptions)
+    }
+    
