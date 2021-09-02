@@ -47,20 +47,37 @@ model Certificate {
 }
 
 model FilecoinNode {
-  id      String  @id
-  Buyer   Buyer?  @relation(fields: [buyerId], references: [id])
-  buyerId String?
+  id        String @id
+  Buyer     Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId   String
+  purchases FilecoinNodesOnPurchases[]
+
+  @@unique([id, buyerId])
 }
 
 model Purchase {
-  id               String      @id @default(uuid())
-  certificate      Certificate @relation(fields: [certificateId], references: [id])
+  id               String                     @id @default(uuid())
+  certificate      Certificate                @relation(fields: [certificateId], references: [id])
   certificateId    String
-  buyer            Buyer?      @relation(fields: [buyerId], references: [id])
+  buyer            Buyer?                     @relation(fields: [buyerId], references: [id])
   buyerId          String?
-  seller           Seller?     @relation(fields: [sellerId], references: [id])
+  seller           Seller?                    @relation(fields: [sellerId], references: [id])
   sellerId         String?
   files            File[]
   recsSold         Int
   recsTransactions Json
+  filecoinNodes    FilecoinNodesOnPurchases[]
+
+  @@unique([id, buyerId])
+}
+
+model FilecoinNodesOnPurchases {
+  purchase   Purchase @relation(fields: [purchaseId, buyerId], references: [id, buyerId])
+  purchaseId String
+
+  filecoinNode   FilecoinNode @relation(fields: [filecoinNodeId, buyerId], references: [id, buyerId])
+  filecoinNodeId String
+  buyerId        String
+
+  @@id([purchaseId, filecoinNodeId, buyerId])
 }
