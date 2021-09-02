@@ -31,19 +31,19 @@ model Seller {
   id            String     @id @default(uuid())
   name          String
   addressLine1  String
-  addressLine2  String
-  contactPerson String
+  addressLine2  String?
+  contactPerson String?
   purchase      Purchase[]
 }
 
 model Certificate {
   id              String     @id @default(uuid())
-  generatorName   String
-  generatorId     String
+  generatorName   String?
+  generatorId     String?
   country         String
   energySource    String
-  generationStart DateTime
-  generationEnd   DateTime
+  generationStart DateTime?
+  generationEnd   DateTime?
   purchase        Purchase[]
 }
 

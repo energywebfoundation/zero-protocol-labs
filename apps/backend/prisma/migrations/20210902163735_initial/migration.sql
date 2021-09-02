@@ -23,8 +23,8 @@ CREATE TABLE "Seller" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "addressLine1" TEXT NOT NULL,
-    "addressLine2" TEXT NOT NULL,
-    "contactPerson" TEXT NOT NULL,
+    "addressLine2" TEXT,
+    "contactPerson" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -32,12 +32,12 @@ CREATE TABLE "Seller" (
 -- CreateTable
 CREATE TABLE "Certificate" (
     "id" TEXT NOT NULL,
-    "generatorName" TEXT NOT NULL,
-    "generatorId" TEXT NOT NULL,
+    "generatorName" TEXT,
+    "generatorId" TEXT,
     "country" TEXT NOT NULL,
     "energySource" TEXT NOT NULL,
-    "generationStart" TIMESTAMP(3) NOT NULL,
-    "generationEnd" TIMESTAMP(3) NOT NULL,
+    "generationStart" TIMESTAMP(3),
+    "generationEnd" TIMESTAMP(3),
 
     PRIMARY KEY ("id")
 );
