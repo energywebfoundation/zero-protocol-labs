@@ -4,7 +4,14 @@ import BuyerInformation from './buyer-information';
 
 describe('BuyerInformation', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<BuyerInformation />);
+    const { baseElement } = render(
+      <BuyerInformation
+        buyerId={'buyerID1'}
+        buyerName={'A Buyer'}
+        filecoinMinerIdList={[]}
+        recsAmount={[]}
+      />
+    );
     expect(baseElement).toBeTruthy();
   });
 });
