@@ -1,6 +1,11 @@
 import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
 import { Prisma } from "@prisma/client";
 
+class FilecoinNodeSimple {
+  @ApiProperty({example: 'f0112027'})
+  id: string;
+}
+
 export class CreatePurchaseDto {
   @ApiProperty({ example: "04a7155d-ced1-4981-8660-48670a0735dd" })
   id: string;
@@ -24,4 +29,7 @@ export class CreatePurchaseDto {
     ]
   })
   recsTransactions: Prisma.JsonValue;
+
+  @ApiProperty({type: [FilecoinNodeSimple]})
+  filecoinNodes: FilecoinNodeSimple[]
 }
