@@ -16,12 +16,16 @@ export const FieldValueMultiline = ({
   textValues,
 }: FieldValueMultilineProps) => (
   <StyledFieldValueMultiline>
-    {textValues.map((value, index) => (
-      <div key={index}>
-        {value}
-        {index === 0 && ','}
-      </div>
-    ))}
+    {textValues.length ? (
+      textValues.map((value, index) => (
+        <div key={index}>
+          {value}
+          {index === 0 && ','}
+        </div>
+      ))
+    ) : (
+      <div>-</div>
+    )}
   </StyledFieldValueMultiline>
 );
 
