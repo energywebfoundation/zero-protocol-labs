@@ -33,4 +33,69 @@ export class FilecoinNodesService {
   async remove(id: string) {
     return new FilecoinNodeDto(await this.prisma.filecoinNode.delete({ where: { id } }));
   }
+
+  async getTransactions(id: string) {
+    let data = await this.prisma.filecoinNode.findUnique({
+      where: { id },
+      include: { purchases: { include: { purchase: true } } }
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    return {
+      minerId: data.id,
+      buyerId: data.buyerId,
+      recsTotal: data.purchases.reduce((total, transaction) => (total + transaction.purchase.recsSold), 0),
+      transactions: data.purchases.map((p) => {
+        return {
+          id: p.purchase.id,
+          pageUrl: `http://zero.energyweb.org/partners/filecoin/purchases/${p.purchase.id}`,
+          dataUrl: `http://zero.energyweb.org/api/partners/filecoin/purchases/${p.purchase.id}`,
+          sellerId: p.purchase.sellerId,
+          recsSold: p.purchase.recsSold,
+          annually: p.purchase.recsTransactions
+        };
+      })
+    };
+  }
 }
+
+export const transactionsSchema = {
+  type: "object",
+  properties: {
+    minerId: { type: "string", example: "f0112027" },
+    buyerId: { type: "string", example: "29e25d61-103a-4710-b03d-ee12df765066" },
+    recsTotal: { type: "number", example: 3 },
+    transactions: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "string", example: "04a7155d-ced1-4981-8660-48670a0735dd" },
+          pageUrl: {
+            type: "string",
+            example: "http://zero.energyweb.org/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+          },
+          dataUrl: {
+            type: "string",
+            example: "http://zero.energyweb.org/api/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+          },
+          sellerId: { type: "string", example: "68926364-a0ba-4160-b3ea-1ee70c2690dd" },
+          recsSold: { type: "number", example: 3 },
+          annually: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                year: { type: "number", example: 2020 },
+                amount: { type: "number", example: 3 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
