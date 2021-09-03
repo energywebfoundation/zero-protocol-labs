@@ -13,7 +13,7 @@ const StyledFieldValue = styled.div`
 `;
 
 export const FieldValue = ({ valueText }: FieldValueProps) => (
-  <StyledFieldValue>{valueText}</StyledFieldValue>
+  <StyledFieldValue>{valueText || '-'}</StyledFieldValue>
 );
 
 export default FieldValue;

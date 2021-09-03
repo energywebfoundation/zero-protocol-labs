@@ -9,8 +9,12 @@ import {
 import FuelType, { FuelTypeEnum } from '../fuel-type/fuel-type';
 import { useStyles } from './table-list.styles';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Info from '../info/info';
 import { CertificateDto } from '../../api';
+
+dayjs.extend(utc);
+
 /* eslint-disable-next-line */
 export interface TableListProps {
   data: CertificateDto;
@@ -106,8 +110,13 @@ to avoid double accounting`}
             </TableCell>
             <TableCell className={styles.tbCell}>{recsSold}</TableCell>
             <TableCell className={styles.tbCell}>
-              {dayjs(data.generationStart).format('YYYY-MM-DD')} /{' '}
-              {dayjs(data.generationEnd).format('YYYY-MM-DD')}
+              {dayjs(data.generationStart).isValid()
+                ? dayjs(data.generationStart).utc().format('YYYY-MM-DD')
+                : '-'}{' '}
+              /{' '}
+              {dayjs(data.generationEnd).isValid()
+                ? dayjs(data.generationEnd).utc().format('YYYY-MM-DD')
+                : '-'}
             </TableCell>
           </TableRow>
         </TableBody>
