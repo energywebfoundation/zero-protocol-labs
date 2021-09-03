@@ -212,11 +212,12 @@ describe('TableList', () => {
           >
             <div
               class="MuiBox-root css-0"
+              title="SellerId"
             >
               Selle...Id
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1v119oy-MuiSvgIcon-root"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium e1dqeb3z0 css-1rzj2vm-MuiSvgIcon-root-StyledContentCopy"
                 data-testid="ContentCopyOutlinedIcon"
                 focusable="false"
                 viewBox="0 0 24 24"

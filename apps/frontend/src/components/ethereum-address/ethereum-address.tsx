@@ -1,4 +1,3 @@
-import ContentCopy from '@material-ui/icons/ContentCopyOutlined';
 import CopyToClipboard from '../copy-to-clipboard/copy-to-clipboard';
 import { Box } from '@material-ui/core';
 
@@ -14,7 +13,7 @@ export const EthereumAddress = ({
 }: EthereumAddressProps) => {
   if (address) {
     return (
-      <Box>
+      <Box title={address}>
         {shortify ? shortifyEthAddr(address) : address}
         <CopyToClipboard value={address} />
       </Box>
