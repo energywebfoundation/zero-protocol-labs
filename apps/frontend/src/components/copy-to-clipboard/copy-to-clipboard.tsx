@@ -6,8 +6,14 @@ export interface CopyToClipboardProps {
   value: string;
 }
 
+const StyledContentCopy = styled(ContentCopy)`
+  &:active {
+    color: #2d1155;
+    transition: color 0.3s;
+  }
+`;
 export const CopyToClipboard = ({ value }: CopyToClipboardProps) => (
-  <ContentCopy
+  <StyledContentCopy
     onClick={() =>
       navigator.clipboard
         .writeText(value)

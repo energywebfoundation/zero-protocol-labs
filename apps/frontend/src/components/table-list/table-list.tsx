@@ -40,8 +40,7 @@ export const TableList = ({ data, sellerId, recsSold }: TableListProps) => {
             <TableCell className={styles.thCell} align="left">
               <Info
                 popoverContent={`Seller ID
-the ID that represents the seller
-in the REC Registry`}
+Seller ID represents the seller in EW Zero marketplace`}
               >
                 Seller ID
               </Info>
