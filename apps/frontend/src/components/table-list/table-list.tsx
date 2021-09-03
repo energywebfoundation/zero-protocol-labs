@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Info from '../info/info';
 import { CertificateDto } from '../../api';
+import EthereumAddress from '../ethereum-address/ethereum-address';
 
 dayjs.extend(utc);
 
@@ -51,8 +52,7 @@ in the REC Registry`}
             <TableCell className={styles.thCell} align="left">
               <Info
                 popoverContent={`Generator ID
-the ID that represents the generation facility
-in the REC Registry`}
+Seller ID represents the seller in EW Zero marketplace`}
               >
                 Generator ID
               </Info>
@@ -97,7 +97,9 @@ to avoid double accounting`}
         </TableHead>
         <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
           <TableRow>
-            <TableCell className={styles.tbCell}>{sellerId}</TableCell>
+            <TableCell className={styles.tbCell}>
+              <EthereumAddress shortify address={sellerId} />
+            </TableCell>
             <TableCell className={styles.tbCell}>
               {data.generatorName ?? '-'}
             </TableCell>

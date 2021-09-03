@@ -12,7 +12,7 @@ export const useStyles = makeStyles(() => {
     tbCell: {
       color: '#2D1155',
       fontWeight: 700,
-      fontSize: '18px',
+      fontSize: '16px',
       border: 'none',
     },
   };

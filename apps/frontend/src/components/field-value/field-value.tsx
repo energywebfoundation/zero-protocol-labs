@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import CopyToClipboard from '../copy-to-clipboard/copy-to-clipboard';
 
 /* eslint-disable-next-line */
 export interface FieldValueProps {
   valueText: string;
+  copyToClipboardEnabled?: boolean;
 }
 
 const StyledFieldValue = styled.div`
@@ -12,8 +14,14 @@ const StyledFieldValue = styled.div`
   color: #2d1155;
 `;
 
-export const FieldValue = ({ valueText }: FieldValueProps) => (
-  <StyledFieldValue>{valueText || '-'}</StyledFieldValue>
+export const FieldValue = ({
+  copyToClipboardEnabled,
+  valueText,
+}: FieldValueProps) => (
+  <StyledFieldValue>
+    {valueText || '-'}
+    {copyToClipboardEnabled && <CopyToClipboard value={valueText} />}
+  </StyledFieldValue>
 );
 
 export default FieldValue;
