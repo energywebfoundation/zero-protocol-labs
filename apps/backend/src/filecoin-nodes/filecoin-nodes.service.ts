@@ -17,7 +17,13 @@ export class FilecoinNodesService {
   }
 
   async findOne(id: string) {
-    return new FilecoinNodeDto(await this.prisma.filecoinNode.findUnique({ where: { id } }));
+    const record = await this.prisma.filecoinNode.findUnique({ where: { id } });
+
+    if (!record) {
+      return null;
+    }
+
+    return new FilecoinNodeDto(record);
   }
 
   async update(id: string, updateFilecoinNodeDto: UpdateFilecoinNodeDto) {
