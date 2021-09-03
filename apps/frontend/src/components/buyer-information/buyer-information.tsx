@@ -33,7 +33,7 @@ export const BuyerInformation = ({
     <PaperBox bgColor={'#F6EFFF'}>
       <Box display={'flex'} alignItems={'flex-start'} mb={2}>
         <FieldLabel labelText={'Buyer ID'} />
-        <FieldValue valueText={buyerId} />
+        <FieldValue copyToClipboardEnabled valueText={buyerId} />
       </Box>
       <Box display={'flex'} alignItems={'flex-start'} mb={2}>
         <FieldLabel labelText={'Filecoin Miner IDs'} />
