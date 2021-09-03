@@ -9,7 +9,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor, UseGuards
 } from '@nestjs/common';
-import { FilecoinNodesService } from './filecoin-nodes.service';
+import { FilecoinNodesService, transactionsSchema } from './filecoin-nodes.service';
 import { CreateFilecoinNodeDto } from './dto/create-filecoin-node.dto';
 import { UpdateFilecoinNodeDto } from './dto/update-filecoin-node.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
@@ -59,5 +59,11 @@ export class FilecoinNodesController {
   @ApiSecurity('api-key', ['api-key'])
   remove(@Param('id') id: string) {
     return this.filecoinNodesService.remove(id);
+  }
+
+  @Get(':id/transactions')
+  @ApiOkResponse({ schema: transactionsSchema })
+  getTransactions(@Param('id') id: string) {
+    return this.filecoinNodesService.getTransactions(id);
   }
 }
