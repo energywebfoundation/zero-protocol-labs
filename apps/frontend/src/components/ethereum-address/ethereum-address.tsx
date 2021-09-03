@@ -23,7 +23,7 @@ export const EthereumAddress = ({
 };
 
 export const shortifyEthAddr = (str: string) => {
-  return `${str.substr(0, 5)}...${str.substr(str.length - 2, str.length - 1)}`;
+  return `${str.substr(0, 4)}...${str.substr(str.length - 4, str.length - 1)}`;
 };
 
 export default EthereumAddress;
