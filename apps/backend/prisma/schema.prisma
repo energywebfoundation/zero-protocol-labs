@@ -1,0 +1,84 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+model File {
+  id         String    @id @default(uuid())
+  fileName   String
+  mimeType   String
+  createdAt  DateTime  @default(now())
+  content    Bytes
+  purchase   Purchase? @relation(fields: [purchaseId], references: [id])
+  purchaseId String?
+
+  @@index([createdAt])
+}
+
+model Buyer {
+  id            String         @id @default(uuid())
+  name          String?
+  purchase      Purchase[]
+  filecoinNodes FilecoinNode[]
+}
+
+model Seller {
+  id            String     @id @default(uuid())
+  name          String
+  addressLine1  String
+  addressLine2  String?
+  contactPerson String?
+  purchase      Purchase[]
+}
+
+model Certificate {
+  id              String     @id @default(uuid())
+  generatorName   String?
+  generatorId     String?
+  country         String
+  energySource    String
+  generationStart DateTime?
+  generationEnd   DateTime?
+  purchase        Purchase[]
+}
+
+model FilecoinNode {
+  id        String @id
+  Buyer     Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId   String
+  purchases FilecoinNodesOnPurchases[]
+
+  @@unique([id, buyerId])
+}
+
+model Purchase {
+  id               String                     @id @default(uuid())
+  certificate      Certificate                @relation(fields: [certificateId], references: [id])
+  certificateId    String
+  buyer            Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId          String?
+  seller           Seller?                    @relation(fields: [sellerId], references: [id])
+  sellerId         String?
+  files            File[]
+  recsSold         Int
+  recsTransactions Json
+  filecoinNodes    FilecoinNodesOnPurchases[]
+
+  @@unique([id, buyerId])
+}
+
+model FilecoinNodesOnPurchases {
+  purchase   Purchase @relation(fields: [purchaseId, buyerId], references: [id, buyerId])
+  purchaseId String
+
+  filecoinNode   FilecoinNode @relation(fields: [filecoinNodeId, buyerId], references: [id, buyerId])
+  filecoinNodeId String
+  buyerId        String
+
+  @@id([purchaseId, filecoinNodeId, buyerId])
+}
