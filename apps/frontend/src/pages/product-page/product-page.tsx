@@ -50,6 +50,10 @@ and consumption, and are widely used for renewable energy procurement.`}
           }
         >
           <BuyerSellerInformation
+            generationPeriod={{
+              fromDate: data.certificate.generationStart,
+              toDate: data.certificate.generationEnd,
+            }}
             filecoinMinerIdList={data.filecoinNodes}
             recsTransactions={data.recsTransactions}
             buyer={data.buyer}

@@ -12,9 +12,11 @@ export interface BuyerInformationProps {
   buyerId: string;
   filecoinMinerIdList: FilecoinNodeDto[];
   recsAmount: Array<AnnualTransactionsDto>;
+  generationPeriod: { fromDate: string; toDate: string };
 }
 
 export const BuyerInformation = ({
+  generationPeriod,
   buyerName,
   buyerId,
   filecoinMinerIdList = [],
@@ -45,7 +47,10 @@ export const BuyerInformation = ({
       </Box>
       <Box display={'flex'} mb={2}>
         <FieldLabel labelText={'Total amount of RECs'} />
-        <FieldValueTransactionList transactionList={recsAmount} />
+        <FieldValueTransactionList
+          transactionList={recsAmount}
+          generationPeriod={generationPeriod}
+        />
       </Box>
     </PaperBox>
   </Box>
