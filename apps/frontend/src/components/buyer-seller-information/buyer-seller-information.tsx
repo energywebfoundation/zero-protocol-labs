@@ -14,6 +14,7 @@ export interface BuyerSellerInformationProps {
   buyer: BuyerDto;
   seller: SellerDto;
   filecoinMinerIdList: FilecoinNodeDto[];
+  generationPeriod: { fromDate: string; toDate: string };
 }
 
 export const BuyerSellerInformation = ({
@@ -21,6 +22,7 @@ export const BuyerSellerInformation = ({
   seller,
   recsTransactions,
   filecoinMinerIdList,
+  generationPeriod,
 }: BuyerSellerInformationProps) => (
   <Grid columnGap={3} wrap={'nowrap'} container>
     <Grid item sm={6}>
@@ -33,6 +35,7 @@ export const BuyerSellerInformation = ({
     </Grid>
     <Grid item sm={6}>
       <BuyerInformation
+        generationPeriod={generationPeriod}
         buyerId={buyer.id}
         buyerName={buyer.name}
         filecoinMinerIdList={filecoinMinerIdList}

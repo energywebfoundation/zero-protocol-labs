@@ -66,10 +66,10 @@ Location of the device generating the energy and RECs`}
             </TableCell>
             <TableCell className={styles.thCell} align="left">
               <Info
-                popoverContent={`Fuel Type
+                popoverContent={`Energy Source
 Renewable energy source, e.g. wind, hydro, solar, etc.`}
               >
-                Fuel Type
+                Energy Source
               </Info>
             </TableCell>
             <TableCell className={styles.thCell} align="left">
