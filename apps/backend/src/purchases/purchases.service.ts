@@ -100,7 +100,12 @@ export class PurchasesService {
     });
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} purchase`;
+  async remove(id: string) {
+    await this.prisma.$transaction([
+      this.prisma.filecoinNodesOnPurchases.deleteMany({ where: { purchaseId: id } }),
+      this.prisma.purchase.delete({ where: { id } })
+    ]);
+
+    return { status: "OK" };
   }
 }
