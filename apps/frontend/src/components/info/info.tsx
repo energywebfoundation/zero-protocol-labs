@@ -1,21 +1,33 @@
 import HelpOutline from '@material-ui/icons/HelpOutline';
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import PopOver from '../pop-over/pop-over';
 import { Box } from '@material-ui/core';
 
 /* eslint-disable-next-line */
 export interface InfoProps {
   noIcon?: boolean;
-  popoverContent: string;
+  popoverContentElement?: ReactElement;
+  popoverContent?: string;
   children: ReactNode;
+  hideTimeout?: number;
 }
 
-export const Info = ({ noIcon, popoverContent, children }: InfoProps) => {
+export const Info = ({
+  noIcon,
+  popoverContentElement,
+  popoverContent,
+  children,
+  hideTimeout,
+}: InfoProps) => {
   return !noIcon ? (
     <Box component={'span'}>
       {children}
-      {popoverContent && (
-        <PopOver popoverContent={popoverContent}>
+      {
+        <PopOver
+          hideTimeout={hideTimeout}
+          popoverContent={popoverContent}
+          popoverContentElement={popoverContentElement}
+        >
           <HelpOutline
             sx={{
               fontSize: '12px',
@@ -27,7 +39,7 @@ export const Info = ({ noIcon, popoverContent, children }: InfoProps) => {
             }}
           />
         </PopOver>
-      )}
+      }
     </Box>
   ) : (
     <PopOver popoverContent={popoverContent}>

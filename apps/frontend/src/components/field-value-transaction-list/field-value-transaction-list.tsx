@@ -41,7 +41,22 @@ export function FieldValueTransactionList({
               <Box color={'#2D1155'} fontWeight={500}>
                 {shouldShowNote(generationPeriod.fromDate, value.year) ? (
                   <Info
-                    popoverContent={`${value.year} consumption matched with generation according to Green-e Renewable Standard (Section III B. Vintage of Eligible Renewables)`}
+                    hideTimeout={1000}
+                    popoverContentElement={
+                      <div>
+                        {value.year} consumption matched with generation
+                        according to{' '}
+                        <a
+                          style={{ color: '#fff' }}
+                          target={'_blank'}
+                          href="https://www.epa.gov/greenpower/green-power-partnership-eligible-generation-dates"
+                          rel="noreferrer"
+                        >
+                          Green-e Renewable Standard (Section III B. Vintage of
+                          Eligible Renewables)
+                        </a>
+                      </div>
+                    }
                   >
                     {value.year}
                   </Info>
