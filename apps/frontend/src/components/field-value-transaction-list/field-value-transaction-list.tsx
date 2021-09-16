@@ -2,8 +2,16 @@ import { Box, Grid } from '@material-ui/core';
 import { AnnualTransactionsDto } from '../../api';
 import Info from '../info/info';
 import dayjs from 'dayjs';
+import { makeStyles } from '@material-ui/styles';
 
-/* eslint-disable-next-line */
+export const useStyles = makeStyles((theme) => ({
+  styles: {
+    "@media (max-width: 1027px)": {
+      padding: '0'
+    }
+  }
+}));
+
 export interface FieldValueTransactionListProps {
   transactionList: Array<AnnualTransactionsDto>;
   generationPeriod: { fromDate: string; toDate: string };
@@ -17,9 +25,13 @@ export function FieldValueTransactionList({
     (previousValue, currentValue) => previousValue + currentValue.amount,
     0
   );
+
+  const classes = useStyles()
+
   return (
-    <Box width={'100%'}>
+    <Box width={'100%'} maxWidth={'283px'}>
       <Box
+        className={classes.styles}
         pl={'13px'}
         color={'#2D1155'}
         mb={'14px'}
