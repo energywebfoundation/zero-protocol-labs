@@ -57,6 +57,7 @@ export class PurchasesService {
 
     return {
       ...data,
+      pageUrl: `https://zero.energyweb.org/partners/filecoin/purchases/${data.id}`,
       files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` })),
       filecoinNodes: data.filecoinNodes.map((r) => r.filecoinNode)
     };
