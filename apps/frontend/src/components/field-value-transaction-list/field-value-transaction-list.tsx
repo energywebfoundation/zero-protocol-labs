@@ -4,13 +4,13 @@ import Info from '../info/info';
 import dayjs from 'dayjs';
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles({
   styles: {
-    "@media (max-width: 1027px)": {
+    "@media (max-width: 1024px)": {
       padding: '0'
     }
   }
-}));
+});
 
 export interface FieldValueTransactionListProps {
   transactionList: Array<AnnualTransactionsDto>;

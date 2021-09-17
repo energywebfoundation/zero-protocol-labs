@@ -5,14 +5,14 @@ import FieldValue from '../field-value/field-value';
 import FieldValueMultiline from '../field-value-multiline/field-value-multiline';
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles({
   flexColumn: {
-    "@media (max-width: 1027px)": {
+    "@media (max-width: 1024px)": {
       flexDirection: "column",
       alignItems: "baseline"
     }
   }
-}));
+});
 
 export interface SellerInformationProps {
   name: string;
@@ -29,7 +29,7 @@ export const SellerInformation = ({
 }: SellerInformationProps) => {
 
   const classes = useStyles()
-  
+
   return (
     <Box height={'100%'}>
     <Typography
@@ -39,7 +39,7 @@ export const SellerInformation = ({
       color={'#2D1155'}
       fontSize={'20px'}
     >
-      Seller information    
+      Seller information
     </Typography>
     <PaperBox customHeight={'calc(100% - 48px)'} bgColor={'#F6EFFF'}>
       <Box className={classes.flexColumn} display={'flex'} alignItems={'center'} mb={2}  >
