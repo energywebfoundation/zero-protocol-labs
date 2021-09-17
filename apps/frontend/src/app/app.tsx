@@ -5,11 +5,9 @@ import ProductPage from '../pages/product-page/product-page';
 import { Container } from '@material-ui/core';
 import Header from '../components/header/header';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
-import React from 'react';
 
 const StyledApp = styled.div`
-  background-color: #e5e5e5;
-  height: 100vh;
+  background-color: #f6f3f9;
 `;
 
 export const App = () => (

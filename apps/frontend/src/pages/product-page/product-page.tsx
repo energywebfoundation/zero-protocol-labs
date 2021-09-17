@@ -7,13 +7,20 @@ import TableList from '../../components/table-list/table-list';
 import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import React from 'react';
+import { makeStyles } from '@material-ui/styles';
 
-/* eslint-disable-next-line */
+export const useStyles = makeStyles({
+  pdTop: {
+    paddingTop: '16px',
+  },
+});
+
 export interface ProductPageProps {}
 
 export const ProductPage = () => {
   const { isFetching, isFetched, data } = useProductPageEffects();
+  const classes = useStyles();
+
   return !isFetching && isFetched && data ? (
     <Grid container>
       <Grid item xs={12}>
@@ -76,7 +83,7 @@ and consumption, and are widely used for renewable energy procurement.`}
                 sellerId={data.seller.id}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid className={classes.pdTop} item xs={12}>
               <DownloadSection fileList={data.files} />
             </Grid>
           </Grid>
