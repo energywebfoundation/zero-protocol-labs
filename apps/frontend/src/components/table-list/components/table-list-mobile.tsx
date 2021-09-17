@@ -1,4 +1,4 @@
-import { Box, Table, TableCell, TableRow } from '@material-ui/core';
+import { Box, Table, TableBody, TableCell, TableRow } from '@material-ui/core';
 import FuelType, { FuelTypeEnum } from '../../fuel-type/fuel-type';
 import { useStyles } from '../table-list.styles';
 import dayjs from 'dayjs';
@@ -9,18 +9,17 @@ import EthereumAddress from '../../ethereum-address/ethereum-address';
 
 dayjs.extend(utc);
 
-/* eslint-disable-next-line */
-export interface TableListDesktop {
+export interface TableListMobileProps {
   data: CertificateDto;
   recsSold: number;
   sellerId: string;
 }
 
-export const TableListDesktop = ({
+export const TableListMobile = ({
   data,
   sellerId,
   recsSold,
-}: TableListDesktop) => {
+}: TableListMobileProps) => {
   const styles = useStyles();
   return (
     <Box
@@ -29,8 +28,10 @@ export const TableListDesktop = ({
       bgcolor={'#F6F3F9'}
       mb={2}
       p={'16px 16px'}
+      className="MobileList"
     >
       <Table sx={{ backgroundColor: '#fff' }}>
+        <TableBody>
         <TableRow className={styles.tbRowMedia}>
           <TableCell className={styles.thCell} align="left">
             <Info
@@ -123,9 +124,8 @@ export const TableListDesktop = ({
               : '-'}
           </TableCell>
         </TableRow>
+        </TableBody>
       </Table>
     </Box>
   );
 };
-
-export default TableListDesktop;

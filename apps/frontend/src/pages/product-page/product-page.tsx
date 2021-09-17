@@ -7,14 +7,13 @@ import TableList from '../../components/table-list/table-list';
 import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles({
   pdTop: {
     paddingTop: '16px',
   },
-}));
+});
 
 export interface ProductPageProps {}
 

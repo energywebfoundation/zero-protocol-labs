@@ -1,6 +1,6 @@
 import { CertificateDto } from '../../api';
 import TableListDesktop from './components/table-list-desktop';
-import TableListMobile from './components/table-list-mobile';
+import { TableListMobile } from './components/table-list-mobile';
 import TableListTablet from './components/table-list-tablet';
 
 export interface TableList {
@@ -12,7 +12,7 @@ export interface TableList {
 export const TableList = ({ data, sellerId, recsSold }: TableList) => {
   return (
     <>
-      {window.innerWidth < 1027 && window.innerWidth > 375 ? (
+      {window.innerWidth < 1024 && window.innerWidth > 375 ? (
         <TableListTablet data={data} sellerId={sellerId} recsSold={recsSold} />
       ) : window.innerWidth < 375 ? (
         <TableListMobile data={data} sellerId={sellerId} recsSold={recsSold} />

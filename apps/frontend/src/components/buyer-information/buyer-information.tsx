@@ -7,14 +7,14 @@ import FieldValueList from '../field-value-list/field-value-list';
 import { AnnualTransactionsDto, FilecoinNodeDto } from '../../api';
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles({
   flexColumn: {
-    "@media (max-width: 1027px)": {
+    "@media (max-width: 1024px)": {
       flexDirection: "column",
       alignItems: "baseline"
     }
   }
-}));
+});
 
 export interface BuyerInformationProps {
   buyerName: string;
@@ -35,7 +35,7 @@ export const BuyerInformation = ({
   const classes = useStyles()
 
   return  (
-    <Box>
+    <Box sx={{ mt: { sm: 0, xs: 3 } }}>
         <Typography
           lineHeight={'24px'}
           mb={3}

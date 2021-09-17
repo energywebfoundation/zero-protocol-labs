@@ -12,8 +12,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   styleText: {
+    fontSize: 20,
     '@media (max-width: 375px)': {
-      marginBottom: '25px',
+      fontSize: 18
     },
   },
 }));
@@ -35,7 +36,6 @@ export const DownloadSection = ({ fileList = [] }: DownloadSectionProps) => {
         <Typography
           className={classes.styleText}
           color={'#fff'}
-          fontSize={'20px'}
           fontWeight={600}
           lineHeight={'22px'}
         >
