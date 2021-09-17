@@ -9,13 +9,12 @@ import {
 } from '../../api';
 import { makeStyles } from '@material-ui/styles';
 
-
 export const useStyles = makeStyles((theme) => ({
   flexColumn: {
-    "@media (max-width: 375px)": {
-      flexDirection: "column",
-    }
-  }
+    '@media (max-width: 620px)': {
+      flexDirection: 'column',
+    },
+  },
 }));
 
 export interface BuyerSellerInformationProps {
@@ -33,11 +32,15 @@ export const BuyerSellerInformation = ({
   filecoinMinerIdList,
   generationPeriod,
 }: BuyerSellerInformationProps) => {
-
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
-    <Grid className={classes.flexColumn} columnGap={3} wrap={'nowrap'} container>
+    <Grid
+      className={classes.flexColumn}
+      columnGap={3}
+      wrap={'nowrap'}
+      container
+    >
       <Grid item sm={6}>
         <SellerInformation
           contactPerson={seller.contactPerson}
@@ -56,7 +59,7 @@ export const BuyerSellerInformation = ({
         />
       </Grid>
     </Grid>
-  )
+  );
 };
 
 export default BuyerSellerInformation;

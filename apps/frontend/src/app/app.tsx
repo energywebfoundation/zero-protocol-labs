@@ -8,8 +8,7 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 import React from 'react';
 
 const StyledApp = styled.div`
-  background-color: #e5e5e5;
-  height: 100vh;
+  background-color: #f6f3f9;
 `;
 
 export const App = () => (

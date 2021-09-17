@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles((theme) => ({
   style: {
-    "@media (max-width: 375px)": {
-      padding:'15px'
-    }
-  }
+    '@media (max-width: 375px)': {
+      padding: '15px',
+    },
+  },
 }));
 
 export interface PageSectionProps {
@@ -21,8 +21,7 @@ export const PageSection = ({
   headingText,
   sectionHelpText,
 }: PageSectionProps) => {
-
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Box pt={'13px'} className={classes.style}>
@@ -51,7 +50,7 @@ export const PageSection = ({
         {children}
       </Paper>
     </Box>
-  )
-}
+  );
+};
 
 export default PageSection;
