@@ -8,6 +8,7 @@ export interface PaperBoxProps {
   customPadding?: string | number;
   customHeight?: string;
   customBorderRadius?: string;
+  display?: string;
 }
 
 export const PaperBox = ({
@@ -15,6 +16,7 @@ export const PaperBox = ({
   customHeight,
   children,
   bgColor,
+  display,
 }: PaperBoxProps) => (
   <Paper
     sx={{
@@ -23,6 +25,7 @@ export const PaperBox = ({
       p: 3,
       backgroundColor: bgColor,
       borderRadius: customBorderRadius,
+      display: display,
     }}
   >
     {children}
