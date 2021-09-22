@@ -51,7 +51,7 @@ export const BuyerInformation = ({
           alignItems={'flex-start'}
           mb={2}
         >
-          <FieldLabel labelText={'Buyer ID'} />
+          <FieldLabel width={'200px'} labelText={'Buyer ID'} />
           <FieldValue copyToClipboardEnabled valueText={buyerId} />
         </Box>
         <Box
@@ -60,7 +60,7 @@ export const BuyerInformation = ({
           alignItems={'flex-start'}
           mb={2}
         >
-          <FieldLabel labelText={'Filecoin Miner IDs'} />
+          <FieldLabel width={'200px'} labelText={'Filecoin Miner IDs'} />
           <FieldValueList valueList={filecoinMinerIdList.map((el) => el.id)} />
         </Box>
         <Box
@@ -69,11 +69,11 @@ export const BuyerInformation = ({
           alignItems={'flex-start'}
           mb={2}
         >
-          <FieldLabel labelText={'Buyer Name'} />
+          <FieldLabel width={'200px'} labelText={'Buyer Name'} />
           <FieldValue valueText={buyerName} />
         </Box>
         <Box className={classes.flexColumn} display={'flex'} mb={2}>
-          <FieldLabel labelText={'Total amount of RECs'} />
+          <FieldLabel width={'200px'} labelText={'Total amount of RECs'} />
           <FieldValueTransactionList
             transactionList={recsAmount}
             generationPeriod={generationPeriod}

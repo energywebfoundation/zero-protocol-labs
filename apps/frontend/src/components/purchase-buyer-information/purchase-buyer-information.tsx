@@ -5,16 +5,9 @@ import FieldValue from '../field-value/field-value';
 import FieldValueTransactionList from '../field-value-transaction-list/field-value-transaction-list';
 import FieldValueList from '../field-value-list/field-value-list';
 import { AnnualTransactionsDto, FilecoinNodeDto } from '../../api';
-import { makeStyles } from '@material-ui/styles';
-
-export const useStyles = makeStyles((theme) => ({
-  flexColumn: {
-    '@media (max-width: 1027px)': {
-      flexDirection: 'column',
-      alignItems: 'baseline',
-    },
-  },
-}));
+import { useState } from 'react';
+import { ButtonDetails } from '../button-details/button-details';
+import { useStyles } from './purchase-buyer-information-styles';
 
 export interface PurchaseBuyerInformationProps {
   buyerName: string;
@@ -33,6 +26,12 @@ export const PurchaseBuyerInformation = ({
 }: PurchaseBuyerInformationProps) => {
   const classes = useStyles();
 
+  const [info, setInfo] = useState(false);
+
+  const SowInfo = () => {
+    info === false ? setInfo(true) : setInfo(false);
+  };
+
   return (
     <Box>
       <Typography
@@ -45,44 +44,71 @@ export const PurchaseBuyerInformation = ({
         Buyer information
       </Typography>
       <PaperBox bgColor={'#F6EFFF'}>
-        <Box display={'flex'} justifyContent={'space-between'}>
-          <Box className={classes.flexColumn} alignItems={'flex-start'} mb={2}>
-            <FieldLabel labelText={'Buyer ID'} />
+        <Box
+          display={'flex'}
+          className={classes.flexColumn}
+          justifyContent={'space-between'}
+        >
+          <Box className={classes.box} alignItems={'flex-start'} mb={0}>
+            <FieldLabel
+              className={classes.fieldLab}
+              mb={'10px'}
+              labelText={'Buyer ID'}
+            />
             <FieldValue copyToClipboardEnabled valueText={buyerId} />
           </Box>
-          <Box display={'flex'}>
-            <Box
-              className={classes.flexColumn}
-              alignItems={'flex-start'}
-              mb={2}
-            >
-              <FieldLabel labelText={'Filecoin Miner IDs'} />
+          <Box display={'flex'} className={classes.flexColumn}>
+            <Box className={classes.box} alignItems={'flex-start'} mb={0}>
+              <FieldLabel
+                className={classes.fieldLab}
+                mb={'10px'}
+                labelText={'Filecoin Miner IDs'}
+              />
               <FieldValueList
                 valueList={filecoinMinerIdList.map((el) => el.id)}
               />
             </Box>
             <Box
-              className={classes.flexColumn}
+              className={classes.margin}
               alignItems={'flex-start'}
-              mb={2}
-              ml={5.8}
+              mb={0}
+              sx={{ marginLeft: '46px' }}
             >
-              <FieldLabel labelText={'Buyer Name'} />
+              <FieldLabel
+                className={classes.fieldLab}
+                mb={'10px'}
+                labelText={'Buyer Name'}
+              />
               <FieldValue valueText={buyerName} />
             </Box>
           </Box>
-          <Box className={classes.flexColumn} mb={2}>
-            <FieldLabel labelText={'Total amount of RECs'} />
-            <FieldValueTransactionList generationPeriod={generationPeriod} />
+          <Box display={'flex'}>
+            <Box mb={0}>
+              <FieldLabel
+                className={classes.fieldLab}
+                mb={'10px'}
+                labelText={'Total amount of RECs'}
+              />
+              <FieldValueTransactionList generationPeriod={generationPeriod} />
+            </Box>
+            <Box ml={'20px'}>
+              <ButtonDetails
+                name={'Details'}
+                onClick={SowInfo}
+                isButtonUp={info}
+              />
+            </Box>
           </Box>
         </Box>
-        <Box>
-          <FieldValueTransactionList
-            transactionList={recsAmount}
-            generationPeriod={generationPeriod}
-            showRec={false}
-          />
-        </Box>
+        {info && (
+          <Box>
+            <FieldValueTransactionList
+              transactionList={recsAmount}
+              generationPeriod={generationPeriod}
+              showRec={false}
+            />
+          </Box>
+        )}
       </PaperBox>
     </Box>
   );

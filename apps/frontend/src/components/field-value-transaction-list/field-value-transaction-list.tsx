@@ -10,6 +10,11 @@ export const useStyles = makeStyles({
       padding: '0',
     },
   },
+  margin: {
+    '@media (max-width: 620px)': {
+      marginLeft: '10px',
+    },
+  },
 });
 
 export interface FieldValueTransactionListProps {
@@ -49,6 +54,7 @@ export function FieldValueTransactionList({
         borderRadius={'5px'}
         bgcolor={'#fff'}
         display={'flex'}
+        border={transactionList && '0.5px solid #00D08A'}
         px={transactionList && '13px'}
         py={transactionList && '7px'}
       >
@@ -64,7 +70,7 @@ export function FieldValueTransactionList({
           )}
           {transactionList &&
             transactionList.map((value, index) => (
-              <Grid key={index} item sm={2}>
+              <Grid className={classes.margin} key={index} item sm={2}>
                 <Box color={'#2D1155'} fontWeight={500}>
                   {shouldShowNote(generationPeriod.fromDate, value.year) ? (
                     <Info

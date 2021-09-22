@@ -1,11 +1,11 @@
 import { Grid, Typography } from '@material-ui/core';
 import { usePurchasePageEffects } from './purchase-page.effects';
 import PageSection from '../../components/page-section/page-section';
-import TableList from '../../components/table-list/table-list';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import { makeStyles } from '@material-ui/styles';
 import PurchaseBuyerInformation from '../../components/purchase-buyer-information/purchase-buyer-information';
+import TableListPurchase from '../../components/table-list-purchase/table-list-purchase';
 
 export const useStyles = makeStyles((theme) => ({
   pdTop: {
@@ -17,7 +17,6 @@ export interface PurchasePageProps {}
 
 export const PurchasePage = () => {
   const { isFetching, isFetched, data } = usePurchasePageEffects();
-  console.log(data, 'data');
   return !isFetching && isFetched && data ? (
     <Grid container>
       <Grid item xs={12}>
@@ -50,7 +49,7 @@ export const PurchasePage = () => {
               >
                 Purchase information
               </Typography>
-              <TableList
+              <TableListPurchase
                 data={data.certificate}
                 recsSold={data.recsSold}
                 sellerId={data.seller.id}
