@@ -23,7 +23,7 @@ export const App = () => (
             element={<ProductPage />}
           />
           <Route
-            path={'/partners/filecoin/purchase/:productId'}
+            path={'/partners/filecoin/purchases/:purchaseId'}
             element={<PurchasePage />}
           />
           <Route path={'/404'} element={<NotFoundPage />} />

@@ -17,6 +17,7 @@ export interface PurchasePageProps {}
 
 export const PurchasePage = () => {
   const { isFetching, isFetched, data } = usePurchasePageEffects();
+  console.log(data, 'data');
   return !isFetching && isFetched && data ? (
     <Grid container>
       <Grid item xs={12}>
@@ -50,9 +51,10 @@ export const PurchasePage = () => {
                 Purchase information
               </Typography>
               <TableListPurchase
+                sellerName={data.seller.name}
                 data={data.certificate}
                 recsSold={data.recsSold}
-                sellerId={data.seller.id}
+                purchaseId={data.id}
               />
             </Grid>
           </Grid>

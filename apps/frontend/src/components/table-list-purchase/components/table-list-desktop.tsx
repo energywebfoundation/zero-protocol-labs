@@ -20,13 +20,15 @@ dayjs.extend(utc);
 export interface TableListDesktop {
   data: CertificateDto;
   recsSold: number;
-  sellerId: string;
+  purchaseId: string;
+  sellerName: string;
 }
 
 export const TableListDesktop = ({
   data,
-  sellerId,
+  purchaseId,
   recsSold,
+  sellerName,
 }: TableListDesktop) => {
   const styles = useStyles();
   return (
@@ -67,11 +69,9 @@ export const TableListDesktop = ({
         <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
           <TableRow>
             <TableCell className={styles.tbCell}>
-              <EthereumAddress shortify address={sellerId} />
+              <EthereumAddress shortify address={purchaseId} />
             </TableCell>
-            <TableCell className={styles.tbCell}>
-              {data.generatorName ?? '-'}
-            </TableCell>
+            <TableCell className={styles.tbCell}>{sellerName ?? '-'}</TableCell>
             <TableCell className={styles.tbCell}>
               {data.generatorId ?? '-'}
             </TableCell>

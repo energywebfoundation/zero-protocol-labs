@@ -12,13 +12,15 @@ dayjs.extend(utc);
 export interface TableListTablet {
   data: CertificateDto;
   recsSold: number;
-  sellerId: string;
+  purchaseId: string;
+  sellerName: string;
 }
 
 export const TableListTablet = ({
   data,
-  sellerId,
+  purchaseId,
   recsSold,
+  sellerName,
 }: TableListTablet) => {
   const styles = useStyles();
   return (
@@ -39,7 +41,7 @@ export const TableListTablet = ({
         </TableRow>
         <TableRow>
           <TableCell className={styles.tbCell}>
-            <EthereumAddress shortify address={sellerId} />
+            <EthereumAddress shortify address={purchaseId} />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -48,9 +50,7 @@ export const TableListTablet = ({
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell className={styles.tbCell}>
-            {data.generatorName ?? '-'}
-          </TableCell>
+          <TableCell className={styles.tbCell}>{sellerName ?? '-'}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className={styles.thCell} align="left">

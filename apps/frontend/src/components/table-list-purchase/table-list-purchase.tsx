@@ -7,13 +7,15 @@ import { Box } from '@material-ui/system';
 export interface TableListPurchase {
   data: CertificateDto;
   recsSold: number;
-  sellerId: string;
+  purchaseId: string;
+  sellerName: string;
 }
 
 export const TableListPurchase = ({
   data,
-  sellerId,
+  purchaseId,
   recsSold,
+  sellerName,
 }: TableListPurchase) => {
   return (
     <>
@@ -25,28 +27,20 @@ export const TableListPurchase = ({
         >
           <Box sx={{ marginRight: '16px' }}>
             <TableListTablet
+              sellerName={sellerName}
               data={data}
-              sellerId={sellerId}
-              recsSold={recsSold}
-            />
-          </Box>
-          <Box sx={{ marginRight: '16px' }}>
-            <TableListTablet
-              data={data}
-              sellerId={sellerId}
-              recsSold={recsSold}
-            />
-          </Box>
-          <Box sx={{ marginRight: '16px' }}>
-            <TableListTablet
-              data={data}
-              sellerId={sellerId}
+              purchaseId={purchaseId}
               recsSold={recsSold}
             />
           </Box>
         </Tabs>
       ) : (
-        <TableListDesktop data={data} sellerId={sellerId} recsSold={recsSold} />
+        <TableListDesktop
+          sellerName={sellerName}
+          data={data}
+          purchaseId={purchaseId}
+          recsSold={recsSold}
+        />
       )}
     </>
   );

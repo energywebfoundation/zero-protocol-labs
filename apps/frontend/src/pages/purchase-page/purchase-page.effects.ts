@@ -19,9 +19,9 @@ export const usePurchasePageEffects = () => {
         });
     }
   });
-  const { productId } = useParams();
+  const { purchaseId } = useParams();
   const { isError, error, isFetching, isFetched, isIdle, data } =
-    usePurchasesControllerFindOne(productId, {
+    usePurchasesControllerFindOne(purchaseId, {
       query: { enabled: isBaseUrlSet },
     });
   const navigate = useNavigate();
