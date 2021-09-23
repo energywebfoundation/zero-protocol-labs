@@ -3,7 +3,7 @@ import { usePurchasesControllerFindOne } from '../../api';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-export const usePurchasePageEffects = () => {
+export const usePageEffects = () => {
   const [isBaseUrlSet, setIsBaseUrlSet] = useState(false);
   useEffect(() => {
     if (!axios.defaults.baseURL) {
@@ -19,9 +19,9 @@ export const usePurchasePageEffects = () => {
         });
     }
   });
-  const { purchaseId } = useParams();
+  const { productId } = useParams();
   const { isError, error, isFetching, isFetched, isIdle, data } =
-    usePurchasesControllerFindOne(purchaseId, {
+    usePurchasesControllerFindOne(productId, {
       query: { enabled: isBaseUrlSet },
     });
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import IconTop from './assets/arrowTop.svg';
 
 export interface ButtonDetailsProps {
   name: string;
-  onClick: any;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   isButtonUp: boolean;
 }
 

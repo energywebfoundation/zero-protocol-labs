@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
   flexColumn: {
     '@media (max-width: 1027px)': {
-      displey: 'flex',
+      display: 'flex',
       flexDirection: 'column',
     },
   },
