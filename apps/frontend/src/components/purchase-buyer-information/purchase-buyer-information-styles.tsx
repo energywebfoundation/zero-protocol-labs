@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles({
   flexColumn: {
-    '@media (max-width: 1027px)': {
+    '@media (max-width: 900px)': {
       display: 'flex',
       flexDirection: 'column',
     },
@@ -25,4 +25,4 @@ export const useStyles = makeStyles(() => ({
       marginBottom: '12px',
     },
   },
-}));
+});

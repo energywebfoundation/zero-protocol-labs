@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles(() => {
-  return {
+export const useStyles = makeStyles({
     thCell: {
       color: '#2D1155',
       fontWeight: 700,
@@ -30,5 +29,4 @@ export const useStyles = makeStyles(() => {
         padding: '5px 16px'
       },
     },
-  };
 });
