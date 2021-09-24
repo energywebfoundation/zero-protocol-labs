@@ -5,6 +5,8 @@ import { Box } from '@material-ui/core';
 export interface FieldLabelProps {
   width?: string;
   labelText: string;
+  mb?: string;
+  className?: string;
 }
 
 const StyledFieldLabel = styled(Box)`
@@ -14,8 +16,18 @@ const StyledFieldLabel = styled(Box)`
   color: #2d1155;
 `;
 
-export const FieldLabel = ({ labelText, width = '200px' }: FieldLabelProps) => (
-  <StyledFieldLabel minWidth={width} maxWidth={width}>
+export const FieldLabel = ({
+  className,
+  mb,
+  labelText,
+  width,
+}: FieldLabelProps) => (
+  <StyledFieldLabel
+    className={className}
+    mb={mb}
+    minWidth={width}
+    maxWidth={width}
+  >
     {labelText}
   </StyledFieldLabel>
 );

@@ -15,6 +15,8 @@ export const useStyles = makeStyles({
       color: '#2D1155',
       fontWeight: 700,
       fontSize: '18px',
+      backgroundColor:'#fff',
+      borderRadius:'5px',
       border: 'none',
       '@media (max-width: 620px)': {
         padding: '4px'

@@ -3,7 +3,7 @@ import { usePurchasesControllerFindOne } from '../../api';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-export const useProductPageEffects = () => {
+export const usePageEffects = () => {
   const [isBaseUrlSet, setIsBaseUrlSet] = useState(false);
   useEffect(() => {
     if (!axios.defaults.baseURL) {

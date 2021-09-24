@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core';
-import { useProductPageEffects } from './product-page.effects';
+import { usePageEffects } from '../page-effects/page-effects';
 import BuyerSellerInformation from '../../components/buyer-seller-information/buyer-seller-information';
 import PageSection from '../../components/page-section/page-section';
 import DownloadSection from '../../components/download-section/download-section';
@@ -18,7 +18,7 @@ export const useStyles = makeStyles({
 export interface ProductPageProps {}
 
 export const ProductPage = () => {
-  const { isFetching, isFetched, data } = useProductPageEffects();
+  const { isFetching, isFetched, data } = usePageEffects();
   const classes = useStyles();
 
   return !isFetching && isFetched && data ? (
