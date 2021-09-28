@@ -51,8 +51,8 @@ export class FilecoinNodesService {
       transactions: data.purchases.map((p) => {
         return {
           id: p.purchase.id,
-          pageUrl: `http://zero.energyweb.org/partners/filecoin/purchases/${p.purchase.id}`,
-          dataUrl: `http://zero.energyweb.org/api/partners/filecoin/purchases/${p.purchase.id}`,
+          pageUrl: `${process.env.UI_BASE_URL}/partners/filecoin/purchases/${p.purchase.id}`,
+          dataUrl: `${process.env.API_BASE_URL}/api/partners/filecoin/purchases/${p.purchase.id}`,
           sellerId: p.purchase.sellerId,
           recsSold: p.purchase.recsSold,
           annually: p.purchase.recsTransactions
