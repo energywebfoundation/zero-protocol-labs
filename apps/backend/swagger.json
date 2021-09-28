@@ -1053,6 +1053,94 @@
           }
         ]
       }
+    },
+    "/api/partners/filecoin/nodes/{id}/transactions": {
+      "get": {
+        "operationId": "FilecoinNodesController_getTransactions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "minerId": {
+                      "type": "string",
+                      "example": "f0112027"
+                    },
+                    "buyerId": {
+                      "type": "string",
+                      "example": "29e25d61-103a-4710-b03d-ee12df765066"
+                    },
+                    "recsTotal": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "transactions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "04a7155d-ced1-4981-8660-48670a0735dd"
+                          },
+                          "pageUrl": {
+                            "type": "string",
+                            "example": "http://zero.energyweb.org/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+                          },
+                          "dataUrl": {
+                            "type": "string",
+                            "example": "http://zero.energyweb.org/api/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+                          },
+                          "sellerId": {
+                            "type": "string",
+                            "example": "68926364-a0ba-4160-b3ea-1ee70c2690dd"
+                          },
+                          "recsSold": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "annually": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "year": {
+                                  "type": "number",
+                                  "example": 2020
+                                },
+                                "amount": {
+                                  "type": "number",
+                                  "example": 3
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Filecoin nodes"
+        ]
+      }
     }
   },
   "info": {
@@ -1141,6 +1229,18 @@
           "mimeType"
         ]
       },
+      "FilecoinNodeSimple": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "f0112027"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
       "CreatePurchaseDto": {
         "type": "object",
         "properties": {
@@ -1176,6 +1276,12 @@
                 "amount": 1
               }
             ]
+          },
+          "filecoinNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilecoinNodeSimple"
+            }
           }
         },
         "required": [
@@ -1184,7 +1290,8 @@
           "buyerId",
           "sellerId",
           "recsSold",
-          "recsTransactions"
+          "recsTransactions",
+          "filecoinNodes"
         ]
       },
       "SellerDto": {
@@ -1430,6 +1537,12 @@
                 "amount": 1
               }
             ]
+          },
+          "filecoinNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilecoinNodeSimple"
+            }
           }
         }
       },
