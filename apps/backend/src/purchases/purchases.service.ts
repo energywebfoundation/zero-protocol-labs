@@ -57,6 +57,7 @@ export class PurchasesService {
 
     return {
       ...data,
+      pageUrl: `${process.env.UI_BASE_URL}/partners/filecoin/purchases/${data.id}`,
       files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` })),
       filecoinNodes: data.filecoinNodes.map((r) => r.filecoinNode)
     };
