@@ -1,4 +1,8 @@
-import ApiPageEffects from "../../api/api";
+import axios from "axios";
+
+const ApiPageEffects = axios.create({
+  baseURL : `${process.env.NX_API_HOST_URL}/api/`
+})
 
 const Purchase = {
   getTransactions: function (id : string) {

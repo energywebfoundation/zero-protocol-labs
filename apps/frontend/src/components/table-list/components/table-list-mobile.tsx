@@ -4,7 +4,7 @@ import { useStyles } from '../table-list.styles';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Info from '../../info/info';
-import { CertificateDto } from '../../../api';
+import { CertificateDto } from '@energyweb/zero-protocol-labs-api-client';
 import EthereumAddress from '../../ethereum-address/ethereum-address';
 
 dayjs.extend(utc);

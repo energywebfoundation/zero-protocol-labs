@@ -1,4 +1,4 @@
-import { PurchaseDto } from '../../api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 import TableListDesktop from './components/table-list-desktop';
 import TableListTablet from './components/table-list-tablet';
 import { Box } from '@material-ui/system';

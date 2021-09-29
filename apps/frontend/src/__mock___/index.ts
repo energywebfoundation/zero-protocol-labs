@@ -1,4 +1,4 @@
-import { PurchaseDto } from "../api";
+import { PurchaseDto } from "@energyweb/zero-protocol-labs-api-client";
 
 export const mockPurchase: PurchaseDto = {
   id: '123',

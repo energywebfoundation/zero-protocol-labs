@@ -49,7 +49,7 @@ async function main() {
     }
   })
 
-  const purchase = await prisma.purchase.create({
+  const purchase1 = await prisma.purchase.create({
     data: {
       id: "04a7155d-ced1-4981-8660-48670a0735dd",
       certificateId: certificate.id,
@@ -63,18 +63,33 @@ async function main() {
     }
   });
 
+  const purchase2 = await prisma.purchase.create({
+    data: {
+      id: "6efa43f7-91ff-4e43-aa55-a7b283db2045",
+      certificateId: certificate.id,
+      buyerId: buyer.id,
+      sellerId: seller.id,
+      recsSold: 5,
+      recsTransactions: [
+        {year: 2020, amount: 3},
+        {year: 2021, amount: 2},
+      ]
+    }
+  });
+
   await prisma.filecoinNodesOnPurchases.createMany({
     data: [
-      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f0112027'},
-      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f123242'},
-      {buyerId: buyer.id, purchaseId: purchase.id, filecoinNodeId: 'f5435435'}
+      {buyerId: buyer.id, purchaseId: purchase1.id, filecoinNodeId: 'f0112027'},
+      {buyerId: buyer.id, purchaseId: purchase2.id, filecoinNodeId: 'f0112027'},
+      {buyerId: buyer.id, purchaseId: purchase1.id, filecoinNodeId: 'f123242'},
+      {buyerId: buyer.id, purchaseId: purchase1.id, filecoinNodeId: 'f5435435'}
     ]
   })
 
   await prisma.file.update({
     where: {id: imageFile.id},
     data: {
-      purchaseId: purchase.id
+      purchaseId: purchase1.id
     }
   })
 }

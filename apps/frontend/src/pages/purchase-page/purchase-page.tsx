@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Purchase from './purchaseApi';
 import TableListPurchase from '../../components/table-list-purchase/table-list-purchase';
 import { useParams } from 'react-router';
-import { PurchaseDto, TransactionDto } from '../../api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 import PurchaseBuyerInformation from '../../components/purchase-buyer-information/purchase-buyer-information';
 
 export const useStyles = makeStyles({
@@ -17,7 +17,7 @@ export const useStyles = makeStyles({
 });
 
 export const PurchasePage = () => {
-  const [data, setData] = useState<TransactionDto>();
+  const [data, setData] = useState<any>();
   const [transactionsData, settransactionsData] = useState<PurchaseDto[]>([]);
   const [isFetched, setisisFetched] = useState(false);
   const { productId } = useParams();
@@ -52,13 +52,13 @@ export const PurchasePage = () => {
         <PageSection headingText={'Purchase History'}>
           <PurchaseBuyerInformation
             generationPeriod={{
-              fromDate: transactionsData?.[0]?.certificate.generationStart,
-              toDate: transactionsData?.[0]?.certificate.generationEnd,
+              fromDate: transactionsData[0]?.certificate.generationStart,
+              toDate: transactionsData[0]?.certificate.generationEnd,
             }}
-            buyerId={transactionsData?.[0]?.buyer.id}
-            buyerName={transactionsData?.[0]?.buyer.name}
-            filecoinMinerIdList={transactionsData?.[0]?.filecoinNodes}
-            recsAmount={transactionsData?.[0]?.recsTransactions}
+            buyerId={transactionsData[0]?.buyer.id}
+            buyerName={transactionsData[0]?.buyer.name}
+            filecoinMinerIdList={transactionsData[0]?.filecoinNodes}
+            recsAmount={transactionsData[0]?.recsTransactions}
           />
           <Grid container>
             <Grid item xs={12}>

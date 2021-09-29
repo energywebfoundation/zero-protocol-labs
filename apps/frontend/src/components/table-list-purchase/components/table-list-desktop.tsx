@@ -13,7 +13,7 @@ import utc from 'dayjs/plugin/utc';
 import EthereumAddress from '../../ethereum-address/ethereum-address';
 import { ButtonRight } from '../../button-right/button-right';
 import { Link } from 'react-router-dom';
-import { PurchaseDto } from 'apps/frontend/src/api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 
 dayjs.extend(utc);
 
@@ -89,7 +89,7 @@ export const TableListDesktop = ({
             </TableCell>
           </TableRow>)}
         </TableBody>
-      </Table> 
+      </Table>
     </Box>
   );
 };

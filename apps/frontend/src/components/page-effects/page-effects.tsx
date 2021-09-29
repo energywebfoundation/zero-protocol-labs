@@ -13,7 +13,7 @@ export const usePageEffects = (useControllerFind: any, Id?: string) => {
           setIsBaseUrlSet(true);
         })
         .catch((reason) => {
-          axios.defaults.baseURL = 'http://localhost:3333';
+          axios.defaults.baseURL = process.env.NX_API_HOST_URL;
           setIsBaseUrlSet(true);
         });
     }

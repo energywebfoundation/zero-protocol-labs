@@ -8,7 +8,7 @@ import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import { makeStyles } from '@material-ui/styles';
-import { usePurchasesControllerFindOne } from '../../api';
+import { usePurchasesControllerFindOne } from '@energyweb/zero-protocol-labs-api-client';
 import { useParams } from 'react-router-dom';
 
 export const useStyles = makeStyles({

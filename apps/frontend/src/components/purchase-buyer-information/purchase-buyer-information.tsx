@@ -4,7 +4,7 @@ import FieldLabel from '../field-label/field-label';
 import FieldValue from '../field-value/field-value';
 import FieldValueTransactionList from '../field-value-transaction-list/field-value-transaction-list';
 import FieldValueList from '../field-value-list/field-value-list';
-import { AnnualTransactionsDto, FilecoinNodeDto } from '../../api';
+import { AnnualTransactionsDto, FilecoinNodeDto } from '@energyweb/zero-protocol-labs-api-client';
 import { useState } from 'react';
 import { ButtonDetails } from '../button-details/button-details';
 import { useStyles } from './purchase-buyer-information-styles';

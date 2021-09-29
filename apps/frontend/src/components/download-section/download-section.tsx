@@ -1,7 +1,7 @@
 import PaperBox from '../paper-box/paper-box';
 import { Box, Typography } from '@material-ui/core';
 import FileDownloadLink from '../file-download-link/file-download-link';
-import { File } from '../../api';
+import { File } from '@energyweb/zero-protocol-labs-api-client';
 import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles((theme) => ({

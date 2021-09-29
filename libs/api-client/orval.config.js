@@ -1,12 +1,12 @@
 module.exports = {
-  zeroProtocolLabs: {
+  apiClient: {
     input: {
-      target: './swagger.json',
+      target: '../../apps/backend/swagger.json',
     },
     output: {
       client: 'react-query',
       mode: 'tags',
-      target: './src/api',
+      target: './src/client',
       override: {
         mutator: './src/response-type.ts',
       },

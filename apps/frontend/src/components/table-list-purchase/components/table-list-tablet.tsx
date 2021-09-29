@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import EthereumAddress from '../../ethereum-address/ethereum-address';
 import { Tabs } from '@material-ui/core';
-import { PurchaseDto } from 'apps/frontend/src/api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 
 dayjs.extend(utc);
 
