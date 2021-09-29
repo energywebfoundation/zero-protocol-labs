@@ -60,7 +60,7 @@ export const TableListDesktop = ({
           </TableRow>
         </TableHead>
         <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
-        {data.map((el: PurchaseDto) =><TableRow>
+        {data.map((el: PurchaseDto,index) =><TableRow key={index}>
             <TableCell className={styles.tbCell}>
               <EthereumAddress shortify address={el.id} />
             </TableCell>
