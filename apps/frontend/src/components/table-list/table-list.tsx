@@ -1,4 +1,4 @@
-import { CertificateDto } from '../../api';
+import { CertificateDto } from '@energyweb/zero-protocol-labs-api-client';
 import TableListDesktop from './components/table-list-desktop';
 import { TableListMobile } from './components/table-list-mobile';
 import TableListTablet from './components/table-list-tablet';

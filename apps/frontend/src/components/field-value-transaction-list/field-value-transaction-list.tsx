@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@material-ui/core';
-import { AnnualTransactionsDto } from '../../api';
+import { AnnualTransactionsDto } from '@energyweb/zero-protocol-labs-api-client';
 import Info from '../info/info';
 import dayjs from 'dayjs';
 import { makeStyles } from '@material-ui/styles';
@@ -69,8 +69,8 @@ export function FieldValueTransactionList({
             ''
           )}
           {transactionList &&
-            transactionList.map((value, index) => (
-              <Grid className={classes.margin} key={index} item sm={2}>
+            transactionList.map((value) => (
+              <Grid className={classes.margin} key={value.amount.toString() + value.year.toString()} item sm={2}>
                 <Box color={'#2D1155'} fontWeight={500}>
                   {shouldShowNote(generationPeriod.fromDate, value.year) ? (
                     <Info

@@ -6,7 +6,7 @@ import {
   BuyerDto,
   FilecoinNodeDto,
   SellerDto,
-} from '../../api';
+} from '@energyweb/zero-protocol-labs-api-client';
 import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles((theme) => ({

@@ -1,11 +1,14 @@
 import { Grid, Typography } from '@material-ui/core';
-import { usePageEffects } from '../page-effects/page-effects';
 import PageSection from '../../components/page-section/page-section';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import { makeStyles } from '@material-ui/styles';
-import PurchaseBuyerInformation from '../../components/purchase-buyer-information/purchase-buyer-information';
+import { useEffect, useState } from 'react';
+import Purchase from './purchaseApi';
 import TableListPurchase from '../../components/table-list-purchase/table-list-purchase';
+import { useParams } from 'react-router';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
+import PurchaseBuyerInformation from '../../components/purchase-buyer-information/purchase-buyer-information';
 
 export const useStyles = makeStyles({
   pdTop: {
@@ -14,8 +17,29 @@ export const useStyles = makeStyles({
 });
 
 export const PurchasePage = () => {
-  const { isFetching, isFetched, data } = usePageEffects();
-  return !isFetching && isFetched && data ? (
+  const [data, setData] = useState<any>();
+  const [transactionsData, settransactionsData] = useState<PurchaseDto[]>([]);
+  const [isFetched, setisisFetched] = useState(false);
+  const { productId } = useParams();
+
+  useEffect(() => {
+    const init = async () => {
+      setisisFetched(false);
+      const result = await Purchase.getTransactions(productId);
+      setData(result.data);
+      setisisFetched(true);
+
+      let transactions: PurchaseDto[] = [];
+
+      for (const item of result.data.transactions) {
+        const purchaseData = await Purchase.getPurchases(item.id);
+        transactions.push(purchaseData.data);
+      }
+      settransactionsData(transactions);
+    };
+    init();
+  }, [productId]);
+  return isFetched && data && transactionsData ? (
     <Grid container>
       <Grid item xs={12}>
         <Breadcrumbs
@@ -28,13 +52,13 @@ export const PurchasePage = () => {
         <PageSection headingText={'Purchase History'}>
           <PurchaseBuyerInformation
             generationPeriod={{
-              fromDate: data.certificate.generationStart,
-              toDate: data.certificate.generationEnd,
+              fromDate: transactionsData[0]?.certificate.generationStart,
+              toDate: transactionsData[0]?.certificate.generationEnd,
             }}
-            buyerId={data.buyer.id}
-            buyerName={data.buyer.name}
-            filecoinMinerIdList={data.filecoinNodes}
-            recsAmount={data.recsTransactions}
+            buyerId={transactionsData[0]?.buyer.id}
+            buyerName={transactionsData[0]?.buyer.name}
+            filecoinMinerIdList={transactionsData[0]?.filecoinNodes}
+            recsAmount={transactionsData[0]?.recsTransactions}
           />
           <Grid container>
             <Grid item xs={12}>
@@ -47,12 +71,7 @@ export const PurchasePage = () => {
               >
                 Purchase information
               </Typography>
-              <TableListPurchase
-                sellerName={data.seller.name}
-                data={data.certificate}
-                recsSold={data.recsSold}
-                purchaseId={data.id}
-              />
+              <TableListPurchase data={transactionsData} />
             </Grid>
           </Grid>
         </PageSection>

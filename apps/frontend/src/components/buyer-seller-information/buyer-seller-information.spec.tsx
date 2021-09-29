@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import BuyerSellerInformation from './buyer-seller-information';
-import { BuyerDto, SellerDto } from '../../api';
+import { BuyerDto, SellerDto } from '@energyweb/zero-protocol-labs-api-client';
 
 describe('BuyerSellerInformation', () => {
   it('should render successfully', () => {

@@ -3,36 +3,34 @@ import FuelType, { FuelTypeEnum } from '../../fuel-type/fuel-type';
 import { useStyles } from '../table-list-purchase.styles';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { CertificateDto } from '../../../api';
 import EthereumAddress from '../../ethereum-address/ethereum-address';
+import { Tabs } from '@material-ui/core';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 
 dayjs.extend(utc);
 
-/* eslint-disable-next-line */
 export interface TableListTablet {
-  data: CertificateDto;
-  recsSold: number;
-  purchaseId: string;
-  sellerName: string;
+  data: PurchaseDto[]
 }
 
 export const TableListTablet = ({
-  data,
-  purchaseId,
-  recsSold,
-  sellerName,
+  data=[]
 }: TableListTablet) => {
   const styles = useStyles();
   return (
     <Box
       boxShadow={'none'}
-      borderRadius={'5px'}
-      bgcolor={'#F6F3F9'}
       mb={2}
-      p={2}
       pt={0}
       maxWidth={'100%'}
     >
+      <Tabs
+            variant="scrollable"
+            scrollButtons={false}
+            aria-label="scrollable prevent tabs example"
+          >
+      {data.map((el) =>
+      <Box key={el.id} p={2} borderRadius={'5px'} bgcolor={'#F6F3F9'} display={'flex'} mr={'16px'}>
       <Table>
         <TableRow>
           <TableCell className={styles.thCell} align="left">
@@ -41,7 +39,7 @@ export const TableListTablet = ({
         </TableRow>
         <TableRow>
           <TableCell className={styles.tbCell}>
-            <EthereumAddress shortify address={purchaseId} />
+            <EthereumAddress shortify address={el.id} />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -50,7 +48,7 @@ export const TableListTablet = ({
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell className={styles.tbCell}>{sellerName ?? '-'}</TableCell>
+          <TableCell className={styles.tbCell}>{el.seller.name ?? '-'}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className={styles.thCell} align="left">
@@ -59,7 +57,7 @@ export const TableListTablet = ({
         </TableRow>
         <TableRow>
           <TableCell className={styles.tbCell}>
-            {data.generatorId ?? '-'}
+            {el.certificate.generatorId ?? '-'}
           </TableCell>
         </TableRow>
         <TableRow>
@@ -68,7 +66,7 @@ export const TableListTablet = ({
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell className={styles.tbCell}>{data.country}</TableCell>
+          <TableCell className={styles.tbCell}>{el.certificate.country}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className={styles.thCell} align="left">
@@ -77,7 +75,7 @@ export const TableListTablet = ({
         </TableRow>
         <TableRow>
           <TableCell className={styles.tbCell}>
-            <FuelType fuelType={data.energySource as FuelTypeEnum} />
+            <FuelType fuelType={el.certificate.energySource as FuelTypeEnum} />
           </TableCell>
         </TableRow>
         <TableRow>
@@ -86,7 +84,7 @@ export const TableListTablet = ({
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell className={styles.tbCell}>{recsSold}</TableCell>
+          <TableCell className={styles.tbCell}>{el.recsSold}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className={styles.thCell} align="left">
@@ -95,16 +93,18 @@ export const TableListTablet = ({
         </TableRow>
         <TableRow>
           <TableCell className={styles.tbCell}>
-            {dayjs(data.generationStart).isValid()
-              ? dayjs(data.generationStart).utc().format('YYYY-MM-DD')
+            {dayjs(el.certificate.generationStart).isValid()
+              ? dayjs(el.certificate.generationStart).utc().format('YYYY-MM-DD')
               : '-'}{' '}
             /{' '}
-            {dayjs(data.generationEnd).isValid()
-              ? dayjs(data.generationEnd).utc().format('YYYY-MM-DD')
+            {dayjs(el.certificate.generationEnd).isValid()
+              ? dayjs(el.certificate.generationEnd).utc().format('YYYY-MM-DD')
               : '-'}
           </TableCell>
         </TableRow>
       </Table>
+      </Box>)}
+      </Tabs>
     </Box>
   );
 };

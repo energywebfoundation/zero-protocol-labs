@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import TableList from './table-list';
 import { FuelTypeEnum } from '../fuel-type/fuel-type';
-import { PurchaseDto } from '../../api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 
 describe('TableList', () => {
   const mockData: PurchaseDto = {
@@ -254,7 +254,7 @@ describe('TableList', () => {
               >
                 Solar
               </div>
-               
+
               <svg
                 height="22px"
               >
@@ -271,9 +271,9 @@ describe('TableList', () => {
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium makeStyles-tbCell-5 css-1ex1afd-MuiTableCell-root"
           >
             2020-11-01
-             
+
             /
-             
+
             2021-06-01
           </td>
         </tr>

@@ -1,47 +1,28 @@
-import { CertificateDto } from '../../api';
+import { PurchaseDto } from '@energyweb/zero-protocol-labs-api-client';
 import TableListDesktop from './components/table-list-desktop';
 import TableListTablet from './components/table-list-tablet';
-import { Tabs } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 
 export interface TableListPurchase {
-  data: CertificateDto;
-  recsSold: number;
-  purchaseId: string;
-  sellerName: string;
+  data: PurchaseDto[];
 }
 
 export const TableListPurchase = ({
-  data,
-  purchaseId,
-  recsSold,
-  sellerName,
+  data=[],
 }: TableListPurchase) => {
   return (
     <>
-      {window.innerWidth < 1024 ? (
-        <Tabs
-          variant="scrollable"
-          scrollButtons={false}
-          aria-label="scrollable prevent tabs example"
-        >
-          <Box sx={{ marginRight: '16px' }}>
-            <TableListTablet
-              sellerName={sellerName}
-              data={data}
-              purchaseId={purchaseId}
-              recsSold={recsSold}
-            />
-          </Box>
-        </Tabs>
-      ) : (
-        <TableListDesktop
-          sellerName={sellerName}
-          data={data}
-          purchaseId={purchaseId}
-          recsSold={recsSold}
-        />
-      )}
+        {window.innerWidth < 1024 ? (
+            <Box sx={{ marginRight: '16px' }}>
+              <TableListTablet
+                data={data}
+              />
+            </Box>
+        ) : (
+          <TableListDesktop
+            data={data}
+          />
+        )}
     </>
   );
 };
