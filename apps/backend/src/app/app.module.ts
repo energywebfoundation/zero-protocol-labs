@@ -32,6 +32,8 @@ import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
         CORS_ORIGIN: Joi.string().default('*'),
         CORS_MAX_AGE: Joi.number().default(900),
         UPLOADED_FILE_SIZE_LIMIT: Joi.number().default(200000),
+        UI_BASE_URL: Joi.string().uri().default('http://localhost:3000'),
+        API_BASE_URL: Joi.string().uri().default('http://localhost:3333'),
         FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files')
       })
     }),
