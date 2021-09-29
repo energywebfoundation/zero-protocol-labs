@@ -20,9 +20,10 @@ export function FieldValueList({ valueList = [] }: FieldValueListProps) {
     <StyledFieldValueList>
       {valueList.map((value, index) => (
         <Link
+          key={value}
           to={`/partners/filecoin/nodes/${value}/transactions`}
         >
-          <Box component={'span'} key={index}>
+          <Box component={'span'}>
             {value}
             {index < valueList.length - 1 && ', '}
           </Box>

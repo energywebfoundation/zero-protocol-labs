@@ -43,7 +43,7 @@ export const DownloadSection = ({ fileList = [] }: DownloadSectionProps) => {
         </Typography>
         {fileList.map((file, index) => (
           <FileDownloadLink
-            key={index}
+            key={file.fileName + file.url}
             downloadUrl={file.url}
             filename={file.fileName}
           />

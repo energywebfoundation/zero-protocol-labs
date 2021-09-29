@@ -18,7 +18,7 @@ export const FieldValueMultiline = ({
   <StyledFieldValueMultiline>
     {textValues.length ? (
       textValues.map((value, index) => (
-        <div key={index}>
+        <div key={value}>
           {value}
           {index === 0 && ','}
         </div>

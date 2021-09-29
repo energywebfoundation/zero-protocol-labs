@@ -29,7 +29,8 @@ export const TableListTablet = ({
             scrollButtons={false}
             aria-label="scrollable prevent tabs example"
           >
-      {data.map((el: any) =><Box p={2} borderRadius={'5px'} bgcolor={'#F6F3F9'} display={'flex'} mr={'16px'}>
+      {data.map((el) =>
+      <Box key={el.id} p={2} borderRadius={'5px'} bgcolor={'#F6F3F9'} display={'flex'} mr={'16px'}>
       <Table>
         <TableRow>
           <TableCell className={styles.thCell} align="left">

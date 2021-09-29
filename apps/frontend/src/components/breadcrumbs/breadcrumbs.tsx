@@ -31,7 +31,7 @@ export const Breadcrumbs = ({ breadcrumbList }: BreadcrumbsProps) => {
         {breadcrumbList.map((value, index) => (
           <Item
             active={index === breadcrumbList.length - 1}
-            key={index}
+            key={value}
             text={value.replace('[productId]', params.productId)}
           />
         ))}
