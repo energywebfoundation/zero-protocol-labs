@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const ApiPageEffects = axios.create({
-  baseURL : `${process.env.NX_API_HOST_URL}/api/`
+  baseURL : '/api/'
 })
 
 const Purchase = {
