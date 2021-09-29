@@ -84,6 +84,20 @@ export interface PurchaseDto {
   filecoinNodes: FilecoinNodeDto[];
   files: File[];
 }
+export interface TransactionsPurchaseDto {
+  id: string;
+  sellerId?: string;
+  pageUrl?: string;
+  dataUrl?: string;
+  recsSold: number;
+  recsTransactions: AnnualTransactionsDto[];
+}
+export interface TransactionDto {
+  id: string;
+  buyerId?: string;
+  recsTotal: number;
+  transactions: TransactionsPurchaseDto[];
+}
 
 export type UpdatePurchaseDtoRecsTransactions = {};
 

@@ -19,11 +19,11 @@ export const App = () => (
       <Container maxWidth={'xl'}>
         <Routes>
           <Route
-            path={'/partners/filecoin/product/:productId'}
+            path={'/partners/filecoin/purchases/:productId'}
             element={<ProductPage />}
           />
           <Route
-            path={'/partners/filecoin/purchases/:productId'}
+            path={'/partners/filecoin/nodes/:productId/transactions'}
             element={<PurchasePage />}
           />
           <Route path={'/404'} element={<NotFoundPage />} />

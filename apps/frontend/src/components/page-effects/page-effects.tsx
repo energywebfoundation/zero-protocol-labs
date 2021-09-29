@@ -1,9 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { usePurchasesControllerFindOne } from '../../api';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-export const usePageEffects = () => {
+export const usePageEffects = (useControllerFind: any, Id?: string) => {
   const [isBaseUrlSet, setIsBaseUrlSet] = useState(false);
   useEffect(() => {
     if (!axios.defaults.baseURL) {
@@ -19,9 +18,9 @@ export const usePageEffects = () => {
         });
     }
   });
-  const { productId } = useParams();
+
   const { isError, error, isFetching, isFetched, isIdle, data } =
-    usePurchasesControllerFindOne(productId, {
+    useControllerFind(Id, {
       query: { enabled: isBaseUrlSet },
     });
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Box } from '@material-ui/core';
 import StorageIcon from '@material-ui/icons/Storage';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface FieldValueListProps {
@@ -18,10 +19,14 @@ export function FieldValueList({ valueList = [] }: FieldValueListProps) {
   return (
     <StyledFieldValueList>
       {valueList.map((value, index) => (
-        <Box component={'span'} key={index}>
-          {value}
-          {index < valueList.length - 1 && ', '}
-        </Box>
+        <Link
+          to={`/partners/filecoin/nodes/${value}/transactions`}
+        >
+          <Box component={'span'} key={index}>
+            {value}
+            {index < valueList.length - 1 && ', '}
+          </Box>
+        </Link>
       ))}
     </StyledFieldValueList>
   );
