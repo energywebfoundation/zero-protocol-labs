@@ -17,8 +17,6 @@ export const useStyles = makeStyles({
   },
 });
 
-export interface ProductPageProps {}
-
 export const ProductPage = () => {
   const { productId } = useParams();
   const { isFetching, isFetched, data } = usePageEffects(

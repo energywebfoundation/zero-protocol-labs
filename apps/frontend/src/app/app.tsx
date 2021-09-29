@@ -5,7 +5,6 @@ import ProductPage from '../pages/product-page/product-page';
 import { Container } from '@material-ui/core';
 import Header from '../components/header/header';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
-import React from 'react';
 import PurchasePage from '../pages/purchase-page/purchase-page';
 
 const StyledApp = styled.div`

@@ -16,8 +16,10 @@ export const usePageEffects = (useControllerFind: any, Id?: string) => {
           axios.defaults.baseURL = process.env.NX_API_HOST_URL;
           setIsBaseUrlSet(true);
         });
+    } else {
+      setIsBaseUrlSet(true);
     }
-  });
+  }, []);
 
   const { isError, error, isFetching, isFetched, isIdle, data } =
     useControllerFind(Id, {
