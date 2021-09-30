@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
-
-import { Navigate, Route, Routes } from 'react-router-dom';
-import ProductPage from '../pages/product-page/product-page';
 import { Container } from '@material-ui/core';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from '../components/header/header';
+import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
+import { useAxiosDefaults } from '../hooks';
 
 const StyledApp = styled.div`
   background-color: #f6f3f9;
 `;
 
-export const App = () => (
+export const App = () => {
+  useAxiosDefaults();
+  return (
   <StyledApp>
     <Header />
     <main>
@@ -31,6 +33,7 @@ export const App = () => (
       </Container>
     </main>
   </StyledApp>
-);
+)
+};
 
 export default App;

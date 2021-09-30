@@ -150,7 +150,6 @@
             "commands": [
               "nx build frontend --prod",
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
-              "cp -R ./apps/frontend/bin ./dist/apps/frontend/bin",
               "cp -R ./apps/frontend/nginx ./dist/apps/frontend/nginx",
               "docker build ./dist/apps/frontend/ -t zero-pl-frontend",
               "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/bin ./dist/apps/frontend/nginx"

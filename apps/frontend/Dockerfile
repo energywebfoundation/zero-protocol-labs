@@ -7,6 +7,7 @@ WORKDIR /usr/share/nginx/html
 COPY . /usr/share/nginx/html/
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-RUN chmod +x /usr/share/nginx/html/bin/env.sh
+COPY ../../prod-start.sh .
+RUN chmod +x ./prod-start.sh
 
-CMD ["/bin/bash", "-c", "./bin/env.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/bash", "./prod-start.sh"]

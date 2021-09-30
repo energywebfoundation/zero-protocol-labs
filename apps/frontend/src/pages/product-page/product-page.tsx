@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core';
-import { usePageEffects } from '../../components/page-effects/page-effects';
+import { makeStyles } from '@material-ui/styles';
 import BuyerSellerInformation from '../../components/buyer-seller-information/buyer-seller-information';
 import PageSection from '../../components/page-section/page-section';
 import DownloadSection from '../../components/download-section/download-section';
@@ -7,9 +7,7 @@ import TableList from '../../components/table-list/table-list';
 import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import { makeStyles } from '@material-ui/styles';
-import { usePurchasesControllerFindOne } from '@energyweb/zero-protocol-labs-api-client';
-import { useParams } from 'react-router-dom';
+import { useProductPageEffects } from './product-page.effects';
 
 export const useStyles = makeStyles({
   pdTop: {
@@ -18,14 +16,10 @@ export const useStyles = makeStyles({
 });
 
 export const ProductPage = () => {
-  const { productId } = useParams();
-  const { isFetching, isFetched, data } = usePageEffects(
-    usePurchasesControllerFindOne,
-    productId
-  );
+  const { data, isLoading, isFetched } = useProductPageEffects();
   const classes = useStyles();
 
-  return !isFetching && isFetched && data ? (
+  return !isLoading && isFetched && data ? (
     <Grid container>
       <Grid item xs={12}>
         <Breadcrumbs
