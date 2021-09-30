@@ -66,7 +66,6 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build backend --prod",
               "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
               "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
               "docker build ./dist/apps/backend/ -t zero-pl-backend",
@@ -148,12 +147,11 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build frontend --prod",
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
-              "cp -R ./apps/frontend/bin ./dist/apps/frontend/bin",
               "cp -R ./apps/frontend/nginx ./dist/apps/frontend/nginx",
+              "cp ./prod-init.sh ./dist/apps/frontend",
               "docker build ./dist/apps/frontend/ -t zero-pl-frontend",
-              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/bin ./dist/apps/frontend/nginx"
+              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/prod-init.sh ./dist/apps/frontend/nginx"
             ]
           }
         },
