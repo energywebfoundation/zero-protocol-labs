@@ -18,7 +18,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script>
       window.config = {
-        API_HOST_URL: '$API_HOST_URL'
+        API_BASE_URL: '$API_BASE_URL'
       };
     </script>
   </head>
