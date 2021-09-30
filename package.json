@@ -6,7 +6,7 @@
     "nx": "nx",
     "start": "chmod +x ./dev-env.sh && ./dev-env.sh && concurrently --names 'FRONTEND,BACKEND' -c 'yellow,cyan'  'nx serve frontend --port=3000' 'nx serve backend'",
     "build": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html  && nx run-many --target=build --projects=backend,frontend --parallel",
-    "build:docker": "yarn swagger:schema:generate && yarn build:api-client && nx run-many --target=docker-image-build --projects=backend,frontend",
+    "build:docker": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html && nx run-many --target=docker-image-build --projects=backend,frontend",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
