@@ -9,4 +9,4 @@ cp ./index.html ./index.html.template
 # Copy is necessary, because otherwise we get empty file after envsubst
 envsubst < ./index.html.template > ./index.html
 
-nginx -g "daemon off;"
+
