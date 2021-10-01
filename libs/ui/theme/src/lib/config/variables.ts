@@ -38,6 +38,7 @@ export type UiThemeVariables = {
   fontFamilySecondary: string;
   hoverTextColor: string;
   fontSize: number;
+  white: string
 };
 
 export const variables: UiThemeVariables = {
@@ -56,5 +57,6 @@ export const variables: UiThemeVariables = {
   fontSize: $fontSize,
   inputBackgroundColor: $inputBackgroundColor,
   inputTextColor: $inputTextColor,
-  hoverTextColor: $white
+  hoverTextColor: $white,
+  white: $white
 };
