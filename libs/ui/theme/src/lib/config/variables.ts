@@ -1,7 +1,7 @@
 const $purpleExtraDark = '#2D1155';
 const $purpleDark = '#421D77';
 const $purple = '#362c45';
-const $purpleLight = '#CDABFF';
+const $purpleLight = '#703CBB';
 const $purpleExtraLight = '#F6EFFF';
 
 const $green = '#00D08A';
@@ -13,8 +13,11 @@ const $inputTextColor = '#2D1155';
 
 const $bodyBackgroundColor = '#ffffff';
 const $mainBackgroundColor = '#ffffff';
+const $filcoinBackgroundColor = '#F9F9F9';
 const $fieldIconColor = '#ffffff';
 const $white = '#ffffff';
+const $black = '#000000';
+const $filcoinColor = '#0090FF';
 
 const $fontFamilyPrimary = 'Rajdhani';
 const $fontFamilySecondary = 'Rajdhani';
@@ -38,7 +41,11 @@ export type UiThemeVariables = {
   fontFamilySecondary: string;
   hoverTextColor: string;
   fontSize: number;
-  white: string
+  white: string;
+  black: string;
+  filcoinColor:string;
+  purpleLight: string;
+  filcoinBackgroundColor: string
 };
 
 export const variables: UiThemeVariables = {
@@ -58,5 +65,9 @@ export const variables: UiThemeVariables = {
   inputBackgroundColor: $inputBackgroundColor,
   inputTextColor: $inputTextColor,
   hoverTextColor: $white,
-  white: $white
+  white: $white,
+  filcoinColor: $filcoinColor,
+  black: $black,
+  purpleLight:  $purpleLight,
+  filcoinBackgroundColor :$filcoinBackgroundColor
 };

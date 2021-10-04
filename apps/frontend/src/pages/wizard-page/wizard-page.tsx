@@ -1,14 +1,32 @@
 import { Grid, Typography } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 import { variables } from 'libs/ui/theme/src';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import GenericSelect from '../../components/generic-select/generic-select';
+import { RootState } from '../../store/store';
+import BitcoinGlobusImg from '../../assets/svg/globus.svg';
+import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
+
 import { useStyles } from './wizard-page-styles';
 
 export const WizardPage = () => {
   const styles = useStyles();
+  const isFilecoint = useSelector((state: RootState) => state.app.isFilecoin);
+
   return (
-    <Grid container className={styles.gridStyle}>
+    <Grid
+      bgcolor={
+        isFilecoint ? variables.filcoinBackgroundColor : variables.primaryColor
+      }
+      container
+      className={styles.gridStyle}
+      style={{
+        backgroundImage: `url(${
+          isFilecoint ? FilecoinGlobusImg : BitcoinGlobusImg
+        })`,
+      }}
+    >
       <Grid item xs={6} m={'0 auto'}>
         <Box
           mt={'70px'}
@@ -17,7 +35,9 @@ export const WizardPage = () => {
           alignItems={'center'}
         >
           <Typography
-            color={variables.secondaryColor}
+            color={
+              isFilecoint ? variables.filcoinColor : variables.secondaryColor
+            }
             fontSize={'32px'}
             fontWeight={700}
             textAlign={'center'}
@@ -25,7 +45,7 @@ export const WizardPage = () => {
             Great! Let’s make your crypto green!
           </Typography>
           <Typography
-            color={variables.white}
+            color={isFilecoint ? variables.black : variables.white}
             fontSize={'20px'}
             fontWeight={500}
             textAlign={'center'}
@@ -37,7 +57,7 @@ export const WizardPage = () => {
           </Typography>
         </Box>
         <Box>
-          <GenericSelect />
+          <GenericSelect bgColor={variables.white} />
         </Box>
         <Box
           mt={'70px'}
@@ -46,7 +66,9 @@ export const WizardPage = () => {
           alignItems={'center'}
         >
           <Typography
-            color={variables.secondaryColor}
+            color={
+              isFilecoint ? variables.filcoinColor : variables.secondaryColor
+            }
             fontSize={'24px'}
             fontWeight={700}
             textAlign={'center'}
@@ -56,7 +78,7 @@ export const WizardPage = () => {
             green?
           </Typography>
           <Typography
-            color={variables.white}
+            color={isFilecoint ? variables.black : variables.white}
             fontSize={'16px'}
             fontWeight={500}
             textAlign={'center'}
@@ -69,7 +91,14 @@ export const WizardPage = () => {
             different regions: their general name is EAC or Energy Attribute
             Certificate, in Europe they are called GOs or Guarantees of Origin,
             and in the USA they are{' '}
-            <Link className={styles.linkStyles} to={'*'}>
+            <Link
+              style={{
+                color: isFilecoint
+                  ? variables.purpleLight
+                  : variables.secondaryColor,
+              }}
+              to={'*'}
+            >
               read more
             </Link>
           </Typography>

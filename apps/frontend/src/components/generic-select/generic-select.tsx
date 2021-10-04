@@ -10,66 +10,38 @@ import * as React from 'react';
 import BitcoinIcon from '../../assets/svg/bitcoinIcon.svg';
 import FilecoininIcon from '../../assets/svg/filecoinIcon.svg';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { makeStyles } from '@material-ui/styles';
 import { variables } from 'libs/ui/theme/src';
+import useStyles from './generic-select-styles';
+import { useDispatch } from 'react-redux';
+import { changeProtocolStatus } from '../../store/app.slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
-const useStyles = makeStyles({
-  menuItemStyles: {
-    fontSize: '16px',
-    fontWeight: 600,
-    backgroundColor: variables.white,
-    paddingLeft: '20px',
-    '&:hover': {
-      backgroundColor: variables.primaryColor,
-      color: variables.white,
-    },
-  },
-  iconStyles: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: '8px',
-    width: '31px',
-    height: '31px',
-    borderRadius: '50%',
-    backgroundColor: variables.white,
-  },
-  placeholderStyles: {
-    fontSize: '18px',
-    fontWeight: 600,
-    padding: '0',
-    marginLeft: '10px',
-    borderRadius: '50px',
-  },
-  selectStyles: {
-    '& svg': {
-      marginRight: '24px',
-    },
-  },
-  selectValueStyle: {
-    fontWeight: 700,
-    fontSize: '18px',
-  },
-  test: {
-    '&:focus-visible': {
-      outline: 'none',
-    },
-  },
-});
+export interface GenericSelectProps {
+  bgColor: string;
+}
 
-const names = [
+interface namesType {
+  value: string;
+  img: string;
+}
+
+const names: namesType[] = [
   { value: 'Filecoin', img: FilecoininIcon },
   { value: 'Bitcoin', img: BitcoinIcon },
 ];
 
-export default function GenericSelect() {
+export default function GenericSelect({ bgColor }: GenericSelectProps) {
+  const dispatch = useDispatch();
   const [personName, setPersonName] = React.useState<string[]>([]);
   const styles = useStyles();
+  const isFilecoint = useSelector((state: RootState) => state.app.isFilecoin);
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value },
     } = event;
+    dispatch(changeProtocolStatus(event.target.value === 'Filecoin'));
     setPersonName(typeof value === 'string' ? value.split(',') : value);
   };
 
@@ -78,7 +50,7 @@ export default function GenericSelect() {
       <FormControl sx={{ width: '496px' }}>
         <Typography
           fontSize={variables.fontSize}
-          color={variables.white}
+          color={isFilecoint ? variables.black : variables.white}
           ml={'15px'}
           mb={'8px'}
           fontWeight={600}
@@ -86,13 +58,24 @@ export default function GenericSelect() {
           Protocol
         </Typography>
         <Select
-          input={<OutlinedInput className={styles.test} />}
+          input={
+            <OutlinedInput
+              sx={{
+                '& > div:first-of-type': {
+                  backgroundColor: bgColor,
+                  border: 'none',
+                },
+              }}
+              className={styles.outlineStyles}
+            />
+          }
           className={styles.selectStyles}
           IconComponent={KeyboardArrowDownIcon}
           displayEmpty
           value={personName}
           onChange={handleChange}
-          renderValue={(selected: any) => {
+          MenuProps={{ disablePortal: true }}
+          renderValue={(selected: string[]) => {
             if (selected.length === 0) {
               return (
                 <span className={styles.placeholderStyles}>
@@ -108,15 +91,23 @@ export default function GenericSelect() {
             );
           }}
         >
-          {names.map((el) => (
-            <MenuItem className={styles.menuItemStyles} value={el.value}>
+          {names.map((el: namesType, index) => (
+            <MenuItem
+              className={styles.menuItemStyles}
+              value={el.value}
+              key={index}
+            >
               <span className={styles.iconStyles}>
                 <img src={el.img} />
               </span>
               {el.value}
             </MenuItem>
           ))}
-          <MenuItem className={styles.menuItemStyles}>Add Another</MenuItem>
+          <MenuItem
+            className={`${styles.menuItemStyles} ${styles.addAnotherStyles}`}
+          >
+            Add Another
+          </MenuItem>
         </Select>
       </FormControl>
     </div>
