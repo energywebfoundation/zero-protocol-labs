@@ -18,6 +18,7 @@ const $fieldIconColor = '#ffffff';
 const $white = '#ffffff';
 const $black = '#000000';
 const $filcoinColor = '#0090FF';
+const $filcoinColorLight ='#E5F4FF'
 
 const $fontFamilyPrimary = 'Rajdhani';
 const $fontFamilySecondary = 'Rajdhani';
@@ -46,6 +47,7 @@ export type UiThemeVariables = {
   filcoinColor:string;
   purpleLight: string;
   filcoinBackgroundColor: string
+  filcoinColorLight: string;
 };
 
 export const variables: UiThemeVariables = {
@@ -69,5 +71,6 @@ export const variables: UiThemeVariables = {
   filcoinColor: $filcoinColor,
   black: $black,
   purpleLight:  $purpleLight,
-  filcoinBackgroundColor :$filcoinBackgroundColor
+  filcoinBackgroundColor :$filcoinBackgroundColor,
+  filcoinColorLight: $filcoinColorLight
 };

@@ -7,8 +7,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import * as React from 'react';
-import BitcoinIcon from '../../assets/svg/bitcoinIcon.svg';
-import FilecoininIcon from '../../assets/svg/filecoinIcon.svg';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { variables } from 'libs/ui/theme/src';
 import useStyles from './generic-select-styles';
@@ -17,8 +15,13 @@ import { changeProtocolStatus } from '../../store/app.slice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
+import BitcoinIcon from '../../assets/svg/bitcoinIcon.svg';
+import FilecoininIcon from '../../assets/svg/filecoinIcon.svg';
+import FormUserType from '../../pages/wizard-page/components/form-user-type/form-user-type';
 export interface GenericSelectProps {
-  bgColor: string;
+  bgColor?: string;
+  placeholder?: string;
+  name?: string;
 }
 
 interface namesType {
@@ -31,13 +34,18 @@ const names: namesType[] = [
   { value: 'Bitcoin', img: BitcoinIcon },
 ];
 
-export default function GenericSelect({ bgColor }: GenericSelectProps) {
+const GenericSelect: React.FC<GenericSelectProps> = ({
+  placeholder,
+  name,
+  bgColor,
+  children,
+}) => {
   const dispatch = useDispatch();
-  const [personName, setPersonName] = React.useState<string[]>([]);
-  const styles = useStyles();
-  const isFilecoint = useSelector((state: RootState) => state.app.isFilecoin);
+  const [personeName, setPersonName] = React.useState<string[]>([]);
+  const isFilecoin = useSelector((state: RootState) => state.app.isFilecoin);
+  const styles = useStyles(isFilecoin);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: SelectChangeEvent<typeof personeName>) => {
     const {
       target: { value },
     } = event;
@@ -50,12 +58,12 @@ export default function GenericSelect({ bgColor }: GenericSelectProps) {
       <FormControl sx={{ width: '496px' }}>
         <Typography
           fontSize={variables.fontSize}
-          color={isFilecoint ? variables.black : variables.white}
+          color={isFilecoin ? variables.black : variables.white}
           ml={'15px'}
           mb={'8px'}
           fontWeight={600}
         >
-          Protocol
+          {name}
         </Typography>
         <Select
           input={
@@ -72,20 +80,24 @@ export default function GenericSelect({ bgColor }: GenericSelectProps) {
           className={styles.selectStyles}
           IconComponent={KeyboardArrowDownIcon}
           displayEmpty
-          value={personName}
+          value={personeName}
           onChange={handleChange}
           MenuProps={{ disablePortal: true }}
           renderValue={(selected: string[]) => {
             if (selected.length === 0) {
               return (
-                <span className={styles.placeholderStyles}>
-                  Choose the Protocol
-                </span>
+                <span className={styles.placeholderStyles}>{placeholder}</span>
               );
             }
 
             return (
-              <span className={styles.selectValueStyle}>
+              <span
+                className={`${
+                  isFilecoin
+                    ? styles.selectFilcoinValueStyle
+                    : styles.selectValueStyle
+                }`}
+              >
                 {selected.join(', ')}
               </span>
             );
@@ -93,7 +105,11 @@ export default function GenericSelect({ bgColor }: GenericSelectProps) {
         >
           {names.map((el: namesType, index) => (
             <MenuItem
-              className={styles.menuItemStyles}
+              className={
+                isFilecoin
+                  ? styles.menuItemStylesFilecoin
+                  : styles.menuItemStyles
+              }
               value={el.value}
               key={index}
             >
@@ -104,7 +120,9 @@ export default function GenericSelect({ bgColor }: GenericSelectProps) {
             </MenuItem>
           ))}
           <MenuItem
-            className={`${styles.menuItemStyles} ${styles.addAnotherStyles}`}
+            className={`${
+              isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles
+            } ${styles.addAnotherStyles}`}
           >
             Add Another
           </MenuItem>
@@ -112,4 +130,6 @@ export default function GenericSelect({ bgColor }: GenericSelectProps) {
       </FormControl>
     </div>
   );
-}
+};
+
+export default GenericSelect;

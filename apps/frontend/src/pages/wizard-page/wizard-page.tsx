@@ -2,13 +2,12 @@ import { Grid, Typography } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 import { variables } from 'libs/ui/theme/src';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import GenericSelect from '../../components/generic-select/generic-select';
 import { RootState } from '../../store/store';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
-
 import { useStyles } from './wizard-page-styles';
+import CardReadMore from '../../components/card-reade-more/cardReadMore';
 
 export const WizardPage = () => {
   const styles = useStyles();
@@ -25,6 +24,7 @@ export const WizardPage = () => {
         backgroundImage: `url(${
           isFilecoint ? FilecoinGlobusImg : BitcoinGlobusImg
         })`,
+        position: 'relative',
       }}
     >
       <Grid item xs={6} m={'0 auto'}>
@@ -57,7 +57,11 @@ export const WizardPage = () => {
           </Typography>
         </Box>
         <Box>
-          <GenericSelect bgColor={variables.white} />
+          <GenericSelect
+            name={'Protocol'}
+            placeholder={'Choose the Protocol'}
+            bgColor={variables.white}
+          />
         </Box>
         <Box
           mt={'70px'}
@@ -91,17 +95,17 @@ export const WizardPage = () => {
             different regions: their general name is EAC or Energy Attribute
             Certificate, in Europe they are called GOs or Guarantees of Origin,
             and in the USA they are{' '}
-            <Link
+            <span
               style={{
                 color: isFilecoint
                   ? variables.purpleLight
                   : variables.secondaryColor,
               }}
-              to={'*'}
             >
               read more
-            </Link>
+            </span>
           </Typography>
+          <CardReadMore />
         </Box>
       </Grid>
     </Grid>
