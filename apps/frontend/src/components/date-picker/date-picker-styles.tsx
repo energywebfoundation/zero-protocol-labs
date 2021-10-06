@@ -6,11 +6,6 @@ export const useStyles = makeStyles(() => {
     input: {
       backgroundColor: variables.filcoinColorLight,
       color: variables.filcoinColor,
-      fontSize: '18px',
-      fontWeight: 700,
-      '& input': {
-        padding: '12px 13px',
-      },
     },
   };
 });

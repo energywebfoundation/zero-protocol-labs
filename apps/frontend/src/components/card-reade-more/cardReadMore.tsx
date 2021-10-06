@@ -56,9 +56,10 @@ export default function CardReadMore() {
             display: 'felx',
           }}
         >
-          {CardData.map((el) => {
+          {CardData.map((el, index) => {
             return (
               <ListItem
+                key={index}
                 sx={{ padding: '0', display: 'flex', alignItems: 'flex-start' }}
               >
                 <ListItemIcon sx={{ minWidth: '20px' }}>•</ListItemIcon>
