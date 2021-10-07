@@ -35,6 +35,15 @@ services:
     networks:
       zero-pl:
 
+  issuer-api:
+    image: zero-pl-issuer-api
+    depends_on:
+      - db
+    environment:
+      LOG_LEVELS: "log,error,warn,debug,verbose"
+    networks:
+      zero-pl:
+
   db:
     image: postgres:13-alpine
     restart: unless-stopped
