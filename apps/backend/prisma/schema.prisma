@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
 }
 
@@ -48,7 +48,7 @@ model Certificate {
 }
 
 model FilecoinNode {
-  id        String @id
+  id        String                     @id
   Buyer     Buyer?                     @relation(fields: [buyerId], references: [id])
   buyerId   String
   purchases FilecoinNodesOnPurchases[]
