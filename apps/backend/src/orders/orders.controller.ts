@@ -1,13 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { OrderDto } from "./dto/order.dto";
+import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 
 @Controller('orders')
 @ApiTags('Orders')
 @UsePipes(ValidationPipe)
+@UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
