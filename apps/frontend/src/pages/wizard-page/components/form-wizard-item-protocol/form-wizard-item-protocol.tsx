@@ -7,10 +7,10 @@ import {
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from 'libs/ui/theme/src';
 import { useDispatch } from 'react-redux';
-import { changeProtocolStatus } from '../../../../../store/app.slice';
+import { changeProtocolStatus } from '../../../../store/app.slice';
 import * as React from 'react';
-import BitcoinIcon from '../../../../../assets/svg/bitcoinIcon.svg';
-import FilecoininIcon from '../../../../../assets/svg/filecoinIcon.svg';
+import BitcoinIcon from '../../../../assets/svg/bitcoinIcon.svg';
+import FilecoininIcon from '../../../../assets/svg/filecoinIcon.svg';
 import useStyles from './form-wizard-item-protocol-styles';
 
 export interface FormWizardItemProtocolProps {
@@ -44,7 +44,7 @@ const FormWizardItemProtocol: React.FC<FormWizardItemProtocolProps> = ({
   };
 
   return (
-    <FormControl sx={{ width: '496px' }}>
+    <FormControl sx={{ width: '488px' }}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}

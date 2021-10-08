@@ -12,15 +12,29 @@ export const useStyles = makeStyles(() => {
         backgroundColor: variables.primaryColor,
         color: variables.white,
       },
+      '&.Mui-selected': {
+        backgroundColor: 'none',
+        '&:hover': {
+          backgroundColor: variables.primaryColor,
+        },
+      },
     },
     menuItemStylesFilecoin: {
       fontSize: '16px',
       fontWeight: 600,
       backgroundColor: variables.white,
       paddingLeft: '20px',
+      color: variables.filcoinText,
       '&:hover': {
-        backgroundColor: variables.filcoinColorLight,
+        backgroundColor: variables.white,
         color: variables.filcoinColor,
+        fontWeight: 700,
+      },
+      '&.Mui-selected': {
+        backgroundColor: 'none',
+        '&:hover': {
+          backgroundColor: variables.white,
+        },
       },
     },
     iconStyles: {

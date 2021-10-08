@@ -18,7 +18,12 @@ const $fieldIconColor = '#ffffff';
 const $white = '#ffffff';
 const $black = '#000000';
 const $filcoinColor = '#0090FF';
+const $filcoinText = '#5CB8FF';
 const $filcoinColorLight ='#E5F4FF'
+
+const $switchGrayColor='#A0A0A0';
+const $switchBgColorBlue='#B3DEFF';
+const $switchBgColorGray='#C8C8CA';
 
 const $fontFamilyPrimary = 'Rajdhani';
 const $fontFamilySecondary = 'Rajdhani';
@@ -48,6 +53,10 @@ export type UiThemeVariables = {
   purpleLight: string;
   filcoinBackgroundColor: string
   filcoinColorLight: string;
+  filcoinText:string;
+  switchGrayColor:string;
+  switchBgColorBlue:string;
+  switchBgColorGray: string
 };
 
 export const variables: UiThemeVariables = {
@@ -72,5 +81,9 @@ export const variables: UiThemeVariables = {
   black: $black,
   purpleLight:  $purpleLight,
   filcoinBackgroundColor :$filcoinBackgroundColor,
-  filcoinColorLight: $filcoinColorLight
+  filcoinColorLight: $filcoinColorLight,
+  filcoinText:$filcoinText,
+  switchGrayColor:$switchGrayColor,
+  switchBgColorBlue:$switchBgColorBlue,
+  switchBgColorGray:$switchBgColorGray
 };

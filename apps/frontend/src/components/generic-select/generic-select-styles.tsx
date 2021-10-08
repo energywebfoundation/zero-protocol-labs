@@ -10,6 +10,14 @@ export const useStyles = makeStyles(() => {
       marginLeft: '10px',
       borderRadius: '50px',
     },
+    placeholderFilecoinStyles: {
+      fontSize: '18px',
+      fontWeight: 600,
+      padding: '0',
+      marginLeft: '10px',
+      borderRadius: '50px',
+      color: variables.filcoinColor,
+    },
     selectStyles: {
       '& svg': {
         marginRight: '24px',
