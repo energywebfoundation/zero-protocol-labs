@@ -26,7 +26,6 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "db:migrate:recreate-initial": "rm -rf apps/backend/prisma/migrations/* && prisma migrate dev --create-only --skip-seed -n initial && git add apps/backend/prisma/migrations/* && prisma generate",
     "db:migrate:generate": "prisma generate",
     "db:migrate:reset": "prisma migrate reset",
     "db:migrate:ci": "prisma migrate reset --skip-generate --skip-seed --force",
