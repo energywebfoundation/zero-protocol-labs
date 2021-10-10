@@ -82,3 +82,35 @@ model FilecoinNodesOnPurchases {
 
   @@id([purchaseId, filecoinNodeId, buyerId])
 }
+
+model Order {
+  id                 String                       @id @default(uuid())
+  items              OrderItem[]
+  paymentPreferences PaymentPreferencesEnumType[]
+  createdAt          DateTime                     @default(now())
+}
+
+model OrderItem {
+  id         String               @id @default(uuid())
+  minerId    String
+  country    String
+  order      Order                @relation(fields: [orderId], references: [id])
+  orderId    String
+  timeFrames OrderItemTimeFrame[]
+
+  @@unique([orderId, minerId])
+}
+
+model OrderItemTimeFrame {
+  id          String     @id @default(uuid())
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+  orderItemId String?
+  start       DateTime
+  end         DateTime
+  energy      Int
+}
+
+enum PaymentPreferencesEnumType {
+  WIRE_TRANSFER
+  CRYPTO
+}
