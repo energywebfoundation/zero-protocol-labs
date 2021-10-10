@@ -12,6 +12,7 @@ import { BuyersModule } from "../buyers/buyers.module";
 import { SellersModule } from "../sellers/sellers.module";
 import { CertificatesModule } from "../certificates/certificates.module";
 import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
+import { OrdersModule } from "../orders/orders.module";
 
 @Module({
   imports: [
@@ -44,7 +45,8 @@ import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
     BuyersModule,
     SellersModule,
     CertificatesModule,
-    FilecoinNodesModule
+    FilecoinNodesModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService],
