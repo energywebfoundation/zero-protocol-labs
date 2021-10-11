@@ -10,6 +10,9 @@ export class OrderDto implements Order {
   @ApiProperty({ example: 'ca85db1a-fa8d-49fc-a2b9-b6de147bfd74' })
   id: string;
 
+  @ApiProperty({ example: 'user@domain.com' })
+  emailAddress: string;
+
   @ApiProperty({ isArray: true, enum: PaymentPreferencesEnumType, enumName: 'PaymentPreferencesEnumType' })
   paymentPreferences: PaymentPreferencesEnumType[];
 

@@ -4,6 +4,7 @@ CREATE TYPE "PaymentPreferencesEnumType" AS ENUM ('WIRE_TRANSFER', 'CRYPTO');
 -- CreateTable
 CREATE TABLE "Order" (
     "id" TEXT NOT NULL,
+    "emailAddress" TEXT NOT NULL,
     "paymentPreferences" "PaymentPreferencesEnumType"[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

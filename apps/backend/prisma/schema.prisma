@@ -85,6 +85,7 @@ model FilecoinNodesOnPurchases {
 
 model Order {
   id                 String                       @id @default(uuid())
+  emailAddress       String
   items              OrderItem[]
   paymentPreferences PaymentPreferencesEnumType[]
   createdAt          DateTime                     @default(now())
