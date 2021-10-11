@@ -1,5 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsISO8601, IsNumber, Min } from "class-validator";
+import {
+  IsInt,
+  IsISO8601,
+  IsNumber,
+  Min,
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions
+} from "class-validator";
 
 export class CreateOrderItemTimeframeDto {
   @ApiProperty({ example: '2020-10-11T00:00:00.000Z' })
@@ -8,6 +16,7 @@ export class CreateOrderItemTimeframeDto {
 
   @ApiProperty({ example: '2020-12-31T23:59:59.999Z' })
   @IsISO8601({ strict: true })
+  @IsGreaterThan("start", { message: "end cannot be smaller or equal to start" })
   end: Date;
 
   @ApiProperty({ example: 100000 })
@@ -15,4 +24,23 @@ export class CreateOrderItemTimeframeDto {
   @IsInt()
   @Min(1)
   energy: number;
+}
+
+function IsGreaterThan(property: string, validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: "IsGreaterThan",
+      target: object.constructor,
+      propertyName: propertyName,
+      constraints: [property],
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const [relatedPropertyName] = args.constraints;
+          const relatedValue = args.object[relatedPropertyName];
+          return value > relatedValue;
+        }
+      }
+    });
+  };
 }
