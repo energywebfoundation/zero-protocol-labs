@@ -23,7 +23,13 @@ export class OrdersService {
           })) : []
         }
       },
-      include: { items: { include: { timeFrames: true } } }
+      include: {
+        items: {
+          include: {
+            timeFrames: { orderBy: { start: "asc" } }
+          }
+        }
+      }
     });
 
     return new OrderDto({
@@ -42,7 +48,13 @@ export class OrdersService {
   async findOne(id: string) {
     const record = await this.prisma.order.findUnique({
       where: { id },
-      include: { items: { include: { timeFrames: true } } }
+      include: {
+        items: {
+          include: {
+            timeFrames: { orderBy: { start: "asc" } }
+          }
+        }
+      }
     });
 
     return new OrderDto({
