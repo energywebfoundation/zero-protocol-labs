@@ -4,6 +4,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from "../prisma/prisma.service";
 import { OrderDto } from "./dto/order.dto";
 import { OrderItemDto } from "./dto/order-item.dto";
+import { OrderItemTimeframeDto } from "./dto/order-item-timeframe.dto";
 
 @Injectable()
 export class OrdersService {
@@ -22,12 +23,15 @@ export class OrdersService {
           })) : []
         }
       },
-      include: { items: true }
+      include: { items: { include: { timeFrames: true } } }
     });
 
     return new OrderDto({
       ...newRecord,
-      items: newRecord.items.map(i => new OrderItemDto(i))
+      items: newRecord.items.map(item => new OrderItemDto({
+        ...item,
+        timeFrames: item.timeFrames.map(timeFrame => new OrderItemTimeframeDto(timeFrame))
+      }))
     });
   }
 
@@ -38,12 +42,15 @@ export class OrdersService {
   async findOne(id: string) {
     const record = await this.prisma.order.findUnique({
       where: { id },
-      include: { items: true }
+      include: { items: { include: { timeFrames: true } } }
     });
 
     return new OrderDto({
       ...record,
-      items: record.items.map(i => new OrderItemDto(i))
+      items: record.items.map(item => new OrderItemDto({
+        ...item,
+        timeFrames: item.timeFrames.map(timeFrame => new OrderItemTimeframeDto(timeFrame))
+      }))
     });
   }
 

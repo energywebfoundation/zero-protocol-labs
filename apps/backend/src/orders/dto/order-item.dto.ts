@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { OrderItem } from ".prisma/client";
+import { OrderItemTimeframeDto } from "./order-item-timeframe.dto";
 
 export class OrderItemDto implements OrderItem {
   constructor(partial: Partial<OrderItemDto>) {
@@ -17,4 +18,7 @@ export class OrderItemDto implements OrderItem {
 
   @ApiProperty({ example: "1234" })
   minerId: string;
+
+  @ApiProperty({ type: [OrderItemTimeframeDto] })
+  timeFrames: OrderItemTimeframeDto[];
 }
