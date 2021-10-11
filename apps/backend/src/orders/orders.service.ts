@@ -3,6 +3,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from "../prisma/prisma.service";
 import { OrderDto } from "./dto/order.dto";
+import { OrderItemDto } from "./dto/order-item.dto";
 
 @Injectable()
 export class OrdersService {
@@ -18,9 +19,13 @@ export class OrdersService {
           create: items ? items : []
         }
       },
+      include: { items: true }
     });
 
-    return new OrderDto(newRecord);
+    return new OrderDto({
+      ...newRecord,
+      items: newRecord.items.map(i => new OrderItemDto(i))
+    });
   }
 
   async findAll() {
@@ -28,7 +33,15 @@ export class OrdersService {
   }
 
   async findOne(id: string) {
-    return new OrderDto(await this.prisma.order.findUnique({ where: { id } }));
+    const record = await this.prisma.order.findUnique({
+      where: { id },
+      include: { items: true }
+    });
+
+    return new OrderDto({
+      ...record,
+      items: record.items.map(i => new OrderItemDto(i))
+    });
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {

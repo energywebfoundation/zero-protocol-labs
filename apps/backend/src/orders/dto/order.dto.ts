@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Order, PaymentPreferencesEnumType } from '@prisma/client';
+import { OrderItemDto } from "./order-item.dto";
 
 export class OrderDto implements Order {
   constructor(partial: Partial<OrderDto>) {
@@ -11,6 +12,9 @@ export class OrderDto implements Order {
 
   @ApiProperty({ isArray: true, enum: PaymentPreferencesEnumType, enumName: 'PaymentPreferencesEnumType' })
   paymentPreferences: PaymentPreferencesEnumType[];
+
+  @ApiProperty({ type: [OrderItemDto] })
+  items: OrderItemDto[];
 
   @ApiProperty({ example: '2021-10-11T07:48:46.799Z' })
   createdAt: Date;
