@@ -24,8 +24,9 @@ export class OrdersController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: OrderDto })
   findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+    return this.ordersService.findOne(id);
   }
 
   @Patch(':id')

@@ -17,8 +17,8 @@ export class OrdersService {
     return (await this.prisma.order.findMany({ orderBy: { createdAt: 'asc' } })).map(r => new OrderDto(r));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+    return new OrderDto(await this.prisma.order.findUnique({ where: { id } }));
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
