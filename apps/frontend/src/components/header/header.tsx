@@ -2,15 +2,11 @@ import { Box, Container } from '@material-ui/core';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 import { ReactComponent as LogoFilecoin } from '../../assets/svg/filecoinLogo.svg';
 import { ReactComponent as ZeroLogo } from '../../assets/svg/zeroLogo.svg';
-import { memo } from 'react';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 
-/* eslint-disable-next-line */
-export interface HeaderProps {}
-
-export const Header = memo(() => {
+export const Header = () => {
   const isFilecoin = useSelector((state: RootState) => state.app.isFilecoin);
 
   return (
@@ -41,6 +37,6 @@ export const Header = memo(() => {
       </Container>
     </header>
   );
-});
+};
 
 export default Header;

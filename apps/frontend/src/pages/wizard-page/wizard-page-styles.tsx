@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles({
   gridStyle: {
@@ -26,7 +26,7 @@ export const useStyles = makeStyles({
       borderRadius: '50%',
       width: '40px',
       height: '40px',
-      border: '2px solid #703CBB',
+      border: `2px solid ${variables.purpleLight}`,
       '& .Mui-active': {
         color: 'transparent',
       },
@@ -39,11 +39,11 @@ export const useStyles = makeStyles({
     '& .MuiStepIcon-text': {
       fontSize: '15px',
       fontWeight: 500,
-      fill: '#703CBB',
+      fill: variables.purpleLight,
     },
     '& .MuiStepLabel-labelContainer': {
       '& .Mui-active': {
-        color: '#703CBB',
+        color: variables.purpleLight,
       },
     },
   },
@@ -56,7 +56,7 @@ export const useStyles = makeStyles({
       borderRadius: '50%',
       width: '40px',
       height: '40px',
-      border: '2px solid #00D08A',
+      border: `2px solid ${variables.secondaryColor}`,
       '& .Mui-active': {
         color: 'transparent',
       },
@@ -69,11 +69,11 @@ export const useStyles = makeStyles({
     '& .MuiStepIcon-text': {
       fontSize: '15px',
       fontWeight: 500,
-      fill: '#00D08A',
+      fill: variables.secondaryColor,
     },
     '& .MuiStepLabel-labelContainer': {
       '& .Mui-active': {
-        color: '#00D08A',
+        color: variables.secondaryColor,
       },
     },
   },
@@ -86,7 +86,7 @@ export const useStyles = makeStyles({
       borderRadius: '50%',
       width: '40px',
       height: '40px',
-      border: '2px solid #0090FF',
+      border: `2px solid ${variables.filcoinColor}`,
 
       '& .MuiSvgIcon-root': {
         '& circle': {
@@ -98,7 +98,7 @@ export const useStyles = makeStyles({
       },
     },
     '& .MuiStepLabel-labelContainer': {
-      color: '#0090FF',
+      color: variables.filcoinColor,
     },
     '& .MuiStepIcon-text': {
       fontSize: '15px',
@@ -118,7 +118,7 @@ export const useStyles = makeStyles({
       borderRadius: '50%',
       width: '40px',
       height: '40px',
-      border: '2px solid #9B95BD',
+      border: `2px solid ${variables.purpleExtraLight}`,
 
       '& .MuiSvgIcon-root': {
         '& circle': {
@@ -130,15 +130,15 @@ export const useStyles = makeStyles({
       },
     },
     '& .MuiStepLabel-labelContainer': {
-      color: '#9B95BD',
+      color: variables.purpleExtraLight,
     },
     '& .MuiStepIcon-text': {
       fontSize: '15px',
       fontWeight: 500,
-      fill: '#9B95BD',
+      fill: variables.purpleExtraLight,
     },
     '& .Mui-active': {
-      color: '#9B95BD',
+      color: variables.purpleExtraLight,
     },
   },
 });

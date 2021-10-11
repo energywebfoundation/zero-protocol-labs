@@ -2,7 +2,7 @@ const $purpleExtraDark = '#2D1155';
 const $purpleDark = '#421D77';
 const $purple = '#362c45';
 const $purpleLight = '#703CBB';
-const $purpleExtraLight = '#F6EFFF';
+const $purpleExtraLight = '#9B95BD';
 
 const $green = '#00D08A';
 const $greenLight = '#b1ebcd';
@@ -56,7 +56,8 @@ export type UiThemeVariables = {
   filcoinText:string;
   switchGrayColor:string;
   switchBgColorBlue:string;
-  switchBgColorGray: string
+  switchBgColorGray: string;
+  purpleExtraLight:string
 };
 
 export const variables: UiThemeVariables = {
@@ -85,5 +86,6 @@ export const variables: UiThemeVariables = {
   filcoinText:$filcoinText,
   switchGrayColor:$switchGrayColor,
   switchBgColorBlue:$switchBgColorBlue,
-  switchBgColorGray:$switchBgColorGray
+  switchBgColorGray:$switchBgColorGray,
+  purpleExtraLight:$purpleExtraLight
 };

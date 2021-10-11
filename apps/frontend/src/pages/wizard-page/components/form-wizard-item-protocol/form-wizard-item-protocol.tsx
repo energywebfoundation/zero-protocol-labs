@@ -5,21 +5,17 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useDispatch } from 'react-redux';
 import { changeProtocolStatus } from '../../../../store/app.slice';
 import * as React from 'react';
 import BitcoinIcon from '../../../../assets/svg/bitcoinIcon.svg';
 import FilecoininIcon from '../../../../assets/svg/filecoinIcon.svg';
 import useStyles from './form-wizard-item-protocol-styles';
+import { namesType } from '../form-wizard-item-user-type/form-wizard-item-user-type';
 
-export interface FormWizardItemProtocolProps {
+export interface IFormWizardItemProtocolProps {
   isFilecoin?: boolean;
-}
-
-interface namesType {
-  value: string;
-  img?: string;
 }
 
 const names: namesType[] = [
@@ -28,7 +24,7 @@ const names: namesType[] = [
   { value: 'Add Another' },
 ];
 
-const FormWizardItemProtocol: React.FC<FormWizardItemProtocolProps> = ({
+const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
   isFilecoin,
 }) => {
   const styles = useStyles();
@@ -39,7 +35,7 @@ const FormWizardItemProtocol: React.FC<FormWizardItemProtocolProps> = ({
     const {
       target: { value },
     } = event;
-    dispatch(changeProtocolStatus(event.target.value === 'Filecoin'));
+    dispatch(changeProtocolStatus(value === 'Filecoin'));
     setProtocolName(value);
   };
 
@@ -61,13 +57,13 @@ const FormWizardItemProtocol: React.FC<FormWizardItemProtocolProps> = ({
         placeholder={'Choose the Protocol'}
         bgColor={variables.white}
       >
-        {names.map((el: namesType, index) => (
+        {names.map((el: namesType) => (
           <MenuItem
             className={
               isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles
             }
             value={el.value}
-            key={index}
+            key={el.value}
           >
             {el.img && (
               <span className={styles.iconStyles}>

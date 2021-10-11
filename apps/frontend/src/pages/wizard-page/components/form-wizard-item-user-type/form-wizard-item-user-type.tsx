@@ -10,7 +10,7 @@ import { Box } from '@material-ui/system';
 import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import Info from 'apps/frontend/src/components/info/info';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import DateSection from './date-section';
 import useStyles from './form-wizard-item-user-type-styles';
@@ -22,7 +22,7 @@ export interface FormWizardItemUserTypeProps {
   isFilecoin?: boolean;
 }
 
-interface namesType {
+export interface namesType {
   value: string;
   img?: string;
 }
@@ -52,7 +52,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
 
   const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
   const buttonClick = () => {
-    sectionOpen === false ? setSectionOpen(true) : setSectionOpen(false);
+    setSectionOpen(!sectionOpen);
   };
   const handleChange = (event: SelectChangeEvent) => {
     const {
@@ -81,13 +81,13 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
         placeholder={'I am ...'}
         bgColor={variables.white}
       >
-        {names.map((el: namesType, index) => (
+        {names.map((el: namesType) => (
           <MenuItem
             className={
               isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles
             }
             value={el.value}
-            key={index}
+            key={el.value}
           >
             {el.value}
           </MenuItem>
@@ -135,7 +135,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
                   : variables.inputBackgroundColor
               }
             >
-              {countries.map((el: namesType, index) => (
+              {countries.map((el: namesType) => (
                 <MenuItem
                   className={
                     isFilecoin
@@ -143,7 +143,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
                       : styles.menuItemStyles
                   }
                   value={el.value}
-                  key={index}
+                  key={el.value}
                 >
                   {el.value}
                 </MenuItem>
@@ -182,7 +182,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
             </Box>
             <Box>
               <Button
-                onClick={() => buttonClick()}
+                onClick={buttonClick}
                 className={
                   isFilecoin ? styles.buttonStyle : styles.buttonGreenStyle
                 }

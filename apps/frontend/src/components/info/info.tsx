@@ -2,9 +2,8 @@ import HelpOutline from '@material-ui/icons/HelpOutline';
 import { ReactElement, ReactNode } from 'react';
 import PopOver from '../pop-over/pop-over';
 import { Box } from '@material-ui/core';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
-/* eslint-disable-next-line */
 export interface InfoProps {
   noIcon?: boolean;
   popoverContentElement?: ReactElement;

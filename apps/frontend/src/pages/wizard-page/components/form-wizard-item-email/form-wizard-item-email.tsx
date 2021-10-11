@@ -1,15 +1,15 @@
 import { FormControl, TextField, Typography } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 import SwitchLabels from 'apps/frontend/src/components/switch-label/switch-label';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import useStyles from './form-wizard-item-email-styles';
 
-export interface FormWizardItemEmailProps {
+export interface IFormWizardItemEmailProps {
   isFilecoin?: boolean;
 }
 
-const FormWizardItemEmail: React.FC<FormWizardItemEmailProps> = ({
+const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
 }) => {
   const styles = useStyles();

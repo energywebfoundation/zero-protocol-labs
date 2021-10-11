@@ -3,7 +3,7 @@ import * as React from 'react';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useStyles from './generic-select-styles';
 
-export interface GenericSelectProps {
+export interface IGenericSelectProps {
   bgColor?: string;
   placeholder?: string;
   value?: string;
@@ -12,14 +12,14 @@ export interface GenericSelectProps {
   name?: string;
 }
 
-const GenericSelect: React.FC<GenericSelectProps> = ({
+const GenericSelect: React.FC<IGenericSelectProps> = ({
   placeholder,
   bgColor,
   children,
   value,
   handleChange,
   isFilecoin,
-  name = undefined,
+  name,
 }) => {
   const styles = useStyles();
 

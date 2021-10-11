@@ -8,15 +8,15 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Box } from '@material-ui/system';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import useStyles from './form-wizard-item-confirm-styles';
 
-export interface FormWizardItemConfirmProps {
+export interface IFormWizardItemConfirmProps {
   isFilecoin?: boolean;
 }
 
-const FormWizardItemConfirm: React.FC<FormWizardItemConfirmProps> = ({
+const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   isFilecoin,
 }) => {
   const styles = useStyles();

@@ -7,13 +7,13 @@ import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIc
 import { ReactComponent as CalendarIconDark } from '../../assets/svg/calendarIconDark.svg';
 import { ReactComponent as CalendarIconWhite } from '../../assets/svg/calendarIconWhite.svg';
 
-interface BasicDatePickerProps {
+interface IBasicDatePickerProps {
   color?: string;
   isFilecoin?: boolean;
   calendar?: string;
 }
 
-const BasicDatePicker: React.FC<BasicDatePickerProps> = ({
+const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
   color,
   isFilecoin,
   calendar,

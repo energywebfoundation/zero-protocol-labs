@@ -7,7 +7,7 @@ import {
   Step,
   StepLabel,
 } from '@material-ui/core';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
@@ -31,33 +31,31 @@ export const WizardPage = () => {
   const isFilecoin = useSelector((state: RootState) => state.app.isFilecoin);
 
   return (
-    <>
-      <FormikStepper initialValues={{}} onSubmit={async () => {}}>
-        <FormikStep label="Protocol">
-          <FormWizardItemProtocol isFilecoin={isFilecoin} />
-        </FormikStep>
-        <FormikStep label="Consumption">
-          <FormWizardItemUserType isFilecoin={isFilecoin} />
-        </FormikStep>
-        <FormikStep label="Preferences">
-          <FormWizardItemEmail isFilecoin={isFilecoin} />
-        </FormikStep>
-        <FormikStep label="Confirmation">
-          <FormWizardItemConfirm isFilecoin={isFilecoin} />
-        </FormikStep>
-      </FormikStepper>
-    </>
+    <FormikStepper initialValues={{}} onSubmit={async () => {}}>
+      <FormikStep label="Protocol">
+        <FormWizardItemProtocol isFilecoin={isFilecoin} />
+      </FormikStep>
+      <FormikStep label="Consumption">
+        <FormWizardItemUserType isFilecoin={isFilecoin} />
+      </FormikStep>
+      <FormikStep label="Preferences">
+        <FormWizardItemEmail isFilecoin={isFilecoin} />
+      </FormikStep>
+      <FormikStep label="Confirmation">
+        <FormWizardItemConfirm isFilecoin={isFilecoin} />
+      </FormikStep>
+    </FormikStepper>
   );
 };
 
 export default WizardPage;
 
-export interface FormikStepProps
+export interface IFormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
   label: string;
 }
 
-export function FormikStep({ children }: FormikStepProps) {
+export function FormikStep({ children }: IFormikStepProps) {
   return <>{children}</>;
 }
 
@@ -70,12 +68,12 @@ export const FormikStepper = ({
 
   const childrenArray = React.Children.toArray(
     children
-  ) as React.ElementType<FormikStepProps>[];
+  ) as React.ElementType<IFormikStepProps>[];
 
   const [step, setStep] = useState(0);
   const currentChild: any = childrenArray[
     step
-  ] as React.ElementType<FormikStepProps>;
+  ] as React.ElementType<IFormikStepProps>;
 
   const [completed, setCompleted] = useState(false);
 

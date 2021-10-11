@@ -1,13 +1,13 @@
 import { Grid, TextField, Typography } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
-export interface DateSectionProps {
+export interface IDateSectionProps {
   isFilecoin?: boolean;
 }
 
-const DateSection: React.FC<DateSectionProps> = ({ isFilecoin }) => {
+const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin }) => {
   return (
     <Grid
       style={{
