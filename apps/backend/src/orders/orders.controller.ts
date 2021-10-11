@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, Validation
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { OrderDto } from "./dto/order.dto";
 
 @Controller('orders')
@@ -18,7 +18,8 @@ export class OrdersController {
   }
 
   @Get()
-  findAll() {
+  @ApiOkResponse({ type: [OrderDto] })
+  findAll(): Promise<OrderDto[]> {
     return this.ordersService.findAll();
   }
 

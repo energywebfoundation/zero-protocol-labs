@@ -13,8 +13,8 @@ export class OrdersService {
     return new OrderDto(newRecord);
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  async findAll() {
+    return (await this.prisma.order.findMany({ orderBy: { createdAt: 'asc' } })).map(r => new OrderDto(r));
   }
 
   findOne(id: number) {
