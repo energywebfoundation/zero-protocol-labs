@@ -2,7 +2,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, Validation
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
+import { OrderDto } from "./dto/order.dto";
 
 @Controller('orders')
 @ApiTags('Orders')
@@ -11,7 +12,8 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
+  @ApiCreatedResponse({ type: OrderDto })
+  create(@Body() createOrderDto: CreateOrderDto): Promise<OrderDto> {
     return this.ordersService.create(createOrderDto);
   }
 
