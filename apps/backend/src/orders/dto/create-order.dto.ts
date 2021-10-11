@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PaymentPreferencesEnumType } from '@prisma/client';
-import { IsEnum } from 'class-validator';
+import { IsEnum, ValidateNested } from 'class-validator';
+import { CreateOrderItemDto } from "./create-order-item.dto";
+import { Type } from "class-transformer";
 
 export class CreateOrderDto {
   @ApiProperty({
@@ -11,4 +13,9 @@ export class CreateOrderDto {
   })
   @IsEnum(PaymentPreferencesEnumType, { each: true })
   paymentPreferences: PaymentPreferencesEnumType[];
+
+  @ApiProperty({ type: [CreateOrderItemDto] })
+  @Type(() => CreateOrderItemDto)
+  @ValidateNested()
+  items: CreateOrderItemDto[];
 }
