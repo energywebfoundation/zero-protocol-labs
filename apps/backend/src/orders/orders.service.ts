@@ -16,7 +16,10 @@ export class OrdersService {
       data: {
         ...newOrderData,
         items: {
-          create: items ? items : []
+          create: items ? items.map((i) => ({
+            ...i,
+            timeFrames: { create: i.timeFrames }
+          })) : []
         }
       },
       include: { items: true }

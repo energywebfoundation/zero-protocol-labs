@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum } from "class-validator";
+import { IsEnum, ValidateNested } from "class-validator";
 import { Countries } from "@energyweb/utils-general";
+import { CreateOrderItemTimeframeDto } from "./create-order-item-timeframe.dto";
+import { Type } from "class-transformer";
 
 export class CreateOrderItemDto {
   @ApiProperty({ example: "PL" })
@@ -9,4 +11,9 @@ export class CreateOrderItemDto {
 
   @ApiProperty({ example: "1234" })
   minerId: string;
+
+  @ApiProperty({ type: [CreateOrderItemTimeframeDto] })
+  @Type(() => CreateOrderItemTimeframeDto)
+  @ValidateNested()
+  timeFrames: CreateOrderItemTimeframeDto[];
 }
