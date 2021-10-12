@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@energyweb/zero-protocol-labs-api-client": [
+        "libs/api-client/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

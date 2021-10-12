@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "api-client": {
+      "tags": []
+    },
     "backend": {
       "tags": []
     },

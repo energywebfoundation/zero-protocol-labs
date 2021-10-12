@@ -1,20 +1,41 @@
 import PaperBox from '../paper-box/paper-box';
 import { Box, Typography } from '@material-ui/core';
 import FileDownloadLink from '../file-download-link/file-download-link';
-import { File } from '../../api';
+import { File } from '@energyweb/zero-protocol-labs-api-client';
+import { makeStyles } from '@material-ui/styles';
 
-/* eslint-disable-next-line */
+export const useStyles = makeStyles((theme) => ({
+  style: {
+    '@media (max-width: 375px)': {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+  styleText: {
+    fontSize: 20,
+    '@media (max-width: 375px)': {
+      fontSize: 18
+    },
+  },
+}));
+
 export interface DownloadSectionProps {
   fileList: File[];
 }
 
 export const DownloadSection = ({ fileList = [] }: DownloadSectionProps) => {
+  const classes = useStyles();
+
   return (
     <PaperBox customPadding={'25px'} bgColor={'#2D1155'}>
-      <Box display={'flex'} justifyContent={'space-between'}>
+      <Box
+        className={classes.style}
+        display={'flex'}
+        justifyContent={'space-between'}
+      >
         <Typography
+          className={classes.styleText}
           color={'#fff'}
-          fontSize={'20px'}
           fontWeight={600}
           lineHeight={'22px'}
         >
@@ -22,7 +43,7 @@ export const DownloadSection = ({ fileList = [] }: DownloadSectionProps) => {
         </Typography>
         {fileList.map((file, index) => (
           <FileDownloadLink
-            key={index}
+            key={file.fileName + file.url}
             downloadUrl={file.url}
             filename={file.fileName}
           />

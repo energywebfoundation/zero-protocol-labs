@@ -1,6 +1,37 @@
 {
   "version": 2,
   "projects": {
+    "api-client": {
+      "root": "libs/api-client",
+      "sourceRoot": "libs/api-client/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/api-client",
+            "main": "libs/api-client/src/index.ts",
+            "tsConfig": "libs/api-client/tsconfig.lib.json",
+            "assets": ["libs/api-client/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-client/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-client"],
+          "options": {
+            "jestConfig": "libs/api-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend": {
       "root": "apps/backend",
       "sourceRoot": "apps/backend/src",
@@ -35,7 +66,6 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build backend --prod",
               "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
               "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
               "docker build ./dist/apps/backend/ -t zero-pl-backend",
@@ -117,12 +147,11 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build frontend --prod",
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
-              "cp -R ./apps/frontend/bin ./dist/apps/frontend/bin",
               "cp -R ./apps/frontend/nginx ./dist/apps/frontend/nginx",
+              "cp ./prod-init.sh ./dist/apps/frontend",
               "docker build ./dist/apps/frontend/ -t zero-pl-frontend",
-              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/bin ./dist/apps/frontend/nginx"
+              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/prod-init.sh ./dist/apps/frontend/nginx"
             ]
           }
         },

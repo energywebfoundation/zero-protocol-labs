@@ -57,6 +57,7 @@ export class PurchasesService {
 
     return {
       ...data,
+      pageUrl: `${process.env.UI_BASE_URL}/partners/filecoin/purchases/${data.id}`,
       files: data.files.map(f => ({ ...f, url: `${process.env.FILES_BASE_URL}/${f.id}` })),
       filecoinNodes: data.filecoinNodes.map((r) => r.filecoinNode)
     };
@@ -100,7 +101,12 @@ export class PurchasesService {
     });
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} purchase`;
+  async remove(id: string) {
+    await this.prisma.$transaction([
+      this.prisma.filecoinNodesOnPurchases.deleteMany({ where: { purchaseId: id } }),
+      this.prisma.purchase.delete({ where: { id } })
+    ]);
+
+    return { status: "OK" };
   }
 }

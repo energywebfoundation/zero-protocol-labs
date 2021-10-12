@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core';
-import { useProductPageEffects } from './product-page.effects';
+import { makeStyles } from '@material-ui/styles';
 import BuyerSellerInformation from '../../components/buyer-seller-information/buyer-seller-information';
 import PageSection from '../../components/page-section/page-section';
 import DownloadSection from '../../components/download-section/download-section';
@@ -7,14 +7,19 @@ import TableList from '../../components/table-list/table-list';
 import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
-import React from 'react';
+import { useProductPageEffects } from './product-page.effects';
 
-/* eslint-disable-next-line */
-export interface ProductPageProps {}
+export const useStyles = makeStyles({
+  pdTop: {
+    paddingTop: '16px',
+  },
+});
 
 export const ProductPage = () => {
-  const { isFetching, isFetched, data } = useProductPageEffects();
-  return !isFetching && isFetched && data ? (
+  const { data, isLoading, isFetched } = useProductPageEffects();
+  const classes = useStyles();
+
+  return !isLoading && isFetched && data ? (
     <Grid container>
       <Grid item xs={12}>
         <Breadcrumbs
@@ -50,6 +55,10 @@ and consumption, and are widely used for renewable energy procurement.`}
           }
         >
           <BuyerSellerInformation
+            generationPeriod={{
+              fromDate: data.certificate.generationStart,
+              toDate: data.certificate.generationEnd,
+            }}
             filecoinMinerIdList={data.filecoinNodes}
             recsTransactions={data.recsTransactions}
             buyer={data.buyer}
@@ -72,7 +81,7 @@ and consumption, and are widely used for renewable energy procurement.`}
                 sellerId={data.seller.id}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid className={classes.pdTop} item xs={12}>
               <DownloadSection fileList={data.files} />
             </Grid>
           </Grid>

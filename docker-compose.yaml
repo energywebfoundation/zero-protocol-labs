@@ -27,6 +27,9 @@ services:
       CORS_ORIGIN: "*"
       CORS_MAX_AGE: 900
       UPLOADED_FILE_SIZE_LIMIT: 200000
+      UI_BASE_URL: http://localhost:8080
+      API_BASE_URL: http://localhost:3333
+      FILES_BASE_URL: http://localhost:3333/api/files
 
     networks:
       zero-pl-dev:

@@ -6,14 +6,23 @@ import {
   BuyerDto,
   FilecoinNodeDto,
   SellerDto,
-} from '../../api';
+} from '@energyweb/zero-protocol-labs-api-client';
+import { makeStyles } from '@material-ui/styles';
 
-/* eslint-disable-next-line */
+export const useStyles = makeStyles((theme) => ({
+  flexColumn: {
+    '@media (max-width: 620px)': {
+      flexDirection: 'column',
+    },
+  },
+}));
+
 export interface BuyerSellerInformationProps {
   recsTransactions: AnnualTransactionsDto[];
   buyer: BuyerDto;
   seller: SellerDto;
   filecoinMinerIdList: FilecoinNodeDto[];
+  generationPeriod: { fromDate: string; toDate: string };
 }
 
 export const BuyerSellerInformation = ({
@@ -21,25 +30,36 @@ export const BuyerSellerInformation = ({
   seller,
   recsTransactions,
   filecoinMinerIdList,
-}: BuyerSellerInformationProps) => (
-  <Grid columnGap={3} wrap={'nowrap'} container>
-    <Grid item sm={6}>
-      <SellerInformation
-        contactPerson={seller.contactPerson}
-        name={seller.name}
-        addressFirstLine={seller.addressLine1}
-        addressSecondLine={seller.addressLine2}
-      />
+  generationPeriod,
+}: BuyerSellerInformationProps) => {
+  const classes = useStyles();
+
+  return (
+    <Grid
+      className={classes.flexColumn}
+      columnGap={3}
+      wrap={'nowrap'}
+      container
+    >
+      <Grid item sm={6}>
+        <SellerInformation
+          contactPerson={seller.contactPerson}
+          name={seller.name}
+          addressFirstLine={seller.addressLine1}
+          addressSecondLine={seller.addressLine2}
+        />
+      </Grid>
+      <Grid item sm={6}>
+        <BuyerInformation
+          generationPeriod={generationPeriod}
+          buyerId={buyer.id}
+          buyerName={buyer.name}
+          filecoinMinerIdList={filecoinMinerIdList}
+          recsAmount={recsTransactions}
+        />
+      </Grid>
     </Grid>
-    <Grid item sm={6}>
-      <BuyerInformation
-        buyerId={buyer.id}
-        buyerName={buyer.name}
-        filecoinMinerIdList={filecoinMinerIdList}
-        recsAmount={recsTransactions}
-      />
-    </Grid>
-  </Grid>
-);
+  );
+};
 
 export default BuyerSellerInformation;
