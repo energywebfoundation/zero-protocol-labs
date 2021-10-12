@@ -3,10 +3,14 @@ import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { PrismaService } from "../prisma/prisma.service";
 import { PurchaseDto } from "./dto/purchase.dto";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class PurchasesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService
+  ) {}
 
   async create(createPurchaseDto: CreatePurchaseDto) {
     const { filecoinNodes, ...purchase } = createPurchaseDto;
@@ -34,7 +38,13 @@ export class PurchasesService {
   }
 
   async findAll() {
-    return await this.prisma.purchase.findMany({ select: { id: true } });
+    const apiBaseUrl = this.configService.get('API_BASE_URL');
+    const uiBaseURL = this.configService.get('UI_BASE_URL');
+    return (await this.prisma.purchase.findMany({ select: { id: true } })).map((i) => ({
+      ...i,
+      pageUrl: `${uiBaseURL}/partners/filecoin/purchases/${i.id}`,
+      dataUrl: `${apiBaseUrl}/api/partners/filecoin/purchases/${i.id}`,
+    }));
   }
 
   async findOne(id: string) {
