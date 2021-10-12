@@ -38,7 +38,7 @@ function IsStartOfDay(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, validationArguments?: ValidationArguments): boolean {
-          return value.match(/T00:00:00\.000Z$/);
+          return new Date(value).getUTCMilliseconds() === 0;
         },
         defaultMessage(): string {
           return "start should be the first millisecond of a day";
@@ -57,7 +57,7 @@ function IsEndOfDay(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, validationArguments?: ValidationArguments): boolean {
-          return value.match(/T23:59:59\.999Z$/);
+          return new Date(value).getUTCMilliseconds() === 999;
         },
         defaultMessage(): string {
           return "end should be the last millisecond of a day";
