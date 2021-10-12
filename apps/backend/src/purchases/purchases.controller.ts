@@ -37,7 +37,20 @@ export class PurchasesController {
   @ApiOkResponse({
     schema: {
       type: "array",
-      items: { type: "object", properties: { id: { type: "string", example: "04a7155d-ced1-4981-8660-48670a0735dd" } } }
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "string", example: "04a7155d-ced1-4981-8660-48670a0735dd" },
+          pageUrl: {
+            type: "string",
+            example: "http://localhost:3000/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+          },
+          dataUrl: {
+            type: "string",
+            example: "http://localhost:3000/api/partners/filecoin/purchases/04a7155d-ced1-4981-8660-48670a0735dd"
+          }
+        }
+      }
     }
   })
   findAll() {
