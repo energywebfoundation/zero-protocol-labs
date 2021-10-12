@@ -25,7 +25,8 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
-        inputFormat="yyyy/MM/dd"
+        disableMaskedInput
+        clearable
         InputProps={{
           className: `${
             isFilecoin
@@ -37,21 +38,25 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
               : styles.inputDarkBitcoin
           }`,
         }}
+
         label=""
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
         }}
         components={{
-          OpenPickerIcon: isFilecoin
-            ? calendar === 'white'
-              ? CalendarIconWhite
-              : CalendarIconLight
-            : isFilecoin
+          OpenPickerIcon: calendar === 'white'
+          ? CalendarIconWhite
+          : isFilecoin
             ? CalendarIconLight
             : CalendarIconDark,
         }}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) =>
+        <TextField
+        {...params}
+        placeholder=''
+        inputProps={{ ...params.inputProps, placeholder: '' }}
+        />}
       />
     </LocalizationProvider>
   );
