@@ -19,6 +19,7 @@ export class CreateOrderItemTimeframeDto {
   @IsISO8601({ strict: true })
   @IsEndOfDay()
   @IsGreaterThan("start")
+  @IsTheSameYearAs("start")
   end: Date;
 
   @ApiProperty({ example: 100000 })
@@ -82,6 +83,28 @@ function IsGreaterThan(property: string, validationOptions?: ValidationOptions) 
         },
         defaultMessage(args?: ValidationArguments): string {
           return `${args.property} should be larger than ${args.constraints[0]}`;
+        }
+      }
+    });
+  };
+}
+
+function IsTheSameYearAs(property: string, validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: "IsTheSameYearAs",
+      target: object.constructor,
+      propertyName: propertyName,
+      constraints: [property],
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const [relatedPropertyName] = args.constraints;
+          const relatedValue = args.object[relatedPropertyName];
+          return new Date(value).getUTCFullYear() === new Date(relatedValue).getUTCFullYear();
+        },
+        defaultMessage(args?: ValidationArguments): string {
+          return `${args.property} should be the same year as ${args.constraints[0]}`;
         }
       }
     });
