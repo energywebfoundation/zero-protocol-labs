@@ -5,6 +5,7 @@ import FormWizardItemConfirm from './components/form-wizard-item-confirm/form-wi
 import { FormikStep, FormikStepper } from '../../components/formik-stepper';
 import { useSelectedProtocolStore } from '../../context';
 import { ProtocolsEnum } from '../../utils';
+import { Helmet } from 'react-helmet-async';
 
 
 export const WizardPage = () => {
@@ -13,20 +14,25 @@ export const WizardPage = () => {
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
 
   return (
-    <FormikStepper initialValues={{}} onSubmit={() => {}}>
-      <FormikStep label="Protocol">
-        <FormWizardItemProtocol isFilecoin={isFilecoin} />
-      </FormikStep>
-      <FormikStep label="Consumption">
-        <FormWizardItemUserType isFilecoin={isFilecoin} />
-      </FormikStep>
-      <FormikStep label="Preferences">
-        <FormWizardItemEmail isFilecoin={isFilecoin} />
-      </FormikStep>
-      <FormikStep label="Confirmation">
-        <FormWizardItemConfirm isFilecoin={isFilecoin} />
-      </FormikStep>
-    </FormikStepper>
+    <>
+      <Helmet>
+        <title>Create Request</title>
+      </Helmet>
+      <FormikStepper initialValues={{}} onSubmit={() => {}}>
+        <FormikStep label="Protocol">
+          <FormWizardItemProtocol isFilecoin={isFilecoin} />
+        </FormikStep>
+        <FormikStep label="Consumption">
+          <FormWizardItemUserType isFilecoin={isFilecoin} />
+        </FormikStep>
+        <FormikStep label="Preferences">
+          <FormWizardItemEmail isFilecoin={isFilecoin} />
+        </FormikStep>
+        <FormikStep label="Confirmation">
+          <FormWizardItemConfirm isFilecoin={isFilecoin} />
+        </FormikStep>
+      </FormikStepper>
+    </>
   );
 };
 
