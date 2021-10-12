@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ProductPage from '../pages/product-page/product-page';
 import Header from '../components/header/header';
+import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
 import WizardPage from '../pages/wizard-page/wizard-page';
