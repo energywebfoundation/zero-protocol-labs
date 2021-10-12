@@ -16,6 +16,27 @@ export interface IFormWizardItemConfirmProps {
   isFilecoin?: boolean;
 }
 
+const tableData = [
+  {
+    minerId: 'f0112027',
+    region: 'France',
+    period: '2020/11/01 > 2021/06/01',
+    amount: '3 Mwh',
+  },
+  {
+    minerId: 'f0212014',
+    region: 'Norway',
+    period: '2020/11/01 > 2021/06/01',
+    amount: '8 Mwh',
+  },
+  {
+    minerId: 'f0314016',
+    region: 'Belgium',
+    period: '2020/11/01 > 2021/06/01',
+    amount: '6 Mwh',
+  },
+];
+
 const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   isFilecoin,
 }) => {
@@ -79,40 +100,24 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow
-              sx={{
-                backgroundColor: `${
-                  isFilecoin
-                    ? variables.filcoinColorLight
-                    : variables.inputBackgroundColor
-                } !important`,
-              }}
-            >
-              <TableCell>f0112027 </TableCell>
-              <TableCell>France</TableCell>
-              <TableCell>2020/11/01 {'>'}2021/06/01</TableCell>
-              <TableCell>3 Mwh</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>f0212014 </TableCell>
-              <TableCell>Norway</TableCell>
-              <TableCell>2020/11/01 {'>'} 2021/06/01</TableCell>
-              <TableCell>8 Mwh</TableCell>
-            </TableRow>
-            <TableRow
-              sx={{
-                backgroundColor: `${
-                  isFilecoin
-                    ? variables.filcoinColorLight
-                    : variables.inputBackgroundColor
-                } !important`,
-              }}
-            >
-              <TableCell>f0314016 </TableCell>
-              <TableCell>Belgium</TableCell>
-              <TableCell>2020/11/01 {'>'} 2021/06/01</TableCell>
-              <TableCell>6 Mwh</TableCell>
-            </TableRow>
+            {tableData.map((el, index) => {
+              return (
+                <TableRow
+                  className={
+                    index % 2 === 0 && isFilecoin
+                      ? styles.tableRowLight
+                      : index % 2 === 0 && !isFilecoin
+                      ? styles.tableRowDark
+                      : ''
+                  }
+                >
+                  <TableCell>{el.minerId}</TableCell>
+                  <TableCell>{el.region}</TableCell>
+                  <TableCell>{el.period}</TableCell>
+                  <TableCell>{el.amount}</TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Box>
