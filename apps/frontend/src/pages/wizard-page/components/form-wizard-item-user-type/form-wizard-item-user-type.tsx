@@ -22,18 +22,18 @@ export interface FormWizardItemUserTypeProps {
   isFilecoin?: boolean;
 }
 
-export interface namesType {
+export interface IGenericValueImage {
   value: string;
   img?: string;
 }
 
-const names: namesType[] = [
+const names: IGenericValueImage[] = [
   { value: 'Storage Provider' },
   { value: 'Application Developer' },
   { value: 'Crypto user or hodler' },
 ];
 
-const countries: namesType[] = [
+const countries: IGenericValueImage[] = [
   { value: 'England' },
   { value: 'France' },
   { value: 'Germany' },
@@ -47,8 +47,8 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   isFilecoin,
 }) => {
   const styles = useStyles();
-  const [userType, setUserType] = React.useState<string>();
-  const [country, setCountry] = React.useState<string>();
+  const [userType, setUserType] = React.useState<string>('');
+  const [country, setCountry] = React.useState<string>('');
 
   const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
   const buttonClick = () => {
@@ -81,7 +81,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
         placeholder={'I am ...'}
         bgColor={variables.white}
       >
-        {names.map((el: namesType) => (
+        {names.map((el: IGenericValueImage) => (
           <MenuItem
             className={
               isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles
@@ -135,7 +135,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
                   : variables.inputBackgroundColor
               }
             >
-              {countries.map((el: namesType) => (
+              {countries.map((el: IGenericValueImage) => (
                 <MenuItem
                   className={
                     isFilecoin

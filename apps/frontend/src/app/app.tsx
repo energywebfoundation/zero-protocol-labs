@@ -5,16 +5,15 @@ import Header from '../components/header/header';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
 import WizardPage from '../pages/wizard-page/wizard-page';
-import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { SelectedProtocolProvider } from '../context';
 
-const StyledApp = styled.div`
+const StyledDiv = styled.div`
   background-color: #f6f3f9;
 `;
 
 export const App = () => (
-  <Provider store={store}>
-    <StyledApp>
+  <SelectedProtocolProvider>
+    <StyledDiv>
       <Header />
       <main>
         <Routes>
@@ -31,8 +30,8 @@ export const App = () => (
           <Route path={'*'} element={<Navigate to={'/404'} />} />
         </Routes>
       </main>
-    </StyledApp>
-  </Provider>
+    </StyledDiv>
+  </SelectedProtocolProvider>
 );
 
 export default App;

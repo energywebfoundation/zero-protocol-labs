@@ -6,37 +6,36 @@ import {
 } from '@material-ui/core';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
-import { useDispatch } from 'react-redux';
-import { changeProtocolStatus } from '../../../../store/app.slice';
 import * as React from 'react';
 import BitcoinIcon from '../../../../assets/svg/bitcoinIcon.svg';
 import FilecoininIcon from '../../../../assets/svg/filecoinIcon.svg';
 import useStyles from './form-wizard-item-protocol-styles';
-import { namesType } from '../form-wizard-item-user-type/form-wizard-item-user-type';
+import { IGenericValueImage } from '../form-wizard-item-user-type/form-wizard-item-user-type';
+import { useSelectedProtocolDispatch, useSelectedProtocolStore } from 'apps/frontend/src/context';
+import { ProtocolsEnum } from 'apps/frontend/src/utils';
 
 export interface IFormWizardItemProtocolProps {
   isFilecoin?: boolean;
 }
 
-const names: namesType[] = [
-  { value: 'Filecoin', img: FilecoininIcon },
-  { value: 'Bitcoin', img: BitcoinIcon },
-  { value: 'Add Another' },
+const names: IGenericValueImage[] = [
+  { value: ProtocolsEnum.Filecoin, img: FilecoininIcon },
+  { value: ProtocolsEnum.Bitcoin, img: BitcoinIcon },
+  { value: ProtocolsEnum.Another },
 ];
 
 const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
   isFilecoin,
 }) => {
   const styles = useStyles();
-  const dispatch = useDispatch();
-  const [protocolName, setProtocolName] = React.useState<string>();
+  const setSelectedProtocol = useSelectedProtocolDispatch();
+  const selectedProtocol = useSelectedProtocolStore();
 
   const handleChange = (event: SelectChangeEvent) => {
     const {
       target: { value },
     } = event;
-    dispatch(changeProtocolStatus(value === 'Filecoin'));
-    setProtocolName(value);
+    setSelectedProtocol(value);
   };
 
   return (
@@ -53,11 +52,11 @@ const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
       <GenericSelect
         isFilecoin={isFilecoin}
         handleChange={handleChange}
-        value={protocolName}
+        value={selectedProtocol}
         placeholder={'Choose the Protocol'}
         bgColor={variables.white}
       >
-        {names.map((el: namesType) => (
+        {names.map((el: IGenericValueImage) => (
           <MenuItem
             className={
               isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles

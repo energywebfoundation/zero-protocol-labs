@@ -6,7 +6,7 @@ import useStyles from './generic-select-styles';
 export interface IGenericSelectProps {
   bgColor?: string;
   placeholder?: string;
-  value?: string;
+  value: string;
   handleChange?: (value: SelectChangeEvent) => void;
   isFilecoin?: boolean;
   name?: string;
@@ -40,7 +40,7 @@ const GenericSelect: React.FC<IGenericSelectProps> = ({
       className={styles.selectStyles}
       IconComponent={KeyboardArrowDownIcon}
       displayEmpty
-      value={value}
+      value={value || ''}
       name={name}
       onChange={handleChange}
       MenuProps={{ disablePortal: true }}
@@ -54,7 +54,7 @@ const GenericSelect: React.FC<IGenericSelectProps> = ({
                   : styles.placeholderStyles
               }`}
             >
-              {placeholder}
+              {placeholder || ''}
             </span>
           );
         }
