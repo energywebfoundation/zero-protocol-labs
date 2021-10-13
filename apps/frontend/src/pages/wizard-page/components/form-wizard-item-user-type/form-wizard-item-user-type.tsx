@@ -1,25 +1,16 @@
-import {
-  FormControl,
-  Typography,
-  MenuItem,
-  TextField,
-  Button,
-} from '@material-ui/core';
+import { Typography, MenuItem, Button } from '@material-ui/core';
 import { Box } from '@material-ui/system';
-import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
-import Info from 'apps/frontend/src/components/info/info';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
-import DateSection from './date-section';
 import useStyles from './form-wizard-item-user-type-styles';
-import ButtonIcon from '../../../../assets/svg/whiteArrow.svg';
 import { ReactComponent as Plus } from '../../../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../../../assets/svg/plusGreen.svg';
 import {
   IFormStepItem,
   IFormStepSelectCallbackArgs,
 } from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
+import FormUserType from './components/form-user-type';
 
 export interface FormWizardItemUserTypeProps extends IFormStepItem {
   isFilecoin?: boolean;
@@ -36,29 +27,14 @@ const names: IGenericValueImage[] = [
   { value: 'Crypto user or hodler' },
 ];
 
-const countries: IGenericValueImage[] = [
-  { value: 'England' },
-  { value: 'France' },
-  { value: 'Germany' },
-  { value: 'Norway' },
-  { value: 'Poland' },
-  { value: 'Russia' },
-  { value: 'Spain' },
-];
-
 const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   isFilecoin,
   setFieldValue,
-  handleChange
+  handleChange,
 }) => {
   const styles = useStyles();
   const [userType, setUserType] = React.useState<string>('');
-  const [country, setCountry] = React.useState<string>('');
 
-  const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
-  const buttonClick = () => {
-    setSectionOpen(!sectionOpen);
-  };
   const handleElemChange = ({
     event,
     setFieldValue,
@@ -66,8 +42,31 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
     const {
       target: { value, name },
     } = event;
-    name === 'user' ? setUserType(value) : setCountry(value);
+    setUserType(value);
     setFieldValue(name, value);
+  };
+
+  const [form, setForm] = React.useState<any>({
+    elements: [
+      <FormUserType
+        isFilecoin={isFilecoin}
+        handleChange={handleChange}
+        setFieldValue={setFieldValue}
+      />,
+    ],
+  });
+
+  const addAnother = (): void => {
+    setForm({
+      elements: [
+        ...form.elements,
+        <FormUserType
+          isFilecoin={isFilecoin}
+          handleChange={handleChange}
+          setFieldValue={setFieldValue}
+        />,
+      ],
+    });
   };
 
   return (
@@ -101,130 +100,9 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           </MenuItem>
         ))}
       </GenericSelect>
-      <FormControl className={styles.form} sx={{ width: '488px' }}>
-        <Info
-          isFilecoin={isFilecoin}
-          color={variables.black}
-          fontSize={variables.fontSize}
-          fontWeight={600}
-          hideTimeout={1000}
-          popoverContentElement={<div>Miner IDs / Address </div>}
-        >
-          {isFilecoin && 'Miner IDs /'} Address
-        </Info>
-        <Box width={464} maxWidth={'100%'} mt={'13px'} mb={'19px'}>
-          <TextField
-            name="address"
-            onChange={handleChange}
-            InputProps={{
-              className: isFilecoin ? styles.input : styles.inputBitcoun,
-            }}
-            fullWidth
-            id="fullWidth"
-          />
-        </Box>
-        <Box>
-          <Typography
-            color={variables.black}
-            fontSize={variables.fontSize}
-            fontWeight={600}
-            mb={'13px'}
-          >
-            Country
-          </Typography>
-          <Box width={464} maxWidth={'100%'}>
-            <GenericSelect
-              isFilecoin={isFilecoin}
-              handleChange={(event) => handleElemChange({ event, setFieldValue })}
-              name="country"
-              value={country}
-              placeholder={'Select regions'}
-              bgColor={
-                isFilecoin
-                  ? variables.filcoinColorLight
-                  : variables.inputBackgroundColor
-              }
-            >
-              {countries.map((el: IGenericValueImage) => (
-                <MenuItem
-                  className={
-                    isFilecoin
-                      ? styles.menuItemStylesFilecoin
-                      : styles.menuItemStyles
-                  }
-                  value={el.value}
-                  key={el.value}
-                >
-                  {el.value}
-                </MenuItem>
-              ))}
-            </GenericSelect>
-          </Box>
-          <Box
-            display={'flex'}
-            mt={'24px'}
-            alignItems={'flex-end'}
-            justifyContent={'space-between'}
-          >
-            <Box width={'192px'}>
-              <Typography
-                color={variables.black}
-                fontSize={variables.fontSize}
-                fontWeight={600}
-                mb={'8px'}
-                ml={'14px'}
-              >
-                Generation start date
-              </Typography>
-              <BasicDatePicker
-                isFilecoin={isFilecoin}
-                name="startDate"
-                setFieldValue={setFieldValue}
-              />
-            </Box>
-            <Box width={'192px'}>
-              <Typography
-                color={variables.black}
-                fontSize={variables.fontSize}
-                fontWeight={600}
-                mb={'8px'}
-                ml={'14px'}
-              >
-                Generation end date
-              </Typography>
-              <BasicDatePicker
-                isFilecoin={isFilecoin}
-                name="endDate"
-                setFieldValue={setFieldValue}
-              />
-            </Box>
-            <Box>
-              <Button
-                onClick={buttonClick}
-                className={
-                  isFilecoin ? styles.buttonStyle : styles.buttonGreenStyle
-                }
-              >
-                <img
-                  className={`${sectionOpen && styles.icon}`}
-                  src={ButtonIcon}
-                />
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </FormControl>
-      <Box bgcolor={variables.white}>
-        {sectionOpen && (
-          <Box p={' 0 8px 8px 8px'}>
-            <DateSection
-              isFilecoin={isFilecoin}
-              setFieldValue={setFieldValue}
-            />
-          </Box>
-        )}
-      </Box>
+      {form.elements}
       <Button
+        onClick={addAnother}
         className={
           isFilecoin ? styles.buttonAddStyle : styles.buttonGreenAddStyle
         }

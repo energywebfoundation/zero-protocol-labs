@@ -25,33 +25,49 @@ export const useStyles = makeStyles(() => {
         fontWeight: 700,
       },
     },
-    buttonAddStyle: {
-      backgroundColor: variables.white,
-      marginTop: '8px',
-      minWidth: '488px',
-      fontSize: '16px',
-      minHeight: '48px',
-      fontWeight: 700,
+    input: {
+      backgroundColor: variables.filcoinColorLight,
       color: variables.filcoinColor,
-      borderRadius: '5px',
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-      '&:hover': {
-        backgroundColor: variables.white,
+      fontSize: '18px',
+      fontWeight: 700,
+      '& input': {
+        padding: '12px 13px',
       },
     },
-    buttonGreenAddStyle: {
-      backgroundColor: variables.white,
-      marginTop: '8px',
-      minWidth: '488px',
-      fontSize: '16px',
-      minHeight: '48px',
+    inputBitcoun: {
+      backgroundColor: variables.inputBackgroundColor,
+      color: variables.primaryColor,
+      fontSize: '18px',
       fontWeight: 700,
-      color: variables.secondaryColor,
-      borderRadius: '5px',
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-      '&:hover': {
-        backgroundColor: variables.white,
+      '& input': {
+        padding: '12px 13px',
       },
+    },
+    form: {
+      backgroundColor: variables.white,
+      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+      borderRadius: '5px',
+      marginTop: '8px',
+      padding: '16px',
+    },
+    buttonStyle: {
+      minWidth: '48px',
+      minHeight: '48px',
+      backgroundColor: variables.filcoinColor,
+      '&:hover': {
+        backgroundColor: variables.filcoinColor,
+      },
+    },
+    buttonGreenStyle: {
+      minWidth: '48px',
+      minHeight: '48px',
+      backgroundColor: variables.secondaryColor,
+      '&:hover': {
+        backgroundColor: variables.secondaryColor,
+      },
+    },
+    icon: {
+      transform: 'rotate(180deg)',
     },
   };
 });
