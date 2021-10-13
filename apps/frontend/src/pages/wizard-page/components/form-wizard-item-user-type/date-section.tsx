@@ -2,12 +2,13 @@ import { Grid, TextField, Typography } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { IFormStepItem } from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
 
-export interface IDateSectionProps {
+export interface IDateSectionProps extends IFormStepItem {
   isFilecoin?: boolean;
 }
 
-const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin }) => {
+const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue }) => {
   return (
     <Grid
       style={{
@@ -47,6 +48,7 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin }) => {
             Generation end date
           </Typography>
           <BasicDatePicker
+            setFieldValue={setFieldValue}
             color="darkBlue"
             isFilecoin={isFilecoin}
             calendar="white"

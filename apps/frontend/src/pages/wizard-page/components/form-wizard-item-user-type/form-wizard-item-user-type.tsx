@@ -1,7 +1,6 @@
 import {
   FormControl,
   Typography,
-  SelectChangeEvent,
   MenuItem,
   TextField,
   Button,
@@ -17,8 +16,12 @@ import useStyles from './form-wizard-item-user-type-styles';
 import ButtonIcon from '../../../../assets/svg/whiteArrow.svg';
 import { ReactComponent as Plus } from '../../../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../../../assets/svg/plusGreen.svg';
+import {
+  IFormStepItem,
+  IFormStepSelectCallbackArgs,
+} from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
 
-export interface FormWizardItemUserTypeProps {
+export interface FormWizardItemUserTypeProps extends IFormStepItem {
   isFilecoin?: boolean;
 }
 
@@ -45,6 +48,8 @@ const countries: IGenericValueImage[] = [
 
 const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   isFilecoin,
+  setFieldValue,
+  handleChange
 }) => {
   const styles = useStyles();
   const [userType, setUserType] = React.useState<string>('');
@@ -54,12 +59,15 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   const buttonClick = () => {
     setSectionOpen(!sectionOpen);
   };
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleElemChange = ({
+    event,
+    setFieldValue,
+  }: IFormStepSelectCallbackArgs) => {
     const {
       target: { value, name },
     } = event;
-
-    name === 'user-type' ? setUserType(value) : setCountry(value);
+    name === 'user' ? setUserType(value) : setCountry(value);
+    setFieldValue(name, value);
   };
 
   return (
@@ -75,8 +83,8 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
       </Typography>
       <GenericSelect
         isFilecoin={isFilecoin}
-        handleChange={handleChange}
-        name="user-type"
+        handleChange={(event) => handleElemChange({ event, setFieldValue })}
+        name="user"
         value={userType}
         placeholder={'I am ...'}
         bgColor={variables.white}
@@ -106,6 +114,8 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
         </Info>
         <Box width={464} maxWidth={'100%'} mt={'13px'} mb={'19px'}>
           <TextField
+            name="address"
+            onChange={handleChange}
             InputProps={{
               className: isFilecoin ? styles.input : styles.inputBitcoun,
             }}
@@ -125,8 +135,8 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           <Box width={464} maxWidth={'100%'}>
             <GenericSelect
               isFilecoin={isFilecoin}
-              handleChange={handleChange}
-              name="country-type"
+              handleChange={(event) => handleElemChange({ event, setFieldValue })}
+              name="country"
               value={country}
               placeholder={'Select regions'}
               bgColor={
@@ -166,7 +176,11 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
               >
                 Generation start date
               </Typography>
-              <BasicDatePicker isFilecoin={isFilecoin} />
+              <BasicDatePicker
+                isFilecoin={isFilecoin}
+                name="startDate"
+                setFieldValue={setFieldValue}
+              />
             </Box>
             <Box width={'192px'}>
               <Typography
@@ -178,7 +192,11 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
               >
                 Generation end date
               </Typography>
-              <BasicDatePicker isFilecoin={isFilecoin} />
+              <BasicDatePicker
+                isFilecoin={isFilecoin}
+                name="endDate"
+                setFieldValue={setFieldValue}
+              />
             </Box>
             <Box>
               <Button
@@ -199,7 +217,10 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
       <Box bgcolor={variables.white}>
         {sectionOpen && (
           <Box p={' 0 8px 8px 8px'}>
-            <DateSection isFilecoin={isFilecoin} />
+            <DateSection
+              isFilecoin={isFilecoin}
+              setFieldValue={setFieldValue}
+            />
           </Box>
         )}
       </Box>

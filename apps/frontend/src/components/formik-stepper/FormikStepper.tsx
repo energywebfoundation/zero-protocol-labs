@@ -1,7 +1,15 @@
-import { variables } from "@energyweb/zero-protocol-labs-theme";
-import { Box, Button, Grid, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
-import { Form, Formik, FormikConfig, FormikHelpers, FormikValues } from "formik";
-import React, { useState } from "react";
+import { variables } from '@energyweb/zero-protocol-labs-theme';
+import {
+  Box,
+  Grid,
+  Button,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+} from '@material-ui/core';
+import { Form, Formik, FormikValues } from 'formik';
+import { useState } from 'react';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
 import { ReactComponent as LeftArrowIcon } from '../../assets/svg/leftArrow.svg';
@@ -9,54 +17,40 @@ import { ReactComponent as RightArrowIcon } from '../../assets/svg/rightArrow.sv
 import { ReactComponent as LeftArrowIconFilecoin } from '../../assets/svg/leftArrowFilecoin.svg';
 import { ReactComponent as RightArrowIconFilecoin } from '../../assets/svg/rightArrowFilecoin.svg';
 import { ReactComponent as SencIcon } from '../../assets/svg/sendIcon.svg';
-import { textWizardPageDown, textWizardPageUp } from '../../pages/wizard-page/wizard-page-utils';
-import CardReadMore from "../card-reade-more/cardReadMore";
-import { useStyles } from "./FormikStepper.styles";
-import { useSelectedProtocolStore } from "../../context";
-import { ProtocolsEnum } from "../../utils";
+import {
+  textWizardPageDown,
+  textWizardPageUp,
+} from '../../pages/wizard-page/wizard-page-utils';
+import CardReadMore from '../card-reade-more/cardReadMore';
+import { useStyles } from './FormikStepper.styles';
+import { useSelectedProtocolStore } from '../../context';
+import { ProtocolsEnum } from '../../utils';
 
-export interface FormikStepProps
-  extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'>
-  {
-    label: string;
-  }
+import { FormikCurrentStep } from './FormikCurrentStep';
 
-export function FormikStep({ children }: FormikStepProps) {
-  return <>{children}</>;
-}
-
-export const FormikStepper = ({
-  children,
-  ...props
-}: FormikConfig<FormikValues>) => {
+export const FormikStepper = () => {
   const styles = useStyles();
 
   const selectedProtocol = useSelectedProtocolStore();
   // bad needs to be replaced by more generic solutino
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
-
-  const childrenArray = React.Children.toArray(
-    children
-  ) as React.ElementType<FormikStepProps>[];
+  const stepLabels = ['Protocol', 'Consumption', 'Preferences', 'Confirmation'];
 
   const [step, setStep] = useState(0);
-  const currentChild: any = childrenArray[
-    step
-  ] as React.ElementType<FormikStepProps>;
 
   const [completed, setCompleted] = useState(false);
 
-  const handleSubmit = async (values: FormikValues, helpers: FormikHelpers<FormikValues>) => {
+  const handleSubmit = async (values: FormikValues) => {
     if (isLastStep()) {
-      await props.onSubmit(values, helpers);
-      setCompleted(true);
+      console.log(values);
+      // setCompleted(true)
     } else {
       setStep((s) => s + 1);
     }
-  }
+  };
 
   function isLastStep() {
-    return step === childrenArray.length - 1;
+    return step === stepLabels.length - 1;
   }
   return (
     <Grid
@@ -109,11 +103,10 @@ export const FormikStepper = ({
           </Typography>
         </Box>
         <Formik
-          {...props}
-          validationSchema={currentChild.props.validationSchema}
-          onSubmit={handleSubmit}
+          initialValues={{ wire: false, crypto: false }}
+          onSubmit={(values) => handleSubmit(values)}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, handleChange, setFieldValue, values }) => (
             <Form
               autoComplete="off"
               style={{
@@ -129,7 +122,7 @@ export const FormikStepper = ({
                   nonLinear
                   activeStep={step}
                 >
-                  {childrenArray.map((child: any, index) => (
+                  {stepLabels.map((label: string, index) => (
                     <Step
                       className={
                         (step >= index || completed) && isFilecoin
@@ -140,17 +133,20 @@ export const FormikStepper = ({
                           ? styles.stepBitcoinInActive
                           : styles.stepInActive
                       }
-                      key={child.props.label}
+                      key={label}
                       active={step >= index || completed}
                     >
-                      <StepLabel sx={{ width: '100px' }}>
-                        {child.props.label}
-                      </StepLabel>
+                      <StepLabel sx={{ width: '100px' }}>{label}</StepLabel>
                     </Step>
                   ))}
                 </Stepper>
               </Box>
-              {currentChild}
+              <FormikCurrentStep
+                step={step}
+                handleChange={handleChange}
+                setFieldValue={setFieldValue}
+                values={values}
+              />
               <Box
                 display={'flex'}
                 justifyContent={'space-between'}
@@ -241,4 +237,4 @@ export const FormikStepper = ({
       </Grid>
     </Grid>
   );
-  };
+};

@@ -6,17 +6,21 @@ import useStyles from './date-picker-styles';
 import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIconLight.svg';
 import { ReactComponent as CalendarIconDark } from '../../assets/svg/calendarIconDark.svg';
 import { ReactComponent as CalendarIconWhite } from '../../assets/svg/calendarIconWhite.svg';
+import { IFormStepItem } from '../formik-stepper/FormikCurrentStep';
 
-interface IBasicDatePickerProps {
+interface IBasicDatePickerProps extends IFormStepItem {
   color?: string;
   isFilecoin?: boolean;
   calendar?: string;
+  name?: string;
 }
 
 const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
   color,
   isFilecoin,
   calendar,
+  setFieldValue,
+  name
 }) => {
   const [value, setValue] = React.useState(null);
 
@@ -25,8 +29,7 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
-        disableMaskedInput
-        clearable
+        inputFormat="yyyy/MM/dd"
         InputProps={{
           className: `${
             isFilecoin
@@ -38,25 +41,22 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
               : styles.inputDarkBitcoin
           }`,
         }}
-
         label=""
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
+          setFieldValue && setFieldValue(name, newValue)
         }}
         components={{
-          OpenPickerIcon: calendar === 'white'
-          ? CalendarIconWhite
-          : isFilecoin
+          OpenPickerIcon: isFilecoin
+            ? calendar === 'white'
+              ? CalendarIconWhite
+              : CalendarIconLight
+            : isFilecoin
             ? CalendarIconLight
             : CalendarIconDark,
         }}
-        renderInput={(params) =>
-        <TextField
-        {...params}
-        placeholder=''
-        inputProps={{ ...params.inputProps, placeholder: '' }}
-        />}
+        renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>
   );

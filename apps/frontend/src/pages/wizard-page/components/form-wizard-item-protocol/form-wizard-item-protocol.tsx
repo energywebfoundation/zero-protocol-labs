@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  Typography,
-  SelectChangeEvent,
-  MenuItem,
-} from '@material-ui/core';
+import { FormControl, Typography, MenuItem } from '@material-ui/core';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
@@ -11,10 +6,17 @@ import BitcoinIcon from '../../../../assets/svg/bitcoinIcon.svg';
 import FilecoininIcon from '../../../../assets/svg/filecoinIcon.svg';
 import useStyles from './form-wizard-item-protocol-styles';
 import { IGenericValueImage } from '../form-wizard-item-user-type/form-wizard-item-user-type';
-import { useSelectedProtocolDispatch, useSelectedProtocolStore } from 'apps/frontend/src/context';
+import {
+  useSelectedProtocolDispatch,
+  useSelectedProtocolStore,
+} from 'apps/frontend/src/context';
 import { ProtocolsEnum } from 'apps/frontend/src/utils';
+import {
+  IFormStepItem,
+  IFormStepSelectCallbackArgs,
+} from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
 
-export interface IFormWizardItemProtocolProps {
+export interface IFormWizardItemProtocolProps extends IFormStepItem {
   isFilecoin?: boolean;
 }
 
@@ -26,16 +28,21 @@ const names: IGenericValueImage[] = [
 
 const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
   isFilecoin,
+  setFieldValue,
 }) => {
   const styles = useStyles();
   const setSelectedProtocol = useSelectedProtocolDispatch();
   const selectedProtocol = useSelectedProtocolStore();
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = ({
+    event,
+    setFieldValue,
+  }: IFormStepSelectCallbackArgs) => {
     const {
-      target: { value },
+      target: { value, name },
     } = event;
     setSelectedProtocol(value);
+    setFieldValue(name, value);
   };
 
   return (
@@ -51,8 +58,11 @@ const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
       </Typography>
       <GenericSelect
         isFilecoin={isFilecoin}
-        handleChange={handleChange}
+        handleChange={(event) =>
+          handleChange({ event, setFieldValue })
+        }
         value={selectedProtocol}
+        name='protocol'
         placeholder={'Choose the Protocol'}
         bgColor={variables.white}
       >

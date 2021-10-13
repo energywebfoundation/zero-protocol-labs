@@ -11,9 +11,11 @@ import { Box } from '@material-ui/system';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import useStyles from './form-wizard-item-confirm-styles';
+import { useOrderPageEffects } from '../../wizard-page.effects';
 
 export interface IFormWizardItemConfirmProps {
   isFilecoin?: boolean;
+  values: any;
 }
 
 const tableData = [
@@ -39,9 +41,11 @@ const tableData = [
 
 const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   isFilecoin,
+  values,
 }) => {
   const styles = useStyles();
-
+  // const data = useOrderPageEffects();
+  // console.log(data)
   return (
     <FormControl sx={{ width: '488px' }}>
       <Box
@@ -74,14 +78,18 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
             color={isFilecoin ? variables.filcoinColor : variables.primaryColor}
             fontWeight={700}
           >
-            owner@Filevaults.io
+            {values.email}
           </Typography>
           <Typography
             fontSize={'16px'}
             color={isFilecoin ? variables.filcoinColor : variables.primaryColor}
             fontWeight={700}
           >
-            Wire transfer or Crypto
+            {values.wire && values.crypto
+              ? 'Wire transfer or Crypto'
+              : values.wire
+              ? 'Wire transfer'
+              : 'Crypto'}
           </Typography>
         </Box>
       </Box>
@@ -102,7 +110,7 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
           <TableBody>
             {tableData.map((el, index) => {
               return (
-                <TableRow
+                <TableRow key = {el.minerId}
                   className={
                     index % 2 === 0 && isFilecoin
                       ? styles.tableRowLight

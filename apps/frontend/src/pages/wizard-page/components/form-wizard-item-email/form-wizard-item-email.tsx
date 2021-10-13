@@ -4,13 +4,16 @@ import SwitchLabels from 'apps/frontend/src/components/switch-label/switch-label
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import useStyles from './form-wizard-item-email-styles';
+import { IFormStepItem } from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
 
-export interface IFormWizardItemEmailProps {
+export interface IFormWizardItemEmailProps extends IFormStepItem {
   isFilecoin?: boolean;
 }
 
 const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
+  setFieldValue,
+  handleChange,
 }) => {
   const styles = useStyles();
 
@@ -27,6 +30,8 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
         <span className={styles.title}>Where we will send you the offer</span>
       </Typography>
       <TextField
+        onChange={handleChange}
+        name='email'
         placeholder={'Your email adress'}
         inputProps={{
           className: isFilecoin ? styles.inputProps : styles.inputBitcoinProps,
@@ -58,8 +63,18 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
           currencies they accept
         </Typography>
         <Box>
-          <SwitchLabels labelName={'Wire transfer'} isFilecoin={isFilecoin} />
-          <SwitchLabels labelName={'Crypto payment'} isFilecoin={isFilecoin} />
+          <SwitchLabels
+            labelName={'Wire transfer'}
+            name="wire"
+            isFilecoin={isFilecoin}
+            setFieldValue={setFieldValue}
+          />
+          <SwitchLabels
+            labelName={'Crypto payment'}
+            name="crypto"
+            isFilecoin={isFilecoin}
+            setFieldValue={setFieldValue}
+          />
         </Box>
       </Box>
     </FormControl>
