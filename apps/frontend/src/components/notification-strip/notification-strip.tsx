@@ -2,14 +2,17 @@ import styled from '@emotion/styled';
 import { Box, Container, Typography } from '@material-ui/core';
 
 /* eslint-disable-next-line */
-export interface NotificationStripProps {}
+export interface NotificationStripProps {
+  text: string;
+  height?: number;
+}
 
 const StyledNotificationStrip = styled.div``;
 
-export const NotificationStrip = (props: NotificationStripProps) => (
+export const NotificationStrip = ({ text, height }: NotificationStripProps) => (
   <StyledNotificationStrip>
     <Box
-      sx={{ height: '88px' }}
+      sx={{ height: height ?? 88 }}
       bgcolor={'#00D08A'}
       display={'flex'}
       alignItems={'center'}
@@ -22,7 +25,7 @@ export const NotificationStrip = (props: NotificationStripProps) => (
           fontSize={'20px'}
           fontWeight={700}
         >
-          Some EAC’s have been retired in your name
+          {text}
         </Typography>
       </Container>
     </Box>

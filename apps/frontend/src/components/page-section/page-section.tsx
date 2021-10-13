@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Box, Paper, Typography } from '@material-ui/core';
 import { ReactNode, ReactNodeArray } from 'react';
 import { makeStyles } from '@material-ui/styles';
@@ -12,6 +13,8 @@ export const useStyles = makeStyles((theme) => ({
 
 export interface PageSectionProps {
   headingText: string;
+  paperClassName?: string;
+  helperTextClassName?: string;
   sectionHelpText?: ReactNode;
   children: ReactNode | ReactNodeArray;
 }
@@ -20,6 +23,8 @@ export const PageSection = ({
   children,
   headingText,
   sectionHelpText,
+  paperClassName,
+  helperTextClassName,
 }: PageSectionProps) => {
   const classes = useStyles();
 
@@ -34,7 +39,10 @@ export const PageSection = ({
       >
         {headingText}
       </Typography>
-      <Paper className={classes.style} sx={{ p: 4, borderRadius: '10px' }}>
+      <Paper
+        className={clsx(classes.style, paperClassName)}
+        sx={{ p: 4, borderRadius: '10px' }}
+      >
         {sectionHelpText && (
           <Box mb={3}>
             <Typography
@@ -42,6 +50,7 @@ export const PageSection = ({
               fontWeight={600}
               color={'#2D1155'}
               fontSize={'18px'}
+              className={helperTextClassName}
             >
               {sectionHelpText}
             </Typography>
