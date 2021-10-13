@@ -44,8 +44,6 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   values,
 }) => {
   const styles = useStyles();
-  // const data = useOrderPageEffects();
-  // console.log(data)
   return (
     <FormControl sx={{ width: '488px' }}>
       <Box

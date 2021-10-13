@@ -19,30 +19,34 @@ import GenericSelect from 'apps/frontend/src/components/generic-select/generic-s
 import { IGenericValueImage } from '../form-wizard-item-user-type';
 import ButtonIcon from '../../../../../assets/svg/whiteArrow.svg';
 import DateSection from '../date-section';
+import {useState} from 'react';
 
 interface IFormUserType {
   isFilecoin?: boolean;
+  id: number;
 }
 
-const countries: IGenericValueImage[] = [
-  { value: 'England' },
-  { value: 'France' },
-  { value: 'Germany' },
-  { value: 'Norway' },
-  { value: 'Poland' },
-  { value: 'Russia' },
-  { value: 'Spain' },
+export const countries: IGenericValueImage[] = [
+  { value :"England",shortName:"GB" },
+  { value :"France",shortName:"FR" },
+  { value :"Germany",shortName:"GR" },
+  { value :"Norway",shortName:"NW" },
+  { value :"Poland",shortName:"PL" },
+  { value :"Russia",shortName: "RS"},
+  { value :"Spain",shortName:"SP" },
 ];
 
 const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
   isFilecoin,
   handleChange,
   setFieldValue,
+  id,
 }) => {
   const styles = useStyles();
   const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
   const buttonClick = () => {
     setSectionOpen(!sectionOpen);
+    
   };
   const [country, setCountry] = React.useState<string>('');
 
@@ -73,7 +77,7 @@ const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
         </Info>
         <Box width={464} maxWidth={'100%'} mt={'13px'} mb={'19px'}>
           <TextField
-            name="address"
+            name={`minerId_${id}`}
             onChange={handleChange}
             InputProps={{
               className: isFilecoin ? styles.input : styles.inputBitcoun,
@@ -97,7 +101,7 @@ const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
               handleChange={(event) =>
                 handleElemChange({ event, setFieldValue })
               }
-              name="country"
+              name={`country_${id}`}
               value={country}
               placeholder={'Select regions'}
               bgColor={
@@ -139,7 +143,7 @@ const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
               </Typography>
               <BasicDatePicker
                 isFilecoin={isFilecoin}
-                name="startDate"
+                name={`start_${id}_0`}
                 setFieldValue={setFieldValue}
               />
             </Box>
@@ -155,7 +159,7 @@ const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
               </Typography>
               <BasicDatePicker
                 isFilecoin={isFilecoin}
-                name="endDate"
+                name={`end_${id}_0`}
                 setFieldValue={setFieldValue}
               />
             </Box>
@@ -178,7 +182,8 @@ const FormUserType: React.FC<IFormUserType & IFormStepItem> = ({
       <Box bgcolor={variables.white}>
         {sectionOpen && (
           <Box p={' 0 8px 8px 8px'}>
-            <DateSection
+            <DateSection handleChange ={handleChange}
+              id={id}
               isFilecoin={isFilecoin}
               setFieldValue={setFieldValue}
             />

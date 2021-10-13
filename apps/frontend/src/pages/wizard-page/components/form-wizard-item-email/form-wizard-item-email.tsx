@@ -8,12 +8,14 @@ import { IFormStepItem } from 'apps/frontend/src/components/formik-stepper/Formi
 
 export interface IFormWizardItemEmailProps extends IFormStepItem {
   isFilecoin?: boolean;
+  values:any
 }
 
 const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
   setFieldValue,
   handleChange,
+  values
 }) => {
   const styles = useStyles();
 
@@ -31,7 +33,7 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
       </Typography>
       <TextField
         onChange={handleChange}
-        name='email'
+        name='emailAddress'
         placeholder={'Your email adress'}
         inputProps={{
           className: isFilecoin ? styles.inputProps : styles.inputBitcoinProps,
@@ -68,12 +70,14 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
             name="wire"
             isFilecoin={isFilecoin}
             setFieldValue={setFieldValue}
+            defaultValue={values.wire}
           />
           <SwitchLabels
             labelName={'Crypto payment'}
             name="crypto"
             isFilecoin={isFilecoin}
             setFieldValue={setFieldValue}
+            defaultValue={values.crypto}
           />
         </Box>
       </Box>

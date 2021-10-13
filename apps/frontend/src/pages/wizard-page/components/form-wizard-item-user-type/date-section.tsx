@@ -6,9 +6,15 @@ import { IFormStepItem } from 'apps/frontend/src/components/formik-stepper/Formi
 
 export interface IDateSectionProps extends IFormStepItem {
   isFilecoin?: boolean;
+  id: number;
 }
 
-const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue }) => {
+const DateSection: React.FC<IDateSectionProps> = ({
+  isFilecoin,
+  setFieldValue,
+  handleChange,
+  id,
+}) => {
   return (
     <Grid
       style={{
@@ -32,8 +38,10 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
             Generation start date
           </Typography>
           <BasicDatePicker
+            name={`start_${id}_${1}`}
             color="darkBlue"
             isFilecoin={isFilecoin}
+            setFieldValue={setFieldValue}
             calendar="white"
           />
         </Box>
@@ -48,6 +56,7 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
             Generation end date
           </Typography>
           <BasicDatePicker
+            name={`end_${id}_${1}`}
             setFieldValue={setFieldValue}
             color="darkBlue"
             isFilecoin={isFilecoin}
@@ -66,6 +75,8 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
           </Typography>
           <Box height={'48px'} width={'100px'}>
             <TextField
+              name={`energy_${id}_${1}`}
+              onChange={handleChange}
               inputProps={{
                 style: {
                   height: '100%',
@@ -96,6 +107,8 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
             Generation start date
           </Typography>
           <BasicDatePicker
+            setFieldValue={setFieldValue}
+            name={`start_${id}_${2}`}
             color="darkBlue"
             isFilecoin={isFilecoin}
             calendar="white"
@@ -112,6 +125,8 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
             Generation end date
           </Typography>
           <BasicDatePicker
+            setFieldValue={setFieldValue}
+            name={`end_${id}_${2}`}
             color="darkBlue"
             isFilecoin={isFilecoin}
             calendar="white"
@@ -129,6 +144,8 @@ const DateSection: React.FC<IDateSectionProps> = ({ isFilecoin, setFieldValue })
           </Typography>
           <Box height={'48px'} width={'100px'}>
             <TextField
+              name={`energy_${id}_${2}`}
+              onChange={handleChange}
               inputProps={{
                 style: {
                   height: '100%',

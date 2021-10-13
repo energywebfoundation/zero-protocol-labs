@@ -11,6 +11,7 @@ import {
   IFormStepSelectCallbackArgs,
 } from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
 import FormUserType from './components/form-user-type';
+import {useState} from 'react'
 
 export interface FormWizardItemUserTypeProps extends IFormStepItem {
   isFilecoin?: boolean;
@@ -19,6 +20,7 @@ export interface FormWizardItemUserTypeProps extends IFormStepItem {
 export interface IGenericValueImage {
   value: string;
   img?: string;
+  shortName?:string
 }
 
 const names: IGenericValueImage[] = [
@@ -34,6 +36,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
 }) => {
   const styles = useStyles();
   const [userType, setUserType] = React.useState<string>('');
+  const [id,setId]=  useState(1);
 
   const handleElemChange = ({
     event,
@@ -48,7 +51,7 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
 
   const [form, setForm] = React.useState<any>({
     elements: [
-      <FormUserType
+      <FormUserType id = {id-1}
         isFilecoin={isFilecoin}
         handleChange={handleChange}
         setFieldValue={setFieldValue}
@@ -57,10 +60,11 @@ const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   });
 
   const addAnother = (): void => {
+    setId(id +1);
     setForm({
       elements: [
         ...form.elements,
-        <FormUserType
+        <FormUserType id = {id}
           isFilecoin={isFilecoin}
           handleChange={handleChange}
           setFieldValue={setFieldValue}

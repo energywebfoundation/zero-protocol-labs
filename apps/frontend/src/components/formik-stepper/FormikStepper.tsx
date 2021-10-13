@@ -8,6 +8,7 @@ import {
   Stepper,
   Typography,
 } from '@material-ui/core';
+import { useNavigate } from "react-router-dom"
 import { Form, Formik, FormikValues } from 'formik';
 import { useState } from 'react';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
@@ -27,10 +28,13 @@ import { useSelectedProtocolStore } from '../../context';
 import { ProtocolsEnum } from '../../utils';
 
 import { FormikCurrentStep } from './FormikCurrentStep';
+import { CreateOrderDto } from '@energyweb/zero-protocol-labs-api-client';
+import { dataConversion } from './FormikStepperUtils';
+import { useOrderPageEffects } from '../../pages/wizard-page/wizard-page.effects';
 
 export const FormikStepper = () => {
   const styles = useStyles();
-
+  const navigate = useNavigate ()
   const selectedProtocol = useSelectedProtocolStore();
   // bad needs to be replaced by more generic solutino
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
@@ -42,8 +46,11 @@ export const FormikStepper = () => {
 
   const handleSubmit = async (values: FormikValues) => {
     if (isLastStep()) {
-      console.log(values);
-      // setCompleted(true)
+    const convertingValues = dataConversion(values);
+      let {data}  = await useOrderPageEffects(convertingValues)
+      if(data?.id){
+        navigate("/wizard-thank")
+      }
     } else {
       setStep((s) => s + 1);
     }

@@ -7,13 +7,16 @@ import PurchasePage from '../pages/purchase-page/purchase-page';
 import WizardPage from '../pages/wizard-page/wizard-page';
 import { SelectedProtocolProvider } from '../context';
 import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';
+import { useAxiosDefaults } from '../hooks';
 
 const StyledDiv = styled.div`
   background-color: #f6f3f9;
 `;
 
-export const App = () => (
-  <SelectedProtocolProvider>
+export const App = () => {
+  useAxiosDefaults()
+  return(
+    <SelectedProtocolProvider>
     <StyledDiv>
       <Header />
       <main>
@@ -34,6 +37,7 @@ export const App = () => (
       </main>
     </StyledDiv>
   </SelectedProtocolProvider>
-);
+  )
+}
 
 export default App;

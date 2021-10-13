@@ -9,6 +9,8 @@ interface FormWizardProps extends IFormStepItem {
   labelName?: string;
   isFilecoin?: boolean;
   name?: string;
+  defaultValue?:boolean
+
 }
 
 const useStyles = makeStyles(() => ({
@@ -71,8 +73,9 @@ const SwitchLabel: React.FC<FormWizardProps> = ({
   name,
   isFilecoin,
   setFieldValue,
+  defaultValue
 }) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(defaultValue);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);

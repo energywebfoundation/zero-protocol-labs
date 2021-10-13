@@ -39,7 +39,7 @@ export const FormikCurrentStep = ({
         return <FormWizardItemUserType isFilecoin={isFilecoin} handleChange={handleChange} setFieldValue={setFieldValue} />;
 
       case 2:
-        return <FormWizardItemEmail isFilecoin={isFilecoin} handleChange={handleChange} setFieldValue={setFieldValue} />;
+        return <FormWizardItemEmail isFilecoin={isFilecoin} handleChange={handleChange} setFieldValue={setFieldValue} values={values}/>;
 
       case 3:
         return <FormWizardItemConfirm isFilecoin={isFilecoin} values={values} />;
