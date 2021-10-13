@@ -1,8 +1,9 @@
 import { Box, Breadcrumbs as MatBreadcrumbs } from '@material-ui/core';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
+/* eslint-disable-next-line */
 export interface BreadcrumbsProps {
   breadcrumbList: string[];
 }
