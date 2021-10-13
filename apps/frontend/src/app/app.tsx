@@ -6,6 +6,7 @@ import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
 import WizardPage from '../pages/wizard-page/wizard-page';
 import { SelectedProtocolProvider } from '../context';
+import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';
 
 const StyledDiv = styled.div`
   background-color: #f6f3f9;
@@ -26,6 +27,7 @@ export const App = () => (
             element={<PurchasePage />}
           />
           <Route path={'/wizard'} element={<WizardPage />} />
+          <Route path={'/wizard-thank'} element={<WizardThankPage />} />
           <Route path={'/404'} element={<NotFoundPage />} />
           <Route path={'*'} element={<Navigate to={'/404'} />} />
         </Routes>
