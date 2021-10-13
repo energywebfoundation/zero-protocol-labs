@@ -6,7 +6,7 @@ import './assets/fonts/rajdhani/stylesheet.css';
 import App from './app/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HelmetProvider } from 'react-helmet-async';
-import { UiTheme } from '../../../libs/ui/theme/src/index';
+import { UiTheme } from '@energyweb/zero-protocol-labs-theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {

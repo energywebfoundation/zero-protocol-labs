@@ -32,6 +32,46 @@
         }
       }
     },
+    "ui-theme": {
+      "root": "libs/ui/theme",
+      "sourceRoot": "libs/ui/theme/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/ui/theme",
+            "tsConfig": "libs/ui/theme/tsconfig.lib.json",
+            "project": "libs/ui/theme/package.json",
+            "entryFile": "libs/ui/theme/src/index.ts",
+            "external": ["react/jsx-runtime", "@emotion/styled/base"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/ui/theme/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/theme/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/theme"],
+          "options": {
+            "jestConfig": "libs/ui/theme/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend": {
       "root": "apps/backend",
       "sourceRoot": "apps/backend/src",
@@ -66,7 +106,6 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build backend --prod",
               "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
               "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
               "docker build ./dist/apps/backend/ -t zero-pl-backend",
@@ -111,7 +150,7 @@
             "polyfills": "apps/frontend/src/polyfills.ts",
             "tsConfig": "apps/frontend/tsconfig.app.json",
             "assets": [
-              "apps/frontend/src/favicon.ico",
+              "apps/frontend/src/favicon.png",
               "apps/frontend/src/assets"
             ],
             "styles": [],
@@ -148,12 +187,11 @@
           "options": {
             "parallel": false,
             "commands": [
-              "nx build frontend --prod",
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
-              "cp -R ./apps/frontend/bin ./dist/apps/frontend/bin",
               "cp -R ./apps/frontend/nginx ./dist/apps/frontend/nginx",
+              "cp ./prod-init.sh ./dist/apps/frontend",
               "docker build ./dist/apps/frontend/ -t zero-pl-frontend",
-              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/bin ./dist/apps/frontend/nginx"
+              "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/prod-init.sh ./dist/apps/frontend/nginx"
             ]
           }
         },

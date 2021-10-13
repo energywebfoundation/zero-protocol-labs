@@ -11,66 +11,35 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Box } from '@material-ui/system';
-import { variables } from 'libs/ui/theme/src';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import FilcoinLogo from '../../assets/svg/filecoinLogo.svg';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { ReactComponent as Vector } from '../../assets/svg/vector-line.svg';
 import { ReactComponent as People } from '../../assets/svg/people.svg';
+import { useStyles } from './cardReadMore-styles';
 
-const CardData = [
+const cardData = [
   'brief Reminder of what are RECs ',
   'explainer of how these certificates tie into Filecoin’s Reputation system',
   '+ optional next steps of what to do with this for the Storage Provider',
 ];
 
 export default function CardReadMore() {
+  const styles = useStyles();
+
   return (
-    <Card
-      sx={{
-        maxWidth: 280,
-        position: 'absolute',
-        top: 80,
-        right: 80,
-        padding: '32px 24px 31px 24px',
-        backgroundColor: variables.bodyBackgroundColor,
-        borderRadius: '10px',
-        boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-      }}
-    >
+    <Card className={styles.card}>
       <Box width="111px" height="32px" mb={'16px'}>
-        <CardMedia
-          component="img"
-          alt="Filcoin"
-          image={FilcoinLogo}
-          sx={{
-            '& > img': {
-              width: 500,
-            },
-          }}
-        />
+        <CardMedia component="img" alt="Filcoin" image={FilcoinLogo} />
       </Box>
       <CardContent>
         <Typography color={variables.black}>(optional explainer)</Typography>
-        <List
-          sx={{
-            display: 'felx',
-          }}
-        >
-          {CardData.map((el, index) => {
+        <List>
+          {cardData.map((el) => {
             return (
-              <ListItem
-                key={index}
-                sx={{ padding: '0', display: 'flex', alignItems: 'flex-start' }}
-              >
+              <ListItem key={el} className={styles.listItem}>
                 <ListItemIcon sx={{ minWidth: '20px' }}>•</ListItemIcon>
-                <ListItemText
-                  sx={{
-                    '& > span': {
-                      color: variables.black,
-                    },
-                    margin: 0,
-                  }}
-                >
+                <ListItemText className={styles.listItemText}>
                   {el}
                 </ListItemText>
               </ListItem>
@@ -78,26 +47,8 @@ export default function CardReadMore() {
           })}
         </List>
       </CardContent>
-      <CardActions
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          padding: 0,
-        }}
-      >
-        <Button
-          sx={{
-            '&:hover': {
-              backgroundColor: 'unset',
-            },
-            color: variables.purpleLight,
-            padding: 0,
-            fontSize: variables.fontSize,
-            fontWeight: 600,
-          }}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
+      <CardActions className={styles.cardActions}>
+        <Button className={styles.button} endIcon={<KeyboardArrowDownIcon />}>
           Read more
         </Button>
         <Box>

@@ -69,6 +69,27 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
         },
       },
     },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          '&:focus-visible': {
+            outline: 'none',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '.MuiOutlinedInput-notchedOutline': {
+            '&:focus-visible': {
+              outline: 'none',
+            },
+            border: 'none',
+          }
+        },
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: { fontWeight: 600, color: styleConfig.PRIMARY_COLOR },
@@ -149,7 +170,6 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
     MuiTable: {
       styleOverrides: {
         root: {
-          borderBottom: `2px solid ${styleConfig.PRIMARY_COLOR}`,
         },
       },
     },
@@ -194,6 +214,9 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
       styleOverrides: {
         root: {
           color: styleConfig.PRIMARY_COLOR,
+          '&.Mui-selected': {
+            background: 'none'
+           },
         },
       },
     },

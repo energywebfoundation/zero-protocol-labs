@@ -2,23 +2,24 @@ import { OutlinedInput, Select, SelectChangeEvent } from '@material-ui/core';
 import * as React from 'react';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useStyles from './generic-select-styles';
-export interface GenericSelectProps {
+
+export interface IGenericSelectProps {
   bgColor?: string;
   placeholder?: string;
-  value?: string;
+  value: string;
   handleChange?: (value: SelectChangeEvent) => void;
   isFilecoin?: boolean;
   name?: string;
 }
 
-const GenericSelect: React.FC<GenericSelectProps> = ({
+const GenericSelect: React.FC<IGenericSelectProps> = ({
   placeholder,
   bgColor,
   children,
   value,
   handleChange,
   isFilecoin,
-  name = undefined,
+  name,
 }) => {
   const styles = useStyles();
 
@@ -39,14 +40,22 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
       className={styles.selectStyles}
       IconComponent={KeyboardArrowDownIcon}
       displayEmpty
-      value={value}
+      value={value || ''}
       name={name}
       onChange={handleChange}
       MenuProps={{ disablePortal: true }}
       renderValue={(selected: string) => {
         if (!selected) {
           return (
-            <span className={styles.placeholderStyles}>{placeholder}</span>
+            <span
+              className={`${
+                isFilecoin
+                  ? styles.placeholderFilecoinStyles
+                  : styles.placeholderStyles
+              }`}
+            >
+              {placeholder || ''}
+            </span>
           );
         }
 

@@ -17,6 +17,9 @@
     "paths": {
       "@energyweb/zero-protocol-labs-api-client": [
         "libs/api-client/src/index.ts"
+      ],
+      "@energyweb/zero-protocol-labs-theme": [
+        "libs/ui/theme/src/index.ts"
       ]
     }
   },
