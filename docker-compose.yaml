@@ -30,7 +30,8 @@ services:
       UI_BASE_URL: http://localhost:8080
       API_BASE_URL: http://localhost:3333
       FILES_BASE_URL: http://localhost:3333/api/files
-
+    volumes:
+      - 'zero-pl-backend-tmp:/tmp'
     networks:
       zero-pl-dev:
 
@@ -48,6 +49,7 @@ services:
 
 volumes:
   zero-pl-pg-data:
+  zero-pl-backend-tmp:
 
 networks:
   zero-pl-dev:
