@@ -11,7 +11,7 @@ services:
     environment:
       API_BASE_URL: http://localhost:3333
     networks:
-      zero-pl-dev:
+      zero-pl:
 
   backend:
     image: zero-pl-backend
@@ -33,7 +33,7 @@ services:
     volumes:
       - 'zero-pl-backend-tmp:/tmp'
     networks:
-      zero-pl-dev:
+      zero-pl:
 
   db:
     image: postgres:13-alpine
@@ -45,11 +45,11 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: zero-protocol-labs
     networks:
-      zero-pl-dev:
+      zero-pl:
 
 volumes:
   zero-pl-pg-data:
   zero-pl-backend-tmp:
 
 networks:
-  zero-pl-dev:
+  zero-pl:
