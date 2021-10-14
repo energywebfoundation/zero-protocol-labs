@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   Table,
   TableBody,
@@ -7,43 +8,52 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { Box } from '@material-ui/system';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
+import { useAddressMappingState } from '../../context';
+import { WizardFormValues } from '../../pages/wizard-page/WizardPage.effects';
 import useStyles from './form-wizard-item-confirm-styles';
-import { useOrderPageEffects } from '../../wizard-page.effects';
+import { useMemo } from 'react';
+import { Dayjs } from 'dayjs';
 
 export interface IFormWizardItemConfirmProps {
   isFilecoin?: boolean;
-  values: any;
+  values: WizardFormValues;
 }
 
-const tableData = [
-  {
-    minerId: 'f0112027',
-    region: 'France',
-    period: '2020/11/01 > 2021/06/01',
-    amount: '3 Mwh',
-  },
-  {
-    minerId: 'f0212014',
-    region: 'Norway',
-    period: '2020/11/01 > 2021/06/01',
-    amount: '8 Mwh',
-  },
-  {
-    minerId: 'f0314016',
-    region: 'Belgium',
-    period: '2020/11/01 > 2021/06/01',
-    amount: '6 Mwh',
-  },
-];
+type ConfirmTableData = {
+  minerId: string;
+  region: string;
+  period: string;
+  amount: string;
+}
 
-const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
+export const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   isFilecoin,
   values,
 }) => {
+  // This should be cleaned up and remove to effects
+  const addressMapping = useAddressMappingState();
+  const mappingArrIterator = useMemo(
+    () => Array.from(Array(addressMapping?.size).keys()),
+    [addressMapping]
+  );
+
+  // this should be made less dirty
+  const tableData: ConfirmTableData[] = mappingArrIterator.map(key => ({
+    minerId: values[`minerId_${key}`],
+    region: values[`country_${key}`],
+    period: `
+    ${(values[`generalStartDate_${key}`] as Dayjs).format('YYYY/MM/DD')}
+    >
+    ${(values[`generalEndDate_${key}`] as Dayjs).format('YYYY/MM/DD')}`,
+    amount: addressMapping ? addressMapping.get(key)?.reduce((prev, current) => {
+      return prev + Number(values[`energy_${key}_${current}`])
+    }, 0)?.toString() + ' MWh' : ''
+  }));
+
   const styles = useStyles();
+
   return (
     <FormControl sx={{ width: '488px' }}>
       <Box
@@ -76,18 +86,21 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
             color={isFilecoin ? variables.filcoinColor : variables.primaryColor}
             fontWeight={700}
           >
-            {values.email}
+            {values.emailAddress}
           </Typography>
           <Typography
             fontSize={'16px'}
             color={isFilecoin ? variables.filcoinColor : variables.primaryColor}
             fontWeight={700}
           >
-            {values.wire && values.crypto
+            {values.wirePayment && values.cryptoPayment
               ? 'Wire transfer or Crypto'
-              : values.wire
-              ? 'Wire transfer'
-              : 'Crypto'}
+              : values.wirePayment
+                ? 'Wire transfer'
+                : values.cryptoPayment
+                  ? 'Crypto'
+                  : ''
+            }
           </Typography>
         </Box>
       </Box>
@@ -127,7 +140,7 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
           </TableBody>
         </Table>
       </Box>
-      <Box display={'flex'} justifyContent={'center'}>
+      <Box display={'flex'} justifyContent={'center'} pb={5}>
         <Typography
           fontSize={'12px'}
           color={isFilecoin ? variables.black : variables.white}
@@ -145,5 +158,3 @@ const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
     </FormControl>
   );
 };
-
-export default FormWizardItemConfirm;

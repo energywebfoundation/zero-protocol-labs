@@ -1,4 +1,5 @@
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Grid,
@@ -8,9 +9,7 @@ import {
   Stepper,
   Typography,
 } from '@material-ui/core';
-import { useNavigate } from "react-router-dom"
-import { Form, Formik, FormikValues } from 'formik';
-import { useState } from 'react';
+import { Form, Formik } from 'formik';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
 import { ReactComponent as LeftArrowIcon } from '../../assets/svg/leftArrow.svg';
@@ -18,48 +17,32 @@ import { ReactComponent as RightArrowIcon } from '../../assets/svg/rightArrow.sv
 import { ReactComponent as LeftArrowIconFilecoin } from '../../assets/svg/leftArrowFilecoin.svg';
 import { ReactComponent as RightArrowIconFilecoin } from '../../assets/svg/rightArrowFilecoin.svg';
 import { ReactComponent as SencIcon } from '../../assets/svg/sendIcon.svg';
+import CardReadMore from '../../components/card-reade-more/cardReadMore';
 import {
   textWizardPageDown,
   textWizardPageUp,
-} from '../../pages/wizard-page/wizard-page-utils';
-import CardReadMore from '../card-reade-more/cardReadMore';
-import { useStyles } from './FormikStepper.styles';
-import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
+} from './wizard-page-utils';
+import { WizardPageStepSelector } from './WizardPageStepSelector';
+import { useStyles } from './WizardPage.styles';
+import { initialValues, useWizardPageEffects } from './WizardPage.effects';
 
-import { FormikCurrentStep } from './FormikCurrentStep';
-import { CreateOrderDto } from '@energyweb/zero-protocol-labs-api-client';
-import { dataConversion } from './FormikStepperUtils';
-import { useOrderPageEffects } from '../../pages/wizard-page/wizard-page.effects';
-
-export const FormikStepper = () => {
+export const WizardPage = () => {
   const styles = useStyles();
-  const navigate = useNavigate ()
-  const selectedProtocol = useSelectedProtocolStore();
-  // bad needs to be replaced by more generic solutino
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
-  const stepLabels = ['Protocol', 'Consumption', 'Preferences', 'Confirmation'];
+  const {
+    handleSubmit,
+    handleBackStep,
+    isFilecoin,
+    step,
+    stepLabels,
+    isLastStep,
+    addressMapping
+  } = useWizardPageEffects();
 
-  const [step, setStep] = useState(0);
-
-  const [completed, setCompleted] = useState(false);
-
-  const handleSubmit = async (values: FormikValues) => {
-    if (isLastStep()) {
-    const convertingValues = dataConversion(values);
-      let {data}  = await useOrderPageEffects(convertingValues)
-      if(data?.id){
-        navigate("/wizard-thank")
-      }
-    } else {
-      setStep((s) => s + 1);
-    }
-  };
-
-  function isLastStep() {
-    return step === stepLabels.length - 1;
-  }
   return (
+    <>
+    <Helmet>
+      <title>Create Request</title>
+    </Helmet>
     <Grid
       bgcolor={
         isFilecoin ? variables.filcoinBackgroundColor : variables.primaryColor
@@ -110,8 +93,8 @@ export const FormikStepper = () => {
           </Typography>
         </Box>
         <Formik
-          initialValues={{ wire: false, crypto: false }}
-          onSubmit={(values) => handleSubmit(values)}
+          initialValues={initialValues}
+          onSubmit={(values) => handleSubmit(values, addressMapping ?? new Map())}
         >
           {({ isSubmitting, handleChange, setFieldValue, values }) => (
             <Form
@@ -132,23 +115,23 @@ export const FormikStepper = () => {
                   {stepLabels.map((label: string, index) => (
                     <Step
                       className={
-                        (step >= index || completed) && isFilecoin
+                        (step >= index) && isFilecoin
                           ? styles.step
-                          : (step >= index || completed) && !isFilecoin
+                          : (step >= index) && !isFilecoin
                           ? styles.stepBitcoin
-                          : !(step >= index || completed) && !isFilecoin
+                          : !(step >= index) && !isFilecoin
                           ? styles.stepBitcoinInActive
                           : styles.stepInActive
                       }
                       key={label}
-                      active={step >= index || completed}
+                      active={step >= index}
                     >
                       <StepLabel sx={{ width: '100px' }}>{label}</StepLabel>
                     </Step>
                   ))}
                 </Stepper>
               </Box>
-              <FormikCurrentStep
+              <WizardPageStepSelector
                 step={step}
                 handleChange={handleChange}
                 setFieldValue={setFieldValue}
@@ -162,9 +145,9 @@ export const FormikStepper = () => {
               >
                 <Button
                   sx={{ height: '48px' }}
-                  disabled={step === 0 || completed}
+                  disabled={step === 0}
                   variant="contained"
-                  onClick={() => setStep((s) => s - 1)}
+                  onClick={handleBackStep}
                   startIcon={
                     isFilecoin ? <LeftArrowIconFilecoin /> : <LeftArrowIcon />
                   }
@@ -177,7 +160,7 @@ export const FormikStepper = () => {
                   variant="contained"
                   type="submit"
                   endIcon={
-                    isLastStep() ? (
+                    isLastStep ? (
                       <SencIcon />
                     ) : isFilecoin ? (
                       <RightArrowIconFilecoin />
@@ -188,7 +171,7 @@ export const FormikStepper = () => {
                 >
                   {isSubmitting
                     ? 'Submiting'
-                    : isLastStep()
+                    : isLastStep
                     ? 'Send Request'
                     : 'Next'}
                 </Button>
@@ -243,5 +226,6 @@ export const FormikStepper = () => {
         </Box>
       </Grid>
     </Grid>
+    </>
   );
 };

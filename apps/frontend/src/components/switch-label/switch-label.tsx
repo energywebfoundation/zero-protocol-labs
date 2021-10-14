@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
-import { IFormStepItem } from '../formik-stepper/FormikCurrentStep';
 
-interface FormWizardProps extends IFormStepItem {
+interface FormWizardProps {
+  checked: boolean;
+  setChecked: (value: boolean) => void;
   labelName?: string;
   isFilecoin?: boolean;
-  name?: string;
   defaultValue?:boolean
-
 }
 
 const useStyles = makeStyles(() => ({
@@ -70,18 +69,13 @@ const useStyles = makeStyles(() => ({
 
 const SwitchLabel: React.FC<FormWizardProps> = ({
   labelName,
-  name,
   isFilecoin,
-  setFieldValue,
-  defaultValue
+  checked,
+  setChecked
 }) => {
-  const [checked, setChecked] = useState(defaultValue);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    setFieldValue(name, event.target.checked);
   };
-
   const classes = useStyles();
 
   return (

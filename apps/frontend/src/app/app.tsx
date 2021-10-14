@@ -4,8 +4,8 @@ import Header from '../components/header/header';
 import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
-import WizardPage from '../pages/wizard-page/wizard-page';
-import { SelectedProtocolProvider } from '../context';
+import { WizardPage } from '../pages/wizard-page/WizardPage';
+import { AddressMappingProvider, SelectedProtocolProvider } from '../context';
 import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';
 import { useAxiosDefaults } from '../hooks';
 
@@ -29,10 +29,14 @@ export const App = () => {
             path={'/partners/filecoin/nodes/:productId/transactions'}
             element={<PurchasePage />}
           />
-          <Route path={'/wizard'} element={<WizardPage />} />
-          <Route path={'/wizard-thank'} element={<WizardThankPage />} />
+          <Route path={'/wizard'} element={
+            <AddressMappingProvider>
+              <WizardPage />
+            </AddressMappingProvider>
+          } />
+          <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
           <Route path={'/404'} element={<NotFoundPage />} />
-          <Route path={'*'} element={<Navigate to={'/404'} />} />
+          <Route path={'*'} element={<Navigate to={'/wizard'} />} />
         </Routes>
       </main>
     </StyledDiv>
