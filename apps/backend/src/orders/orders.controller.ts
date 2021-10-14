@@ -21,7 +21,7 @@ import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 
 @Controller('orders')
 @ApiTags('Orders')
-@UsePipes(ValidationPipe)
+@UsePipes(new ValidationPipe({whitelist: true}))
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
