@@ -13,7 +13,9 @@ export const useStyles = makeStyles((theme) => ({
 
 export interface PageSectionProps {
   headingText: string;
+  wrapperClassName?: string;
   paperClassName?: string;
+  headingTextClassName?: string;
   helperTextClassName?: string;
   sectionHelpText?: ReactNode;
   children: ReactNode | ReactNodeArray;
@@ -24,18 +26,21 @@ export const PageSection = ({
   headingText,
   sectionHelpText,
   paperClassName,
+  wrapperClassName,
+  headingTextClassName,
   helperTextClassName,
 }: PageSectionProps) => {
   const classes = useStyles();
 
   return (
-    <Box pt={'13px'} className={classes.style}>
+    <Box pt={'13px'} className={clsx(classes.style, wrapperClassName)}>
       <Typography
         sx={{ my: '13px', textTransform: 'uppercase' }}
         color={'#2D1155'}
         lineHeight={'31px'}
         fontSize={'24px'}
         fontWeight={700}
+        className={headingTextClassName}
       >
         {headingText}
       </Typography>

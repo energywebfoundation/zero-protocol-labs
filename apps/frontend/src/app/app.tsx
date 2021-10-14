@@ -11,6 +11,7 @@ import { useAxiosDefaults } from '../hooks';
 
 const StyledApp = styled.div`
   background-color: #f6f3f9;
+  min-height: 100vh;
 `;
 
 export const App = () => {

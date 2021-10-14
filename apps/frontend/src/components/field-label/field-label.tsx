@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
-import { Box } from '@material-ui/core';
+import { Box, BoxProps } from '@material-ui/core';
 
 /* eslint-disable-next-line */
-export interface FieldLabelProps {
+export interface FieldLabelProps extends BoxProps {
   width?: string;
   labelText: string;
-  mb?: string;
-  className?: string;
 }
 
 const StyledFieldLabel = styled(Box)`
@@ -21,12 +19,14 @@ export const FieldLabel = ({
   mb,
   labelText,
   width,
+  ...props
 }: FieldLabelProps) => (
   <StyledFieldLabel
     className={className}
     mb={mb}
     minWidth={width}
     maxWidth={width}
+    {...props}
   >
     {labelText}
   </StyledFieldLabel>

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Box, Avatar, Typography } from '@material-ui/core';
 import UserAvatar from 'components/user-avatar/user-avatar';
@@ -7,6 +8,7 @@ import PageSection from 'components/page-section/page-section';
 import NotificationStrip from 'components/notification-strip/notification-strip';
 import FieldLabel from 'components/field-label/field-label';
 import FieldValue from 'components/field-value/field-value';
+import Info from 'components/info/info';
 import avatarImage from 'assets/images/avatar.png';
 
 export const useStyles = makeStyles((theme) => ({
@@ -16,12 +18,22 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: '#421d77',
     padding: '16px 23px 43px 23px',
+    [theme.breakpoints.down('md')]: {
+      padding: '16px 25px 43px 25px',
+    },
   },
   helperText: {
     color: '#f6efff',
     fontSize: 14,
     lineHeight: '16px',
     fontWeight: 700,
+    marginBottom: -8,
+  },
+  headingTextClassName: {
+    textTransform: 'capitalize',
+  },
+  wrapperClassName: {
+    padding: 0,
   },
   stripWrapper: {
     position: 'absolute',
@@ -37,11 +49,69 @@ export const useStyles = makeStyles((theme) => ({
   value: {
     fontSize: 20,
     lineHeight: '24px',
-    color: '#00d08a',
+    color: '#fff',
     fontWeight: 700,
+    '& span': {
+      fontSize: 12,
+      lineHeight: '15px',
+      fontWeight: 500,
+      marginLeft: 4,
+      position: 'relative',
+      top: -2,
+    },
+  },
+  primary: {
+    color: '#00d08a',
+  },
+  payment: {
+    fontSize: 18,
   },
   infoItem: {
     marginBottom: 10,
+    '& .MuiSvgIcon-root': {
+      fill: '#fff',
+      marginLeft: 3,
+      top: 0,
+    },
+  },
+  mainInfoWrapper: {
+    paddingRight: 64,
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column',
+      height: '100%',
+    },
+    [theme.breakpoints.down('md')]: {
+      paddingRight: 0,
+    },
+  },
+  mainInfo: {
+    [theme.breakpoints.down('lg')]: {
+      paddingLeft: 67,
+    },
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      alignSelf: 'center',
+      width: '100%',
+      maxWidth: 350,
+      margin: '21px 0 17px 0',
+    },
+  },
+  secondaryInfo: {
+    [theme.breakpoints.down('lg')]: {
+      marginBottom: 17,
+    },
+  },
+  secondaryInfoWrapper: {
+    paddingLeft: 24,
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: 0,
+      width: '100%',
+      maxWidth: 350,
+      margin: '0 auto',
+    },
   },
 }));
 
@@ -62,70 +132,154 @@ export const ProductOfferPage: FC = () => {
             headingText={'Offer Summary'}
             sectionHelpText="This offer was created for you by"
             paperClassName={classes.paper}
+            wrapperClassName={classes.wrapperClassName}
+            headingTextClassName={classes.headingTextClassName}
             helperTextClassName={classes.helperText}
           >
             <Grid container>
-              <Grid item xs={4}>
-                <Box display="flex" justifyContent="space-between">
+              <Grid item xs={12} md={6} lg={4} xl={4}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  className={classes.mainInfoWrapper}
+                >
                   <UserAvatar
                     image={avatarImage}
                     name="John Smith"
                     name2="Monsoon Carbon"
                     position="Sales manager"
                   />
-                  <Box>
+                  <Box className={classes.mainInfo}>
                     <Box className={classes.infoItem}>
                       <FieldLabel
-                        width={'200px'}
-                        mb={'9px'}
                         labelText={'Request ID'}
                         className={classes.label}
+                        sx={{ marginBottom: '9px' }}
                       />
-                      <FieldValue
-                        valueText={'#1234567890'}
-                        className={classes.value}
-                      />
+                      <Typography
+                        className={clsx(classes.value, classes.primary)}
+                      >
+                        #1234567890
+                      </Typography>
                     </Box>
                     <Box className={classes.infoItem}>
                       <FieldLabel
-                        width={'200px'}
-                        mb={'5px'}
+                        sx={{ marginBottom: { xs: '9px', md: '5px' } }}
                         labelText={'Offer ID'}
                         className={classes.label}
                       />
-                      <FieldValue
-                        valueText={'#ABC4567DEF'}
-                        className={classes.value}
-                      />
+                      <Typography
+                        className={clsx(classes.value, classes.primary)}
+                      >
+                        #ABC4567DEF
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>
               </Grid>
-              <Grid item xs={6}>
-                <Box className={classes.infoItem}>
-                  <FieldLabel
-                    width={'200px'}
-                    mb={'9px'}
-                    labelText={'Product summary'}
-                    className={classes.label}
-                  />
-                  <FieldValue
-                    valueText={'EAC / I-REC / Future / France  / Solar'}
-                    className={classes.value}
-                  />
-                </Box>
-                <Box className={classes.infoItem}>
-                  <FieldLabel
-                    width={'200px'}
-                    mb={'5px'}
-                    labelText={'Offer Reserved until'}
-                    className={classes.label}
-                  />
-                  <FieldValue
-                    valueText={'2021-08-01'}
-                    className={classes.value}
-                  />
-                </Box>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                lg={8}
+                xl={8}
+                className={classes.secondaryInfoWrapper}
+              >
+                <Grid container>
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    lg={6}
+                    xl={6}
+                    className={classes.secondaryInfo}
+                  >
+                    <Box className={classes.infoItem}>
+                      <Info
+                        boxProps={{ display: 'flex ' }}
+                        popoverContent="Product summary"
+                      >
+                        <FieldLabel
+                          mb={'9px'}
+                          labelText={'Product summary'}
+                          className={classes.label}
+                        />
+                      </Info>
+                      <Typography className={classes.value}>
+                        EAC / I-REC / Future / France / Solar
+                      </Typography>
+                    </Box>
+                    <Box className={classes.infoItem}>
+                      <FieldLabel
+                        mb={'5px'}
+                        labelText={'Offer Reserved until'}
+                        className={classes.label}
+                      />
+                      <FieldValue
+                        valueText={'2021-08-01'}
+                        className={classes.value}
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={6} xl={6}>
+                    <Grid container spacing={4}>
+                      <Grid item>
+                        <Box className={classes.infoItem}>
+                          <FieldLabel
+                            mb={'11px'}
+                            labelText={'Quantity'}
+                            className={classes.label}
+                          />
+                          <Typography className={classes.value}>
+                            3 MWh
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item>
+                        <Box className={classes.infoItem}>
+                          <Info
+                            boxProps={{ display: 'flex ' }}
+                            popoverContent="Price"
+                          >
+                            <FieldLabel
+                              mb={'11px'}
+                              labelText={'Price'}
+                              className={classes.label}
+                            />
+                          </Info>
+                          <Typography className={classes.value}>
+                            5 <span>$ / MWh</span>
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item>
+                        <Box className={classes.infoItem}>
+                          <FieldLabel
+                            mb={'11px'}
+                            labelText={'Total to Pay'}
+                            className={classes.label}
+                          />
+                          <Typography className={classes.value}>
+                            15 $
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                    <Box maxWidth={260} className={classes.infoItem}>
+                      <FieldLabel
+                        mb="7px"
+                        labelText={'Accepted Payment methods'}
+                        className={classes.label}
+                      />
+                      <Typography
+                        className={clsx(classes.value, classes.payment)}
+                      >
+                        Wire Tranfer (SEPA-EU) <br />
+                        Crypto: DAI, USDC, USDT, ETH, EWT
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </PageSection>
