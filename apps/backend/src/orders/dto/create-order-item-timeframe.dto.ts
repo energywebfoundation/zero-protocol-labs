@@ -3,6 +3,7 @@ import {
   IsInt,
   IsISO8601,
   IsNumber,
+  Max,
   Min,
   registerDecorator,
   ValidationArguments,
@@ -25,6 +26,7 @@ export class CreateOrderItemTimeframeDto {
   @ApiProperty({ example: 100000 })
   @IsNumber({ allowInfinity: false, allowNaN: false })
   @IsInt()
+  @Max(9007199254740991)
   @Min(1)
   energy: number;
 }
