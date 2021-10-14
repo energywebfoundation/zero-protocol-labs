@@ -7,6 +7,14 @@ export const useStyles = makeStyles({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
   },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '488px',
+      '@media (max-width: 620px)': {
+        width: '100%',
+      }
+  },
   btn: {
     '& .MuiButton-root': {
       backgroundColor: variables.white,
@@ -16,6 +24,12 @@ export const useStyles = makeStyles({
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2);',
       borderRadius: '5px',
     },
+  },
+  stepLabel: {
+    width:'100px',
+    '@media (max-width: 620px)': {
+      width: '60px',
+    }
   },
   step: {
     '& .MuiStepLabel-iconContainer': {

@@ -8,7 +8,7 @@ import {
   Stepper,
   Typography,
 } from '@material-ui/core';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 import { Form, Formik, FormikValues } from 'formik';
 import { useState } from 'react';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
@@ -34,7 +34,8 @@ import { useOrderPageEffects } from '../../pages/wizard-page/wizard-page.effects
 
 export const FormikStepper = () => {
   const styles = useStyles();
-  const navigate = useNavigate ()
+  const windowRespWidth = window.innerWidth > 620;
+  const navigate = useNavigate();
   const selectedProtocol = useSelectedProtocolStore();
   // bad needs to be replaced by more generic solutino
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
@@ -46,10 +47,10 @@ export const FormikStepper = () => {
 
   const handleSubmit = async (values: FormikValues) => {
     if (isLastStep()) {
-    const convertingValues = dataConversion(values);
-      let {data}  = await useOrderPageEffects(convertingValues)
-      if(data?.id){
-        navigate("/wizard-thank")
+      const convertingValues = dataConversion(values);
+      let { data } = await useOrderPageEffects(convertingValues);
+      if (data?.id) {
+        navigate('/wizard-thank');
       }
     } else {
       setStep((s) => s + 1);
@@ -70,16 +71,17 @@ export const FormikStepper = () => {
         backgroundImage: `url(${
           isFilecoin ? FilecoinGlobusImg : BitcoinGlobusImg
         })`,
+        backgroundSize: `${!windowRespWidth && 'contain'}`,
         position: 'relative',
       }}
     >
       <Grid
         item
-        xs={6}
         m={'0 auto'}
         display={'flex'}
         flexDirection={'column'}
         alignItems={'center'}
+        p={`${!windowRespWidth && '0 15px'}`}
       >
         <Box
           mt={'70px'}
@@ -114,14 +116,7 @@ export const FormikStepper = () => {
           onSubmit={(values) => handleSubmit(values)}
         >
           {({ isSubmitting, handleChange, setFieldValue, values }) => (
-            <Form
-              autoComplete="off"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                maxWidth: '488px',
-              }}
-            >
+            <Form className={styles.form} autoComplete="off">
               <Box display={'flex'} justifyContent={'center'} mb={'50px'}>
                 <Stepper
                   connector={<></>}
@@ -143,7 +138,9 @@ export const FormikStepper = () => {
                       key={label}
                       active={step >= index || completed}
                     >
-                      <StepLabel sx={{ width: '100px' }}>{label}</StepLabel>
+                      <StepLabel className={styles.stepLabel}>
+                        {windowRespWidth && label}
+                      </StepLabel>
                     </Step>
                   ))}
                 </Stepper>
@@ -228,18 +225,33 @@ export const FormikStepper = () => {
             {isFilecoin
               ? textWizardPageDown[3][step]
               : textWizardPageDown[1][step]}
-            <span
-              style={{
-                color: isFilecoin
-                  ? variables.purpleLight
-                  : variables.secondaryColor,
-              }}
-            >
-              {' '}
-              {step === 0 && 'read more'}
-            </span>
+            {windowRespWidth ? (
+              <span
+                style={{
+                  color: isFilecoin
+                    ? variables.purpleLight
+                    : variables.secondaryColor,
+                }}
+              >
+                {' '}
+                {step === 0 && 'read more'}
+              </span>
+            ) : (
+              'called RECs.'
+            )}
           </Typography>
-          {isFilecoin && <CardReadMore />}
+          <Typography
+            color={isFilecoin ? variables.black : variables.white}
+            fontSize={'16px'}
+            fontWeight={500}
+            textAlign={'center'}
+            maxWidth={'685px'}
+            mt={'12px'}
+            lineHeight={'24px'}
+          >
+            {!windowRespWidth && textWizardPageDown[4][step]}
+          </Typography>
+          {isFilecoin && windowRespWidth && <CardReadMore />}
         </Box>
       </Grid>
     </Grid>

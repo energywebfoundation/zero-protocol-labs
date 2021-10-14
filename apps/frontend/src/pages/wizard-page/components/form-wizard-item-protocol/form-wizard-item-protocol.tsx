@@ -46,7 +46,7 @@ const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
   };
 
   return (
-    <FormControl sx={{ width: '488px' }}>
+    <FormControl className={styles.formControl}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}
@@ -58,11 +58,9 @@ const FormWizardItemProtocol: React.FC<IFormWizardItemProtocolProps> = ({
       </Typography>
       <GenericSelect
         isFilecoin={isFilecoin}
-        handleChange={(event) =>
-          handleChange({ event, setFieldValue })
-        }
+        handleChange={(event) => handleChange({ event, setFieldValue })}
         value={selectedProtocol}
-        name='protocol'
+        name="protocol"
         placeholder={'Choose the Protocol'}
         bgColor={variables.white}
       >
