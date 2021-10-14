@@ -1,22 +1,23 @@
 import { FormWizardItemConfirm, FormWizardItemEmail, FormWizardItemProtocol, FormWizardItemUserType } from '../../containers';
 import { useSelectedProtocolStore } from '../../context';
 import { ProtocolsEnum } from '../../utils';
+import { WizardFormValues } from './WizardPage.effects';
 
 export interface IFormStepItem {
-    handleChange: (values: any) => void;
-    setFieldValue: (name: string, value: any) => void;
+  handleFormikChange: (value: any) => void;
+  setFieldValue: (name: string, value: any) => void;
 }
 
 export interface WizardPageStepSelectorProps {
   step: number;
-  handleChange: (values: any) => void;
+  handleFormikChange: (values: any) => void;
   setFieldValue: (name: string, value: any) => void;
-  values: any;
+  values: WizardFormValues;
 }
 
 export const WizardPageStepSelector = ({
   step,
-  handleChange,
+  handleFormikChange,
   setFieldValue,
   values
 }: WizardPageStepSelectorProps) => {
@@ -26,15 +27,15 @@ export const WizardPageStepSelector = ({
 
   const renderSteps = (
     step: number,
-    handleChange: (values: any) => void,
+    handleFormikChange: (values: any) => void,
     setFieldValue: any
   ) => {
     switch (step) {
       case 1:
-        return <FormWizardItemUserType values={values} isFilecoin={isFilecoin} handleChange={handleChange} setFieldValue={setFieldValue} />;
+        return <FormWizardItemUserType values={values} isFilecoin={isFilecoin} handleFormikChange={handleFormikChange} setFieldValue={setFieldValue} />;
 
       case 2:
-        return <FormWizardItemEmail isFilecoin={isFilecoin} handleChange={handleChange} setFieldValue={setFieldValue} values={values}/>;
+        return <FormWizardItemEmail isFilecoin={isFilecoin} handleFormikChange={handleFormikChange} setFieldValue={setFieldValue} values={values}/>;
 
       case 3:
         return <FormWizardItemConfirm isFilecoin={isFilecoin} values={values} />;
@@ -44,5 +45,5 @@ export const WizardPageStepSelector = ({
     }
   };
 
-  return <>{renderSteps(step, handleChange, setFieldValue)}</>;
+  return <>{renderSteps(step, handleFormikChange, setFieldValue)}</>;
 };

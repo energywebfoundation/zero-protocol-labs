@@ -10,13 +10,13 @@ export interface IFormWizardItemEmailProps {
   isFilecoin?: boolean;
   values: WizardFormValues;
   setFieldValue: (name: string, value: any) => void;
-  handleChange: (values: any) => void;
+  handleFormikChange: (value: any) => void;
 }
 
 export const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
   setFieldValue,
-  handleChange,
+  handleFormikChange,
   values
 }) => {
   const styles = useStyles();
@@ -36,7 +36,7 @@ export const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
       <TextField
         name='emailAddress'
         value={values.emailAddress}
-        onChange={handleChange}
+        onChange={handleFormikChange}
         placeholder={'Your email adress'}
         inputProps={{
           className: isFilecoin ? styles.inputProps : styles.inputBitcoinProps,

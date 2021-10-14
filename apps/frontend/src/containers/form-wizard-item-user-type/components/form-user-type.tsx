@@ -20,7 +20,7 @@ import { Dayjs } from 'dayjs';
 interface FormUserTypeProps {
   isFilecoin?: boolean;
   id: number;
-  handleChange: (value: any) => void;
+  handleFormikChange: (value: any) => void;
   setFieldValue: (name: string, value: any) => void;
   values: any;
 }
@@ -37,7 +37,7 @@ export const countries: IGenericValueImage[] = [
 
 export const FormUserType: React.FC<FormUserTypeProps> = ({
   isFilecoin,
-  handleChange,
+  handleFormikChange,
   setFieldValue,
   id,
   values
@@ -68,7 +68,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
           <TextField
             fullWidth
             name={`minerId_${id}`}
-            onChange={handleChange}
+            onChange={handleFormikChange}
             value={values[`minerId_${id}`] ?? ''}
             InputProps={{
               className: isFilecoin ? styles.input : styles.inputBitcoun,
@@ -88,7 +88,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             <GenericSelect
               isFilecoin={isFilecoin}
               handleChange={(event) =>
-                handleChange(event)
+                handleFormikChange(event)
               }
               name={`country_${id}`}
               value={values[`country_${id}`] ?? ''}
@@ -172,7 +172,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             <Box p={' 0 8px 8px 8px'} mt={'16px'}>
               <DateEnergySection
                 id={id}
-                handleChange={handleChange}
+                handleFormikChange={handleFormikChange}
                 isFilecoin={isFilecoin}
                 setFieldValue={setFieldValue}
                 amountOfFields={amountOfEnergyFields}

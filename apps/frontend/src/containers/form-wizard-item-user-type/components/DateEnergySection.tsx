@@ -3,13 +3,14 @@ import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picke
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useEffect, useMemo } from 'react';
 import { useAddressMappingSetState } from 'apps/frontend/src/context';
+import { WizardFormValues } from 'apps/frontend/src/pages/wizard-page/WizardPage.effects';
 
 export interface IDateSectionProps {
   isFilecoin?: boolean;
   id: number;
-  values: any;
+  values: WizardFormValues;
   amountOfFields: number;
-  handleChange: (values: any) => void;
+  handleFormikChange: (value: any) => void;
   setFieldValue: (name: string, value: any) => void;
 }
 
@@ -18,7 +19,7 @@ export const DateEnergySection: React.FC<IDateSectionProps> = ({
   values,
   setFieldValue,
   amountOfFields,
-  handleChange,
+  handleFormikChange,
   id,
 }) => {
   const fieldsRenderArr = useMemo(
@@ -96,7 +97,7 @@ export const DateEnergySection: React.FC<IDateSectionProps> = ({
           <Box height={'48px'} width={'100px'}>
             <TextField
               name={`energy_${id}_${nestedId}`}
-              onChange={handleChange}
+              onChange={handleFormikChange}
               value={values[`energy_${id}_${nestedId}`] || ''}
               inputProps={{
                 style: {

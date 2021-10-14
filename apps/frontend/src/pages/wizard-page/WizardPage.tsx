@@ -133,7 +133,7 @@ export const WizardPage = () => {
               </Box>
               <WizardPageStepSelector
                 step={step}
-                handleChange={handleChange}
+                handleFormikChange={handleChange}
                 setFieldValue={setFieldValue}
                 values={values}
               />

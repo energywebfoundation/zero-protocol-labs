@@ -8,12 +8,13 @@ import { ReactComponent as Plus } from '../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../assets/svg/plusGreen.svg';
 import { FormUserType } from './components/form-user-type';
 import {useMemo, useState} from 'react'
+import { WizardFormValues } from '../../pages/wizard-page/WizardPage.effects';
 
 export interface FormWizardItemUserTypeProps {
-  handleChange: (values: any) => void;
+  handleFormikChange: (value: any) => void;
   setFieldValue: (name: string, value: any) => void;
   isFilecoin?: boolean;
-  values: any;
+  values: WizardFormValues;
 }
 
 export interface IGenericValueImage {
@@ -31,7 +32,7 @@ const userTypes: IGenericValueImage[] = [
 export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   isFilecoin,
   setFieldValue,
-  handleChange,
+  handleFormikChange,
   values
 }) => {
   const styles = useStyles();
@@ -81,7 +82,7 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           key={id}
           id={id}
           isFilecoin={isFilecoin}
-          handleChange={handleChange}
+          handleFormikChange={handleFormikChange}
           setFieldValue={setFieldValue}
           values={values}
         />))
