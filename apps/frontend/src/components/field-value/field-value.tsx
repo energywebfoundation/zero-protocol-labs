@@ -1,13 +1,16 @@
 import styled from '@emotion/styled';
+import { Typography } from '@material-ui/core';
 import CopyToClipboard from '../copy-to-clipboard/copy-to-clipboard';
 
 /* eslint-disable-next-line */
 export interface FieldValueProps {
   valueText: string;
+  color?: string;
+  className?: string;
   copyToClipboardEnabled?: boolean;
 }
 
-const StyledFieldValue = styled.div`
+const StyledFieldValue = styled(Typography)`
   font-size: 16px;
   font-weight: 700;
   line-height: 21px;
@@ -16,9 +19,11 @@ const StyledFieldValue = styled.div`
 
 export const FieldValue = ({
   copyToClipboardEnabled,
+  className,
   valueText,
+  color,
 }: FieldValueProps) => (
-  <StyledFieldValue>
+  <StyledFieldValue className={className} color={color}>
     {valueText || '-'}
     {copyToClipboardEnabled && <CopyToClipboard value={valueText} />}
   </StyledFieldValue>
