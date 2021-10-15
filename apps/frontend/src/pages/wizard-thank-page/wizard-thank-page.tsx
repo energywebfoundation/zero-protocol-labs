@@ -7,9 +7,11 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useStyles } from './wizard-thank-page-styles';
 import { ReactComponent as BitcoinIcon } from '../../assets/svg/enterArrowGreen.svg';
 import { ReactComponent as FilecoinIcon } from '../../assets/svg/enterArrowBlue.svg';
+import { useNavigate } from 'react-router';
 
 export const WizardThankPage = () => {
   const selectedProtocol = useSelectedProtocolStore();
+  const navigate = useNavigate();
 
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
 
@@ -51,6 +53,7 @@ export const WizardThankPage = () => {
         <Button
           className={isFilecoin ? styles.buttonFilecoin : styles.buttonBitcoin}
           endIcon={isFilecoin ? <FilecoinIcon /> : <BitcoinIcon />}
+          onClick={() => navigate('/wizard')}
         >
           Back to beginning
         </Button>

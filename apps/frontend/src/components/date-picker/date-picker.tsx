@@ -1,35 +1,34 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import AdapterDayJs from '@material-ui/lab/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@material-ui/lab';
 import useStyles from './date-picker-styles';
 import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIconLight.svg';
 import { ReactComponent as CalendarIconDark } from '../../assets/svg/calendarIconDark.svg';
 import { ReactComponent as CalendarIconWhite } from '../../assets/svg/calendarIconWhite.svg';
-import { IFormStepItem } from '../formik-stepper/FormikCurrentStep';
+import { Dayjs } from 'dayjs';
 
-interface IBasicDatePickerProps extends IFormStepItem {
+interface IBasicDatePickerProps {
   color?: string;
   isFilecoin?: boolean;
   calendar?: string;
-  name?: string;
+  value: Dayjs;
+  setValue: (value: Dayjs | null) => void;
 }
 
 const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
   color,
   isFilecoin,
   calendar,
-  setFieldValue,
-  name
+  value,
+  setValue,
 }) => {
-  const [value, setValue] = React.useState(null);
-
   const styles = useStyles();
-
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDayJs}>
       <DatePicker
-        inputFormat="yyyy/MM/dd"
+        inputFormat="YYYY/MM/DD"
+        disableMaskedInput
         InputProps={{
           className: `${
             isFilecoin
@@ -45,16 +44,13 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
-          setFieldValue && setFieldValue(name, newValue)
         }}
         components={{
-          OpenPickerIcon: isFilecoin
-            ? calendar === 'white'
-              ? CalendarIconWhite
-              : CalendarIconLight
+          OpenPickerIcon: calendar === 'white'
+          ? CalendarIconWhite
             : isFilecoin
-            ? CalendarIconLight
-            : CalendarIconDark,
+              ? CalendarIconLight
+              : CalendarIconDark,
         }}
         renderInput={(params) => <TextField {...params} />}
       />

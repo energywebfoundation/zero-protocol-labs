@@ -22,7 +22,7 @@ export class CreateOrderItemTimeframeDto {
   @IsTheSameYearAs("start")
   end: Date;
 
-  @ApiProperty({ example: 100000 })
+  @ApiProperty({ example: 100000, description: 'amount of energy represented in Wh unit' })
   @IsNumber({ allowInfinity: false, allowNaN: false })
   @IsInt()
   @Min(1)

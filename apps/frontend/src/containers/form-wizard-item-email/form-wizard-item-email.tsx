@@ -4,17 +4,19 @@ import SwitchLabels from 'apps/frontend/src/components/switch-label/switch-label
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
 import useStyles from './form-wizard-item-email-styles';
-import { IFormStepItem } from 'apps/frontend/src/components/formik-stepper/FormikCurrentStep';
+import { WizardFormValues } from '../../pages/wizard-page/WizardPage.effects';
 
-export interface IFormWizardItemEmailProps extends IFormStepItem {
+export interface IFormWizardItemEmailProps {
   isFilecoin?: boolean;
-  values:any
+  values: WizardFormValues;
+  setFieldValue: (name: string, value: any) => void;
+  handleFormikChange: (value: any) => void;
 }
 
-const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
+export const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
   setFieldValue,
-  handleChange,
+  handleFormikChange,
   values
 }) => {
   const styles = useStyles();
@@ -32,8 +34,9 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
         <span className={styles.title}>Where we will send you the offer</span>
       </Typography>
       <TextField
-        onChange={handleChange}
         name='emailAddress'
+        value={values.emailAddress}
+        onChange={handleFormikChange}
         placeholder={'Your email adress'}
         inputProps={{
           className: isFilecoin ? styles.inputProps : styles.inputBitcoinProps,
@@ -67,22 +70,18 @@ const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
         <Box>
           <SwitchLabels
             labelName={'Wire transfer'}
-            name="wire"
             isFilecoin={isFilecoin}
-            setFieldValue={setFieldValue}
-            defaultValue={values.wire}
+            checked={values.wirePayment ?? false}
+            setChecked={(value) => setFieldValue('wirePayment', value)}
           />
           <SwitchLabels
             labelName={'Crypto payment'}
-            name="crypto"
             isFilecoin={isFilecoin}
-            setFieldValue={setFieldValue}
-            defaultValue={values.crypto}
+            checked={values.cryptoPayment ?? false}
+            setChecked={(value) => setFieldValue('cryptoPayment', value)}
           />
         </Box>
       </Box>
     </FormControl>
   );
 };
-
-export default FormWizardItemEmail;
