@@ -8,13 +8,18 @@ import {
   SvgIcon,
   IconButton,
   Collapse,
+  useMediaQuery,
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import { ReactComponent as Arrow } from '../../assets/svg/arrow-up.svg';
 import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIconDark.svg';
 import { useStyles } from './product-summary-block.style';
 
 export const ProductSummaryBlock: FC = () => {
+  const theme = useTheme();
   const classes = useStyles();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -38,20 +43,23 @@ export const ProductSummaryBlock: FC = () => {
           />
         </IconButton>
       </Box>
-      <Collapse in={expanded} unmountOnExit>
+      <Collapse in={isMobile ? true : expanded} unmountOnExit>
         <Paper className={classes.paperInner}>
           <Grid container className={classes.grid}>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Miner IDs / Address
                 </Typography>
-                <Box className={classes.valueWrapper}>
+                <Box
+                  sx={{ minWidth: { xs: 158, md: 'initial' } }}
+                  className={classes.valueWrapper}
+                >
                   <Typography className={classes.value}>f0112027</Typography>
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Generation start date
@@ -62,7 +70,7 @@ export const ProductSummaryBlock: FC = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Generation end date
@@ -73,9 +81,14 @@ export const ProductSummaryBlock: FC = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>Mwh</Typography>
+                <Typography
+                  sx={{ textAlign: { xs: 'right', md: 'left' } }}
+                  className={classes.label}
+                >
+                  Mwh
+                </Typography>
                 <Box className={classes.valueWrapper}>
                   <Typography className={classes.value}>3 MWh</Typography>
                 </Box>
@@ -83,17 +96,20 @@ export const ProductSummaryBlock: FC = () => {
             </Grid>
           </Grid>
           <Grid container className={classes.grid}>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Miner IDs / Address
                 </Typography>
-                <Box className={classes.valueWrapper}>
-                  <Typography className={classes.value}>f0112027</Typography>
+                <Box
+                  sx={{ minWidth: { xs: 158, md: 'initial' } }}
+                  className={classes.valueWrapper}
+                >
+                  <Typography className={classes.value}>f0212014</Typography>
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Generation start date
@@ -104,7 +120,7 @@ export const ProductSummaryBlock: FC = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
                 <Typography className={classes.label}>
                   Generation end date
@@ -115,11 +131,16 @@ export const ProductSummaryBlock: FC = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item className={classes.gridItem}>
               <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>Mwh</Typography>
+                <Typography
+                  sx={{ textAlign: { xs: 'right', md: 'left' } }}
+                  className={classes.label}
+                >
+                  Mwh
+                </Typography>
                 <Box className={classes.valueWrapper}>
-                  <Typography className={classes.value}>3 MWh</Typography>
+                  <Typography className={classes.value}>6 MWh</Typography>
                 </Box>
               </Box>
             </Grid>

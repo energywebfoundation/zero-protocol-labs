@@ -15,6 +15,10 @@ import avatarImage from 'apps/frontend/src/assets/images/avatar.png';
 export const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginTop: 72,
+    padding: '0 24px 32px 24px',
+    [theme.breakpoints.down('md')]: {
+      padding: '0 16px 32px 16px',
+    },
   },
   sectionPaper: {
     backgroundColor: '#421d77',
