@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import BuyerSellerInformation from '../../components/buyer-seller-information/buyer-seller-information';
 import PageSection from '../../components/page-section/page-section';
@@ -20,6 +20,7 @@ export const ProductPage = () => {
   const classes = useStyles();
 
   return !isLoading && isFetched && data ? (
+    <Container maxWidth={'xl'}>
     <Grid container>
       <Grid item xs={12}>
         <Breadcrumbs
@@ -88,6 +89,7 @@ and consumption, and are widely used for renewable energy procurement.`}
         </PageSection>
       </Grid>
     </Grid>
+    </Container>
   ) : (
     <Loading />
   );

@@ -16,7 +16,6 @@ import EthereumAddress from '../../ethereum-address/ethereum-address';
 
 dayjs.extend(utc);
 
-/* eslint-disable-next-line */
 export interface TableListDesktop {
   data: CertificateDto;
   recsSold: number;
@@ -28,6 +27,7 @@ export const TableListDesktop = ({
   sellerId,
   recsSold,
 }: TableListDesktop) => {
+  console.log(data);
   const styles = useStyles();
   return (
     <Box
