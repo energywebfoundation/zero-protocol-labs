@@ -143,6 +143,7 @@ export const WizardPage = () => {
                 mt={'24px'}
                 className={styles.btn}
               >
+                {step !== 0 ?
                 <Button
                   sx={{ height: '48px' }}
                   disabled={step === 0}
@@ -153,7 +154,7 @@ export const WizardPage = () => {
                   }
                 >
                   Back
-                </Button>
+                </Button> : <div></div>}
                 <Button
                   sx={{ height: '48px' }}
                   disabled={isSubmitting}
@@ -218,8 +219,6 @@ export const WizardPage = () => {
                   : variables.secondaryColor,
               }}
             >
-              {' '}
-              {step === 0 && 'read more'}
             </span>
           </Typography>
           {isFilecoin && <CardReadMore />}
