@@ -86,6 +86,8 @@ model FilecoinNodesOnPurchases {
 model Order {
   id                 String                       @id @default(uuid())
   emailAddress       String
+  protocolType       ProtocolTypeEnumType
+  userType           UserTypeEnumType
   items              OrderItem[]
   paymentPreferences PaymentPreferencesEnumType[]
   createdAt          DateTime                     @default(now())
@@ -95,6 +97,7 @@ model OrderItem {
   id         String               @id @default(uuid())
   minerId    String
   country    String
+  city       String?
   order      Order                @relation(fields: [orderId], references: [id])
   orderId    String
   timeFrames OrderItemTimeFrame[]
@@ -114,4 +117,16 @@ model OrderItemTimeFrame {
 enum PaymentPreferencesEnumType {
   WIRE_TRANSFER
   CRYPTO
+}
+
+enum ProtocolTypeEnumType {
+  FILECOIN
+  BITCOIN
+}
+
+enum UserTypeEnumType {
+  MINER
+  APP_DEVELOPER
+  CRYPTO_USER
+  OTHER
 }
