@@ -15,7 +15,6 @@ import { ProtocolsEnum } from 'apps/frontend/src/utils';
 const names: IGenericValueImage[] = [
   { value: ProtocolsEnum.Filecoin, img: FilecoininIcon },
   { value: ProtocolsEnum.Bitcoin, img: BitcoinIcon },
-  { value: ProtocolsEnum.Another },
 ];
 
 

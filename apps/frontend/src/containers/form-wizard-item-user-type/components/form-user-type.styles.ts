@@ -48,7 +48,7 @@ export const useStyles = makeStyles(() => {
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
       borderRadius: '5px',
       marginTop: '8px',
-      padding: '16px',
+      // padding: '16px',
     },
     buttonStyle: {
       minWidth: '48px',

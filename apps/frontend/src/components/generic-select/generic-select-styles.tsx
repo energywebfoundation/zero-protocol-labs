@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles({
+  // this is bad, should be using only theme colors in a single class
   placeholderStyles: {
     fontSize: '18px',
     fontWeight: 600,

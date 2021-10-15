@@ -155,7 +155,7 @@
             ],
             "styles": [],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
+            "webpackConfig": "webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -176,7 +176,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "1mb",
-                  "maximumError": "1.5mb"
+                  "maximumError": "3mb"
                 }
               ]
             }

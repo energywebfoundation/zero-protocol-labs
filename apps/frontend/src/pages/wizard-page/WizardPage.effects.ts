@@ -1,11 +1,11 @@
 import { CreateOrderDto, PaymentPreferencesEnumType, useOrdersControllerCreate } from "@energyweb/zero-protocol-labs-api-client"
 import { useState } from "react";
 import { BigNumber } from '@ethersproject/bignumber';
-import { countries } from "../../containers/form-wizard-item-user-type/components/form-user-type";
-import { useAddressMappingState, useSelectedProtocolStore } from "../../context";
-import { ProtocolsEnum } from "../../utils";
 import { Dayjs } from "dayjs";
 import { useNavigate } from "react-router";
+import { Countries } from "@energyweb/utils-general";
+import { useAddressMappingState, useSelectedProtocolStore } from "../../context";
+import { ProtocolsEnum } from "../../utils";
 
 export interface WizardFormValues {
   userType: string;
@@ -58,7 +58,7 @@ export const useWizardPageEffects = () => {
         emailAddress: values.emailAddress,
         items: mappingArrIterator.map(key => {
           return {
-          country: countries.find(country => country.value === values[`country_${key}`])?.shortName || '',
+          country: Countries.find(country => country.name === values[`country_${key}`])?.code || '',
           minerId: values[`minerId_${key}`] || '',
           // @ts-ignore
           timeFrames: mapping.get(key) ? mapping.get(key).map(nestedId => ({

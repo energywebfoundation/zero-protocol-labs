@@ -56,7 +56,7 @@ export const DateEnergySection: React.FC<IDateSectionProps> = ({
             mb={'8px'}
             ml={'14px'}
           >
-            Generation start date
+            Consumption start date
           </Typography>
           <BasicDatePicker
             value={values[`startDate_${id}_${nestedId}`] || ''}
@@ -74,7 +74,7 @@ export const DateEnergySection: React.FC<IDateSectionProps> = ({
             mb={'8px'}
             ml={'14px'}
           >
-            Generation end date
+            Consumption end date
           </Typography>
           <BasicDatePicker
             value={values[`endDate_${id}_${nestedId}`] || ''}

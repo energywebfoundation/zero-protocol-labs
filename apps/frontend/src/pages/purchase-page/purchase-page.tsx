@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import PageSection from '../../components/page-section/page-section';
 import Loading from '../../components/loading/loading';
@@ -17,6 +17,7 @@ export const PurchasePage = () => {
   const { transactionsData, isLoading, isFetched } = usePurchasePageEffects();
 
   return !isLoading && transactionsData && isFetched ? (
+    <Container maxWidth={'xl'}>
     <Grid container>
       <Grid item xs={12}>
         <Breadcrumbs
@@ -54,6 +55,7 @@ export const PurchasePage = () => {
         </PageSection>
       </Grid>
     </Grid>
+    </Container>
   ) : (
     <Loading />
   );
