@@ -1,25 +1,12 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createTheme } from '@material-ui/core/styles';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import './assets/fonts/rajdhani/stylesheet.css';
 import App from './app/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HelmetProvider } from 'react-helmet-async';
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
+import { UiTheme } from '@energyweb/zero-protocol-labs-theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,13 +21,13 @@ ReactDOM.render(
   <StrictMode>
     <CssBaseline />
     <HelmetProvider>
-      <MuiThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <UiTheme>
             <App />
-          </BrowserRouter>
-        </QueryClientProvider>
-      </MuiThemeProvider>
+          </UiTheme>
+        </BrowserRouter>
+      </QueryClientProvider>
     </HelmetProvider>
   </StrictMode>,
   document.getElementById('root')

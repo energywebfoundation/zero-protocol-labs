@@ -1,24 +1,44 @@
 import { Box, Container } from '@material-ui/core';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
-import { memo } from 'react';
+import { ReactComponent as LogoFilecoin } from '../../assets/svg/filecoinLogo.svg';
+import { ReactComponent as ZeroLogo } from '../../assets/svg/zeroLogo.svg';
+import { useSelectedProtocolStore } from '../../context';
+import { ProtocolsEnum } from '../../utils';
 
-/* eslint-disable-next-line */
-export interface HeaderProps {}
+export const Header = () => {
+  const selectedProtocol = useSelectedProtocolStore();
+  // bad should be more generic
+  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
 
-export const Header = memo(() => (
-  <header style={{ background: '#2D1155' }}>
-    <Container maxWidth={'xl'}>
-      <Box
-        sx={{ height: '88px' }}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        width={'100%'}
+  return (
+      <header
+        style={{
+          background: isFilecoin
+            ? variables.filcoinBackgroundColor
+            : variables.primaryColor,
+        }}
       >
-        <Logo />
-      </Box>
-    </Container>
-  </header>
-));
+        <Container maxWidth={'xl'}>
+          <Box
+            sx={{ height: '88px' }}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            width={'100%'}
+          >
+            {isFilecoin ? (
+              <Box>
+                <ZeroLogo style={{ marginRight: '40px' }} />
+                <LogoFilecoin />
+              </Box>
+            ) : (
+              <Logo />
+            )}
+          </Box>
+        </Container>
+      </header>
+  );
+};
 
 export default Header;
