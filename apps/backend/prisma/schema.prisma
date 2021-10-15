@@ -108,7 +108,7 @@ model OrderItemTimeFrame {
   orderItemId String?
   start       DateTime
   end         DateTime
-  energy      Int
+  energy      BigInt
 }
 
 enum PaymentPreferencesEnumType {
