@@ -27,7 +27,6 @@ export const TableListDesktop = ({
   sellerId,
   recsSold,
 }: TableListDesktop) => {
-  console.log(data);
   const styles = useStyles();
   return (
     <Box
