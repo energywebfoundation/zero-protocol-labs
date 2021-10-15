@@ -41,6 +41,7 @@ services:
       - db
     environment:
       LOG_LEVELS: "log,error,warn,debug,verbose"
+      API_KEY: somethingsecret
     networks:
       zero-pl:
 

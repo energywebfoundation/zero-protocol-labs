@@ -29,7 +29,7 @@ import { UpdateFileMetadataDto } from "./dto/update-file-metadata.dto";
 @ApiTags('files')
 @UseInterceptors(ClassSerializerInterceptor)
 export class FilesController {
-  private readonly logger = new Logger(FilesController.name, { timestamp: true });
+  private readonly logger = new Logger(FilesController.name, true);
 
   constructor(private readonly filesService: FilesService) {}
 
