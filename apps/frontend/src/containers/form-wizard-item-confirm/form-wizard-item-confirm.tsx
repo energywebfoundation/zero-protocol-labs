@@ -26,7 +26,7 @@ type ConfirmTableData = {
   region: string;
   period: string;
   amount: string;
-}
+};
 
 export const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   isFilecoin,
@@ -40,22 +40,27 @@ export const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
   );
 
   // this should be made less dirty
-  const tableData: ConfirmTableData[] = mappingArrIterator.map(key => ({
+  const tableData: ConfirmTableData[] = mappingArrIterator.map((key) => ({
     minerId: values[`minerId_${key}`],
     region: values[`country_${key}`],
     period: `
     ${(values[`generalStartDate_${key}`] as Dayjs).format('YYYY/MM/DD')}
     >
     ${(values[`generalEndDate_${key}`] as Dayjs).format('YYYY/MM/DD')}`,
-    amount: addressMapping ? addressMapping.get(key)?.reduce((prev, current) => {
-      return prev + Number(values[`energy_${key}_${current}`])
-    }, 0)?.toString() + ' MWh' : ''
+    amount: addressMapping
+      ? addressMapping
+          .get(key)
+          ?.reduce((prev, current) => {
+            return prev + Number(values[`energy_${key}_${current}`]);
+          }, 0)
+          ?.toString() + ' MWh'
+      : '',
   }));
 
   const styles = useStyles();
 
   return (
-    <FormControl sx={{ width: '488px' }}>
+    <FormControl className={styles.form}>
       <Box
         display={'flex'}
         p={'24px 20px 24px 24px'}
@@ -96,11 +101,10 @@ export const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
             {values.wirePayment && values.cryptoPayment
               ? 'Wire transfer or Crypto'
               : values.wirePayment
-                ? 'Wire transfer'
-                : values.cryptoPayment
-                  ? 'Crypto'
-                  : ''
-            }
+              ? 'Wire transfer'
+              : values.cryptoPayment
+              ? 'Crypto'
+              : ''}
           </Typography>
         </Box>
       </Box>
@@ -121,7 +125,8 @@ export const FormWizardItemConfirm: React.FC<IFormWizardItemConfirmProps> = ({
           <TableBody>
             {tableData.map((el, index) => {
               return (
-                <TableRow key = {el.minerId}
+                <TableRow
+                  key={el.minerId}
                   className={
                     index % 2 === 0 && isFilecoin
                       ? styles.tableRowLight

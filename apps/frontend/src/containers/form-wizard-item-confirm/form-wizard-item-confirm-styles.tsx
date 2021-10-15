@@ -2,6 +2,12 @@ import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles({
+  form: {
+    width: '488px',
+    '@media (max-width: 620px)': {
+      width: '100%',
+    },
+  },
   tableWrapper: {
     width: '100%',
     backgroundColor: variables.white,

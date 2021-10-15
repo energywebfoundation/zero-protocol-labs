@@ -49,6 +49,10 @@ export const useStyles = makeStyles(() => {
       borderRadius: '5px',
       marginTop: '8px',
       padding: '16px',
+      width: '488px',
+      '@media (max-width: 620px)': {
+        width: '100%',
+      },
     },
     buttonStyle: {
       minWidth: '48px',
@@ -56,6 +60,9 @@ export const useStyles = makeStyles(() => {
       backgroundColor: variables.filcoinColor,
       '&:hover': {
         backgroundColor: variables.filcoinColor,
+      },
+      '@media (max-width: 620px)': {
+        width: '100%',
       },
     },
     buttonGreenStyle: {
@@ -65,10 +72,35 @@ export const useStyles = makeStyles(() => {
       '&:hover': {
         backgroundColor: variables.secondaryColor,
       },
+      '@media (max-width: 620px)': {
+        width: '100%',
+      },
     },
     icon: {
       transform: 'rotate(180deg)',
     },
+    wrapperDate: {
+      display: 'flex',
+      marginTop: '24px',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      '@media (max-width: 620px)': {
+        flexDirection: 'column',
+        marginTop: '16px',
+      },
+    },
+    blockDate: {
+      width: '192px',
+      '@media (max-width: 620px)': {
+        width: '100%',
+        marginBottom: '16px',
+      },
+    },
+    blockBtn: {
+      '@media (max-width: 620px)': {
+        width: '100%',
+      },
+    }
   };
 });
 

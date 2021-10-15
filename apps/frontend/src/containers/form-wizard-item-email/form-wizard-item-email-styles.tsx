@@ -3,6 +3,12 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles(() => {
   return {
+    form: {
+      width: '488px',
+      '@media (max-width: 620px)': {
+        width: '100%',
+      },
+    },
     title: {
       fontSize: '12px',
       fontWeight: 500,

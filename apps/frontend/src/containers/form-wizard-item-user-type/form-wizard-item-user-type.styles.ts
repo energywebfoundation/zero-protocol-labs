@@ -3,6 +3,13 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles(() => {
   return {
+    wrapper: {
+      '@media (max-width: 620px)': {
+        '& .MuiFormControl-root': {
+          width: '100%',
+        },
+      },
+    },
     menuItemStyles: {
       fontSize: '16px',
       fontWeight: 600,
@@ -38,6 +45,9 @@ export const useStyles = makeStyles(() => {
       '&:hover': {
         backgroundColor: variables.white,
       },
+      '@media (max-width: 620px)': {
+        minWidth: '100%',
+      },
     },
     buttonGreenAddStyle: {
       backgroundColor: variables.white,
@@ -51,6 +61,9 @@ export const useStyles = makeStyles(() => {
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
       '&:hover': {
         backgroundColor: variables.white,
+      },
+      '@media (max-width: 620px)': {
+        minWidth: '100%',
       },
     },
   };

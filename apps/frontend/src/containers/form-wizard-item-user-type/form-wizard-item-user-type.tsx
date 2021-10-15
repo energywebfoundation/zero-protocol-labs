@@ -1,5 +1,10 @@
-import { Typography, MenuItem, Button, SelectChangeEvent } from '@material-ui/core';
-import { Box } from '@material-ui/system';
+import {
+  Typography,
+  MenuItem,
+  Button,
+  SelectChangeEvent,
+  Box,
+} from '@material-ui/core';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
@@ -7,7 +12,7 @@ import useStyles from './form-wizard-item-user-type.styles';
 import { ReactComponent as Plus } from '../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../assets/svg/plusGreen.svg';
 import { FormUserType } from './components/form-user-type';
-import {useMemo, useState} from 'react'
+import { useMemo, useState } from 'react';
 import { WizardFormValues } from '../../pages/wizard-page/WizardPage.effects';
 
 export interface FormWizardItemUserTypeProps {
@@ -20,7 +25,7 @@ export interface FormWizardItemUserTypeProps {
 export interface IGenericValueImage {
   value: string;
   img?: string;
-  shortName?:string
+  shortName?: string;
 }
 
 const userTypes: IGenericValueImage[] = [
@@ -33,21 +38,26 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   isFilecoin,
   setFieldValue,
   handleFormikChange,
-  values
+  values,
 }) => {
   const styles = useStyles();
-  const [amountOfItems, setAmountOfItems]=  useState(1);
-  const arrayOfItemsIds = useMemo(() => Array.from(Array(amountOfItems).keys()), [amountOfItems])
+  const [amountOfItems, setAmountOfItems] = useState(1);
+  const arrayOfItemsIds = useMemo(
+    () => Array.from(Array(amountOfItems).keys()),
+    [amountOfItems]
+  );
 
   const handleElemChange = (event: SelectChangeEvent) => {
-    const { target: { value, name } } = event;
+    const {
+      target: { value, name },
+    } = event;
     setFieldValue(name, value);
   };
 
-  const addAnother = () => setAmountOfItems((prev) => prev+1);
+  const addAnother = () => setAmountOfItems((prev) => prev + 1);
 
   return (
-    <Box display={'flex'} flexDirection={'column'}>
+    <Box display={'flex'} flexDirection={'column'} className={styles.wrapper}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}
@@ -77,7 +87,7 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           </MenuItem>
         ))}
       </GenericSelect>
-      {arrayOfItemsIds.map(id => (
+      {arrayOfItemsIds.map((id) => (
         <FormUserType
           key={id}
           id={id}
@@ -85,8 +95,8 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           handleFormikChange={handleFormikChange}
           setFieldValue={setFieldValue}
           values={values}
-        />))
-      }
+        />
+      ))}
       <Button
         onClick={addAnother}
         className={
