@@ -3,6 +3,7 @@ import {
   IsInt,
   IsISO8601,
   IsNumber,
+  Max,
   Min,
   registerDecorator,
   ValidationArguments,
@@ -22,9 +23,10 @@ export class CreateOrderItemTimeframeDto {
   @IsTheSameYearAs("start")
   end: Date;
 
-  @ApiProperty({ example: 100000 })
+  @ApiProperty({ example: 100000, description: 'amount of energy represented in Wh unit' })
   @IsNumber({ allowInfinity: false, allowNaN: false })
   @IsInt()
+  @Max(9007199254740991)
   @Min(1)
   energy: number;
 }
