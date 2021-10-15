@@ -1,4 +1,9 @@
-import { FormControl, Typography, MenuItem, SelectChangeEvent } from '@material-ui/core';
+import {
+  FormControl,
+  Typography,
+  MenuItem,
+  SelectChangeEvent,
+} from '@material-ui/core';
 import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import * as React from 'react';
@@ -17,7 +22,6 @@ const names: IGenericValueImage[] = [
   { value: ProtocolsEnum.Bitcoin, img: BitcoinIcon },
 ];
 
-
 export const FormWizardItemProtocol: React.FC = () => {
   const styles = useStyles();
   const setSelectedProtocol = useSelectedProtocolDispatch();
@@ -29,7 +33,7 @@ export const FormWizardItemProtocol: React.FC = () => {
   };
 
   return (
-    <FormControl sx={{ width: '488px' }}>
+    <FormControl className={styles.formControl}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}
@@ -41,11 +45,9 @@ export const FormWizardItemProtocol: React.FC = () => {
       </Typography>
       <GenericSelect
         isFilecoin={isFilecoin}
-        handleChange={(event) =>
-          handleChange(event)
-        }
+        handleChange={(event) => handleChange(event)}
         value={selectedProtocol}
-        name='protocol'
+        name="protocol"
         placeholder={'Choose the Protocol'}
         bgColor={variables.white}
       >
