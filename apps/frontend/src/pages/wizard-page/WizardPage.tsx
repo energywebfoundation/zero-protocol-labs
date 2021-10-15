@@ -96,7 +96,7 @@ export const WizardPage = () => {
           initialValues={initialValues}
           onSubmit={(values) => handleSubmit(values, addressMapping ?? new Map())}
         >
-          {({ isSubmitting, handleChange, setFieldValue, values }) => (
+          {({ isSubmitting, handleChange, setFieldValue, values, setValues }) => (
             <Form
               autoComplete="off"
               style={{
@@ -136,6 +136,7 @@ export const WizardPage = () => {
                 handleFormikChange={handleChange}
                 setFieldValue={setFieldValue}
                 values={values}
+                setFormikValues={setValues}
               />
               <Box
                 display={'flex'}

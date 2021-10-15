@@ -21,7 +21,7 @@ export const textWizardPageDown: string[][] = [
     '',
   ],
   [
-    'Recs or Renewable Energy Certificates are the only way to proovethat you consumed renewable energy. They have different names indifferent regions: their general name is EAC or Energy AttributeCertificate, in Europe they are called GOs or Guarantees of Origin,and in the USA they are',
+    'Recs or Renewable Energy Certificates are the only way to prove that you consumed renewable energy. They have different names indifferent regions: their general name is EAC or Energy AttributeCertificate, in Europe they are called GOs or Guarantees of Origin.',
     '',
     'Needed to pair you with a seller that accepts your preferred payment method. When you’ll receive the offer, the seller will inform you what currencies they accept',
     'Double check the email! Expect to receive an email to the address you provided within the next 2 days, with a proposal of the RECs to decarbonize your electricity consumption.',
