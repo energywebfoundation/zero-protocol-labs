@@ -17,26 +17,21 @@ export const textWizardPageDown: string[][] = [
   [
     'What are RECs and why do you need them to make your crypto green?',
     '',
-    'Preferred payment method',
+    '',
     '',
   ],
   [
     'Recs or Renewable Energy Certificates are the only way to proovethat you consumed renewable energy. They have different names indifferent regions: their general name is EAC or Energy AttributeCertificate, in Europe they are called GOs or Guarantees of Origin,and in the USA they are',
     '',
-    'Needed to pair you with a seller that accepts your preferred payment method. When you’ll receive the offer, the seller will inform you what currencies they accept',
-    'Double check the email! Expect to receive an email to the address you provided within the next 2 days, with a proposal of the RECs to decarbonize your electricity consumption.',
-  ],
-  [
-    'More info About RECs for Filecoin miners',
     '',
-    'Preferred payment method',
     '',
   ],
+  ['More info About RECs for Filecoin miners', '', '', ''],
   [
     'Sed gravida et aliquam aliquam. Vitae at sed facilisis pharetra. Pharetra massa ut risus, risus leo, amet fringilla eu. Et pellentesque mi in magna cursus tincidunt arcu pellentesque diam. Ipsum euismod platea vestibulum nisl. Malesuada elementum facilisis vitae sagittis feugiat non nisl. Urna purus amet, sit tempus molestie.',
     '',
-    'Needed to pair you with a seller that accepts your preferred payment method. When you’ll receive the offer, the seller will inform you what currencies they accept',
-    'Double check the email! Expect to receive an email to the address you provided within the next 2 days, with a proposal of the RECs to decarbonize your electricity consumption.',
+    '',
+    '',
   ],
   [
     'Every REC prooves that 1 Mwh of electricity has been inputted into the grid of a specific country / region. on Zero you will find also tokenized versions of the certificates that represents fractions of RECs in the KWh range, in case your consumption is small.',

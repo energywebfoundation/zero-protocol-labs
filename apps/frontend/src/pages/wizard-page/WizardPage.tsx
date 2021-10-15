@@ -218,8 +218,10 @@ export const WizardPage = () => {
                   {' '}
                   {step === 0 && 'read more'}
                 </span>
+              ) : step === 0 ? (
+                ' called RECs.'
               ) : (
-                'called RECs.'
+                ''
               )}
             </Typography>
             <Typography
