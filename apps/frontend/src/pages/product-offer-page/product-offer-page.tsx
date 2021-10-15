@@ -1,21 +1,22 @@
 import { FC } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Box, Avatar, Typography } from '@material-ui/core';
-import UserAvatar from 'components/user-avatar/user-avatar';
-import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
-import PageSection from 'components/page-section/page-section';
-import NotificationStrip from 'components/notification-strip/notification-strip';
-import FieldLabel from 'components/field-label/field-label';
-import FieldValue from 'components/field-value/field-value';
-import Info from 'components/info/info';
-import avatarImage from 'assets/images/avatar.png';
+import { Grid, Box, Typography, Paper } from '@material-ui/core';
+import ProductSummaryBlock from 'apps/frontend/src/components/product-summary-block/product-summary-block';
+import UserAvatar from 'apps/frontend/src/components/user-avatar/user-avatar';
+import Breadcrumbs from 'apps/frontend/src/components/breadcrumbs/breadcrumbs';
+import PageSection from 'apps/frontend/src/components/page-section/page-section';
+import NotificationStrip from 'apps/frontend/src/components/notification-strip/notification-strip';
+import FieldLabel from 'apps/frontend/src/components/field-label/field-label';
+import FieldValue from 'apps/frontend/src/components/field-value/field-value';
+import Info from 'apps/frontend/src/components/info/info';
+import avatarImage from 'apps/frontend/src/assets/images/avatar.png';
 
 export const useStyles = makeStyles((theme) => ({
   wrapper: {
     marginTop: 72,
   },
-  paper: {
+  sectionPaper: {
     backgroundColor: '#421d77',
     padding: '16px 23px 43px 23px',
     [theme.breakpoints.down('md')]: {
@@ -131,7 +132,7 @@ export const ProductOfferPage: FC = () => {
           <PageSection
             headingText={'Offer Summary'}
             sectionHelpText="This offer was created for you by"
-            paperClassName={classes.paper}
+            paperClassName={classes.sectionPaper}
             wrapperClassName={classes.wrapperClassName}
             headingTextClassName={classes.headingTextClassName}
             helperTextClassName={classes.helperText}
@@ -283,6 +284,7 @@ export const ProductOfferPage: FC = () => {
               </Grid>
             </Grid>
           </PageSection>
+          <ProductSummaryBlock />
         </Grid>
       </Grid>
     </>

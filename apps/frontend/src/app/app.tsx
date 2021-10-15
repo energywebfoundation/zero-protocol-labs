@@ -4,7 +4,7 @@ import Header from '../components/header/header';
 import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
-import { ProductOfferPage } from 'pages/product-offer-page/product-offer-page';
+import { ProductOfferPage } from '../pages/product-offer-page/product-offer-page';
 import { WizardPage } from '../pages/wizard-page/WizardPage';
 import { AddressMappingProvider, SelectedProtocolProvider } from '../context';
 import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';

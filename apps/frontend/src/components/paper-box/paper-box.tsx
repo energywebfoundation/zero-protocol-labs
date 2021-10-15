@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 /* eslint-disable-next-line */
 export interface PaperBoxProps {
   children: ReactNode;
-  bgColor: string;
+  bgColor?: string;
   customPadding?: string | number;
   customHeight?: string;
   customBorderRadius?: string;

@@ -13,17 +13,18 @@ const $inputTextColor = '#2D1155';
 
 const $bodyBackgroundColor = '#ffffff';
 const $mainBackgroundColor = '#ffffff';
+const $defaultBackgroundColor = '#F6F3F9';
 const $filcoinBackgroundColor = '#F9F9F9';
 const $fieldIconColor = '#ffffff';
 const $white = '#ffffff';
 const $black = '#000000';
 const $filcoinColor = '#0090FF';
 const $filcoinText = '#5CB8FF';
-const $filcoinColorLight ='#E5F4FF'
+const $filcoinColorLight = '#E5F4FF';
 
-const $switchGrayColor='#A0A0A0';
-const $switchBgColorBlue='#B3DEFF';
-const $switchBgColorGray='#C8C8CA';
+const $switchGrayColor = '#A0A0A0';
+const $switchBgColorBlue = '#B3DEFF';
+const $switchBgColorGray = '#C8C8CA';
 
 const $fontFamilyPrimary = 'Rajdhani';
 const $fontFamilySecondary = 'Rajdhani';
@@ -39,6 +40,7 @@ export type UiThemeVariables = {
   textColorDefault: string;
   simpleTextColor: string;
   bodyBackgroundColor: string;
+  defaultBackgroundColor: string;
   inputBackgroundColor: string;
   inputTextColor: string;
   mainBackgroundColor: string;
@@ -49,15 +51,15 @@ export type UiThemeVariables = {
   fontSize: number;
   white: string;
   black: string;
-  filcoinColor:string;
+  filcoinColor: string;
   purpleLight: string;
-  filcoinBackgroundColor: string
+  filcoinBackgroundColor: string;
   filcoinColorLight: string;
-  filcoinText:string;
-  switchGrayColor:string;
-  switchBgColorBlue:string;
+  filcoinText: string;
+  switchGrayColor: string;
+  switchBgColorBlue: string;
   switchBgColorGray: string;
-  purpleExtraLight:string
+  purpleExtraLight: string;
 };
 
 export const variables: UiThemeVariables = {
@@ -70,6 +72,7 @@ export const variables: UiThemeVariables = {
   simpleTextColor: $textColorDefault,
   bodyBackgroundColor: $bodyBackgroundColor,
   mainBackgroundColor: $mainBackgroundColor,
+  defaultBackgroundColor: $defaultBackgroundColor,
   fieldIconColor: $fieldIconColor,
   fontFamilyPrimary: $fontFamilyPrimary,
   fontFamilySecondary: $fontFamilySecondary,
@@ -80,12 +83,12 @@ export const variables: UiThemeVariables = {
   white: $white,
   filcoinColor: $filcoinColor,
   black: $black,
-  purpleLight:  $purpleLight,
-  filcoinBackgroundColor :$filcoinBackgroundColor,
+  purpleLight: $purpleLight,
+  filcoinBackgroundColor: $filcoinBackgroundColor,
   filcoinColorLight: $filcoinColorLight,
-  filcoinText:$filcoinText,
-  switchGrayColor:$switchGrayColor,
-  switchBgColorBlue:$switchBgColorBlue,
-  switchBgColorGray:$switchBgColorGray,
-  purpleExtraLight:$purpleExtraLight
+  filcoinText: $filcoinText,
+  switchGrayColor: $switchGrayColor,
+  switchBgColorBlue: $switchBgColorBlue,
+  switchBgColorGray: $switchBgColorGray,
+  purpleExtraLight: $purpleExtraLight,
 };
