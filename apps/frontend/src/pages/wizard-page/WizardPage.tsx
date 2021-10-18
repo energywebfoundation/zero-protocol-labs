@@ -9,6 +9,7 @@ import {
   Stepper,
   Typography,
 } from '@material-ui/core';
+import React from 'react';
 import { Form, Formik } from 'formik';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
@@ -30,11 +31,18 @@ export const WizardPage = () => {
     handleSubmit,
     handleBackStep,
     isFilecoin,
+    isBitcoin,
     step,
     stepLabels,
     isLastStep,
     addressMapping,
   } = useWizardPageEffects();
+
+  const [showCard, setShowCard] = React.useState<boolean>(false);
+
+  const showCardSection = () => {
+    setShowCard(!showCard);
+  };
 
   return (
     <>
@@ -63,13 +71,7 @@ export const WizardPage = () => {
           alignItems={'center'}
           p={`${!windowRespWidth && '0 15px'}`}
         >
-          <Box
-            mt={'70px'}
-            display={'flex'}
-            flexDirection={'column'}
-            alignItems={'center'}
-            mb={'37px'}
-          >
+          <Box className={styles.wrapper}>
             <Typography
               color={
                 isFilecoin ? variables.filcoinColor : variables.secondaryColor
@@ -86,7 +88,7 @@ export const WizardPage = () => {
               fontWeight={500}
               textAlign={'center'}
               maxWidth={'383px'}
-              mt={'12px'}
+              mt={`${!windowRespWidth ? '17px' : '12px'}`}
             >
               {textWizardPageUp[1][step]}
             </Typography>
@@ -191,7 +193,8 @@ export const WizardPage = () => {
             )}
           </Formik>
           <Box
-            mt={'70px'}
+            className={styles.downTitle}
+            mt={'81px'}
             display={'flex'}
             flexDirection={'column'}
             alignItems={'center'}
@@ -211,30 +214,42 @@ export const WizardPage = () => {
                 : textWizardPageDown[0][step]}
             </Typography>
             <Typography
+              className={styles.downText}
               color={isFilecoin ? variables.black : variables.white}
               fontSize={'16px'}
               fontWeight={500}
               textAlign={'center'}
               maxWidth={'685px'}
-              mt={'12px'}
               lineHeight={'24px'}
             >
-              {isFilecoin
-                ? textWizardPageDown[3][step]
-                : textWizardPageDown[1][step]}
+              {isFilecoin &&
+                window.innerWidth > 1200 &&
+                textWizardPageDown[3][step]}
+              {isFilecoin &&
+                window.innerWidth < 1200 &&
+                textWizardPageDown[6][step]}
+              {isBitcoin &&
+                window.innerWidth > 1200 &&
+                textWizardPageDown[3][step]}
+              {isBitcoin &&
+                window.innerWidth < 1200 &&
+                textWizardPageDown[6][step]}
+              {!isFilecoin && !isBitcoin && textWizardPageDown[1][step]}
               {windowRespWidth ? (
                 <span
+                  onClick={showCardSection}
                   style={{
+                    cursor: 'pointer',
                     color: isFilecoin
                       ? variables.purpleLight
                       : variables.secondaryColor,
                   }}
                 >
                   {' '}
-                  {step === 0 && 'read more'}
+                  {step === 0 && window.innerWidth > 1200 && 'read more'}
                 </span>
               ) : step === 0 ? (
-                ' called RECs.'
+                '  and in the USA they are called RECs'
               ) : (
                 ''
               )}
@@ -245,12 +260,20 @@ export const WizardPage = () => {
               fontWeight={500}
               textAlign={'center'}
               maxWidth={'685px'}
-              mt={'12px'}
+              mt={'34px'}
               lineHeight={'24px'}
             >
-              {!windowRespWidth && textWizardPageDown[4][step]}
+              {window.innerWidth < 1200 &&
+                !isFilecoin &&
+                !isBitcoin &&
+                textWizardPageDown[4][step]}
+              {window.innerWidth < 1200 &&
+                (isFilecoin || isBitcoin) &&
+                textWizardPageDown[5][step]}
             </Typography>
-            {isFilecoin && windowRespWidth && <CardReadMore />}
+            {isFilecoin && window.innerWidth > 1200 && showCard && (
+              <CardReadMore />
+            )}
           </Box>
         </Grid>
       </Grid>

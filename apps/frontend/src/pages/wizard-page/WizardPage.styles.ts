@@ -7,6 +7,15 @@ export const useStyles = makeStyles({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
   },
+  wrapper: {
+    margin:'70px 0 37px 0',
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center',
+    '@media (max-width: 620px)': {
+      margin:'55px 0 49px 0',
+    },
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -14,6 +23,29 @@ export const useStyles = makeStyles({
       '@media (max-width: 620px)': {
         width: '100%',
       }
+  },
+  downTitle: {
+    marginTop: '81px',
+    marginBottom: '9px',
+    '@media (max-width: 1025px)': {
+      marginTop: '98px',
+      marginBottom: '43px'
+
+    },
+    '@media (max-width: 620px)': {
+      marginTop: '72px',
+      marginBottom: '34px'
+    },
+  },
+  downText: {
+    marginTop: '9px',
+    '@media (max-width: 1025px)': {
+      marginTop: '43px',
+
+    },
+    '@media (max-width: 620px)': {
+      marginTop: '34px',
+    },
   },
   btn: {
     '& .MuiButton-root': {

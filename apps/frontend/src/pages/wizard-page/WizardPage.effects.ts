@@ -27,6 +27,7 @@ export const useWizardPageEffects = () => {
   const selectedProtocol = useSelectedProtocolStore();
   // bad needs to be replaced by more generic solution
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isBitcoin = selectedProtocol === ProtocolsEnum.Bitcoin;
   const stepLabels = ['Protocol', 'Consumption', 'Preferences', 'Confirmation'];
 
   const [step, setStep] = useState(0);
@@ -79,6 +80,7 @@ export const useWizardPageEffects = () => {
     handleSubmit,
     handleBackStep,
     isFilecoin,
+    isBitcoin,
     isLoading,
     step,
     stepLabels,

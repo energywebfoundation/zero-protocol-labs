@@ -36,4 +36,10 @@ export const textWizardPageDown: string[][] = [
   [
     'Every REC prooves that 1 Mwh of electricity has been inputted into the grid of a specific country / region. on Zero you will find also tokenized versions of the certificates that represents fractions of RECs in the KWh range, in case your consumption is small.',
   ],
+  [
+    'Dolor, sit sed mollis ultrices eget odio mollis facilisi. Pellentesque faucibus massa vitae in ultricies volutpat ut vitae. Risus, platea id tincidunt quis auctor euismod aliquam. Volutpat sed nisl nisl quis nec. Tortor fames.',
+  ],
+  [
+    'Sed gravida et aliquam aliquam. Vitae at sed facilisis pharetra. Pharetra massa ut risus, risus leo, amet fringilla eu. Et pellentesque mi in magna cursus tincidunt arcu pellentesque diam. Ipsum euismod platea vestibulum nisl. Malesuada elementum facilisis vitae sagittis feugiat non nisl. Urna purus amet, sit tempus molestie. Pellentesque ullamcorper erat congue urna, convallis viverra. Nullam gravida neque nulla ullamcorper duis nam sodales fringilla. Viverra sit tellus ac, interdum leo hac morbi ornare luctus. Egestas diam magna mauris, non. Non magna dignissim augue condimentum pellentesque sem a.',
+  ],
 ];

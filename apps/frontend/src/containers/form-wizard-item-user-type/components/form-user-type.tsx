@@ -54,7 +54,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
 
   return (
     <FormControl className={styles.form}>
-      <Box p={'13px 16px 20px 16px'}>
+      <Box p={'16px'}>
         <Box>
           <Box
             display="flex"
@@ -161,9 +161,24 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
           </Box>
         </Box>
       </Box>
-      <Box bgcolor={variables.white}>
+      <Box p={' 0 8px 8px 8px'} bgcolor={variables.white}>
+        <Box className={styles.sectionBtn}>
+          <Button
+            onClick={buttonClick}
+            sx={{
+              borderRadius: `${
+                sectionOpen && !isFilecoin && '5px 5px 0 0 !important'
+              }`,
+            }}
+            className={
+              isFilecoin ? styles.buttonStyle : styles.buttonGreenStyle
+            }
+          >
+            <img className={`${sectionOpen && styles.icon}`} src={ButtonIcon} />
+          </Button>
+        </Box>
         {sectionOpen && (
-          <Box p={' 0 8px 8px 8px'}>
+          <Box>
             <DateEnergySection
               id={id}
               handleFormikChange={handleFormikChange}

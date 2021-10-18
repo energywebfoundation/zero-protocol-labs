@@ -56,6 +56,7 @@ export const useStyles = makeStyles(() => {
     buttonStyle: {
       minWidth: '48px',
       minHeight: '48px',
+      borderRadius: '5px',
       backgroundColor: variables.filcoinColor,
       '&:hover': {
         backgroundColor: variables.filcoinColor,
@@ -67,6 +68,7 @@ export const useStyles = makeStyles(() => {
     buttonGreenStyle: {
       minWidth: '48px',
       minHeight: '48px',
+      borderRadius: '5px',
       backgroundColor: variables.secondaryColor,
       '&:hover': {
         backgroundColor: variables.secondaryColor,
@@ -97,7 +99,13 @@ export const useStyles = makeStyles(() => {
     },
     blockBtn: {
       '@media (max-width: 620px)': {
-        width: '100%',
+        display:'none',
+      },
+    },
+    sectionBtn:{
+      display: 'none',
+      '@media (max-width: 620px)': {
+        display:'block',
       },
     }
   };
