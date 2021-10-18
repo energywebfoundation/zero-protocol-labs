@@ -162,42 +162,10 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
     },
     MuiButton: {
       styleOverrides: {
-        root: {},
         contained: {
           '&.Mui-disabled': {
             color: styleConfig.TEXT_COLOR_DEFAULT,
           },
-        },
-      },
-    },
-    MuiTable: {
-      styleOverrides: {
-        root: {},
-      },
-    },
-    MuiTableHead: {
-      styleOverrides: {
-        root: {
-          background: styleConfig.MAIN_BACKGROUND_COLOR,
-        },
-      },
-    },
-    MuiTableBody: {
-      styleOverrides: {
-        root: {
-          'tr:nth-of-type(1n)': {
-            backgroundColor: styleConfig.PRIMARY_COLOR,
-            'tr:nth-of-type(2n)': {
-              backgroundColor: styleConfig.PRIMARY_COLOR_DIM,
-            },
-          },
-        },
-      },
-    },
-    MuiTableFooter: {
-      styleOverrides: {
-        root: {
-          background: styleConfig.MAIN_BACKGROUND_COLOR,
         },
       },
     },

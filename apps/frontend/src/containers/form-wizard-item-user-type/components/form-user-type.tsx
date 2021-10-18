@@ -2,49 +2,42 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 import {
   FormControl,
   Typography,
-  MenuItem,
   TextField,
   Button,
+  IconButton,
 } from '@material-ui/core';
 import useStyles from './form-user-type.styles';
 import { Box } from '@material-ui/system';
+import { Countries } from '@energyweb/utils-general';
 import React from 'react';
 import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
-import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
-import { IGenericValueImage } from '../form-wizard-item-user-type';
 import ButtonIcon from '../../../assets/svg/whiteArrow.svg';
 import { DateEnergySection } from './DateEnergySection';
 import { Info } from 'apps/frontend/src/components/info/info';
 import { Dayjs } from 'dayjs';
+import { SelectAutocomplete } from 'apps/frontend/src/components/select-autocomplete';
+import { Clear } from '@material-ui/icons';
+import { WizardFormValues } from 'apps/frontend/src/pages/wizard-page/WizardPage.effects';
 
 interface FormUserTypeProps {
   isFilecoin?: boolean;
   id: number;
   handleFormikChange: (value: any) => void;
   setFieldValue: (name: string, value: any) => void;
-  values: any;
+  values: WizardFormValues;
+  handleSectionRemove?: (id: number) => void;
 }
-
-export const countries: IGenericValueImage[] = [
-  { value: "England", shortName: "GB" },
-  { value: "France", shortName: "FR" },
-  { value: "Germany", shortName: "GR" },
-  { value: "Norway", shortName: "NW" },
-  { value: "Poland", shortName: "PL" },
-  { value: "Russia", shortName: "RS"},
-  { value: "Spain", shortName: "SP" },
-];
 
 export const FormUserType: React.FC<FormUserTypeProps> = ({
   isFilecoin,
   handleFormikChange,
   setFieldValue,
   id,
-  values
+  values,
+  handleSectionRemove
 }) => {
   const styles = useStyles();
   const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
-  const buttonClick = () => setSectionOpen(!sectionOpen);
 
   const amountOfEnergyFields =
     values[`generalEndDate_${id}`] && values[`generalStartDate_${id}`]
@@ -52,19 +45,33 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
       - (values[`generalStartDate_${id}`] as Dayjs).year()
     : -1;
 
+  const buttonClick = () => {
+    if(amountOfEnergyFields >= 0) {
+      setSectionOpen(!sectionOpen)
+    }
+    return;
+  };
+
   return (
-      <FormControl className={styles.form} sx={{ width: '488px' }}>
-        <Info
-          isFilecoin={isFilecoin}
-          color={variables.black}
-          fontSize={variables.fontSize}
-          fontWeight={600}
-          hideTimeout={1000}
-          popoverContentElement={<div>Miner IDs / Address </div>}
-        >
-          {isFilecoin && 'Miner IDs /'} Address
-        </Info>
-        <Box width={464} maxWidth={'100%'} mt={'13px'} mb={'19px'}>
+      <FormControl className={styles.form}>
+        <Box p={"13px 16px 20px 16px"}>
+        <Box >
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Info
+              isFilecoin={isFilecoin}
+              color={variables.black}
+              fontSize={variables.fontSize}
+              fontWeight={600}
+              hideTimeout={1000}
+              popoverContentElement={<div>Miner IDs / Address </div>}
+            >
+              {isFilecoin && 'Miner IDs /'} Address
+            </Info>
+            {handleSectionRemove ?
+            <IconButton onClick={() => handleSectionRemove(id)}>
+              <Clear fontSize="small" />
+            </IconButton> : null}
+          </Box>
           <TextField
             fullWidth
             name={`minerId_${id}`}
@@ -75,7 +82,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             }}
           />
         </Box>
-        <Box>
+        <Box mt="15px">
           <Typography
             color={variables.black}
             fontSize={variables.fontSize}
@@ -85,34 +92,13 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             Country
           </Typography>
           <Box width={464} maxWidth={'100%'}>
-            <GenericSelect
-              isFilecoin={isFilecoin}
-              handleChange={(event) =>
-                handleFormikChange(event)
-              }
-              name={`country_${id}`}
-              value={values[`country_${id}`] ?? ''}
-              placeholder={'Select regions'}
-              bgColor={
-                isFilecoin
-                  ? variables.filcoinColorLight
-                  : variables.inputBackgroundColor
-              }
-            >
-              {countries.map((el: IGenericValueImage) => (
-                <MenuItem
-                  className={
-                    isFilecoin
-                      ? styles.menuItemStylesFilecoin
-                      : styles.menuItemStyles
-                  }
-                  value={el.value}
-                  key={el.value}
-                >
-                  {el.value}
-                </MenuItem>
-              ))}
-            </GenericSelect>
+            <SelectAutocomplete
+              value={values[`country_${id}`]}
+              handleChange={(value) => setFieldValue(`country_${id}`, value)}
+              options={Countries.map(country => ({ value: country.code, title: country.name }))}
+              placeholder='Select country'
+              isFilecoin={!!isFilecoin}
+            />
           </Box>
           <Box
             display={'flex'}
@@ -128,7 +114,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
                 mb={'8px'}
                 ml={'14px'}
               >
-                Generation start date
+                Consumption start date
               </Typography>
               <BasicDatePicker
                 isFilecoin={isFilecoin}
@@ -144,7 +130,7 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
                 mb={'8px'}
                 ml={'14px'}
               >
-                Generation end date
+                Consumption end date
               </Typography>
               <BasicDatePicker
                 isFilecoin={isFilecoin}
@@ -167,9 +153,10 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             </Box>
           </Box>
         </Box>
+        </Box>
         <Box bgcolor={variables.white}>
           {sectionOpen && (
-            <Box p={' 0 8px 8px 8px'} mt={'16px'}>
+            <Box p={' 0 8px 8px 8px'}>
               <DateEnergySection
                 id={id}
                 handleFormikChange={handleFormikChange}
