@@ -2,7 +2,7 @@ import { variables } from "@energyweb/zero-protocol-labs-theme";
 import { Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
+export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>((theme) => ({
   wrapper: {
     position: 'absolute',
     top: '50%',
@@ -12,7 +12,10 @@ export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
     bgcolor: 'background.paper',
     boxShadow: '24px',
     padding: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%'
+    }
   },
   button: {
     color: variables.mainBackgroundColor,
@@ -36,4 +39,4 @@ export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
       flexDirection:'column'
     },
   }
-});
+}));

@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Paper, Typography } from '@material-ui/core';
+import { Box, Button, Modal, Paper, Typography, useTheme } from '@material-ui/core';
 import { FC } from 'react';
 import { useSelectedProtocolStore } from '../../context';
 import { ProtocolsEnum } from '../../utils';
@@ -20,6 +20,7 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
   const selectedProtocol = useSelectedProtocolStore();
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
   const classes = useStyles({ isFilecoin });
+  const theme = useTheme();
   return (
     <Modal open={open} onClose={handleClose}>
       <Paper className={classes.wrapper}>
@@ -28,6 +29,7 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
           variant="h5"
           component="span"
           textAlign="center"
+          fontSize={theme.breakpoints.down('sm') ? '16px' : undefined}
         >
           Are you sure you want to remove this Miner ID / Address ?
         </Typography>

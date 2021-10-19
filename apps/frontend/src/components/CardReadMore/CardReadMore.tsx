@@ -18,22 +18,18 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { ReactComponent as Vector } from '../../assets/svg/vector-line.svg';
 import { ReactComponent as People } from '../../assets/svg/people.svg';
-import { useStyles } from './cardReadMore-styles';
+import { useStyles } from './СardReadMore.styles';
 
 const cardData = [
-  'brief Reminder of what are RECs ',
-  'explainer of how these certificates tie into Filecoin’s Reputation system',
-  '+ optional next steps of what to do with this for the Storage Provider',
+  'You can contribute to decarbonize the crypto sector by buying RECs that match your energy consumption',
 ];
 
 export default function CardReadMore() {
   const styles = useStyles();
 
-  const [showInfo, setShowInfo] = React.useState<boolean>(false);
+  const [showInfo, setShowInfo] = React.useState<boolean>(true);
 
-  const showCardInfo = () => {
-    setShowInfo(!showInfo);
-  };
+  const toggleCardInfo = () => setShowInfo(!showInfo);
 
   return (
     <Card className={styles.card}>
@@ -41,7 +37,9 @@ export default function CardReadMore() {
         <CardMedia component="img" alt="Filcoin" image={FilcoinLogo} />
       </Box>
       <CardContent>
-        <Typography color={variables.black}>(optional explainer)</Typography>
+        <Typography color={variables.black}>
+          Thanks for considering buying RECs!
+        </Typography>
         <List>
           {cardData.map((el) => {
             return (
@@ -57,7 +55,7 @@ export default function CardReadMore() {
       </CardContent>
       <CardActions className={styles.cardActions}>
         <Button
-          onClick={showCardInfo}
+          onClick={toggleCardInfo}
           className={styles.button}
           endIcon={
             showInfo ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />

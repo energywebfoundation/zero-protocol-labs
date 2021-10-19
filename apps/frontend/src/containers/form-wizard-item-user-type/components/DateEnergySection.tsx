@@ -4,7 +4,7 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useEffect, useMemo } from 'react';
 import { useAddressMappingSetState } from 'apps/frontend/src/context';
 import { WizardFormValues } from 'apps/frontend/src/pages/wizard-page/WizardPage.effects';
-import useStyles from './DateEnergySection-styles';
+import useStyles from './DateEnergySection.styles';
 
 export interface IDateSectionProps {
   isFilecoin?: boolean;

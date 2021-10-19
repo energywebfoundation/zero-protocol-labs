@@ -8,8 +8,9 @@ import {
   StepLabel,
   Stepper,
   Typography,
+  useTheme,
+  useMediaQuery,
 } from '@material-ui/core';
-import React from 'react';
 import { Form, Formik } from 'formik';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
@@ -18,11 +19,12 @@ import { ReactComponent as RightArrowIcon } from '../../assets/svg/rightArrow.sv
 import { ReactComponent as LeftArrowIconFilecoin } from '../../assets/svg/leftArrowFilecoin.svg';
 import { ReactComponent as RightArrowIconFilecoin } from '../../assets/svg/rightArrowFilecoin.svg';
 import { ReactComponent as SencIcon } from '../../assets/svg/sendIcon.svg';
-import CardReadMore from '../../components/card-reade-more/cardReadMore';
+import CardReadMore from '../../components/CardReadMore/CardReadMore';
 import { textWizardPageDown, textWizardPageUp } from './wizard-page-utils';
 import { WizardPageStepSelector } from './WizardPageStepSelector';
 import { useStyles } from './WizardPage.styles';
 import { initialValues, useWizardPageEffects } from './WizardPage.effects';
+import { CardReadMoreTablet } from '../../components/CardReadMore/CardReadMoreTablet';
 
 export const WizardPage = () => {
   const styles = useStyles();
@@ -37,6 +39,9 @@ export const WizardPage = () => {
     isLastStep,
     addressMapping,
   } = useWizardPageEffects();
+  const theme = useTheme();
+  const lgUpScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const mdUpScreen = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <>
@@ -264,7 +269,12 @@ export const WizardPage = () => {
                 (isFilecoin || isBitcoin) &&
                 textWizardPageDown[5][step]}
             </Typography>
-            {isFilecoin && window.innerWidth > 1200 && <CardReadMore />}
+            {isFilecoin && lgUpScreen
+              ? <CardReadMore />
+              : isFilecoin && mdUpScreen
+                ? <CardReadMoreTablet />
+                : null
+            }
           </Box>
         </Grid>
       </Grid>
