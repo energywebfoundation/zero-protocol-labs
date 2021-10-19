@@ -1,27 +1,17 @@
 import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { Theme } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => {
-  return {
-    menuItemStyles: {
+export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
+    menuItem: {
       fontSize: '16px',
       fontWeight: 600,
       backgroundColor: variables.white,
       paddingLeft: '20px',
+      color: ({ isFilecoin }) => isFilecoin ? variables.filcoinText : undefined,
       '&:hover': {
-        backgroundColor: variables.primaryColor,
-        color: variables.white,
-      },
-    },
-    menuItemStylesFilecoin: {
-      fontSize: '16px',
-      fontWeight: 600,
-      backgroundColor: variables.white,
-      paddingLeft: '20px',
-      color: variables.filcoinText,
-      '&:hover': {
-        backgroundColor: variables.filcoinColorLight,
-        color: variables.filcoinColor,
+        backgroundColor: ({ isFilecoin }) => isFilecoin ? variables.filcoinColorLight : variables.primaryColor,
+        color: ({ isFilecoin }) => isFilecoin ? variables.filcoinColor : variables.white,
         fontWeight: 700,
       },
     },
@@ -51,9 +41,6 @@ export const useStyles = makeStyles(() => {
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
       '&:hover': {
         backgroundColor: variables.white,
-      },
-    },
-  };
+      }
+    }
 });
-
-export default useStyles;

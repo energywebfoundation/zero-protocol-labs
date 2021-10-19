@@ -1,15 +1,15 @@
 import { Box, Container } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 import { ReactComponent as LogoFilecoin } from '../../assets/svg/filecoinLogo.svg';
 import { ReactComponent as ZeroLogo } from '../../assets/svg/zeroLogo.svg';
 import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
 
 export const Header = () => {
   const selectedProtocol = useSelectedProtocolStore();
   // bad should be more generic
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
 
   return (
       <header
@@ -40,5 +40,3 @@ export const Header = () => {
       </header>
   );
 };
-
-export default Header;

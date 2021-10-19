@@ -1,7 +1,7 @@
+import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
 import { SetStateAction } from 'react';
 import { FormWizardItemConfirm, FormWizardItemEmail, FormWizardItemProtocol, FormWizardItemUserType } from '../../containers';
 import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
 import { WizardFormValues } from './WizardPage.effects';
 
 export interface IFormStepItem {
@@ -26,7 +26,7 @@ export const WizardPageStepSelector = ({
 }: WizardPageStepSelectorProps) => {
   const selectedProtocol = useSelectedProtocolStore();
   // bad should be more generic
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
 
   const renderSteps = (
     step: number,
