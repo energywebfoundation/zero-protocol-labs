@@ -33,11 +33,11 @@ export const WizardPage = () => {
     handleSubmit,
     handleBackStep,
     isFilecoin,
-    isBitcoin,
     step,
     stepLabels,
     isLastStep,
     addressMapping,
+    selectedProtocol
   } = useWizardPageEffects();
   const theme = useTheme();
   const lgUpScreen = useMediaQuery(theme.breakpoints.up('lg'));
@@ -221,19 +221,13 @@ export const WizardPage = () => {
               maxWidth={'685px'}
               lineHeight={'24px'}
             >
-              {isFilecoin &&
+              {selectedProtocol &&
                 window.innerWidth > 1200 &&
                 textWizardPageDown[3][step]}
-              {isFilecoin &&
+              {selectedProtocol &&
                 window.innerWidth < 1200 &&
                 textWizardPageDown[6][step]}
-              {isBitcoin &&
-                window.innerWidth > 1200 &&
-                textWizardPageDown[3][step]}
-              {isBitcoin &&
-                window.innerWidth < 1200 &&
-                textWizardPageDown[6][step]}
-              {!isFilecoin && !isBitcoin && textWizardPageDown[1][step]}
+              {!selectedProtocol && textWizardPageDown[1][step]}
               {windowRespWidth ? (
                 <span
                   style={{
@@ -262,16 +256,15 @@ export const WizardPage = () => {
               lineHeight={'24px'}
             >
               {window.innerWidth < 1200 &&
-                !isFilecoin &&
-                !isBitcoin &&
+                !selectedProtocol &&
                 textWizardPageDown[4][step]}
               {window.innerWidth < 1200 &&
-                (isFilecoin || isBitcoin) &&
+                selectedProtocol &&
                 textWizardPageDown[5][step]}
             </Typography>
-            {isFilecoin && lgUpScreen
+            {isFilecoin && lgUpScreen && step === 0
               ? <CardReadMore />
-              : isFilecoin && mdUpScreen
+              : isFilecoin && mdUpScreen && step === 0
                 ? <CardReadMoreTablet />
                 : null
             }

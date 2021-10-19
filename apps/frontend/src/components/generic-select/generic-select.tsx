@@ -1,25 +1,34 @@
-import { OutlinedInput, Select, SelectChangeEvent } from '@material-ui/core';
+import { MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@material-ui/core';
 import * as React from 'react';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useStyles from './generic-select-styles';
 
-export interface IGenericSelectProps {
-  bgColor?: string;
-  placeholder?: string;
+export interface SelectOption {
   value: string;
-  handleChange?: (value: SelectChangeEvent) => void;
-  isFilecoin?: boolean;
-  name?: string;
+  label: string
+  img?: string;
 }
 
-const GenericSelect: React.FC<IGenericSelectProps> = ({
-  placeholder,
-  bgColor,
-  children,
+export interface IGenericSelectProps {
+  value: string;
+  handleChange?: (value: SelectChangeEvent) => void;
+  options: SelectOption[];
+  bgColor?: string;
+  placeholder?: string;
+  isFilecoin?: boolean;
+  name?: string;
+  menuItemClassName?: string;
+}
+
+export const GenericSelect: React.FC<IGenericSelectProps> = ({
   value,
   handleChange,
+  options,
+  placeholder,
+  bgColor,
   isFilecoin,
   name,
+  menuItemClassName
 }) => {
   const styles = useStyles();
 
@@ -58,6 +67,7 @@ const GenericSelect: React.FC<IGenericSelectProps> = ({
             </span>
           );
         }
+        const label = options.find(option => option.value === selected)?.label;
 
         return (
           <span
@@ -67,12 +77,25 @@ const GenericSelect: React.FC<IGenericSelectProps> = ({
                 : styles.selectValueStyle
             }`}
           >
-            {selected}
+            {label}
           </span>
         );
       }}
     >
-      {children}
+       {options.map((option) => (
+          <MenuItem
+            className={menuItemClassName}
+            value={option.value}
+            key={option.value}
+          >
+            {option.img && (
+              <span className={styles.iconStyles}>
+                <img src={option.img} />
+              </span>
+            )}
+            {option.label}
+          </MenuItem>
+        ))}
     </Select>
   );
 };

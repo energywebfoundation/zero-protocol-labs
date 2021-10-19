@@ -1,7 +1,7 @@
-import { Box, Button, Modal, Paper, Typography, useTheme } from '@material-ui/core';
+import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
+import { Box, Button, Modal, Paper, Typography, useTheme} from '@material-ui/core';
 import { FC } from 'react';
 import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
 import { useStyles } from './RemoveMinerIdModal.styles';
 
 interface RemoveMinerIdModalProps {
@@ -18,7 +18,7 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
   handleRemove,
 }) => {
   const selectedProtocol = useSelectedProtocolStore();
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
   const classes = useStyles({ isFilecoin });
   const theme = useTheme();
   return (

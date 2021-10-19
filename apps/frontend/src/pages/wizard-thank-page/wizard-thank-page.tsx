@@ -1,19 +1,19 @@
 import { Button, Grid, Typography } from '@material-ui/core';
+import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
+import { useNavigate } from 'react-router';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
 import BitcoinGlobusImg from '../../assets/svg/globus.svg';
 import FilecoinGlobusImg from '../../assets/svg/filecoinGlobus.svg';
-import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useStyles } from './wizard-thank-page-styles';
 import { ReactComponent as BitcoinIcon } from '../../assets/svg/enterArrowGreen.svg';
 import { ReactComponent as FilecoinIcon } from '../../assets/svg/enterArrowBlue.svg';
-import { useNavigate } from 'react-router';
 
 export const WizardThankPage = () => {
   const selectedProtocol = useSelectedProtocolStore();
   const navigate = useNavigate();
 
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
 
   const styles = useStyles();
 

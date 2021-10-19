@@ -6,10 +6,11 @@ import {
   SelectChangeEvent,
   Box,
 } from '@material-ui/core';
-import GenericSelect from 'apps/frontend/src/components/generic-select/generic-select';
+import { UserTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
+import GenericSelect, { SelectOption } from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
-import * as React from 'react';
-import useStyles from './form-wizard-item-user-type.styles';
+import React from 'react';
+import { useStyles } from './form-wizard-item-user-type.styles';
 import { ReactComponent as Plus } from '../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../assets/svg/plusGreen.svg';
 import { FormUserType } from './components/form-user-type';
@@ -36,31 +37,25 @@ const initialRemoveModalState: { open: boolean; id: number | undefined } = {
   id: undefined,
 };
 
-export interface IGenericValueImage {
-  value: string;
-  img?: string;
-  shortName?: string;
-}
-
-const getUserTypes = (isFilecoin: boolean): IGenericValueImage[] => [
-  { value: isFilecoin ? 'Storage Provider' : 'Miner' },
-  { value: 'Application Developer' },
-  { value: 'Crypto user or hodler' },
-  { value: 'Other User Type' },
+const getUserTypes = (isFilecoin: boolean): SelectOption[] => [
+  {
+    label: isFilecoin ? 'Storage Provider' : 'Miner',
+    value: isFilecoin ? UserTypeEnumType.STORAGE_PROVIDER : UserTypeEnumType.MINER
+  },
+  { label: 'Application Developer', value: UserTypeEnumType.APP_DEVELOPER },
+  { label: 'Crypto user or hodler', value: UserTypeEnumType.CRYPTO_USER },
+  { label: 'Other User Type', value: UserTypeEnumType.OTHER }
 ];
 
 export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
-  isFilecoin,
+  isFilecoin = false,
   setFieldValue,
   handleFormikChange,
   values,
   setFormikValues,
 }) => {
-  const styles = useStyles();
-  const [amountOfItems, setAmountOfItems] = useState([0]);
-  const [openConfirmRemove, setOpenConfirmRemove] = useState(
-    initialRemoveModalState
-  );
+  const [amountOfItems, setAmountOfItems]=  useState([0]);
+  const [openConfirmRemove, setOpenConfirmRemove] = useState(initialRemoveModalState);
   const addressMapping = useAddressMappingState();
   const setAddressMapping = useAddressMappingSetState();
 
@@ -127,7 +122,8 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
     }
   };
 
-  const userTypes = useMemo(() => getUserTypes(!!isFilecoin), [isFilecoin]);
+  const userTypesOptions = useMemo(() => getUserTypes(!!isFilecoin), [isFilecoin]);
+  const styles = useStyles({ isFilecoin });
 
   return (
     <Box display={'flex'} flexDirection={'column'} className={styles.wrapper}>
@@ -144,23 +140,13 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
         isFilecoin={isFilecoin}
         handleChange={(event) => handleElemChange(event)}
         name="userType"
-        value={values.userType}
+        value={values.userType ?? ''}
         placeholder={'I am ...'}
         bgColor={variables.white}
-      >
-        {userTypes.map((el: IGenericValueImage) => (
-          <MenuItem
-            className={
-              isFilecoin ? styles.menuItemStylesFilecoin : styles.menuItemStyles
-            }
-            value={el.value}
-            key={el.value}
-          >
-            {el.value}
-          </MenuItem>
-        ))}
-      </GenericSelect>
-      {amountOfItems.map((id) => (
+        options={userTypesOptions}
+        menuItemClassName={styles.menuItem}
+      />
+      {amountOfItems.map(id => (
         <FormUserType
           key={id}
           id={id}

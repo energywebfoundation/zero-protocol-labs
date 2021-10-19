@@ -1,9 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   ArrayMinSize,
   IsArray,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   registerDecorator,
   ValidateNested,
@@ -18,6 +19,11 @@ export class CreateOrderItemDto {
   @ApiProperty({ example: "PL" })
   @IsEnum(Countries.map(i => i.code))
   country: string;
+
+  @ApiPropertyOptional({ example: "Kraków" })
+  @IsString()
+  @IsOptional()
+  city: string;
 
   @ApiProperty({ example: "1234" })
   @IsString()
