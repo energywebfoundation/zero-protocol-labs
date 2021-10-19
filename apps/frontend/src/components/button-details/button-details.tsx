@@ -25,3 +25,5 @@ export const ButtonDetails = ({
     </Button>
   );
 };
+
+export default ButtonDetails;

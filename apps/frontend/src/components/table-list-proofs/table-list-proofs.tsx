@@ -10,6 +10,8 @@ import { useStyles } from './table-list-proofs-styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { ReactComponent as TickIcon } from '../../assets/svg/tick.svg';
 import { ReactComponent as DownloadIcon } from '../../assets/svg/download.svg';
+import ButtonDetails from '../button-details/button-details';
+import { useState } from 'react';
 
 export interface ITableListProofsProps {}
 
@@ -68,105 +70,118 @@ const tableData: ProofsType[] = [
 export const TableListProofs = ({}: ITableListProofsProps) => {
   const styles = useStyles();
 
+  const [isButtonUp, setIsButtonUp] = useState(false);
+
+  const showTable = () => {
+    setIsButtonUp(!isButtonUp);
+  };
+
   return (
     <Box>
-      <Typography
-        mt={'30px'}
-        mb={'18px'}
-        fontWeight={700}
-        fontSize={'20px'}
-        color={variables.primaryColor}
-      >
-        BLOCKCHAIN PROOFS {'&'} HISTORY
-      </Typography>
-      <Box className={styles.wrapper} p={'0 16px'} bgcolor={variables.white}>
-        <Table sx={{ borderCollapse: 'separate', borderSpacing: '0px 16px' }}>
-          <TableBody sx={{ backgroundColor: variables.white }}>
-            {tableData.map((el: ProofsType) => {
-              return (
-                <TableRow
-                  key={el.id}
-                  sx={{ backgroundColor: variables.inputBackgroundColor }}
-                >
-                  <Box
-                    sx={{
-                      minWidth: '460px',
-                      display: 'flex',
-                      justifyContent: 'flex-start',
-                    }}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography
+          mt={'30px'}
+          mb={'18px'}
+          ml={'12px'}
+          fontWeight={700}
+          fontSize={'20px'}
+          color={variables.primaryColor}
+        >
+          BLOCKCHAIN PROOFS {'&'} HISTORY
+        </Typography>
+        <Box mr="40px" width="100px" height="50px">
+          <ButtonDetails
+            name="Details"
+            onClick={showTable}
+            isButtonUp={isButtonUp}
+          />
+        </Box>
+      </Box>
+      {isButtonUp && (
+        <Box className={styles.wrapper}>
+          <Table className={styles.table}>
+            <TableBody>
+              {tableData.map((el: ProofsType) => {
+                return (
+                  <TableRow
+                    key={el.id}
+                    sx={{ backgroundColor: variables.inputBackgroundColor }}
                   >
-                    <TableCell className={styles.tbCell}>
-                      <span style={{ marginLeft: '44px' }}>
-                        <TickIcon />
-                      </span>
-                      <span style={{ marginLeft: '20px', marginRight: '30px' }}>
-                        <span className={styles.thCell}>Date</span>
-                        <span>{el.date}</span>
-                      </span>
-                    </TableCell>
-                    <TableCell
-                      className={styles.tbCell}
-                      style={{ display: 'flex', alignItems: 'center' }}
+                    <Box
+                      minWidth="460px"
+                      display="flex"
+                      justifyContent="flex-start"
                     >
-                      <span
-                        style={{
-                          color: variables.secondaryColor,
-                          fontWeight: 700,
+                      <TableCell className={styles.tbCell}>
+                        <span className={styles.startIcon}>
+                          <TickIcon />
+                        </span>
+                        <span className={styles.dateCell}>
+                          <span className={styles.thCell}>Date</span>
+                          <span>{el.date}</span>
+                        </span>
+                      </TableCell>
+                      <TableCell
+                        className={styles.tbCell}
+                        sx={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <span className={styles.nameType}>{el.type}</span>
+                      </TableCell>
+                    </Box>
+                    <Box
+                      minWidth="500px"
+                      display="flex"
+                      justifyContent="space-between"
+                    >
+                      <TableCell
+                        className={styles.tbCell}
+                        sx={{ display: 'flex', flexDirection: 'column' }}
+                      >
+                        <span className={styles.thCell}>Amount</span>
+                        <span>{el.amount}</span>
+                      </TableCell>
+                      <TableCell
+                        className={styles.tbCell}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          minWidth: '140px',
                         }}
                       >
-                        {el.type}
-                      </span>
-                    </TableCell>
-                  </Box>
-                  <Box
-                    sx={{
-                      minWidth: '500px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <TableCell
-                      className={styles.tbCell}
-                      style={{ display: 'inline-block' }}
-                    >
-                      <span className={styles.thCell}>Amount</span>
-                      <span>{el.amount}</span>
-                    </TableCell>
-                    <TableCell
-                      className={styles.tbCell}
-                      style={{ display: 'inline-block', minWidth: '140px' }}
-                    >
-                      <span className={styles.thCell}>Seller Address</span>
-                      <span>{el.sellerAddress}</span>
-                    </TableCell>
-                    <TableCell
-                      className={styles.tbCell}
-                      style={{ display: 'inline-block' }}
-                    >
-                      <span className={styles.thCell}>Buyer Address</span>
-                      <span>{el.buyerAddress}</span>
-                    </TableCell>
-                  </Box>
-                  <Box>
-                    <TableCell
-                      className={styles.tbCell}
-                      style={{ display: 'inline-block', marginRight: '22px' }}
-                    >
-                      <span>
-                        <span className={styles.thCell}>Transaction proof</span>
-                        <span>{el.proofTransaction}</span>
-                      </span>
-                      <span style={{ marginLeft: '22px' }}>
-                        <DownloadIcon />
-                      </span>
-                    </TableCell>
-                  </Box>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Box>
+                        <span className={styles.thCell}>Seller Address</span>
+                        <span>{el.sellerAddress}</span>
+                      </TableCell>
+                      <TableCell
+                        className={styles.tbCell}
+                        sx={{ display: 'flex', flexDirection: 'column' }}
+                      >
+                        <span className={styles.thCell}>Buyer Address</span>
+                        <span>{el.buyerAddress}</span>
+                      </TableCell>
+                    </Box>
+                    <Box>
+                      <TableCell
+                        className={styles.tbCell}
+                        sx={{ marginRight: '22px' }}
+                      >
+                        <span>
+                          <span className={styles.thCell}>
+                            Transaction proof
+                          </span>
+                          <span>{el.proofTransaction}</span>
+                        </span>
+                        <span className={styles.endIcon}>
+                          <DownloadIcon />
+                        </span>
+                      </TableCell>
+                    </Box>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </Box>
+      )}
     </Box>
   );
 };

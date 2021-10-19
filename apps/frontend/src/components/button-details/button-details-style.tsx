@@ -2,6 +2,8 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   btn: {
+    width: '100%',
+    height: '100%',
     padding: '14px 17px',
     backgroundColor: '#00D08A',
     boxShadow: ' 0px 4px 10px rgba(160, 154, 198, 0.2)',
