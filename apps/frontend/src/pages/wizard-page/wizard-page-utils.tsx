@@ -28,7 +28,7 @@ export const textWizardPageDown: string[][] = [
   ],
   ['More info About RECs for Filecoin miners', '', '', ''],
   [
-    'Sed gravida et aliquam aliquam. Vitae at sed facilisis pharetra. Pharetra massa ut risus, risus leo, amet fringilla eu. Et pellentesque mi in magna cursus tincidunt arcu pellentesque diam. Ipsum euismod platea vestibulum nisl. Malesuada elementum facilisis vitae sagittis feugiat non nisl. Urna purus amet, sit tempus molestie.',
+    'Renewable Energy Certificates (RECs), also known as Energy Attribute Certificates (EACs), Energy, Guarantees of Origin (GOs), Green tags, Renewable Energy Credits, Renewable Electricity Certificates, or Tradable Renewable Certificates (TRCs), are tradable, non-tangible energy commodities that represent proof that 1 MWh of electricity was generated from an eligible renewable energy resource.',
     '',
     '',
     '',
