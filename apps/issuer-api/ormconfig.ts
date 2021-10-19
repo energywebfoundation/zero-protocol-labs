@@ -3,11 +3,11 @@ import { URL } from 'url';
 import { resolve } from 'path';
 
 const getDBConnectionOptions = (): ConnectionOptions => {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL undefined');
+  if (!process.env.ISSUER_DATABASE_URL) {
+    throw new Error('ISSUER_DATABASE_URL undefined');
   }
 
-  const url = new URL(process.env.DATABASE_URL);
+  const url = new URL(process.env.ISSUER_DATABASE_URL);
   return {
     type: 'postgres',
     host: url.hostname,

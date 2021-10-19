@@ -4,7 +4,10 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "chmod +x ./dev-env.sh && ./dev-env.sh && concurrently --names 'FRONTEND,BACKEND,ISSUER_API' -c 'yellow,cyan'  'nx serve frontend --port=3000' 'nx serve backend' 'PORT=3334 nx serve issuer-api'",
+    "start": "chmod +x ./dev-env.sh && ./dev-env.sh && concurrently --names 'FRONTEND,BACKEND,ISSUER_API' -c 'yellow,cyan'  'yarn serve:frontend' 'yarn serve:backend' 'yarn serve:issuer-api'",
+    "serve:backend": "nx serve backend",
+    "serve:issuer-api": "PORT=3334 DATABASE_URL=$(grep ISSUER_DATABASE_URL .env | cut -d \"=\" -f2 | tr -d '\"') nx serve issuer-api",
+    "serve:frontend": "nx serve frontend --port=3000",
     "build": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html  && nx run-many --target=build --projects=backend,frontend,issuer-api --parallel",
     "build:prod": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html  && nx run-many --target=build --projects=backend,frontend,issuer-api --parallel --prod",
     "build:docker": "yarn build:prod && nx run-many --target=docker-image-build --projects=backend,frontend,issuer-api",

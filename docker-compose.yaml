@@ -38,10 +38,29 @@ services:
   issuer-api:
     image: zero-pl-issuer-api
     depends_on:
-      - db
+      - db-issuer
+      - ganache
     environment:
       LOG_LEVELS: "log,error,warn,debug,verbose"
       API_KEY: somethingsecret
+      DATABASE_URL: "postgresql://postgres:postgres@db-issuer:5432/issuer"
+      WEB3: http://ganache:8545
+      MNEMONIC: "chalk park staff buzz chair purchase wise oak receive avoid avoid home"
+    networks:
+      zero-pl:
+
+  ganache:
+    image: trufflesuite/ganache-cli
+    command: |
+      ganache-cli \
+        --db /data
+        -m "chalk park staff buzz chair purchase wise oak receive avoid avoid home" \
+        -l 8000000 \
+        -e 1000000 \
+        -a 40 \
+        -h 0.0.0.0
+    volumes:
+      - ganache-data:/data
     networks:
       zero-pl:
 
@@ -57,9 +76,23 @@ services:
     networks:
       zero-pl:
 
+  db-issuer:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    volumes:
+    - zero-pl-pg-data-issuer:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: issuer
+    networks:
+      zero-pl:
+
 volumes:
   zero-pl-pg-data:
+  zero-pl-pg-data-issuer:
   zero-pl-backend-tmp:
+  ganache-data:
 
 networks:
   zero-pl:
