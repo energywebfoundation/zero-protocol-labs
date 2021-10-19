@@ -13,7 +13,6 @@ import { ReactComponent as DownloadIcon } from '../../assets/svg/download.svg';
 import ButtonDetails from '../button-details/button-details';
 import { useState } from 'react';
 
-export interface ITableListProofsProps {}
 
 interface ProofsType {
   id: string;
@@ -67,7 +66,7 @@ const tableData: ProofsType[] = [
   },
 ];
 
-export const TableListProofs = ({}: ITableListProofsProps) => {
+export const TableListProofs = () => {
   const styles = useStyles();
 
   const [isButtonUp, setIsButtonUp] = useState(false);
