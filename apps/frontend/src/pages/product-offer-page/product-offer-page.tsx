@@ -1,7 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import { Grid, Box, Typography, Paper } from '@material-ui/core';
+import { Grid, Box, Typography, Button } from '@material-ui/core';
 import ProductSummaryBlock from 'apps/frontend/src/components/product-summary-block/product-summary-block';
 import UserAvatar from 'apps/frontend/src/components/user-avatar/user-avatar';
 import Breadcrumbs from 'apps/frontend/src/components/breadcrumbs/breadcrumbs';
@@ -11,119 +10,28 @@ import FieldLabel from 'apps/frontend/src/components/field-label/field-label';
 import FieldValue from 'apps/frontend/src/components/field-value/field-value';
 import Info from 'apps/frontend/src/components/info/info';
 import avatarImage from 'apps/frontend/src/assets/images/avatar.png';
-
-export const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    marginTop: 72,
-    padding: '0 24px 32px 24px',
-    [theme.breakpoints.down('md')]: {
-      padding: '0 16px 32px 16px',
-    },
-  },
-  sectionPaper: {
-    backgroundColor: '#421d77',
-    padding: '16px 23px 43px 23px',
-    [theme.breakpoints.down('md')]: {
-      padding: '16px 25px 43px 25px',
-    },
-  },
-  helperText: {
-    color: '#f6efff',
-    fontSize: 14,
-    lineHeight: '16px',
-    fontWeight: 700,
-    marginBottom: -8,
-  },
-  headingTextClassName: {
-    textTransform: 'capitalize',
-  },
-  wrapperClassName: {
-    padding: 0,
-  },
-  stripWrapper: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-  },
-  label: {
-    fontSize: 12,
-    lineHeight: '15px',
-    color: '#f6efff',
-    fontWeight: 700,
-  },
-  value: {
-    fontSize: 20,
-    lineHeight: '24px',
-    color: '#fff',
-    fontWeight: 700,
-    '& span': {
-      fontSize: 12,
-      lineHeight: '15px',
-      fontWeight: 500,
-      marginLeft: 4,
-      position: 'relative',
-      top: -2,
-    },
-  },
-  primary: {
-    color: '#00d08a',
-  },
-  payment: {
-    fontSize: 18,
-  },
-  infoItem: {
-    marginBottom: 10,
-    '& .MuiSvgIcon-root': {
-      fill: '#fff',
-      marginLeft: 3,
-      top: 0,
-    },
-  },
-  mainInfoWrapper: {
-    paddingRight: 64,
-    [theme.breakpoints.down('lg')]: {
-      flexDirection: 'column',
-      height: '100%',
-    },
-    [theme.breakpoints.down('md')]: {
-      paddingRight: 0,
-    },
-  },
-  mainInfo: {
-    [theme.breakpoints.down('lg')]: {
-      paddingLeft: 67,
-    },
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      alignSelf: 'center',
-      width: '100%',
-      maxWidth: 350,
-      margin: '21px 0 17px 0',
-    },
-  },
-  secondaryInfo: {
-    [theme.breakpoints.down('lg')]: {
-      marginBottom: 17,
-    },
-  },
-  secondaryInfoWrapper: {
-    paddingLeft: 24,
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: 0,
-      width: '100%',
-      maxWidth: 350,
-      margin: '0 auto',
-    },
-  },
-}));
+import { ReactComponent as MailIcon } from 'apps/frontend/src/assets/svg/mail.svg';
+import { ReactComponent as CloseIcon } from 'apps/frontend/src/assets/svg/close.svg';
+import { ReactComponent as OkIcon } from 'apps/frontend/src/assets/svg/ok.svg';
+import { ProductSummaryDetails } from 'apps/frontend/src/components/product-summary-details';
+import { DeclineOfferModal } from 'apps/frontend/src/components/modals';
+import { useStyles } from './product-offer-page.style';
 
 export const ProductOfferPage: FC = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
+      <DeclineOfferModal open={open} handleClose={handleClose} />
       <Box className={classes.stripWrapper}>
         <NotificationStrip text="You're received an Offer" height={72} />
       </Box>
@@ -289,6 +197,34 @@ export const ProductOfferPage: FC = () => {
             </Grid>
           </PageSection>
           <ProductSummaryBlock />
+          <Box className={classes.buttonsGroup}>
+            <Button
+              variant="contained"
+              className={classes.button}
+              classes={{ endIcon: classes.endIcon }}
+              endIcon={<MailIcon />}
+            >
+              Contact Support
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClickOpen}
+              className={classes.button}
+              classes={{ endIcon: classes.endIcon }}
+              endIcon={<CloseIcon />}
+            >
+              Decline Offer
+            </Button>
+            <Button
+              variant="contained"
+              className={clsx(classes.button, classes.buttonDark)}
+              classes={{ endIcon: classes.endIcon }}
+              endIcon={<OkIcon />}
+            >
+              Accept Offer
+            </Button>
+          </Box>
+          <ProductSummaryDetails />
         </Grid>
       </Grid>
     </>
