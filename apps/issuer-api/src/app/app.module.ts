@@ -35,7 +35,7 @@ const OriginAppTypeOrmModule = () => {
           .valid('development', 'production', 'test')
           .default('development'),
         API_KEY: Joi.string().required(),
-        PORT: Joi.number().default(3333),
+        PORT: Joi.number().default(3334),
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
         WEB3: Joi.string().default('http://localhost:8545'),
         MNEMONIC: Joi.string().default('chalk park staff buzz chair purchase wise oak receive avoid avoid home')
