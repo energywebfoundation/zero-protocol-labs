@@ -9,7 +9,7 @@
 CREATE TYPE "ProtocolTypeEnumType" AS ENUM ('FILECOIN', 'BITCOIN');
 
 -- CreateEnum
-CREATE TYPE "UserTypeEnumType" AS ENUM ('MINER', 'APP_DEVELOPER', 'CRYPTO_USER', 'OTHER');
+CREATE TYPE "UserTypeEnumType" AS ENUM ('MINER', 'STORAGE_PROVIDER', 'APP_DEVELOPER', 'CRYPTO_USER', 'OTHER');
 
 -- AlterTable
 ALTER TABLE "Order" ADD COLUMN     "protocolType" "ProtocolTypeEnumType" NOT NULL,

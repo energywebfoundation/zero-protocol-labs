@@ -126,6 +126,7 @@ enum ProtocolTypeEnumType {
 
 enum UserTypeEnumType {
   MINER
+  STORAGE_PROVIDER
   APP_DEVELOPER
   CRYPTO_USER
   OTHER
