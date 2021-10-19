@@ -1,5 +1,9 @@
-import { FormControl, Typography, SelectChangeEvent } from '@material-ui/core';
-import GenericSelect, { SelectOption } from 'apps/frontend/src/components/generic-select/generic-select';
+import {
+  FormControl,
+  Typography,
+  SelectChangeEvent,
+} from '@material-ui/core';
+import  { SelectOption, GenericSelect } from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
 import React from 'react';
@@ -16,11 +20,11 @@ const protocolOptions: SelectOption[] = [
   { value: ProtocolTypeEnumType.BITCOIN, label: 'Bitcoin', img: BitcoinIcon },
 ];
 
-
 export const FormWizardItemProtocol: React.FC = () => {
   const setSelectedProtocol = useSelectedProtocolDispatch();
   const selectedProtocol = useSelectedProtocolStore();
   const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
+  const styles = useStyles({ isFilecoin });
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedProtocol((event.target.value as ProtocolTypeEnumType));
@@ -29,7 +33,7 @@ export const FormWizardItemProtocol: React.FC = () => {
   const classes = useStyles({ isFilecoin });
 
   return (
-    <FormControl sx={{ width: '488px' }}>
+    <FormControl className={styles.formControl}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}

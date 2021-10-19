@@ -37,6 +37,7 @@ export const WizardThankPage = () => {
           fontSize={'32px'}
           fontWeight={700}
           textAlign={'center'}
+          mb={'12px'}
         >
           Thank you for submitting your request
         </Typography>

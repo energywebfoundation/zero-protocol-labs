@@ -1,5 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Typography, Button, SelectChangeEvent, Box } from '@material-ui/core';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Typography,
+  MenuItem,
+  Button,
+  SelectChangeEvent,
+  Box,
+} from '@material-ui/core';
 import { UserTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
 import GenericSelect, { SelectOption } from 'apps/frontend/src/components/generic-select/generic-select';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
@@ -9,7 +15,10 @@ import { ReactComponent as Plus } from '../../assets/svg/plus.svg';
 import { ReactComponent as PlusGreen } from '../../assets/svg/plusGreen.svg';
 import { FormUserType } from './components/form-user-type';
 import { WizardFormValues } from '../../pages/wizard-page/WizardPage.effects';
-import { useAddressMappingSetState, useAddressMappingState } from '../../context';
+import {
+  useAddressMappingSetState,
+  useAddressMappingState,
+} from '../../context';
 import { RemoveMinerIdModal } from '../RemoveMinerIdModal';
 
 export interface FormWizardItemUserTypeProps {
@@ -17,10 +26,16 @@ export interface FormWizardItemUserTypeProps {
   setFieldValue: (name: string, value: any) => void;
   isFilecoin?: boolean;
   values: WizardFormValues;
-  setFormikValues: (values: React.SetStateAction<WizardFormValues>, shouldValidate?: boolean | undefined) => void
+  setFormikValues: (
+    values: React.SetStateAction<WizardFormValues>,
+    shouldValidate?: boolean | undefined
+  ) => void;
 }
 
-const initialRemoveModalState: { open: boolean, id: number | undefined } = {open: false, id: undefined};
+const initialRemoveModalState: { open: boolean; id: number | undefined } = {
+  open: false,
+  id: undefined,
+};
 
 const getUserTypes = (isFilecoin: boolean): SelectOption[] => [
   {
@@ -37,7 +52,7 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   setFieldValue,
   handleFormikChange,
   values,
-  setFormikValues
+  setFormikValues,
 }) => {
   const [amountOfItems, setAmountOfItems]=  useState([0]);
   const [openConfirmRemove, setOpenConfirmRemove] = useState(initialRemoveModalState);
@@ -45,54 +60,63 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   const setAddressMapping = useAddressMappingSetState();
 
   useEffect(() => {
-    if(addressMapping?.size
-      && addressMapping?.size !== amountOfItems.length
-    ) {
+    if (addressMapping?.size && addressMapping?.size !== amountOfItems.length) {
       const newDefault = Array.from(Array(addressMapping.size).keys());
       setAmountOfItems(newDefault);
     }
-  }, [addressMapping])
+  }, [addressMapping]);
 
   const handleElemChange = (event: SelectChangeEvent) => {
-    const { target: { value, name } } = event;
+    const {
+      target: { value, name },
+    } = event;
     setFieldValue(name, value);
   };
 
   const openRemoveConfirmModal = (id: number) => {
     setOpenConfirmRemove({ id, open: true });
-  }
+  };
 
   const closeRemoveConfirmModal = () => {
     setOpenConfirmRemove(initialRemoveModalState);
-  }
+  };
 
-  const addAnother = () => setAmountOfItems((prev) => [...prev, prev[prev.length-1]+1]);
+  const addAnother = () =>
+    setAmountOfItems((prev) => [...prev, prev[prev.length - 1] + 1]);
   const removeSection = (id: number | undefined) => {
     if (id !== undefined && id >= 0) {
-      setAmountOfItems((prev) => prev.filter(item => item !== id));
+      setAmountOfItems((prev) => prev.filter((item) => item !== id));
 
       const nestedIdsArr = addressMapping?.get(id);
-      const nestedFieldsToRemove = nestedIdsArr?.map(nestedId => ({
-        [`startDate_${id}_${nestedId}`]: undefined,
-        [`endDate_${id}_${nestedId}`]: undefined,
-        [`energy_${id}_${nestedId}`]: undefined
-      })) ?? [];
-      const mergedNestedFieldsToRemove = Object.assign({}, ...nestedFieldsToRemove)
+      const nestedFieldsToRemove =
+        nestedIdsArr?.map((nestedId) => ({
+          [`startDate_${id}_${nestedId}`]: undefined,
+          [`endDate_${id}_${nestedId}`]: undefined,
+          [`energy_${id}_${nestedId}`]: undefined,
+        })) ?? [];
+      const mergedNestedFieldsToRemove = Object.assign(
+        {},
+        ...nestedFieldsToRemove
+      );
 
-      setFormikValues({
-        ...values,
-        [`minerId_${id}`]: undefined,
-        [`country_${id}`]: undefined,
-        [`generalStartDate_${id}`]: undefined,
-        [`generalEndDate_${id}`]: undefined,
-        ...mergedNestedFieldsToRemove
-      }, false);
+      setFormikValues(
+        {
+          ...values,
+          [`minerId_${id}`]: undefined,
+          [`country_${id}`]: undefined,
+          [`generalStartDate_${id}`]: undefined,
+          [`generalEndDate_${id}`]: undefined,
+          ...mergedNestedFieldsToRemove,
+        },
+        false
+      );
 
-      setAddressMapping && setAddressMapping(mapping => {
-        const map = mapping;
-        map.delete(id);
-        return map;
-      });
+      setAddressMapping &&
+        setAddressMapping((mapping) => {
+          const map = mapping;
+          map.delete(id);
+          return map;
+        });
 
       closeRemoveConfirmModal();
     }
@@ -102,7 +126,7 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
   const styles = useStyles({ isFilecoin });
 
   return (
-    <Box display={'flex'} flexDirection={'column'}>
+    <Box display={'flex'} flexDirection={'column'} className={styles.wrapper}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}
@@ -130,9 +154,11 @@ export const FormWizardItemUserType: React.FC<FormWizardItemUserTypeProps> = ({
           handleFormikChange={handleFormikChange}
           setFieldValue={setFieldValue}
           values={values}
-          handleSectionRemove={amountOfItems.length > 1 ? openRemoveConfirmModal : undefined}
-        />))
-      }
+          handleSectionRemove={
+            amountOfItems.length > 1 ? openRemoveConfirmModal : undefined
+          }
+        />
+      ))}
       <Button
         onClick={addAnother}
         className={

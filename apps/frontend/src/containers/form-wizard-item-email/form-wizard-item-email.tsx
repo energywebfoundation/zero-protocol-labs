@@ -17,12 +17,12 @@ export const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
   isFilecoin,
   setFieldValue,
   handleFormikChange,
-  values
+  values,
 }) => {
   const styles = useStyles();
 
   return (
-    <FormControl sx={{ width: '488px' }}>
+    <FormControl className={styles.form}>
       <Typography
         fontSize={variables.fontSize}
         color={isFilecoin ? variables.black : variables.white}
@@ -34,7 +34,7 @@ export const FormWizardItemEmail: React.FC<IFormWizardItemEmailProps> = ({
         <span className={styles.title}>Where we will send you the offer</span>
       </Typography>
       <TextField
-        name='emailAddress'
+        name="emailAddress"
         value={values.emailAddress}
         onChange={handleFormikChange}
         placeholder={'Your email adress'}

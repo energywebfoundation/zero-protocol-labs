@@ -20,7 +20,7 @@ export interface IGenericSelectProps {
   menuItemClassName?: string;
 }
 
-const GenericSelect: React.FC<IGenericSelectProps> = ({
+export const GenericSelect: React.FC<IGenericSelectProps> = ({
   value,
   handleChange,
   options,

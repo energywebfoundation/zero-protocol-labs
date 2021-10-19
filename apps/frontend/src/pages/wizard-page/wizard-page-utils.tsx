@@ -17,20 +17,31 @@ export const textWizardPageDown: string[][] = [
   [
     'What are RECs and why do you need them to make your crypto green?',
     '',
-    'Preferred payment method',
+    '',
     '',
   ],
   [
     'Recs or Renewable Energy Certificates are the only way to prove that you consumed renewable energy. They have different names indifferent regions: their general name is EAC or Energy AttributeCertificate, in Europe they are called GOs or Guarantees of Origin.',
     '',
-    'Needed to pair you with a seller that accepts your preferred payment method. When you’ll receive the offer, the seller will inform you what currencies they accept',
-    'Double check the email! Expect to receive an email to the address you provided within the next 2 days, with a proposal of the RECs to decarbonize your electricity consumption.',
+    '',
+    '',
+  ],
+  ['More info About RECs for Filecoin miners', '', '', ''],
+  [
+    'Renewable Energy Certificates (RECs), also known as Energy Attribute Certificates (EACs), Energy, Guarantees of Origin (GOs), Green tags, Renewable Energy Credits, Renewable Electricity Certificates, or Tradable Renewable Certificates (TRCs), are tradable, non-tangible energy commodities that represent proof that 1 MWh of electricity was generated from an eligible renewable energy resource.',
+    '',
+    '',
+    '',
   ],
   [
-    'More info About RECs for Filecoin miners',
-    '',
-    'Preferred payment method',
-    '',
+    'Every REC prooves that 1 Mwh of electricity has been inputted into the grid of a specific country / region. on Zero you will find also tokenized versions of the certificates that represents fractions of RECs in the KWh range, in case your consumption is small.',
   ],
-  ['Renewable Energy Certificates (RECs), also known as Energy Attribute Certificates (EACs), Energy, Guarantees of Origin (GOs), Green tags, Renewable Energy Credits, Renewable Electricity Certificates, or Tradable Renewable Certificates (TRCs), are tradable, non-tangible energy commodities that represent proof that 1 MWh of electricity was generated from an eligible renewable energy resource.'],
+  [
+    `Every REC prooves that 1 Mwh of electricity has been inputted into the grid of a specific country / region.
+    on Zero you will find also tokenized versions of the certificates that represents fractions of RECs
+    in the KWh range, in case your consumption is small.`,
+  ],
+  [
+    `Recs or Renewable Energy Certificates are the only way to proove that you consumed renewable energy. They have different names in different regions: their general name is EAC or Energy Attribute Certificate, in Europe they are called GOs or Guarantees of Origin, and in the USA they are called RECs.On Zero you will be able to buy I-RECs or International Renewable Energy Certificates and other local types.`
+  ]
 ];

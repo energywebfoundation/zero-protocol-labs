@@ -10,6 +10,9 @@ export const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
+    '@media (max-width: 1024px)': {
+      justifyContent: 'center',
+    },
   },
   buttonBitcoin: {
     backgroundColor: variables.white,
@@ -24,6 +27,12 @@ export const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: variables.white,
     },
+    '@media (max-width: 1024px)': {
+      marginTop: '109px',
+    },
+    '@media (max-width: 620px)': {
+      marginTop: '32px',
+    },
   },
   buttonFilecoin: {
     backgroundColor: variables.white,
@@ -37,6 +46,12 @@ export const useStyles = makeStyles({
     padding: '14px 21px',
     '&:hover': {
       backgroundColor: variables.white,
+    },
+    '@media (max-width: 1024px)': {
+      marginTop: '109px',
+    },
+    '@media (max-width: 620px)': {
+      marginTop: '32px',
     },
   },
 });
