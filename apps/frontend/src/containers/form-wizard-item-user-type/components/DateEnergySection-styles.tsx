@@ -20,9 +20,9 @@ export const useStyles = makeStyles({
     width: '160px',
     marginLeft: '20px',
     '@media (max-width: 510px)': {
-      marginLeft: '0',
+      marginLeft: '2px',
     },
-    '@media (max-width: 485px)': {
+    '@media (max-width: 488px)': {
       marginTop: '10px',
     },
   },

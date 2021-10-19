@@ -12,7 +12,10 @@ interface RemoveMinerIdModalProps {
 }
 
 export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
-  open, id, handleClose, handleRemove
+  open,
+  id,
+  handleClose,
+  handleRemove,
 }) => {
   const selectedProtocol = useSelectedProtocolStore();
   const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
@@ -20,12 +23,17 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
   return (
     <Modal open={open} onClose={handleClose}>
       <Paper className={classes.wrapper}>
-        <Typography color="primary" variant="h5" component="span" textAlign='center'>
+        <Typography
+          color="primary"
+          variant="h5"
+          component="span"
+          textAlign="center"
+        >
           Are you sure you want to remove this Miner ID / Address ?
         </Typography>
-        <Box mt={'20px'}>
+        <Box className={classes.buttonGroup}>
           <Button
-            sx={{ mr: '15px' }}
+            className={classes.buttonCancel}
             variant="contained"
             onClick={handleClose}
             classes={{ contained: classes.button }}
@@ -42,5 +50,5 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
         </Box>
       </Paper>
     </Modal>
-  )
-}
+  );
+};

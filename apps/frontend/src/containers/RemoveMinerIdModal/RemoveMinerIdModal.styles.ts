@@ -21,5 +21,19 @@ export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
       backgroundColor: ({ isFilecoin }) => isFilecoin ? variables.filcoinColorLight : variables.secondaryColor,
       color: ({ isFilecoin }) => isFilecoin ? variables.filcoinColor : undefined
     },
+  },
+  buttonCancel: {
+    marginRight:'15px',
+    '@media (max-width: 403px)': {
+      marginRight:'0',
+      marginBottom:'5px'
+    },
+  },
+  buttonGroup: {
+    marginTop:'20px',
+    '@media (max-width: 403px)': {
+      display:'flex',
+      flexDirection:'column'
+    },
   }
 });

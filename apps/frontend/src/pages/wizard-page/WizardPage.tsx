@@ -38,12 +38,6 @@ export const WizardPage = () => {
     addressMapping,
   } = useWizardPageEffects();
 
-  const [showCard, setShowCard] = React.useState<boolean>(false);
-
-  const showCardSection = () => {
-    setShowCard(!showCard);
-  };
-
   return (
     <>
       <Helmet>
@@ -237,7 +231,6 @@ export const WizardPage = () => {
               {!isFilecoin && !isBitcoin && textWizardPageDown[1][step]}
               {windowRespWidth ? (
                 <span
-                  onClick={showCardSection}
                   style={{
                     cursor: 'pointer',
                     color: isFilecoin
@@ -271,9 +264,7 @@ export const WizardPage = () => {
                 (isFilecoin || isBitcoin) &&
                 textWizardPageDown[5][step]}
             </Typography>
-            {isFilecoin && window.innerWidth > 1200 && showCard && (
-              <CardReadMore />
-            )}
+            {isFilecoin && window.innerWidth > 1200 && <CardReadMore />}
           </Box>
         </Grid>
       </Grid>
