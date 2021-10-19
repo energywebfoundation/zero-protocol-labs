@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "typeorm": "node --require /usr/local/share/.config/yarn/global/node_modules/ts-node/register ./node_modules/typeorm/cli.js",
+    "migrate": "yarn typeorm migration:run -f typeorm/ormconfig.ts"
+  },
   "dependencies": {
     "passport": "0.5.0"
   }
