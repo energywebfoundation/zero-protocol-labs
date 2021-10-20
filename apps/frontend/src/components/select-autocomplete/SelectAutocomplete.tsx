@@ -1,6 +1,6 @@
-import { Autocomplete, TextField } from "@material-ui/core";
+import { Autocomplete, TextField } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
-import { FC } from "react";
+import { FC } from 'react';
 import { useStyles } from './SelectAutocomplete.styles';
 
 export interface AutocompleteOption {
@@ -18,7 +18,12 @@ export interface SelectAutocompleteProps {
 }
 
 export const SelectAutocomplete: FC<SelectAutocompleteProps> = ({
-  options, label, placeholder, isFilecoin, value, handleChange
+  options,
+  label,
+  placeholder,
+  isFilecoin,
+  value,
+  handleChange,
 }) => {
   const classes = useStyles();
   return (
@@ -28,8 +33,10 @@ export const SelectAutocomplete: FC<SelectAutocompleteProps> = ({
       options={options.map((option) => option.title)}
       popupIcon={<KeyboardArrowDown />}
       classes={{
-        inputRoot: isFilecoin ? classes.inputFilecoinStyles : classes.inputStyles,
-        paper: isFilecoin ? classes.filecoinPaperStyles : classes.paperStyles
+        inputRoot: isFilecoin
+          ? classes.inputFilecoinStyles
+          : classes.inputStyles,
+        paper: isFilecoin ? classes.filecoinPaperStyles : classes.paperStyles,
       }}
       renderInput={(params) => (
         <TextField
@@ -39,5 +46,5 @@ export const SelectAutocomplete: FC<SelectAutocompleteProps> = ({
         />
       )}
     />
-  )
-}
+  );
+};
