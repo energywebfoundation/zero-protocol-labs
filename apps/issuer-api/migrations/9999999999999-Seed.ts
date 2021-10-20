@@ -19,6 +19,14 @@ export class Seed9999999999999 implements MigrationInterface {
   private async seedBlockchain(queryRunner: QueryRunner) {
     console.log({ __dirname, WEB3: process.env.WEB3 });
 
+    if (!process.env.WEB3) {
+      throw new Error('process.env.WEB3 is undefined');
+    }
+
+    if (!process.env.MNEMONIC) {
+      throw new Error('process.env.MNEMONIC is undefined');
+    }
+
     const [primaryRpc, fallbackRpc] = process.env.WEB3.split(';');
     const provider = getProviderWithFallback(primaryRpc, fallbackRpc);
     const deployer = Wallet.fromMnemonic(process.env.MNEMONIC, `m/44'/60'/0'/0/${0}`); // Index 0 account
