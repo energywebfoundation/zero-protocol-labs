@@ -7,9 +7,11 @@ import * as Joi from "joi";
 import { CertificateModule, entities as CertificateEntities } from '../certificate';
 import { BlockchainPropertiesModule, entities as BlockchainPropertiesEntities } from '../blockchain';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccountModule } from "../account/account.module";
+import { Account } from '../account/account.entity';
 
 const OriginAppTypeOrmModule = () => {
-  const entities = [...CertificateEntities, ...BlockchainPropertiesEntities];
+  const entities = [Account, ...CertificateEntities, ...BlockchainPropertiesEntities];
 
   return TypeOrmModule.forRoot({
     type: 'postgres',
@@ -43,6 +45,7 @@ const OriginAppTypeOrmModule = () => {
     }),
     CertificateModule,
     BlockchainPropertiesModule,
+    AccountModule
   ],
   controllers: [AppController],
   providers: [AppService],
