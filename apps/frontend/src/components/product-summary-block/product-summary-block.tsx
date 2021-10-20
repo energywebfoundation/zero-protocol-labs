@@ -20,7 +20,7 @@ export const ProductSummaryBlock: FC = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

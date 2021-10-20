@@ -8,27 +8,6 @@ export const useStyles = makeStyles((theme) => ({
       padding: '0 16px 32px 16px',
     },
   },
-  sectionPaper: {
-    backgroundColor: '#421d77',
-    padding: '16px 23px 43px 23px',
-    boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-    [theme.breakpoints.down('md')]: {
-      padding: '16px 25px 43px 25px',
-    },
-  },
-  helperText: {
-    color: '#f6efff',
-    fontSize: 14,
-    lineHeight: '16px',
-    fontWeight: 700,
-    marginBottom: -8,
-  },
-  headingTextClassName: {
-    textTransform: 'capitalize',
-  },
-  wrapperClassName: {
-    padding: 0,
-  },
   stripWrapper: {
     position: 'absolute',
     width: '100%',
@@ -66,45 +45,6 @@ export const useStyles = makeStyles((theme) => ({
       fill: '#fff',
       marginLeft: 3,
       top: 0,
-    },
-  },
-  mainInfoWrapper: {
-    paddingRight: 64,
-    [theme.breakpoints.down('lg')]: {
-      flexDirection: 'column',
-      height: '100%',
-    },
-    [theme.breakpoints.down('md')]: {
-      paddingRight: 0,
-    },
-  },
-  mainInfo: {
-    [theme.breakpoints.down('lg')]: {
-      paddingLeft: 67,
-    },
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      alignSelf: 'center',
-      width: '100%',
-      maxWidth: 350,
-      margin: '21px 0 17px 0',
-    },
-  },
-  secondaryInfo: {
-    [theme.breakpoints.down('lg')]: {
-      marginBottom: 17,
-    },
-  },
-  secondaryInfoWrapper: {
-    paddingLeft: 24,
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: 0,
-      width: '100%',
-      maxWidth: 350,
-      margin: '0 auto',
     },
   },
   buttonsGroup: {
