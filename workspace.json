@@ -285,8 +285,11 @@
             "parallel": false,
             "commands": [
               "cp ./apps/issuer-api/Dockerfile ./dist/apps/issuer-api/",
+              "mkdir -p ./dist/apps/issuer-api/typeorm",
+              "cp -R ./apps/issuer-api/migrations ./dist/apps/issuer-api/typeorm",
+              "cp ./apps/issuer-api/ormconfig-docker.ts ./dist/apps/issuer-api/typeorm/ormconfig.ts",
               "docker build ./dist/apps/issuer-api/ -t zero-pl-issuer-api",
-              "rm ./dist/apps/issuer-api/Dockerfile"
+              "rm -r ./dist/apps/issuer-api/Dockerfile ./dist/apps/issuer-api/typeorm"
             ]
           }
         },
