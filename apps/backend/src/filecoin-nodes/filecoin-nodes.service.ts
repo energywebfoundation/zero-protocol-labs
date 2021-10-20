@@ -69,8 +69,8 @@ export const transactionsSchema = {
   properties: {
     minerId: { type: "string", example: "f0112027" },
     buyerId: { type: "string", example: "29e25d61-103a-4710-b03d-ee12df765066" },
-    pageUrl: { type: "https://zero.energyweb.org/partners/filecoin/nodes/f0112027/transactions" },
-    dataUrl: { type: "https://zero.energyweb.org/api/partners/filecoin/nodes/f0112027/transactions" },
+    pageUrl: { type: "string", example: "https://zero.energyweb.org/partners/filecoin/nodes/f0112027/transactions" },
+    dataUrl: { type: "string", example: "https://zero.energyweb.org/api/partners/filecoin/nodes/f0112027/transactions" },
     recsTotal: { type: "number", example: 3 },
     transactions: {
       type: "array",
