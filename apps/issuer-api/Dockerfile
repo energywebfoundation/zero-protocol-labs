@@ -1,4 +1,6 @@
 FROM node:lts-alpine
+ENV PORT=3333
+EXPOSE 3333/tcp
 WORKDIR /app
 RUN apk --no-cache add bash
 RUN yarn global add ts-node typescript
