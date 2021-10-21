@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBody, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
-import { ExceptionInterceptor, SuccessResponseDTO } from '@energyweb/origin-backend-utils';
+import { ExceptionInterceptor } from '@energyweb/origin-backend-utils';
 import {
   Certificate,
   CertificateDTO,
@@ -28,7 +28,8 @@ import {
   GetAllCertificatesQuery,
   GetCertificateQuery,
   IssueCertificateCommand,
-  TransferCertificateCommand
+  TransferCertificateCommand,
+  TxHashDTO
 } from '@energyweb/issuer-api';
 
 import { IssueCertificateDTO } from './dto/issue-certificate.dto';
@@ -93,12 +94,12 @@ export class CertificateController {
     @Post()
     @ApiResponse({
         status: HttpStatus.CREATED,
-        type: CertificateDTO,
-        description: 'Returns the issued Certificate'
+        type: TxHashDTO,
+        description: 'Triggers an issuance transaction and returns the transaction hash'
     })
     @ApiBody({ type: IssueCertificateDTO })
-    public async issue(@Body() dto: IssueCertificateDTO): Promise<CertificateDTO> {
-        return this.commandBus.execute(
+    public async issue(@Body() dto: IssueCertificateDTO): Promise<TxHashDTO> {
+        const tx = await this.commandBus.execute(
             new IssueCertificateCommand(
                 dto.to,
                 dto.energy,
@@ -108,40 +109,46 @@ export class CertificateController {
                 dto.to
             )
         );
+
+        return { txHash: tx.hash };
     }
 
     @Put('/:id/transfer')
     @ApiBody({ type: TransferCertificateDTO })
     @ApiResponse({
         status: HttpStatus.OK,
-        type: SuccessResponseDTO,
-        description: 'Returns whether the transfer succeeded'
+        type: TxHashDTO,
+        description: 'Triggers a Transfer transaction and returns the transaction hash'
     })
     public async transfer(
         @Query('fromAddress') fromAddress: string,
         @Param('id', new ParseIntPipe()) certificateId: number,
         @Body() dto: TransferCertificateDTO
-    ): Promise<SuccessResponseDTO> {
-        return this.commandBus.execute(
+    ): Promise<TxHashDTO> {
+        const tx = await this.commandBus.execute(
             new TransferCertificateCommand(certificateId, fromAddress, dto.to, dto.amount)
         );
+
+        return { txHash: tx.hash };
     }
 
     @Put('/:id/claim')
     @ApiBody({ type: ClaimCertificateDTO })
     @ApiResponse({
         status: HttpStatus.OK,
-        type: SuccessResponseDTO,
-        description: 'Returns whether the claim succeeded'
+        type: TxHashDTO,
+        description: 'Triggers a Claim transaction and returns the transaction hash'
     })
     public async claim(
         @Query('fromAddress') fromAddress: string,
         @Param('id', new ParseIntPipe()) certificateId: number,
         @Body() dto: ClaimCertificateDTO
-    ): Promise<SuccessResponseDTO> {
-        return this.commandBus.execute(
+    ): Promise<TxHashDTO> {
+        const tx = await this.commandBus.execute(
             new ClaimCertificateCommand(certificateId, dto.claimData, fromAddress, dto.amount)
         );
+
+        return { txHash: tx.hash };
     }
 
     @Get('/:id/events')
