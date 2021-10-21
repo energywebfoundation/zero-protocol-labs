@@ -14,7 +14,7 @@ import { getSwaggerDocumentationConfig } from "./swagger/SwaggerDocumentConfig";
 import { PrismaClientExceptionFilter } from "./exception-filters/PrismaClientExceptionFilter";
 import { NoDataInterceptor } from "./interceptors/NoDataInterceptor";
 
-const logger = new Logger('bootstrap', true);
+const logger = new Logger('bootstrap', { timestamp: true });
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
