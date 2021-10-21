@@ -81,6 +81,7 @@ model FilecoinNodesOnPurchases {
   buyerId        String
 
   @@id([purchaseId, filecoinNodeId, buyerId])
+  @@unique([purchaseId, filecoinNodeId])
 }
 
 model Order {
