@@ -66,9 +66,12 @@ export const useStyles = makeStyles((theme) => ({
     padding: '13px 17px',
     marginLeft: 16,
     '&:hover': {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.primary.dark,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.background.paper,
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+      '& svg path': {
+        fill: theme.palette.primary.main,
+      },
     },
     [theme.breakpoints.down('md')]: {
       margin: '0 0 8px',
@@ -78,12 +81,15 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.background.paper,
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
     },
   },
   endIcon: {
     marginLeft: 16,
+    '& path': {
+      transition: 'fill 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    },
   },
 }));

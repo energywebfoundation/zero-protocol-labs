@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import clsx from 'clsx';
 import { useFormik } from 'formik';
 import {
   Grid,
@@ -7,11 +8,26 @@ import {
   Typography,
   FormLabel,
   TextField,
+  Button,
+  useMediaQuery,
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import SwitchLabels from 'apps/frontend/src/components/switch-label/switch-label';
+import CopyToClipboard from 'apps/frontend/src/components/copy-to-clipboard/copy-to-clipboard';
+import { ReactComponent as AddNoteIcon } from 'apps/frontend/src/assets/svg/add-note.svg';
+import { ReactComponent as EditIcon } from 'apps/frontend/src/assets/svg/edit.svg';
+import { ReactComponent as SendIcon } from 'apps/frontend/src/assets/svg/send-message.svg';
 import { useStyles } from './accepted-offer.style';
 
 export const AcceptedOffer: FC = () => {
+  const theme = useTheme();
   const classes = useStyles();
+  const [wirePayment, setWirePayment] = useState(true);
+  const [cryptoPayment, setCryptoPayment] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const uploadButtonText = isMobile
+    ? 'Upload payment recipe'
+    : 'Upload document';
 
   const formik = useFormik({
     initialValues: {
@@ -20,6 +36,7 @@ export const AcceptedOffer: FC = () => {
       name: '',
       vat: '',
       address: '',
+      crypto: '',
     },
     onSubmit: (values) => {
       console.log(values);
@@ -49,7 +66,7 @@ export const AcceptedOffer: FC = () => {
         </ul>
       </Paper>
       <Paper className={classes.paper2}>
-        <Box className={classes.formWrapper}>
+        <Box>
           <form>
             <Grid container mb={1.5}>
               <Grid item xs={12} md={6} className={classes.fieldWrapper}>
@@ -189,7 +206,303 @@ export const AcceptedOffer: FC = () => {
             </Grid>
           </form>
         </Box>
+        <Box className={classes.switchWrapper}>
+          <SwitchLabels
+            labelName={'I’ll pay with a Wire transfer'}
+            boxProps={{ className: classes.switch, mr: 8 }}
+            checked={wirePayment}
+            setChecked={() => {
+              setWirePayment(!wirePayment);
+              setCryptoPayment(!cryptoPayment);
+            }}
+          />
+          <SwitchLabels
+            labelName={'I’ll pay with crypto'}
+            boxProps={{ className: classes.switch }}
+            checked={cryptoPayment}
+            setChecked={() => {
+              setCryptoPayment(!cryptoPayment);
+              setWirePayment(!wirePayment);
+            }}
+          />
+        </Box>
+        <Box>
+          <Typography className={classes.wireTransferTitle}>
+            Wire Transfer instructions
+          </Typography>
+        </Box>
+        <Grid container>
+          {cryptoPayment && (
+            <Grid container sx={{ mt: { xs: 2, md: 3 }, mb: { xs: 0, md: 1 } }}>
+              <Grid item xs={12} md={6} className={classes.fieldWrapper}>
+                <FormLabel className={classes.label}>
+                  Payment Transaction URL
+                </FormLabel>
+                <TextField
+                  fullWidth
+                  id="crypto"
+                  name="crypto"
+                  className={classes.field}
+                  value={formik.values.crypto}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Box className={classes.formDescriptionItem}>
+                  <Typography className={classes.descriptionTitle}>
+                    [Optional]
+                  </Typography>
+                  <Typography className={classes.descriptionText}>
+                    URL of the payment transaction pubblicly accessible in a
+                    blockchain explorer
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+          {wirePayment ? (
+            <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
+              <Box
+                className={classes.wireTransfer}
+                sx={{ mt: { xs: 2 }, mb: { xs: 2 } }}
+              >
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Account Holder
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      Monsoon Carbon LTD
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      IBAN
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      FR12500A08170648489890
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      SWIFT
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      FRECR/23
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Amount
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      15
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Currency
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      USD
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={5}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Transfer Concept
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={7}>
+                    <Typography className={classes.wireTransferValue}>
+                      Zero Offer #ABC4567DEF
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+          ) : (
+            <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
+              <Box
+                className={classes.wireTransfer}
+                sx={{ mt: { xs: 0, md: 2 } }}
+              >
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={4}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Blockchain
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Typography className={classes.wireTransferValue}>
+                      Ethereum or EnergyWebChain
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={4}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Address
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Box display="flex" alignItems="flex-star">
+                      <Typography
+                        className={classes.wireTransferValue}
+                        noWrap
+                        mr={0.7}
+                      >
+                        0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+                      </Typography>
+                      <CopyToClipboard
+                        value={'0x71C7656EC7ab88b098defB751B7401B5f6d8976F'}
+                      />
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={4} alignSelf="flex-start">
+                    <Typography className={classes.wireTransferLabel}>
+                      Amount & currency
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Typography className={classes.wireTransferValue}>
+                      <span>15 DAI or USDC or USDT</span> <br />
+                      <span>0,004647732835923 ETH (@3227.41 USD/ETH)</span>{' '}
+                      <span>1,832844574780059 EWT ( @8.25 USD/EWT)</span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.wireTransferItem}
+                >
+                  <Grid item xs={12} md={4}>
+                    <Typography className={classes.wireTransferLabel}>
+                      Transfer Concept
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Typography className={classes.wireTransferValue}>
+                      Zero Offer #ABC4567DEF
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+          )}
+          {wirePayment && (
+            <Grid item xs={12} md={6} sx={{ pl: { xs: 0, md: 1, lg: 3 } }}>
+              <Box
+                className={classes.wireTransfer}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column"
+                sx={{ mt: { xs: 0, md: 2 } }}
+              >
+                <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                  <Typography className={classes.dropTitle}>
+                    Drag and drop payment receipt
+                  </Typography>
+                  <Typography
+                    color="primary"
+                    fontSize={14}
+                    lineHeight="16px"
+                    textAlign="center"
+                    fontWeight={600}
+                  >
+                    or
+                  </Typography>
+                </Box>
+                <Button
+                  variant="contained"
+                  className={classes.uploadButton}
+                  classes={{ endIcon: classes.endIcon }}
+                  endIcon={<AddNoteIcon />}
+                >
+                  {uploadButtonText}
+                </Button>
+              </Box>
+            </Grid>
+          )}
+        </Grid>
       </Paper>
+      <Box className={classes.buttonsGroup}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          classes={{ endIcon: classes.endIcon }}
+          endIcon={<EditIcon />}
+        >
+          Edit data
+        </Button>
+        <Button
+          variant="contained"
+          className={clsx(classes.button, classes.buttonDark)}
+          classes={{ endIcon: classes.endIcon }}
+          endIcon={<SendIcon />}
+        >
+          Submit Information
+        </Button>
+      </Box>
     </Box>
   );
 };

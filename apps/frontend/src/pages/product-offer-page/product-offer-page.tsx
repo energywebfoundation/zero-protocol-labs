@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import clsx from 'clsx';
-import { Grid, Box, Button, Paper, Typography } from '@material-ui/core';
+import { Grid, Box, Button } from '@material-ui/core';
 import { OfferSummaryBlock } from 'apps/frontend/src/components/offer-summary-block';
 import { AcceptedOffer } from 'apps/frontend/src/components/accepted-offer';
 import ProductSummaryBlock from 'apps/frontend/src/components/product-summary-block/product-summary-block';

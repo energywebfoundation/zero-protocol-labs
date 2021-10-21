@@ -1,15 +1,15 @@
 import React from 'react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { FormControlLabel, Switch, Box, BoxProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 interface FormWizardProps {
   checked: boolean;
   setChecked: (value: boolean) => void;
+  boxProps?: BoxProps;
   labelName?: string;
   isFilecoin?: boolean;
-  defaultValue?:boolean
+  defaultValue?: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -71,7 +71,8 @@ const SwitchLabel: React.FC<FormWizardProps> = ({
   labelName,
   isFilecoin,
   checked,
-  setChecked
+  setChecked,
+  boxProps,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -79,7 +80,7 @@ const SwitchLabel: React.FC<FormWizardProps> = ({
   const classes = useStyles();
 
   return (
-    <div>
+    <Box {...boxProps}>
       <FormControlLabel
         control={
           <Switch
@@ -87,9 +88,10 @@ const SwitchLabel: React.FC<FormWizardProps> = ({
             checked={checked}
             onChange={(e) => handleChange(e)}
             value="checked"
+            disableRipple
           />
         }
-        label={""}
+        label={''}
       />
       <span
         className={`${
@@ -104,7 +106,7 @@ const SwitchLabel: React.FC<FormWizardProps> = ({
       >
         {labelName}
       </span>
-    </div>
+    </Box>
   );
 };
 export default SwitchLabel;

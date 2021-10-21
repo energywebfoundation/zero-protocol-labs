@@ -73,7 +73,7 @@ export const TableListTablet = ({
         <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
           <TableRow>
             <TableCell className={styles.tbCell}>
-              <EthereumAddress shortify address={sellerId} />
+              <EthereumAddress shortify clipboard address={sellerId} />
             </TableCell>
             <TableCell className={styles.tbCell}>
               {data.generatorName ?? '-'}
