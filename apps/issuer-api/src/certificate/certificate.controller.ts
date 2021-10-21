@@ -16,20 +16,21 @@ import {
   ValidationPipe
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiBody, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { ExceptionInterceptor } from '@energyweb/origin-backend-utils';
 import {
-  Certificate,
-  CertificateDTO,
-  CertificateEvent,
-  certificateToDto,
-  ClaimCertificateCommand,
-  GetAllCertificateEventsQuery,
-  GetAllCertificatesQuery,
-  GetCertificateQuery,
-  IssueCertificateCommand,
-  TransferCertificateCommand,
-  TxHashDTO
+    Certificate,
+    CertificateDTO,
+    CertificateEvent,
+    certificateToDto,
+    ClaimCertificateCommand,
+    GetAllCertificateEventsQuery,
+    GetAllCertificatesQuery,
+    GetCertificateByTxHashQuery,
+    GetCertificateQuery,
+    IssueCertificateCommand,
+    TransferCertificateCommand,
+    TxHashDTO
 } from '@energyweb/issuer-api';
 
 import { IssueCertificateDTO } from './dto/issue-certificate.dto';
@@ -65,6 +66,28 @@ export class CertificateController {
         }
 
         return certificateToDto(certificate, blockchainAddress);
+    }
+
+    @Get('/by-issuance-transaction/:txHash')
+    @UseGuards(IssuerGuard)
+    @ApiOkResponse({
+        type: [CertificateDTO],
+        description: 'Returns Certificates that were created in the transaction'
+    })
+    public async getByTxHash(
+        @Query('blockchainAddress') blockchainAddress: string,
+        @Param('txHash') txHash: string
+    ): Promise<CertificateDTO[]> {
+        const certificates = await this.queryBus.execute<GetCertificateByTxHashQuery,
+            Certificate[]>(new GetCertificateByTxHashQuery(txHash));
+
+        if (certificates?.length === 0) {
+            throw new NotFoundException(
+                `No certificates were issued in the tx with hash ${txHash}.`
+            );
+        }
+
+        return certificates.map((cert) => certificateToDto(cert, blockchainAddress));
     }
 
     @Get()
