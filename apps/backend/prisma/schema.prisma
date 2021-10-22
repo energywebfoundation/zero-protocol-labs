@@ -21,19 +21,25 @@ model File {
 }
 
 model Buyer {
-  id            String         @id @default(uuid())
-  name          String?
-  purchase      Purchase[]
-  filecoinNodes FilecoinNode[]
+  id                String         @id @default(uuid())
+  name              String?
+  blockchainAddress String?
+  purchase          Purchase[]
+  filecoinNodes     FilecoinNode[]
+
+  @@unique([blockchainAddress])
 }
 
 model Seller {
-  id            String     @id @default(uuid())
-  name          String
-  addressLine1  String
-  addressLine2  String?
-  contactPerson String?
-  purchase      Purchase[]
+  id                String     @id @default(uuid())
+  name              String
+  addressLine1      String
+  addressLine2      String?
+  contactPerson     String?
+  blockchainAddress String?
+  purchase          Purchase[]
+
+  @@unique([blockchainAddress])
 }
 
 model Certificate {
