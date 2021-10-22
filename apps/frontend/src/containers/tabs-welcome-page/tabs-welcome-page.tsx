@@ -8,6 +8,7 @@ import marketIcon from '../../assets/svg/marketIcon.svg';
 import platformIcon from '../../assets/svg/platformIcon.svg';
 import procurementIcon from '../../assets/svg/procurementIcon.svg';
 import integrationIcon from '../../assets/svg/integrationIcon.svg';
+import { SyntheticEvent } from 'react-transition-group/node_modules/@types/react';
 
 const tabsData = [
   {
@@ -47,12 +48,12 @@ export const TabsWelcomePage = () => {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (newValue: any) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const handleBackStep = () => setValue((s) => s - 1);
-  const handleNextStep = () => setValue((s) => s + 1);
+  const handleBackStep = () => setValue((s) => s - 4);
+  const handleNextStep = () => setValue((s) => s + 4);
 
   return (
     <Box width="100%">
@@ -74,7 +75,7 @@ export const TabsWelcomePage = () => {
         <ButtonGroup sx={{ mr: '55px' }}>
           <Button
             className={styles.btn}
-            disabled={value === 4}
+            disabled={value <= 0}
             variant="contained"
             onClick={handleBackStep}
             startIcon={<LeftArrowIcon />}
@@ -82,7 +83,7 @@ export const TabsWelcomePage = () => {
 
           <Button
             className={styles.btn}
-            disabled={value === tabsData.length - 1}
+            disabled={value >= tabsData.length - 1}
             variant="contained"
             onClick={handleNextStep}
             endIcon={<RightArrowIcon />}
@@ -103,7 +104,7 @@ export const TabsWelcomePage = () => {
               minWidth="289px"
               height="385px"
               className={styles.tab}
-              key={el.label}
+              key={el.value}
             >
               <img src={el.img} alt="tabs-img" />
               <Typography

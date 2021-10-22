@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, SvgIconProps } from '@material-ui/core';
 import { useStyles } from './generic-submit-button.styles';
 
 export interface IGenericSubmitButtonProps {
@@ -9,7 +9,7 @@ export interface IGenericSubmitButtonProps {
   hoverColor: string;
   iconColor: string;
   hoverIconColor: string;
-  icon: any;
+  icon: SvgIconProps;
 }
 
 export const GenericSubmitButton = ({

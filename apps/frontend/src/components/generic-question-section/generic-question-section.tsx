@@ -1,17 +1,18 @@
 import { Box, Typography } from '@material-ui/core';
 import * as React from 'react';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useStyles from './generic-question-section-styles';
 import GenericSubmitButton from '../generic-submit-button/generic-submit-button';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { ReactNode } from 'react-transition-group/node_modules/@types/react';
+import { SvgIconProps } from '@material-ui/core';
 
 export interface IGenericQuestionSectionProps {
-  children?: any;
+  children?: ReactNode;
   title: string;
   label: string;
   desc: string;
   btnName: string;
-  icon: any;
+  icon: SvgIconProps;
 }
 
 export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({

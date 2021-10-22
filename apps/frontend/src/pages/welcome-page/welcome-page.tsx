@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import {
   Grid,
@@ -21,19 +20,22 @@ import { ReactComponent as CountryImg } from '../../assets/svg/country.svg';
 import { ReactComponent as GeneratorImg } from '../../assets/svg/generator.svg';
 import { ReactComponent as TWHImg } from '../../assets/svg/twh.svg';
 import AdvisorsSection from '../../components/advisors-section/advisors-section';
+import { Dayjs } from 'dayjs';
 
+//These are mock data, when the basic data is ready, we will replace it with mock data.
 const option1 = [
   { value: 'Regiontest0', label: 'Regiontest0' },
   { value: 'Regiontest1', label: 'Regiontest1' },
   { value: 'Regiontest2', label: 'Regiontest2' },
 ];
 
+//These are mock data, when the basic data is ready, we will replace it with mock data.
 const option2 = [
   { value: 'Devicetest0', label: 'Devicetest0' },
   { value: 'Devicetest1', label: 'Devicetest1' },
   { value: 'Devicetest2', label: 'Devicetest2' },
 ];
-
+//These are mock data, when the basic data is ready, we will replace it with mock data.
 const option3 = [
   { value: 'Producttest0', label: 'Producttest0' },
   { value: 'Producttest1', label: 'Producttest1' },
@@ -49,11 +51,9 @@ const awaitsData = [
 export const WelcomePage = () => {
   const styles = useStyles();
 
-  const [testDay, setDay] = useState<any>(new Date());
-
   const handleElemChange = (
     event: SelectChangeEvent,
-    setFieldValue: (name: string, value: any) => void
+    setFieldValue: (name: string, value: string) => void
   ) => {
     const {
       target: { value, name },
@@ -88,8 +88,26 @@ export const WelcomePage = () => {
         </Typography>
 
         <Formik
-          initialValues={{ region: '', deviceType: '', productType: '' }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{
+            region: '',
+            deviceType: '',
+            productType: '',
+            generalStartDate: {} as Dayjs,
+            generalEndtDate: {} as Dayjs,
+            amount: '',
+          }}
+          onSubmit={(values) => {
+            //filterData will be used, when the backend endpoint is ready.
+            const filterData = {
+              ...values,
+              generalStartDate: values.generalStartDate
+                .startOf('day')
+                .toISOString(),
+              generalEndtDate: values.generalEndtDate
+                .startOf('day')
+                .toISOString(),
+            };
+          }}
         >
           {({ setFieldValue, values }) => (
             <Form autoComplete="off">
@@ -155,6 +173,10 @@ export const WelcomePage = () => {
                       <TextField
                         classes={{ root: styles.input }}
                         fullWidth
+                        value={values.amount}
+                        onChange={(event) => {
+                          setFieldValue('amount', event.target.value);
+                        }}
                         name={'amount'}
                         placeholder="Amount"
                         InputProps={{
@@ -201,7 +223,7 @@ export const WelcomePage = () => {
                         Generation start date
                       </Typography>
                       <BasicDatePicker
-                        value={testDay}
+                        value={values.generalStartDate}
                         setValue={(value) =>
                           setFieldValue(`generalStartDate`, value)
                         }
@@ -218,7 +240,7 @@ export const WelcomePage = () => {
                         Generation end date
                       </Typography>
                       <BasicDatePicker
-                        value={testDay}
+                        value={values.generalEndtDate}
                         setValue={(value) =>
                           setFieldValue(`generalEndtDate`, value)
                         }
