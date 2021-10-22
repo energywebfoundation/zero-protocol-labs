@@ -18,11 +18,18 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.light,
     marginBottom: 2,
   },
+  fileName: {
+    fontWeight: 700,
+    color: theme.palette.secondary.main,
+    position: 'absolute',
+    bottom: 36,
+  },
   upload: {
     minHeight: 272,
     backgroundColor: theme.palette.background.default,
     borderRadius: 10,
     padding: '16px 24px 16px',
+    position: 'relative',
     [theme.breakpoints.down('md')]: {
       padding: 24,
       minHeight: 'initial',

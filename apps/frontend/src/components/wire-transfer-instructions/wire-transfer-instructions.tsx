@@ -1,23 +1,14 @@
 import { FC } from 'react';
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  useMediaQuery,
-} from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Grid, Box, Typography, Button } from '@material-ui/core';
 import { WireTransferInformation } from '../wire-transfer-information';
 import { ReactComponent as AddNoteIcon } from '../../assets/svg/add-note.svg';
+import { useWireTransferInstructionsEffects } from './wire-transfer-instructions.effects';
 import { useStyles } from './wire-transfer-instructions.style';
 
 export const WireTransferInstructions: FC = () => {
-  const theme = useTheme();
   const classes = useStyles();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const uploadButtonText = isMobile
-    ? 'Upload payment recipe'
-    : 'Upload document';
+  const { uploadButtonText, getRootProps, getInputProps, acceptedFileItems } =
+    useWireTransferInstructionsEffects();
 
   return (
     <>
@@ -46,21 +37,23 @@ export const WireTransferInstructions: FC = () => {
             justifyContent="center"
             flexDirection="column"
             sx={{ mt: { xs: 0, md: 2 } }}
+            {...getRootProps()}
           >
+            <input {...getInputProps()} />
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
               <Typography className={classes.dropTitle}>
                 Drag and drop payment receipt
               </Typography>
-              <Typography
-                color="primary"
-                fontSize={14}
-                lineHeight="16px"
-                textAlign="center"
-                fontWeight={600}
-              >
-                or
-              </Typography>
             </Box>
+            <Typography
+              color="primary"
+              fontSize={14}
+              lineHeight="16px"
+              textAlign="center"
+              fontWeight={600}
+            >
+              or
+            </Typography>
             <Button
               variant="contained"
               className={classes.uploadButton}
@@ -69,6 +62,7 @@ export const WireTransferInstructions: FC = () => {
             >
               {uploadButtonText}
             </Button>
+            {acceptedFileItems}
           </Box>
         </Grid>
       </Grid>
