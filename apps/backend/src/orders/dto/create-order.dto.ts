@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { PaymentPreferencesEnumType } from '@prisma/client';
+import { PaymentPreferencesEnumType, ProtocolTypeEnumType, UserTypeEnumType } from '@prisma/client';
 import { ArrayMinSize, IsArray, IsEmail, IsEnum, IsNotEmpty, ValidateNested } from 'class-validator';
 import { CreateOrderItemDto } from "./create-order-item.dto";
 import { Type } from "class-transformer";
@@ -14,10 +14,20 @@ export class CreateOrderDto {
   @IsEnum(PaymentPreferencesEnumType, { each: true })
   paymentPreferences: PaymentPreferencesEnumType[];
 
+  @ApiProperty({ enum: ProtocolTypeEnumType, enumName: 'ProtocolTypeEnumType' })
+  @IsNotEmpty()
+  @IsEnum(ProtocolTypeEnumType)
+  protocolType: ProtocolTypeEnumType;
+
   @ApiProperty({ example: 'user@domain.com' })
   @IsEmail()
   @IsNotEmpty()
   emailAddress: string;
+
+  @ApiProperty({ enum: UserTypeEnumType, enumName: 'UserTypeEnumType' })
+  @IsNotEmpty()
+  @IsEnum(UserTypeEnumType)
+  userType: UserTypeEnumType;
 
   @ApiProperty({ type: [CreateOrderItemDto] })
   @IsArray()

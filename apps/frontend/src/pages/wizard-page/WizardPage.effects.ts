@@ -1,14 +1,13 @@
-import { CreateOrderDto, PaymentPreferencesEnumType, useOrdersControllerCreate } from "@energyweb/zero-protocol-labs-api-client"
+import { CreateOrderDto, PaymentPreferencesEnumType, ProtocolTypeEnumType, useOrdersControllerCreate, UserTypeEnumType } from "@energyweb/zero-protocol-labs-api-client"
 import { useState } from "react";
 import { BigNumber } from '@ethersproject/bignumber';
 import { Dayjs } from "dayjs";
 import { useNavigate } from "react-router";
 import { Countries } from "@energyweb/utils-general";
 import { useAddressMappingState, useSelectedProtocolStore } from "../../context";
-import { ProtocolsEnum } from "../../utils";
 
 export interface WizardFormValues {
-  userType: string;
+  userType: UserTypeEnumType | null;
   wirePayment: boolean;
   cryptoPayment: boolean;
   emailAddress: string;
@@ -16,7 +15,7 @@ export interface WizardFormValues {
 }
 
 export const initialValues: WizardFormValues = {
-  userType: '',
+  userType: null,
   wirePayment: false,
   cryptoPayment: false,
   emailAddress: ''
@@ -26,7 +25,7 @@ export const useWizardPageEffects = () => {
   const navigate = useNavigate();
   const selectedProtocol = useSelectedProtocolStore();
   // bad needs to be replaced by more generic solution
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
   const stepLabels = ['Protocol', 'Consumption', 'Preferences', 'Confirmation'];
 
   const [step, setStep] = useState(0);
@@ -47,6 +46,8 @@ export const useWizardPageEffects = () => {
       const mappingArrIterator = Array.from(Array(addressMapping?.size).keys());
       const preparedValues: CreateOrderDto = {
         // way too hacky, should be simplified
+        protocolType: selectedProtocol ?? ProtocolTypeEnumType.BITCOIN,
+        userType: values.userType ?? UserTypeEnumType.OTHER,
         paymentPreferences:
         values.wirePayment && values.cryptoPayment
           ? [PaymentPreferencesEnumType.WIRE_TRANSFER, PaymentPreferencesEnumType.CRYPTO]
@@ -58,14 +59,17 @@ export const useWizardPageEffects = () => {
         emailAddress: values.emailAddress,
         items: mappingArrIterator.map(key => {
           return {
-          country: Countries.find(country => country.name === values[`country_${key}`])?.code || '',
-          minerId: values[`minerId_${key}`] || '',
-          // @ts-ignore
-          timeFrames: mapping.get(key) ? mapping.get(key).map(nestedId => ({
-            start: (values[`startDate_${key}_${nestedId}`] as Dayjs).startOf('day').toISOString(),
-            end: (values[`endDate_${key}_${nestedId}`] as Dayjs).endOf('day').toISOString(),
-            energy: BigNumber.from(values[`energy_${key}_${nestedId}`]).mul(BigNumber.from(10).pow(6)).toNumber()
-          })) : []}
+            country: Countries.find(country => country.name === values[`country_${key}`])?.code || '',
+            minerId: values[`minerId_${key}`] || '',
+            // @ts-ignore
+            // for some reason throws an error that mapping can be null even though
+            // it is null checked
+            timeFrames: mapping.get(key) ? mapping.get(key).map(nestedId => ({
+              start: (values[`startDate_${key}_${nestedId}`] as Dayjs).startOf('day').toISOString(),
+              end: (values[`endDate_${key}_${nestedId}`] as Dayjs).endOf('day').toISOString(),
+              energy: BigNumber.from(values[`energy_${key}_${nestedId}`]).mul(BigNumber.from(10).pow(6)).toNumber()
+            })) : []
+          }
         })
       }
       mutate({ data: preparedValues })

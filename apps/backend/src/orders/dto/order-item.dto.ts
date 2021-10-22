@@ -16,6 +16,9 @@ export class OrderItemDto implements OrderItem {
   @ApiProperty({ example: "PL" })
   country: string;
 
+  @ApiProperty({ example: "Kraków" })
+  city: string;
+
   @ApiProperty({ example: "1234" })
   minerId: string;
 

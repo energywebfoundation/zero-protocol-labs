@@ -2,7 +2,7 @@ import { variables } from "@energyweb/zero-protocol-labs-theme";
 import { Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
+export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>((theme) => ({
   wrapper: {
     position: 'absolute',
     top: '50%',
@@ -12,7 +12,10 @@ export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
     bgcolor: 'background.paper',
     boxShadow: '24px',
     padding: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%'
+    }
   },
   button: {
     color: variables.mainBackgroundColor,
@@ -21,5 +24,19 @@ export const useStyles = makeStyles<Theme, { isFilecoin: boolean }>({
       backgroundColor: ({ isFilecoin }) => isFilecoin ? variables.filcoinColorLight : variables.secondaryColor,
       color: ({ isFilecoin }) => isFilecoin ? variables.filcoinColor : undefined
     },
+  },
+  buttonCancel: {
+    marginRight:'15px',
+    '@media (max-width: 403px)': {
+      marginRight:'0',
+      marginBottom:'5px'
+    },
+  },
+  buttonGroup: {
+    marginTop:'20px',
+    '@media (max-width: 403px)': {
+      display:'flex',
+      flexDirection:'column'
+    },
   }
-});
+}));

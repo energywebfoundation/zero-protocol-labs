@@ -46,9 +46,10 @@ const BasicDatePicker: React.FC<IBasicDatePickerProps> = ({
           setValue(newValue);
         }}
         components={{
-          OpenPickerIcon: calendar === 'white'
-          ? CalendarIconWhite
-            : isFilecoin
+          OpenPickerIcon:
+            calendar === 'white'
+              ? CalendarIconWhite
+              : isFilecoin
               ? CalendarIconLight
               : CalendarIconDark,
         }}
