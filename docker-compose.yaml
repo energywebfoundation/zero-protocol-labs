@@ -29,6 +29,7 @@ services:
       UPLOADED_FILE_SIZE_LIMIT: 200000
       UI_BASE_URL: http://localhost:8080
       API_BASE_URL: http://localhost:3333
+      ISSUER_API_BASE_URL: http://issuer-api:3333
       FILES_BASE_URL: http://localhost:3333/api/files
     volumes:
       - 'zero-pl-backend-tmp:/tmp'
@@ -41,6 +42,7 @@ services:
       - db-issuer
       - ganache
     environment:
+      PORT: 3333
       LOG_LEVELS: "log,error,warn,debug,verbose"
       API_KEY: somethingsecret
       DATABASE_URL: "postgresql://postgres:postgres@db-issuer:5432/issuer"
