@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import {
   Grid,
@@ -6,18 +6,21 @@ import {
   Box,
   SelectChangeEvent,
   TextField,
-  Button,
-  Tabs,
-  Tab,
 } from '@material-ui/core';
 import { useStyles } from './welcome-page-styles';
 import GenericSelect from '../../components/generic-select/generic-select';
 import { Form, Formik } from 'formik';
 import BasicDatePicker from '../../components/date-picker/date-picker';
 import GenericSubmitButton from '../../components/generic-submit-button/generic-submit-button';
+import Footer from '../../components/footer/footer';
 import SearchIcon from '@material-ui/icons/Search';
-import { ReactComponent as LeftArrowIcon } from '../../assets/svg/leftArrow.svg';
-import { ReactComponent as RightArrowIcon } from '../../assets/svg/rightArrow.svg';
+import PersonAddAltIcon from '@material-ui/icons/PersonAddAlt';
+import { QuestionSectionWelcomePage, TabsWelcomePage } from '../../containers';
+import GenericQuestionSection from '../../components/generic-question-section/generic-question-section';
+import { ReactComponent as CountryImg } from '../../assets/svg/country.svg';
+import { ReactComponent as GeneratorImg } from '../../assets/svg/generator.svg';
+import { ReactComponent as TWHImg } from '../../assets/svg/twh.svg';
+import AdvisorsSection from '../../components/advisors-section/advisors-section';
 
 const option1 = [
   { value: 'Regiontest0', label: 'Regiontest0' },
@@ -37,6 +40,12 @@ const option3 = [
   { value: 'Producttest2', label: 'Producttest2s' },
 ];
 
+const awaitsData = [
+  { img: <CountryImg />, count: '90', name: 'Countries' },
+  { img: <GeneratorImg />, count: '560', name: 'Generators' },
+  { img: <TWHImg />, count: '356', name: 'TWh' },
+];
+
 export const WelcomePage = () => {
   const styles = useStyles();
 
@@ -52,15 +61,6 @@ export const WelcomePage = () => {
 
     setFieldValue(name, value);
   };
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
-  };
-
-  const handleBackStep = () => setValue((s) => s - 1);
-  const handleNextStep = () => setValue((s) => s + 1);
 
   return (
     <Grid className={styles.wrapper}>
@@ -105,16 +105,19 @@ export const WelcomePage = () => {
                     >
                       Regions
                     </Typography>
-                    <GenericSelect
-                      handleChange={(event) =>
-                        handleElemChange(event, setFieldValue)
-                      }
-                      name="region"
-                      value={values.region}
-                      placeholder={''}
-                      bgColor={variables.inputBackgroundColor}
-                      options={option1}
-                    />
+                    <Box width="100%">
+                      <GenericSelect
+                        handleChange={(event) =>
+                          handleElemChange(event, setFieldValue)
+                        }
+                        name="region"
+                        value={values.region}
+                        placeholder={''}
+                        bgColor={variables.inputBackgroundColor}
+                        options={option1}
+                        menuItemClassName={styles.menuItem}
+                      />
+                    </Box>
                   </Box>
                   <Box display="flex">
                     <Box width="100%" mr="16px">
@@ -136,6 +139,7 @@ export const WelcomePage = () => {
                         placeholder={''}
                         bgColor={variables.inputBackgroundColor}
                         options={option3}
+                        menuItemClassName={styles.menuItem}
                       />
                     </Box>
                     <Box width="100%">
@@ -182,6 +186,7 @@ export const WelcomePage = () => {
                       placeholder={''}
                       bgColor={variables.inputBackgroundColor}
                       options={option2}
+                      menuItemClassName={styles.menuItem}
                     />
                   </Box>
                   <Box display="flex" className={styles.dateBlock}>
@@ -239,163 +244,58 @@ export const WelcomePage = () => {
             </Form>
           )}
         </Formik>
+        <QuestionSectionWelcomePage />
+      </Grid>
+      <Grid item p="122px 41px 0 40px">
+        <GenericQuestionSection
+          label=""
+          title={'What awaits you inside of Zero? '}
+          desc={`Zero App is a place where You'll find:`}
+          btnName={'Create account'}
+          icon={<PersonAddAltIcon />}
+        >
+          <Box
+            display="flex"
+            mb="125px"
+            mt="25px"
+            width="50%"
+            justifyContent="space-between"
+          >
+            {awaitsData.map((el) => {
+              return (
+                <Box display="flex" alignItems="center" key={el.name}>
+                  {el.img}
+                  <Box ml="23px">
+                    <Typography
+                      fontWeight={700}
+                      fontSize="32px"
+                      color={variables.white}
+                      lineHeight="30px"
+                    >
+                      {el.count}
+                    </Typography>
+                    <Typography
+                      fontWeight={600}
+                      fontSize="22px"
+                      color={variables.secondaryColor}
+                    >
+                      {el.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+        </GenericQuestionSection>
+      </Grid>
+      <Grid item className={styles.tabsSection}>
+        <TabsWelcomePage />
+      </Grid>
+      <Grid item className={styles.advisorsSection}>
+        <AdvisorsSection />
       </Grid>
       <Grid item>
-        <Box width="100%" bgcolor={variables.white}>
-          <Button
-            sx={{ height: '0px' }}
-            disabled={value === 0}
-            variant="contained"
-            onClick={handleBackStep}
-            startIcon={<LeftArrowIcon />}
-          ></Button>
-
-          <Button
-            sx={{ height: '0px' }}
-            disabled={value === 8}
-            variant="contained"
-            onClick={handleNextStep}
-            endIcon={<RightArrowIcon />}
-          ></Button>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            scrollButtons={false}
-            aria-label="scrollable force tabs example"
-            variant="scrollable"
-          >
-            <Box
-              width="289px"
-              height="385px"
-              mr="10px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                sx={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={'red'}
-              >
-                Zerofdbzggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={variables.white}
-              >
-                Zero
-              </Typography>
-            </Box>
-            <Box
-              minWidth="289px"
-              height="385px"
-              sx={{ border: '1px solid red' }}
-            >
-              <Typography>Myriad marketplaces</Typography>
-              <Typography
-                width="100%"
-                fontSize="16px"
-                fontWeight="500"
-                color={'red'}
-              >
-                Zerofdbdsfbgfbdgbrdngrdngdtngtdndnyt
-              </Typography>
-            </Box>
-
-            {/* <Tab label="Item One"></Tab>
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
-            <Tab label="Item Six" />
-            <Tab label="Item Seven" /> */}
-          </Tabs>
-        </Box>
+        <Footer />
       </Grid>
     </Grid>
   );

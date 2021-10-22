@@ -4,6 +4,7 @@ const $purple = '#362c45';
 const $purpleLight = '#703CBB';
 const $purpleExtraLight = '#9B95BD';
 const $purpleText = '#6A658A';
+const $purpleFooterText = '#CDABFF';
 
 const $green = '#00D08A';
 const $greenLight = '#b1ebcd';
@@ -59,7 +60,8 @@ export type UiThemeVariables = {
   switchBgColorBlue:string;
   switchBgColorGray: string;
   purpleExtraLight:string;
-  purpleText: string
+  purpleText: string;
+  purpleFooterText: string
 };
 
 export const variables: UiThemeVariables = {
@@ -90,5 +92,6 @@ export const variables: UiThemeVariables = {
   switchBgColorBlue:$switchBgColorBlue,
   switchBgColorGray:$switchBgColorGray,
   purpleExtraLight:$purpleExtraLight,
-  purpleText:$purpleText
+  purpleText:$purpleText,
+  purpleFooterText:$purpleFooterText
 };
