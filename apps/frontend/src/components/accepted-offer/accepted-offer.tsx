@@ -13,7 +13,8 @@ import {
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import SwitchLabels from 'apps/frontend/src/components/switch-label/switch-label';
-import CopyToClipboard from 'apps/frontend/src/components/copy-to-clipboard/copy-to-clipboard';
+import { WireTransferInformation } from '../wire-transfer-information';
+import { CryptoPaymentInformation } from '../crypto-payment-information';
 import { ReactComponent as AddNoteIcon } from 'apps/frontend/src/assets/svg/add-note.svg';
 import { ReactComponent as EditIcon } from 'apps/frontend/src/assets/svg/edit.svg';
 import { ReactComponent as SendIcon } from 'apps/frontend/src/assets/svg/send-message.svg';
@@ -262,190 +263,31 @@ export const AcceptedOffer: FC = () => {
           )}
           {wirePayment ? (
             <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
-              <Box
-                className={classes.wireTransfer}
-                sx={{ mt: { xs: 2 }, mb: { xs: 2 } }}
-              >
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Account Holder
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      Monsoon Carbon LTD
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      IBAN
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      FR12500A08170648489890
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      SWIFT
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      FRECR/23
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Amount
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      15
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Currency
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      USD
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={5}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Transfer Concept
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography className={classes.wireTransferValue}>
-                      Zero Offer #ABC4567DEF
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
+              <WireTransferInformation
+                accountHolder="Monsoon Carbon LTD"
+                iban="FR12500A08170648489890"
+                swift="FRECR/23"
+                amount="15"
+                currency="USD"
+                transferConcept="Zero Offer #ABC4567DEF"
+                boxProps={{ sx: { mt: { xs: 2 }, mb: { xs: 2 } } }}
+              />
             </Grid>
           ) : (
             <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
-              <Box
-                className={classes.wireTransfer}
-                sx={{ mt: { xs: 0, md: 2 } }}
-              >
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={4}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Blockchain
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={8}>
-                    <Typography className={classes.wireTransferValue}>
-                      Ethereum or EnergyWebChain
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={4}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Address
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={8}>
-                    <Box display="flex" alignItems="flex-star">
-                      <Typography
-                        className={classes.wireTransferValue}
-                        noWrap
-                        mr={0.7}
-                      >
-                        0x71C7656EC7ab88b098defB751B7401B5f6d8976F
-                      </Typography>
-                      <CopyToClipboard
-                        value={'0x71C7656EC7ab88b098defB751B7401B5f6d8976F'}
-                      />
-                    </Box>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={4} alignSelf="flex-start">
-                    <Typography className={classes.wireTransferLabel}>
-                      Amount & currency
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={8}>
-                    <Typography className={classes.wireTransferValue}>
-                      <span>15 DAI or USDC or USDT</span> <br />
-                      <span>0,004647732835923 ETH (@3227.41 USD/ETH)</span>{' '}
-                      <span>1,832844574780059 EWT ( @8.25 USD/EWT)</span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  alignItems="center"
-                  className={classes.wireTransferItem}
-                >
-                  <Grid item xs={12} md={4}>
-                    <Typography className={classes.wireTransferLabel}>
-                      Transfer Concept
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={8}>
-                    <Typography className={classes.wireTransferValue}>
-                      Zero Offer #ABC4567DEF
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
+              <CryptoPaymentInformation
+                blockchain="Ethereum or EnergyWebChain"
+                address="0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+                transferConcept="Zero Offer #ABC4567DEF"
+                amountAndCurrency={
+                  <>
+                    <span>15 DAI or USDC or USDT</span> <br />
+                    <span>0,004647732835923 ETH (@3227.41 USD/ETH)</span>{' '}
+                    <span>1,832844574780059 EWT ( @8.25 USD/EWT)</span>
+                  </>
+                }
+                boxProps={{ sx: { mt: { xs: 0, md: 2 } } }}
+              />
             </Grid>
           )}
           {wirePayment && (
