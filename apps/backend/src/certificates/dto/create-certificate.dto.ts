@@ -1,8 +1,8 @@
 import { CertificateDto } from './certificate.dto';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
-export class CreateCertificateDto extends CertificateDto {
+export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiProperty({ example: new Date('2020-11-01T00:00:00.000Z') })
   @Transform(({ value }) => new Date(value))
   generationStart: Date;

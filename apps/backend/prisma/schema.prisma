@@ -50,6 +50,7 @@ model Certificate {
   energySource    String
   generationStart DateTime?
   generationEnd   DateTime?
+  txHash          String?
   purchase        Purchase[]
 }
 
