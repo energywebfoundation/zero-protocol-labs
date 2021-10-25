@@ -10,4 +10,7 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiProperty({ example: new Date('2021-06-01T23:59:59.999Z') })
   @Transform(({ value }) => new Date(value))
   generationEnd: Date;
+
+  @ApiProperty({ type: 'string', example: '10000' })
+  energy: string
 }

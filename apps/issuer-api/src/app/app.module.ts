@@ -40,7 +40,8 @@ const OriginAppTypeOrmModule = () => {
         PORT: Joi.number().default(3334),
         LOG_LEVELS: Joi.string().default('log,error,warn,debug,verbose'),
         WEB3: Joi.string().default('http://localhost:8545'),
-        MNEMONIC: Joi.string().default('chalk park staff buzz chair purchase wise oak receive avoid avoid home')
+        MNEMONIC: Joi.string().default('chalk park staff buzz chair purchase wise oak receive avoid avoid home'),
+        ISSUER_CHAIN_ADDRESS: Joi.string().default('0xD173313A51f8fc37BcF67569b463abd89d81844f')
       })
     }),
     CertificateModule,
