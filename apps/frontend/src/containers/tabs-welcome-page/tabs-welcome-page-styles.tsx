@@ -17,6 +17,18 @@ export const useStyles = makeStyles({
       backgroundColor: 'transparent',
     },
   },
+  title: {
+    '@media (max-width: 630px)': {
+      marginLeft: '0',
+      marginBottom: '20px',
+    },
+  },
+  btnGroup: {
+    marginRight: '55px',
+    '@media (max-width: 630px)': {
+      marginRight: '0',
+    },
+  },
   btn: {
     backgroundColor: 'transparent',
     boxShadow: 'none',
@@ -28,6 +40,11 @@ export const useStyles = makeStyles({
   wrapper: {
     '& .Mui-disabled': {
       backgroundColor: 'transparent',
+    },
+    marginBottom: '64px',
+    '@media (max-width: 630px)': {
+      flexDirection: 'column',
+      marginBottom: '30px',
     },
   },
 });

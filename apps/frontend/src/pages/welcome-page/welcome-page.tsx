@@ -50,6 +50,7 @@ const awaitsData = [
 
 export const WelcomePage = () => {
   const styles = useStyles();
+  const windowRespWidth = window.innerWidth < 630;
 
   const handleElemChange = (
     event: SelectChangeEvent,
@@ -71,7 +72,7 @@ export const WelcomePage = () => {
           fontWeight={700}
           textAlign={'center'}
           lineHeight={'51px'}
-          mb="5px"
+          mb={`${windowRespWidth ? '9px' : '5px'}`}
           pt="105px"
         >
           Welcome to Zero Protocol Labs
@@ -82,7 +83,7 @@ export const WelcomePage = () => {
           fontWeight={600}
           lineHeight={'30px'}
           textAlign={'center'}
-          mb="48px"
+          mb={`${windowRespWidth ? '18px' : '48px'}`}
         >
           the global search engine for buying Renewable Energy
         </Typography>
@@ -112,8 +113,8 @@ export const WelcomePage = () => {
           {({ setFieldValue, values }) => (
             <Form autoComplete="off">
               <Box className={styles.formBlock}>
-                <Box mr="16px" width="100%">
-                  <Box mb="16px">
+                <Box display="flex" width="100%" className={styles.flexColumn}>
+                  <Box mr="16px" width="100%">
                     <Typography
                       fontSize={variables.fontSize}
                       ml={'15px'}
@@ -137,7 +138,45 @@ export const WelcomePage = () => {
                       />
                     </Box>
                   </Box>
-                  <Box display="flex">
+                  <Box
+                    mb="16px"
+                    width="100%"
+                    mt={`${windowRespWidth && '16px'}`}
+                  >
+                    <Typography
+                      fontSize={variables.fontSize}
+                      ml={'15px'}
+                      mb={'8px'}
+                      fontWeight={600}
+                      color={variables.purpleText}
+                    >
+                      Device type
+                    </Typography>
+                    <GenericSelect
+                      handleChange={(event) =>
+                        handleElemChange(event, setFieldValue)
+                      }
+                      name="deviceType"
+                      value={values.deviceType}
+                      placeholder={''}
+                      bgColor={variables.inputBackgroundColor}
+                      options={option2}
+                      menuItemClassName={styles.menuItem}
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  width="100%"
+                  mb="16px"
+                  display="flex"
+                  className={styles.flexColumn}
+                >
+                  <Box
+                    display="flex"
+                    mr="16px"
+                    width="100%"
+                    className={styles.prodBlock}
+                  >
                     <Box width="100%" mr="16px">
                       <Typography
                         fontSize={variables.fontSize}
@@ -160,7 +199,7 @@ export const WelcomePage = () => {
                         menuItemClassName={styles.menuItem}
                       />
                     </Box>
-                    <Box width="100%">
+                    <Box width="100%" mt={`${windowRespWidth && '16px'}`}>
                       <Typography
                         fontSize={variables.fontSize}
                         ml={'15px'}
@@ -187,32 +226,12 @@ export const WelcomePage = () => {
                       />
                     </Box>
                   </Box>
-                </Box>
-                <Box width="100%" mb="16px">
-                  <Box mb="16px">
-                    <Typography
-                      fontSize={variables.fontSize}
-                      ml={'15px'}
-                      mb={'8px'}
-                      fontWeight={600}
-                      color={variables.purpleText}
+                  <Box display="flex" className={styles.dateBlock} width="100%">
+                    <Box
+                      width="100%"
+                      mr="21px"
+                      mt={`${windowRespWidth && '16px'}`}
                     >
-                      Device type
-                    </Typography>
-                    <GenericSelect
-                      handleChange={(event) =>
-                        handleElemChange(event, setFieldValue)
-                      }
-                      name="deviceType"
-                      value={values.deviceType}
-                      placeholder={''}
-                      bgColor={variables.inputBackgroundColor}
-                      options={option2}
-                      menuItemClassName={styles.menuItem}
-                    />
-                  </Box>
-                  <Box display="flex" className={styles.dateBlock}>
-                    <Box width="100%" mr="21px">
                       <Typography
                         color={variables.purpleText}
                         fontSize={variables.fontSize}
@@ -236,6 +255,7 @@ export const WelcomePage = () => {
                         fontWeight={600}
                         mb={'8px'}
                         ml={'14px'}
+                        mt={`${windowRespWidth && '16px'}`}
                       >
                         Generation end date
                       </Typography>
@@ -249,8 +269,12 @@ export const WelcomePage = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box display="flex" justifyContent="flex-end" mt="16px">
-                <Box width="340px">
+              <Box
+                display="flex"
+                justifyContent="flex-end"
+                mt={windowRespWidth ? '8px' : '16px'}
+              >
+                <Box width={windowRespWidth ? '100%' : '340px'}>
                   <GenericSubmitButton
                     name="Search"
                     bgColor={variables.white}
@@ -268,20 +292,25 @@ export const WelcomePage = () => {
         </Formik>
         <QuestionSectionWelcomePage />
       </Grid>
-      <Grid item p="122px 41px 0 40px">
+      <Grid item className={styles.questionSectionWrapper}>
         <GenericQuestionSection
-          label=""
-          title={'What awaits you inside of Zero? '}
+          label={windowRespWidth ? 'inside of Zero?' : ''}
+          title={
+            windowRespWidth
+              ? 'What awaits you'
+              : 'What awaits you inside of Zero? '
+          }
           desc={`Zero App is a place where You'll find:`}
           btnName={'Create account'}
           icon={<PersonAddAltIcon />}
         >
           <Box
             display="flex"
+            flexWrap="wrap"
             mb="125px"
             mt="25px"
-            width="50%"
             justifyContent="space-between"
+            className={styles.questionSection}
           >
             {awaitsData.map((el) => {
               return (

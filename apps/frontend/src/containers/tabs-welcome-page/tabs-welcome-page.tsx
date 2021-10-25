@@ -45,6 +45,8 @@ const tabsData = [
 
 export const TabsWelcomePage = () => {
   const styles = useStyles();
+  const windowRespTabtWidth = window.innerWidth < 1000;
+  const windowRespMobWidth = window.innerWidth < 530;
 
   const [value, setValue] = React.useState(0);
 
@@ -52,8 +54,14 @@ export const TabsWelcomePage = () => {
     setValue(newValue);
   };
 
-  const handleBackStep = () => setValue((s) => s - 4);
-  const handleNextStep = () => setValue((s) => s + 4);
+  const handleBackStep = () =>
+    setValue((s) =>
+      windowRespMobWidth ? s - 1 : !windowRespTabtWidth ? s - 4 : s - 3
+    );
+  const handleNextStep = () =>
+    setValue((s) =>
+      windowRespMobWidth ? s + 1 : !windowRespTabtWidth ? s + 4 : s + 3
+    );
 
   return (
     <Box width="100%">
@@ -62,17 +70,17 @@ export const TabsWelcomePage = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        mb="64px"
       >
         <Typography
           fontSize="32px"
           fontWeight="700"
           color={variables.secondaryColor}
           ml="15px"
+          className={styles.title}
         >
           Advantages of using Zero
         </Typography>
-        <ButtonGroup sx={{ mr: '55px' }}>
+        <ButtonGroup className={styles.btnGroup}>
           <Button
             className={styles.btn}
             disabled={value <= 0}

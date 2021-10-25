@@ -11,15 +11,20 @@ export const useStyles = makeStyles({
     backgroundImage: `url("${ImgWelcome}")`,
     backgroundSize: 'cover',
     backgroundRepeat: 'round',
+    '@media (max-width: 630px)': {
+      padding: '0 8px',
+    },
   },
   formBlock: {
     backgroundColor: variables.white,
     padding: '32px 31px 32px 32px',
     width: '100%',
-    display: 'flex',
     flexDirection: 'unset',
     boxShadow: '0px 0px 10px rgba(112, 60, 187, 0.2)',
     borderRadius: '5px',
+    '@media (max-width: 630px)': {
+      padding: '15px 8px',
+    },
     '& .MuiOutlinedInput-root': {
       height: '48px',
       borderRadius: '5px',
@@ -30,6 +35,16 @@ export const useStyles = makeStyles({
     },
     '& .MuiSvgIcon-root': {
       marginRight: '20px',
+    },
+  },
+  flexColumn: {
+    '@media (max-width: 630px)': {
+      flexDirection: 'column',
+    },
+  },
+  prodBlock: {
+    '@media (max-width: 770px)': {
+      flexDirection: 'column',
     },
   },
   menuItem: {
@@ -50,6 +65,9 @@ export const useStyles = makeStyles({
       },
       width: '100%',
     },
+    '@media (max-width: 770px)': {
+      flexDirection: 'column',
+    },
   },
   input: {
     '& input::placeholder': {
@@ -63,11 +81,35 @@ export const useStyles = makeStyles({
   },
   tabsSection: {
     padding: '120px 0 0 40px',
+    '@media (max-width: 630px)': {
+      padding: '115px 0 0 16px',
+    },
+  },
+  questionSectionWrapper: {
+    padding: '122px 41px 0 40px',
+    '@media (max-width: 630px)': {
+      padding: '100px 8px 13px 8px',
+    },
   },
   questionSection: {
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%2300D08AFF' stroke-width='2' stroke-dasharray='10' stroke-dashoffset='23' stroke-linecap='square'/%3e%3c/svg%3e");border-radius: 10px`,
+    width: '60%',
+    '@media (max-width: 1200px)': {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
+    '@media (max-width: 630px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+      '& > div:not(:last-of-type)': {
+        marginBottom: '40px',
+      },
+    },
   },
   advisorsSection: {
-    padding: '95px 41px 120px 40px',
+    padding: '95px 41px 30px 40px',
+    '@media (max-width: 980px)': {
+      padding: '39px 41px 13px 40px',
+    },
   },
 });

@@ -7,7 +7,14 @@ import { ReactComponent as ReSourceImg } from './assets/re-source.svg';
 import { ReactComponent as EnergyImg } from './assets/energy.svg';
 import { ReactComponent as PttImg } from './assets/ptt.svg';
 
+const advisorsDate = [
+  [<EcoImg />, <StandardImg />, <REBAImg />],
+  [<ReSourceImg />, <EnergyImg />, <PttImg />],
+];
+
 export const AdvisorsSection = () => {
+  const windowRespWidth = window.innerWidth < 980;
+
   return (
     <Box>
       <Typography
@@ -19,28 +26,32 @@ export const AdvisorsSection = () => {
       >
         Advisors
       </Typography>
-      <Box display="flex" width="100%" justifyContent="space-around" pb="90px">
-        <Box ml="30px">
-          <EcoImg />
-        </Box>
-        <Box>
-          <StandardImg />
-        </Box>
-        <Box>
-          <REBAImg />
-        </Box>
-      </Box>
-      <Box display="flex" width="100%" justifyContent="space-around">
-        <Box>
-          <ReSourceImg />
-        </Box>
-        <Box>
-          <EnergyImg />
-        </Box>
-        <Box>
-          <PttImg />
-        </Box>
-      </Box>
+      {advisorsDate.map((el, index) => {
+        return (
+          <Box
+            key={index}
+            display="flex"
+            width="100%"
+            justifyContent="space-around"
+            alignItems="center"
+            flexWrap="wrap"
+          >
+            {el.map((item, index) => {
+              return (
+                <Box
+                  key={index}
+                  width="300px"
+                  display="flex"
+                  justifyContent="center"
+                  pb={`${windowRespWidth ? '50px' : '90px'}`}
+                >
+                  {item}
+                </Box>
+              );
+            })}
+          </Box>
+        );
+      })}
     </Box>
   );
 };

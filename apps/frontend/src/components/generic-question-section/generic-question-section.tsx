@@ -24,10 +24,13 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
   title,
 }) => {
   const styles = useStyles();
+  const windowRespWidth = window.innerWidth < 500;
 
   return (
-    <Box p="20px 0 25px 0" position="relative" width="100%">
+    <Box p="20px 0 25px 0" width="100%">
       <Box
+        p="0 10px"
+        position="relative"
         width="100%"
         display="flex"
         flexDirection="column"
@@ -41,8 +44,9 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
           color={variables.secondaryColor}
           bgcolor={variables.primaryColor}
           borderRadius={'20px'}
-          p="0 50px 0 50px"
-          top="-8px"
+          p={`${windowRespWidth ? '0 10px 0 10px' : '0 50px 0 50px'}`}
+          top="-30px"
+          textAlign="center"
         >
           {title}
         </Typography>
@@ -51,6 +55,7 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
           fontWeight="700"
           color={variables.secondaryColor}
           mt="9px"
+          textAlign="center"
         >
           {label}
         </Typography>
@@ -60,19 +65,20 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
           color={variables.white}
           mb="50px"
           mt={!label ? '7px' : ''}
+          textAlign="center"
         >
           {desc}
         </Typography>
         {children}
         <Box
-          width="380px"
+          width={!windowRespWidth ? '380px' : 'unset'}
           display="flex"
           justifyContent="center"
           position="absolute"
-          bottom="0px"
+          bottom="-20px"
           bgcolor={variables.primaryColor}
         >
-          <Box width="340px">
+          <Box width={windowRespWidth ? '280px' : '340px'}>
             <GenericSubmitButton
               name={btnName}
               bgColor={variables.white}

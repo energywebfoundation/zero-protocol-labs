@@ -1,46 +1,27 @@
 import { Box, Typography, Link } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { useStyles } from './footer-styles';
 
 export const Footer = () => {
+  const styles = useStyles();
+  const windowRespWidth = window.innerWidth < 630;
+
   return (
-    <footer
-      style={{
-        backgroundColor: variables.primaryColorDark,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '36px 72px 37px 72px',
-      }}
-    >
+    <footer className={styles.footer}>
       <Typography
         fontSize="12px"
         fontWeight="700"
         color={variables.purpleFooterText}
-        mr="25%"
+        mr={`${!windowRespWidth && '25%'}`}
+        textAlign="center"
       >
         Energy Web is incorporated in Zug, Switzerland
       </Typography>
-      <Box>
-        <Link
-          sx={{
-            fontSize: '12px',
-            fontWeight: '700',
-            color: variables.purpleFooterText,
-            marginRight: '32px',
-            textDecoration: 'none',
-            cursor: 'pointer',
-          }}
-        >
+      <Box className={styles.policy}>
+        <Link className={styles.link} mr={`${!windowRespWidth && '32px'}`}>
           Privacy Policy
         </Link>
-        <Link
-          sx={{
-            fontSize: '12px',
-            fontWeight: '700',
-            color: variables.purpleFooterText,
-            textDecoration: 'none',
-            cursor: 'pointer',
-          }}
-        >
+        <Link className={styles.link} mt={`${windowRespWidth && '4px'}`}>
           Cookies Policy
         </Link>
       </Box>
