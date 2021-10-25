@@ -8,7 +8,9 @@ import {
   Patch,
   Post,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { CertificatesService } from './certificates.service';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
@@ -21,6 +23,7 @@ import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 @Controller('/partners/filecoin/certificates')
 @ApiTags('Filecoin certificates')
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
+@UsePipes(new ValidationPipe({ transform: true }))
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 
