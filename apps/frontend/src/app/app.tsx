@@ -41,7 +41,7 @@ export const App = () => {
             <Route path={'/welcome'} element={<WelcomePage />} />
             <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
             <Route path={'/404'} element={<NotFoundPage />} />
-            <Route path={'*'} element={<Navigate to={'/wizard'} />} />
+            <Route path={'*'} element={<Navigate to={'/welcome'} />} />
           </Routes>
         </main>
       </StyledDiv>

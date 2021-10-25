@@ -87,7 +87,7 @@ export const TabsWelcomePage = () => {
             variant="contained"
             onClick={handleBackStep}
             startIcon={<LeftArrowIcon />}
-          ></Button>
+          />
 
           <Button
             className={styles.btn}
@@ -95,7 +95,7 @@ export const TabsWelcomePage = () => {
             variant="contained"
             onClick={handleNextStep}
             endIcon={<RightArrowIcon />}
-          ></Button>
+          />
         </ButtonGroup>
       </Box>
       <Tabs

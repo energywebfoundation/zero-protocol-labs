@@ -7,9 +7,10 @@ import { ReactComponent as ReSourceImg } from './assets/re-source.svg';
 import { ReactComponent as EnergyImg } from './assets/energy.svg';
 import { ReactComponent as PttImg } from './assets/ptt.svg';
 
+//[{key: 'ecoImg', node: <EcoImg />}...]
 const advisorsDate = [
-  [<EcoImg />, <StandardImg />, <REBAImg />],
-  [<ReSourceImg />, <EnergyImg />, <PttImg />],
+  {key : 'advisor1',advisorsArray : [{key:'ecoImg',node :<EcoImg />}, {key:'standardImg',node :<StandardImg />}, {key:'rebaImg',node :<REBAImg />}]},
+  {key : 'advisor2',advisorsArray :[{key:'resourceImg',node :<ReSourceImg />}, {key:'energyImg',node :<EnergyImg />},{key:'pttImg',node : <PttImg />}]}
 ];
 
 export const AdvisorsSection = () => {
@@ -29,23 +30,23 @@ export const AdvisorsSection = () => {
       {advisorsDate.map((el, index) => {
         return (
           <Box
-            key={index}
+            key={el.key}
             display="flex"
             width="100%"
             justifyContent="space-around"
             alignItems="center"
             flexWrap="wrap"
           >
-            {el.map((item, index) => {
+            {el.advisorsArray.map((item) => {
               return (
                 <Box
-                  key={index}
+                  key={item.key}
                   width="300px"
                   display="flex"
                   justifyContent="center"
                   pb={`${windowRespWidth ? '50px' : '90px'}`}
                 >
-                  {item}
+                  {item.node}
                 </Box>
               );
             })}
