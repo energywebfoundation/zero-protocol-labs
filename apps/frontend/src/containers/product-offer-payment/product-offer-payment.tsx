@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box } from '@material-ui/core';
 import SwitchLabels from '../../components/switch-label/switch-label';
 import { WireTransferInstructions } from '../../components/wire-transfer-instructions';
-import { CryptoPaymentInstructions } from '../../components/crypto-payment-instructions';
+import { CryptoPaymentInstructions } from '../crypto-payment-instructions';
 import { useProductOfferPaymentEffects } from './product-offer-payment.effects';
 import { useStyles } from './product-offer-payment.style';
 

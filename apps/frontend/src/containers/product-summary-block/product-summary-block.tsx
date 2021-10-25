@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
 import {
   Grid,
@@ -8,23 +8,15 @@ import {
   SvgIcon,
   IconButton,
   Collapse,
-  useMediaQuery,
 } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import { ReactComponent as Arrow } from '../../assets/svg/arrow-up.svg';
 import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIconDark.svg';
+import { useProductSummaryBlockEffects } from './product-summary-block.effects';
 import { useStyles } from './product-summary-block.style';
 
 export const ProductSummaryBlock: FC = () => {
-  const theme = useTheme();
   const classes = useStyles();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const [expanded, setExpanded] = useState(true);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const { isMobile, expanded, handleExpand } = useProductSummaryBlockEffects();
 
   return (
     <Paper className={classes.paper}>
@@ -34,7 +26,7 @@ export const ProductSummaryBlock: FC = () => {
         </Typography>
         <IconButton
           className={clsx({ [classes.expanded]: expanded }, classes.button)}
-          onClick={handleExpandClick}
+          onClick={handleExpand}
         >
           <SvgIcon
             component={Arrow}
@@ -150,5 +142,3 @@ export const ProductSummaryBlock: FC = () => {
     </Paper>
   );
 };
-
-export default ProductSummaryBlock;

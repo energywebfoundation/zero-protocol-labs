@@ -1,12 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
-import { Grid, Box, Typography, Button } from '@material-ui/core';
-import UserAvatar from 'apps/frontend/src/components/user-avatar/user-avatar';
-import PageSection from 'apps/frontend/src/components/page-section/page-section';
-import FieldLabel from 'apps/frontend/src/components/field-label/field-label';
-import FieldValue from 'apps/frontend/src/components/field-value/field-value';
-import Info from 'apps/frontend/src/components/info/info';
-import avatarImage from 'apps/frontend/src/assets/images/avatar.png';
+import { Grid, Box, Typography } from '@material-ui/core';
+import Info from '../info/info';
+import UserAvatar from '../user-avatar/user-avatar';
+import PageSection from '../page-section/page-section';
+import FieldLabel from '../field-label/field-label';
+import FieldValue from '../field-value/field-value';
+import avatarImage from '../../assets/images/avatar.png';
 import { useStyles } from './offer-summary-block.style';
 
 export const OfferSummaryBlock: FC = () => {
@@ -41,7 +41,7 @@ export const OfferSummaryBlock: FC = () => {
                   className={classes.label}
                   sx={{ marginBottom: '9px' }}
                 />
-                <Typography className={clsx(classes.value, classes.primary)}>
+                <Typography className={clsx(classes.value, classes.secondary)}>
                   #1234567890
                 </Typography>
               </Box>
@@ -51,7 +51,7 @@ export const OfferSummaryBlock: FC = () => {
                   labelText={'Offer ID'}
                   className={classes.label}
                 />
-                <Typography className={clsx(classes.value, classes.primary)}>
+                <Typography className={clsx(classes.value, classes.secondary)}>
                   #ABC4567DEF
                 </Typography>
               </Box>

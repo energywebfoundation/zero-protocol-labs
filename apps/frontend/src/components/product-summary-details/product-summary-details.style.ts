@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { alpha } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   productSummarySection: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
     minHeight: 239,
     position: 'relative',
   },
@@ -60,5 +61,9 @@ export const useStyles = makeStyles((theme) => ({
       marginLeft: 9,
       top: 0,
     },
+  },
+  box: {
+    height: 32,
+    backgroundColor: theme.palette.background.default,
   },
 }));

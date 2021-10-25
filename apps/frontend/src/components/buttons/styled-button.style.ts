@@ -1,26 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    marginTop: 72,
-    padding: '0 24px 32px 24px',
-    [theme.breakpoints.down('md')]: {
-      padding: '0 16px 32px 16px',
-    },
-  },
-  stripWrapper: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-  },
-  buttonsGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: 16,
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-    },
-  },
   button: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.dark,
@@ -31,6 +11,17 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     padding: '13px 17px',
     marginLeft: 16,
+    transition: theme.transitions.create(
+      ['color, background-color', 'box-shadow'],
+      {
+        duration: theme.transitions.duration.short,
+      }
+    ),
+    '& svg path': {
+      transition: theme.transitions.create('fill', {
+        duration: theme.transitions.duration.short,
+      }),
+    },
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
@@ -43,19 +34,13 @@ export const useStyles = makeStyles((theme) => ({
       margin: '0 0 8px',
     },
   },
-  buttonDark: {
+  buttonPrimary: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.background.paper,
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
       boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-    },
-  },
-  endIcon: {
-    marginLeft: 16,
-    '& path': {
-      transition: 'fill 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     },
   },
 }));

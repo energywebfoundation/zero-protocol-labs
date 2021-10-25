@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, Container, Typography } from '@material-ui/core';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 /* eslint-disable-next-line */
 export interface NotificationStripProps {
@@ -13,7 +14,7 @@ export const NotificationStrip = ({ text, height }: NotificationStripProps) => (
   <StyledNotificationStrip>
     <Box
       sx={{ height: height ?? 88 }}
-      bgcolor={'#00D08A'}
+      bgcolor={variables.secondaryColor}
       display={'flex'}
       alignItems={'center'}
     >

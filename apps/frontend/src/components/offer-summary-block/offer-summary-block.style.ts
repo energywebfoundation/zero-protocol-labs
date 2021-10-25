@@ -1,10 +1,12 @@
 import { makeStyles } from '@material-ui/styles';
+import { alpha } from '@material-ui/core';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles((theme) => ({
   sectionPaper: {
     backgroundColor: '#421d77',
     padding: '16px 23px 43px 23px',
-    boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
     [theme.breakpoints.down('md')]: {
       padding: '16px 25px 43px 25px',
     },
@@ -65,13 +67,13 @@ export const useStyles = makeStyles((theme) => ({
   label: {
     fontSize: 12,
     lineHeight: '15px',
-    color: '#f6efff',
+    color: theme.palette.background.default,
     fontWeight: 700,
   },
   value: {
     fontSize: 20,
     lineHeight: '24px',
-    color: '#fff',
+    color: theme.palette.common.white,
     fontWeight: 700,
     '& span': {
       fontSize: 12,
@@ -82,8 +84,8 @@ export const useStyles = makeStyles((theme) => ({
       top: -2,
     },
   },
-  primary: {
-    color: '#00d08a',
+  secondary: {
+    color: theme.palette.secondary.main,
   },
   payment: {
     fontSize: 18,
@@ -91,7 +93,7 @@ export const useStyles = makeStyles((theme) => ({
   infoItem: {
     marginBottom: 10,
     '& .MuiSvgIcon-root': {
-      fill: '#fff',
+      fill: theme.palette.common.white,
       marginLeft: 3,
       top: 0,
     },

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { HelpOutline } from '@material-ui/icons';
-import PageSection from 'apps/frontend/src/components/page-section/page-section';
-import FieldLabel from 'apps/frontend/src/components/field-label/field-label';
+import PageSection from '../page-section/page-section';
+import FieldLabel from '../field-label/field-label';
 import { useStyles } from './product-summary-details.style';
 
 export const ProductSummaryDetails: FC = () => {
@@ -33,21 +33,21 @@ export const ProductSummaryDetails: FC = () => {
                 <FieldLabel labelText={'Country'} className={classes.label} />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <Box display="flex" className={classes.labelWrapper}>
                 <FieldLabel labelText={'Generator'} className={classes.label} />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <Box display="flex" className={classes.labelWrapper}>
                 <FieldLabel labelText={'Seller'} className={classes.label} />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
           </Grid>
           <Grid item md={4} lg={4}>
@@ -59,7 +59,7 @@ export const ProductSummaryDetails: FC = () => {
                 />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <Box display="flex" className={classes.labelWrapper}>
@@ -69,28 +69,28 @@ export const ProductSummaryDetails: FC = () => {
                 />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <FieldLabel labelText={'Product ID'} className={classes.label} />
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
           </Grid>
           <Grid item md={4} lg={4}>
             <Box className={classes.infoItem}>
               <FieldLabel labelText={'Source'} className={classes.label} />
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <Box display="flex" className={classes.labelWrapper}>
                 <FieldLabel labelText={'Vintage'} className={classes.label} />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <FieldLabel labelText={'Amount'} className={classes.label} />
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
           </Grid>
         </Grid>
@@ -108,14 +108,14 @@ export const ProductSummaryDetails: FC = () => {
                 <FieldLabel labelText={'Price'} className={classes.label} />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
             <Box className={classes.infoItem}>
               <FieldLabel
                 labelText={'Extra informations'}
                 className={classes.label}
               />
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
           </Grid>
           <Grid
@@ -134,7 +134,7 @@ export const ProductSummaryDetails: FC = () => {
                 />
                 <HelpOutline />
               </Box>
-              <Box sx={{ height: '32px', backgroundColor: '#F6F3F9' }}></Box>
+              <Box className={classes.box}></Box>
             </Box>
           </Grid>
         </Grid>

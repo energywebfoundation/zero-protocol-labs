@@ -7,9 +7,12 @@ const $purpleExtraLight = '#9B95BD';
 const $green = '#00D08A';
 const $greenLight = '#b1ebcd';
 
+const $graphite = '#6A658A';
+
 const $textColorDefault = '#a8a8a8';
 const $inputBackgroundColor = '#F6F3F9';
 const $inputTextColor = '#2D1155';
+const $boxShadowColor = '#A09AC6';
 
 const $bodyBackgroundColor = '#ffffff';
 const $mainBackgroundColor = '#ffffff';
@@ -56,10 +59,12 @@ export type UiThemeVariables = {
   filcoinBackgroundColor: string;
   filcoinColorLight: string;
   filcoinText: string;
+  graphite: string;
   switchGrayColor: string;
   switchBgColorBlue: string;
   switchBgColorGray: string;
   purpleExtraLight: string;
+  boxShadowColor: string;
 };
 
 export const variables: UiThemeVariables = {
@@ -83,6 +88,7 @@ export const variables: UiThemeVariables = {
   white: $white,
   filcoinColor: $filcoinColor,
   black: $black,
+  graphite: $graphite,
   purpleLight: $purpleLight,
   filcoinBackgroundColor: $filcoinBackgroundColor,
   filcoinColorLight: $filcoinColorLight,
@@ -91,4 +97,5 @@ export const variables: UiThemeVariables = {
   switchBgColorBlue: $switchBgColorBlue,
   switchBgColorGray: $switchBgColorGray,
   purpleExtraLight: $purpleExtraLight,
+  boxShadowColor: $boxShadowColor,
 };

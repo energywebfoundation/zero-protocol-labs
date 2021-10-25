@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
@@ -7,6 +8,10 @@ export const useStyles = makeStyles((theme) => ({
     padding: '24px 24px 32px 32px',
     borderRadius: 5,
     boxShadow: 'none',
+    [theme.breakpoints.down('md')]: {
+      margin: 16,
+      padding: 16,
+    },
   },
   title: {
     color: theme.palette.error.main,
@@ -33,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     lineHeight: '16px',
     fontWeight: 600,
-    color: theme.palette.primary.main,
+    color: variables.graphite,
     marginLeft: 16,
   },
   textField: {
@@ -43,30 +48,8 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '8px 0',
-  },
-  button: {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.primary.dark,
-    boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-    borderRadius: 5,
-    fontSize: 16,
-    lineHeight: '21px',
-    fontWeight: 700,
-    padding: '13px 17px',
-    margin: 0,
-    '&:hover': {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.primary.dark,
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
-    },
-  },
-  buttonDark: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.background.paper,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.background.paper,
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
     },
   },
   icon: {
@@ -74,5 +57,9 @@ export const useStyles = makeStyles((theme) => ({
       fill: theme.palette.secondary.main,
     },
   },
-  commentHeader: {},
+  button: {
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  },
 }));

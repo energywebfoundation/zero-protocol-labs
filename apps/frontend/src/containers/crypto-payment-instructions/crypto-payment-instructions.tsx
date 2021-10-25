@@ -1,24 +1,12 @@
 import { FC } from 'react';
 import { Grid, Box, Typography, FormLabel, TextField } from '@material-ui/core';
-import { useFormik } from 'formik';
-import { CryptoPaymentInformation } from '../crypto-payment-information';
+import { CryptoPaymentInformation } from '../../components/crypto-payment-information';
+import { useCryptoPaymentInstructionsEffects } from './crypto-payment-instructions.effects';
 import { useStyles } from './crypto-payment-instructions.style';
 
 export const CryptoPaymentInstructions: FC = () => {
   const classes = useStyles();
-  const formik = useFormik({
-    initialValues: {
-      recAddress: '',
-      email: '',
-      name: '',
-      vat: '',
-      address: '',
-      crypto: '',
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const { form } = useCryptoPaymentInstructionsEffects();
 
   return (
     <>
@@ -38,8 +26,8 @@ export const CryptoPaymentInstructions: FC = () => {
               id="crypto"
               name="crypto"
               className={classes.field}
-              value={formik.values.crypto}
-              onChange={formik.handleChange}
+              value={form.values.crypto}
+              onChange={form.handleChange}
             />
           </Grid>
           <Grid item xs={12} md={6}>

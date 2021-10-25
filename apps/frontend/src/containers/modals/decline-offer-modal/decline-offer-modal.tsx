@@ -1,11 +1,5 @@
-import { FC, useState } from 'react';
-import clsx from 'clsx';
-import { useFormik } from 'formik';
+import { FC } from 'react';
 import {
-  Grid,
-  Box,
-  Typography,
-  Button,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -14,7 +8,9 @@ import {
   FormLabel,
   TextField,
 } from '@material-ui/core';
-import { ReactComponent as CloseIcon } from 'apps/frontend/src/assets/svg/close.svg';
+import { StyledButton } from '../../../components/buttons';
+import { ReactComponent as CloseIcon } from '../../../assets/svg/close.svg';
+import { useDeclineOfferModalEffects } from './decline-offer-modal.effects';
 import { useStyles } from './decline-offer-modal.style';
 
 interface DeclineOfferModalProps {
@@ -27,23 +23,13 @@ export const DeclineOfferModal: FC<DeclineOfferModalProps> = ({
   handleClose,
 }) => {
   const classes = useStyles();
-
-  const formik = useFormik({
-    initialValues: {
-      comment: '',
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const { formik } = useDeclineOfferModalEffects();
 
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       classes={{ paper: classes.paper }}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
     >
       <DialogTitle className={classes.title}>Decline offer</DialogTitle>
       <DialogContent className={classes.content}>
@@ -65,23 +51,26 @@ export const DeclineOfferModal: FC<DeclineOfferModalProps> = ({
         </form>
       </DialogContent>
       <DialogActions className={classes.actions}>
-        <Button
+        <StyledButton
+          variant="contained"
           onClick={handleClose}
           startIcon={<CloseIcon />}
           className={classes.button}
           classes={{ startIcon: classes.icon }}
         >
           Cancel
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
+          variant="contained"
+          color="primary"
           onClick={handleClose}
           autoFocus
           endIcon={<CloseIcon />}
-          className={clsx(classes.button, classes.buttonDark)}
+          className={classes.button}
           classes={{ endIcon: classes.icon }}
         >
           Confirm decline
-        </Button>
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

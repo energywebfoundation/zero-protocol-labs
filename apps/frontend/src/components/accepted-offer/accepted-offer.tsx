@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import clsx from 'clsx';
 import { Box, Paper, Typography, Button } from '@material-ui/core';
+import { StyledButton } from '../buttons';
 import { ProductOfferForm } from '../../containers/product-offer-form';
 import { ProductOfferPayment } from '../../containers/product-offer-payment';
 import { ReactComponent as EditIcon } from '../../assets/svg/edit.svg';
@@ -37,17 +37,18 @@ export const AcceptedOffer: FC = () => {
         <ProductOfferPayment />
       </Paper>
       <Box className={classes.buttonsGroup}>
-        <Button
+        <StyledButton
           variant="contained"
           className={classes.button}
           classes={{ endIcon: classes.endIcon }}
           endIcon={<EditIcon />}
         >
           Edit data
-        </Button>
+        </StyledButton>
         <Button
           variant="contained"
-          className={clsx(classes.button, classes.buttonDark)}
+          color="primary"
+          className={classes.button}
           classes={{ endIcon: classes.endIcon }}
           endIcon={<SendIcon />}
         >

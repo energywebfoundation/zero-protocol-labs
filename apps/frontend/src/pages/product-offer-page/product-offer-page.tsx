@@ -1,38 +1,37 @@
-import { FC, useState } from 'react';
-import clsx from 'clsx';
-import { Grid, Box, Button } from '@material-ui/core';
-import { OfferSummaryBlock } from 'apps/frontend/src/components/offer-summary-block';
-import { AcceptedOffer } from 'apps/frontend/src/components/accepted-offer';
-import ProductSummaryBlock from 'apps/frontend/src/components/product-summary-block/product-summary-block';
-import Breadcrumbs from 'apps/frontend/src/components/breadcrumbs/breadcrumbs';
-import NotificationStrip from 'apps/frontend/src/components/notification-strip/notification-strip';
-import { ReactComponent as MailIcon } from 'apps/frontend/src/assets/svg/mail.svg';
-import { ReactComponent as CloseIcon } from 'apps/frontend/src/assets/svg/close.svg';
-import { ReactComponent as OkIcon } from 'apps/frontend/src/assets/svg/ok.svg';
-import { ProductSummaryDetails } from 'apps/frontend/src/components/product-summary-details';
-import { DeclineOfferModal } from 'apps/frontend/src/components/modals';
+import { FC } from 'react';
+import { Grid, Box } from '@material-ui/core';
+import {
+  OfferSummaryBlock,
+  AcceptedOffer,
+  ProductSummaryDetails,
+} from '../../components';
+import { StyledButton } from '../../components/buttons';
+import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+import NotificationStrip from '../../components/notification-strip/notification-strip';
+import { ProductSummaryBlock } from '../../containers';
+import { DeclineOfferModal } from '../../containers/modals';
+import { ReactComponent as MailIcon } from '../../assets/svg/mail.svg';
+import { ReactComponent as CloseIcon } from '../../assets/svg/close.svg';
+import { ReactComponent as OkIcon } from '../../assets/svg/ok.svg';
+import { useProductOfferPageEffects } from './ProductOfferPage.effects';
 import { useStyles } from './product-offer-page.style';
 
 export const ProductOfferPage: FC = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [offerAccepted, setOfferAccepted] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleAcceptOffer = () => {
-    setOfferAccepted(true);
-  };
+  const {
+    offerAccepted,
+    declineModalOpen,
+    handleModalOpen,
+    handleModalClose,
+    handleAcceptOffer,
+  } = useProductOfferPageEffects();
 
   return (
     <>
-      <DeclineOfferModal open={open} handleClose={handleClose} />
+      <DeclineOfferModal
+        open={declineModalOpen}
+        handleClose={handleModalClose}
+      />
       <Box className={classes.stripWrapper}>
         <NotificationStrip text="You're received an Offer" height={72} />
       </Box>
@@ -49,32 +48,31 @@ export const ProductOfferPage: FC = () => {
           ) : (
             <>
               <Box className={classes.buttonsGroup}>
-                <Button
+                <StyledButton
                   variant="contained"
-                  className={classes.button}
                   classes={{ endIcon: classes.endIcon }}
+                  href="mailto:someone@yoursite.com"
                   endIcon={<MailIcon />}
                 >
                   Contact Support
-                </Button>
-                <Button
+                </StyledButton>
+                <StyledButton
                   variant="contained"
-                  onClick={handleClickOpen}
-                  className={classes.button}
+                  onClick={handleModalOpen}
                   classes={{ endIcon: classes.endIcon }}
                   endIcon={<CloseIcon />}
                 >
                   Decline Offer
-                </Button>
-                <Button
+                </StyledButton>
+                <StyledButton
                   variant="contained"
+                  color="primary"
                   onClick={handleAcceptOffer}
-                  className={clsx(classes.button, classes.buttonDark)}
                   classes={{ endIcon: classes.endIcon }}
                   endIcon={<OkIcon />}
                 >
                   Accept Offer
-                </Button>
+                </StyledButton>
               </Box>
               <ProductSummaryDetails />
             </>
