@@ -148,11 +148,20 @@ export class CertificateController {
         @Param('id', new ParseIntPipe()) certificateId: number,
         @Body() dto: TransferCertificateDTO
     ): Promise<TxHashDTO> {
-        const tx = await this.commandBus.execute(
-            new TransferCertificateCommand(certificateId, fromAddress, dto.to, dto.amount)
-        );
+        try {
+            const tx = await this.commandBus.execute(
+                new TransferCertificateCommand(certificateId, fromAddress, dto.to, dto.amount)
+            );
 
-        return { txHash: tx.hash };
+            return { txHash: tx.hash };
+        } catch (err) {
+            // TODO: investigate why this workaround is needed
+            if (err.name === 'NotFoundException') {
+                throw new NotFoundException(err.message);
+            }
+
+            throw err;
+        }
     }
 
     @Put('/:id/claim')
@@ -167,11 +176,20 @@ export class CertificateController {
         @Param('id', new ParseIntPipe()) certificateId: number,
         @Body() dto: ClaimCertificateDTO
     ): Promise<TxHashDTO> {
-        const tx = await this.commandBus.execute(
-            new ClaimCertificateCommand(certificateId, dto.claimData, fromAddress, dto.amount)
-        );
+        try {
+            const tx = await this.commandBus.execute(
+                new ClaimCertificateCommand(certificateId, dto.claimData, fromAddress, dto.amount)
+            );
 
-        return { txHash: tx.hash };
+            return { txHash: tx.hash };
+        } catch (err) {
+            // TODO: investigate why this workaround is needed
+            if (err.name === 'NotFoundException') {
+                throw new NotFoundException(err.message);
+            }
+
+            throw err;
+        }
     }
 
     @Get('/:id/events')
