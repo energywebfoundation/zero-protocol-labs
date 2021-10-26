@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { pick } from 'lodash';
 
 interface IssueCertificateDTO {
@@ -47,6 +47,32 @@ export class IssuerService {
     } catch (err) {
       this.logger.error(`error issuing certificate: ${err}`);
       this.logger.error(`payload: ${JSON.stringify(issuerApiIssueCertDTO)}`);
+      throw err;
+    }
+  }
+
+  async getCertificateByTransactionHash(txHash) {
+    const blockchainAddress = this.configService.get('ISSUER_CHAIN_ADDRESS');
+    try {
+      this.logger.debug(`getting chain data for the certificate (blockchainAddress=${blockchainAddress}, txHash=${txHash})`);
+      return (await this.axiosInstance.get(
+        `/certificate/by-issuance-transaction/${txHash}`,
+        { params: { blockchainAddress } }
+      )).data[0];
+    } catch (err) {
+      if (err.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (axiosError.response) {
+          if (axiosError.response.status === 404) {
+            this.logger.debug(`no certificate data for blockchainAddress=${blockchainAddress} and txHash=${txHash}`);
+            return null;
+          }
+        }
+      }
+
+      this.logger.error(`error getting certificate by transaction hash: ${err}`);
+
       throw err;
     }
   }
