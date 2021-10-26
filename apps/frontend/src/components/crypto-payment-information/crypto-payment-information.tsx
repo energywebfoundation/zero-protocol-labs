@@ -1,8 +1,7 @@
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 import { Grid, Box, BoxProps, Typography } from '@material-ui/core';
 import CopyToClipboard from '../copy-to-clipboard/copy-to-clipboard';
 import { useStyles } from './crypto-payment-information.style';
-import { ReactElement } from 'react-transition-group/node_modules/@types/react';
 
 interface CryptoPaymentInformationProps {
   blockchain: string;

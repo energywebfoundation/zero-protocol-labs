@@ -8,7 +8,7 @@ import { useStyles } from './product-offer-payment.style';
 
 interface ProductOfferPaymentProps {
   paymentTransactionUrl: string;
-  handleTransactionUrlChange: (e: React.ChangeEvent<any>) => void;
+  handleTransactionUrlChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const ProductOfferPayment: FC<ProductOfferPaymentProps> = ({

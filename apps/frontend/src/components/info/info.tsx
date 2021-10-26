@@ -4,13 +4,12 @@ import PopOver from '../pop-over/pop-over';
 import { Box, BoxProps } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
-export interface InfoProps extends BoxProps {
+export interface InfoProps {
   noIcon?: boolean;
   popoverContentElement?: ReactElement;
   popoverContent?: string;
   children: ReactNode;
   hideTimeout?: number;
-  fontWeight?: number;
   isFilecoin?: boolean;
   boxProps?: BoxProps;
 }
@@ -21,20 +20,11 @@ export const Info = ({
   popoverContent,
   children,
   hideTimeout,
-  fontSize,
-  color,
-  fontWeight,
   isFilecoin,
   boxProps,
 }: InfoProps) => {
   return !noIcon ? (
-    <Box
-      component={'span'}
-      fontSize={fontSize}
-      color={color}
-      fontWeight={fontWeight}
-      {...boxProps}
-    >
+    <Box component={'span'} {...boxProps}>
       {children}
       {
         <PopOver

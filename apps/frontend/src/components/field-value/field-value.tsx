@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Typography, TypographyProps } from '@material-ui/core';
 import CopyToClipboard from '../copy-to-clipboard/copy-to-clipboard';
 
-/* eslint-disable-next-line */
 export interface FieldValueProps extends TypographyProps {
   valueText: string;
   copyToClipboardEnabled?: boolean;

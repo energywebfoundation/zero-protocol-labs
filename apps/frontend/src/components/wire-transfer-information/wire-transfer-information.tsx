@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Grid, Box, BoxProps, Typography } from '@material-ui/core';
-import { useStyles } from './wire-transfer-information.tsx.styles';
+import { useStyles } from './wire-transfer-information.styles';
 
 interface WireTransferInformationProps {
   accountHolder: string;

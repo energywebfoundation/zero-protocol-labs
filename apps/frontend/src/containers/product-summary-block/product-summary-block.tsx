@@ -62,7 +62,7 @@ export const ProductSummaryBlock: FC = () => {
                     <Typography className={classes.label}>
                       Generation start date
                     </Typography>
-                    <Box className={classes.valueWrapper} minWidth={158}>
+                    <Box className={classes.valueWrapper} width={158}>
                       <Typography className={classes.value}>
                         {product.startDate}
                       </Typography>
@@ -75,7 +75,7 @@ export const ProductSummaryBlock: FC = () => {
                     <Typography className={classes.label}>
                       Generation end date
                     </Typography>
-                    <Box className={classes.valueWrapper} minWidth={158}>
+                    <Box className={classes.valueWrapper} width={158}>
                       <Typography className={classes.value}>
                         {product.endDate}
                       </Typography>
@@ -91,8 +91,8 @@ export const ProductSummaryBlock: FC = () => {
                     >
                       {Unit.MWh}
                     </Typography>
-                    <Box className={classes.valueWrapper}>
-                      <Typography className={classes.value}>
+                    <Box className={classes.valueWrapper} width={104}>
+                      <Typography className={classes.value} noWrap>
                         {product.volume}
                       </Typography>
                     </Box>

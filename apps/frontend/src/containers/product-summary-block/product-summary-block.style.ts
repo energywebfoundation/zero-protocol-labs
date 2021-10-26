@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   paperInner: {
     backgroundColor: theme.palette.background.default,
-    padding: '16px 120px 16px 24px',
+    padding: '16px 24px',
     borderRadius: 10,
     [theme.breakpoints.down('lg')]: {
       padding: '16px 24px',
@@ -20,8 +20,8 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   grid: {
-    backgroundColor: theme.palette.background.default,
     padding: '8px 0',
+    backgroundColor: theme.palette.background.default,
     justifyContent: 'space-between',
     [theme.breakpoints.down('md')]: {
       borderRadius: 10,
@@ -53,6 +53,7 @@ export const useStyles = makeStyles((theme) => ({
     lineHeight: '16px',
     fontWeight: 600,
     color: theme.palette.primary.main,
+    flexGrow: 1,
     [theme.breakpoints.down('lg')]: {
       maxWidth: 63,
     },
@@ -72,7 +73,9 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: '12px 20px',
     display: 'flex',
-    minWidth: 158,
+    [theme.breakpoints.down('md')]: {
+      width: 158,
+    },
     '& .MuiSvgIcon-root': {
       marginLeft: 9,
       '& path': {

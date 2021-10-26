@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, BoxProps } from '@material-ui/core';
 
-/* eslint-disable-next-line */
 export interface FieldLabelProps extends BoxProps {
   width?: string;
   labelText: string;

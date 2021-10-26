@@ -63,10 +63,12 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
           >
             <Info
               isFilecoin={isFilecoin}
-              color={variables.black}
-              fontSize={variables.fontSize}
-              fontWeight={600}
               hideTimeout={1000}
+              boxProps={{
+                fontSize: variables.fontSize,
+                fontWeight: 600,
+                color: variables.black,
+              }}
               popoverContentElement={<div>Miner IDs / Address </div>}
             >
               {isFilecoin && 'Miner IDs /'} Address

@@ -6,7 +6,7 @@ import { cryptoPaymentDataMock } from '../../__mock__';
 
 interface CryptoPaymentInstructionsProps {
   paymentTransactionUrl: string;
-  handleTransactionUrlChange: (e: React.ChangeEvent<any>) => void;
+  handleTransactionUrlChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CryptoPaymentInstructions: FC<CryptoPaymentInstructionsProps> = ({
