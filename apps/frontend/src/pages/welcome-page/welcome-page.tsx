@@ -10,7 +10,7 @@ import { useStyles } from './welcome-page-styles';
 import GenericSelect from '../../components/generic-select/generic-select';
 import { Form, Formik } from 'formik';
 import BasicDatePicker from '../../components/date-picker/date-picker';
-import GenericSubmitButton from '../../components/generic-submit-button/generic-submit-button';
+import WelcomePageSubmitButton from '../../components/welcome-page-submit-button/welcome-page-submit-button';
 import Footer from '../../components/footer/footer';
 import SearchIcon from '@material-ui/icons/Search';
 import PersonAddAltIcon from '@material-ui/icons/PersonAddAlt';
@@ -94,7 +94,7 @@ export const WelcomePage = () => {
             deviceType: '',
             productType: '',
             generalStartDate: {} as Dayjs,
-            generalEndtDate: {} as Dayjs,
+            generalEndDate: {} as Dayjs,
             amount: '',
           }}
           onSubmit={(values) => {
@@ -104,7 +104,7 @@ export const WelcomePage = () => {
               generalStartDate: values.generalStartDate
                 .startOf('day')
                 .toISOString(),
-              generalEndtDate: values.generalEndtDate
+              generalEndDate: values.generalEndDate
                 .startOf('day')
                 .toISOString(),
             };
@@ -260,9 +260,9 @@ export const WelcomePage = () => {
                         Generation end date
                       </Typography>
                       <BasicDatePicker
-                        value={values.generalEndtDate}
+                        value={values.generalEndDate}
                         setValue={(value) =>
-                          setFieldValue(`generalEndtDate`, value)
+                          setFieldValue(`generalEndDate`, value)
                         }
                       />
                     </Box>
@@ -275,14 +275,8 @@ export const WelcomePage = () => {
                 mt={windowRespWidth ? '8px' : '16px'}
               >
                 <Box width={windowRespWidth ? '100%' : '340px'}>
-                  <GenericSubmitButton
+                  <WelcomePageSubmitButton
                     name="Search"
-                    bgColor={variables.white}
-                    color={variables.primaryColor}
-                    hoverBgColor={variables.secondaryColor}
-                    hoverColor={variables.white}
-                    iconColor={variables.secondaryColor}
-                    hoverIconColor={variables.primaryColor}
                     icon={<SearchIcon />}
                   />
                 </Box>

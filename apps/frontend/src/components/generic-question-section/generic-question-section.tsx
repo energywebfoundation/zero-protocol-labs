@@ -1,7 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, useMediaQuery, Theme } from '@material-ui/core';
 import * as React from 'react';
 import useStyles from './generic-question-section-styles';
-import GenericSubmitButton from '../generic-submit-button/generic-submit-button';
+import WelcomePageSubmitButton from '../welcome-page-submit-button/welcome-page-submit-button';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { ReactNode } from 'react-transition-group/node_modules/@types/react';
 import { SvgIconProps } from '@material-ui/core';
@@ -24,7 +24,9 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
   title,
 }) => {
   const styles = useStyles();
-  const windowRespWidth = window.innerWidth < 500;
+  const windowRespWidth = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm')
+  );
 
   return (
     <Box p="20px 0 25px 0" width="100%">
@@ -79,16 +81,7 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
           bgcolor={variables.primaryColor}
         >
           <Box width={windowRespWidth ? '280px' : '340px'}>
-            <GenericSubmitButton
-              name={btnName}
-              bgColor={variables.white}
-              color={variables.primaryColor}
-              hoverBgColor={variables.secondaryColor}
-              hoverColor={variables.white}
-              iconColor={variables.secondaryColor}
-              hoverIconColor={variables.primaryColor}
-              icon={icon}
-            />
+            <WelcomePageSubmitButton name={btnName} icon={icon} />
           </Box>
         </Box>
       </Box>

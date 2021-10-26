@@ -1,10 +1,12 @@
-import { Box, Typography, Link } from '@material-ui/core';
+import { Box, Typography, Link, useMediaQuery, Theme } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { useStyles } from './footer-styles';
 
 export const Footer = () => {
   const styles = useStyles();
-  const windowRespWidth = window.innerWidth < 630;
+  const windowRespWidth = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('md')
+  );
 
   return (
     <footer className={styles.footer}>

@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     padding: '36px 72px 37px 72px',
-    '@media (max-width: 620px)': {
+    '@media (max-width: 960px)': {
       flexDirection: 'column',
     },
   },
@@ -21,7 +21,8 @@ export const useStyles = makeStyles({
     cursor: 'pointer',
   },
   policy: {
-    '@media (max-width: 620px)': {
+    display: 'flex',
+    '@media (max-width: 960px)': {
       marginTop: '17px',
       display: 'flex',
       flexDirection: 'column',

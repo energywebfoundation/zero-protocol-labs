@@ -43,7 +43,7 @@ export const useStyles = makeStyles({
     },
   },
   prodBlock: {
-    '@media (max-width: 770px)': {
+    '@media (max-width: 910px)': {
       flexDirection: 'column',
     },
   },
@@ -65,7 +65,7 @@ export const useStyles = makeStyles({
       },
       width: '100%',
     },
-    '@media (max-width: 770px)': {
+    '@media (max-width: 910px)': {
       flexDirection: 'column',
     },
   },
@@ -80,9 +80,9 @@ export const useStyles = makeStyles({
     fontWeight: 600,
   },
   tabsSection: {
-    padding: '120px 0 0 40px',
+    padding: '120px 40px 0 40px',
     '@media (max-width: 630px)': {
-      padding: '115px 0 0 16px',
+      padding: '115px 16px 0 16px',
     },
   },
   questionSectionWrapper: {
