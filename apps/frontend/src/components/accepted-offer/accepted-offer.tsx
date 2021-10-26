@@ -1,17 +1,19 @@
 import { FC } from 'react';
-import { Box, Paper, Typography, Button } from '@material-ui/core';
+import { Box, Paper, Typography } from '@material-ui/core';
 import { StyledButton } from '../buttons';
 import { ProductOfferForm } from '../../containers/product-offer-form';
 import { ProductOfferPayment } from '../../containers/product-offer-payment';
 import { ReactComponent as EditIcon } from '../../assets/svg/edit.svg';
 import { ReactComponent as SendIcon } from '../../assets/svg/send-message.svg';
+import { useAcceptedOfferEffects } from './accepted-offer.effects';
 import { useStyles } from './accepted-offer.style';
 
 export const AcceptedOffer: FC = () => {
   const classes = useStyles();
+  const { form } = useAcceptedOfferEffects();
 
   return (
-    <Box>
+    <form onSubmit={form.handleSubmit}>
       <Paper className={classes.paper}>
         <Typography className={classes.title}>
           Thanks for accepting the offer.
@@ -33,8 +35,11 @@ export const AcceptedOffer: FC = () => {
         </ul>
       </Paper>
       <Paper className={classes.formPaper}>
-        <ProductOfferForm />
-        <ProductOfferPayment />
+        <ProductOfferForm values={form.values} onChange={form.handleChange} />
+        <ProductOfferPayment
+          paymentTransactionUrl={form.values.crypto}
+          handleTransactionUrlChange={form.handleChange}
+        />
       </Paper>
       <Box className={classes.buttonsGroup}>
         <StyledButton
@@ -45,16 +50,17 @@ export const AcceptedOffer: FC = () => {
         >
           Edit data
         </StyledButton>
-        <Button
+        <StyledButton
           variant="contained"
           color="primary"
+          type="submit"
           className={classes.button}
           classes={{ endIcon: classes.endIcon }}
           endIcon={<SendIcon />}
         >
           Submit Information
-        </Button>
+        </StyledButton>
       </Box>
-    </Box>
+    </form>
   );
 };

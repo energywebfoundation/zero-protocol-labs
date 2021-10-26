@@ -1,14 +1,26 @@
 import { FC } from 'react';
 import { Grid, Box, Typography, FormLabel, TextField } from '@material-ui/core';
 import { useStyles } from './product-offer-form.style';
-import { useProductOfferFormEffects } from './ProductOfferForm.effects';
 
-export const ProductOfferForm: FC = () => {
+interface ProductOfferFormProps {
+  values: {
+    recAddress: string;
+    email: string;
+    name: string;
+    vat: string;
+    address: string;
+  };
+  onChange: (e: React.ChangeEvent<any>) => void;
+}
+
+export const ProductOfferForm: FC<ProductOfferFormProps> = ({
+  values,
+  onChange,
+}) => {
   const classes = useStyles();
-  const { formik } = useProductOfferFormEffects();
 
   return (
-    <form>
+    <Box>
       <Grid container mb={1.5}>
         <Grid item xs={12} md={6} className={classes.fieldWrapper}>
           <FormLabel className={classes.label}>
@@ -19,8 +31,8 @@ export const ProductOfferForm: FC = () => {
             id="recAddress"
             name="recAddress"
             className={classes.field}
-            value={formik.values.recAddress}
-            onChange={formik.handleChange}
+            value={values.recAddress}
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -46,8 +58,8 @@ export const ProductOfferForm: FC = () => {
             id="email"
             name="email"
             className={classes.field}
-            value={formik.values.email}
-            onChange={formik.handleChange}
+            value={values.email}
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -72,8 +84,8 @@ export const ProductOfferForm: FC = () => {
             id="name"
             name="name"
             className={classes.field}
-            value={formik.values.name}
-            onChange={formik.handleChange}
+            value={values.name}
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -100,8 +112,8 @@ export const ProductOfferForm: FC = () => {
             id="vat"
             name="vat"
             className={classes.field}
-            value={formik.values.vat}
-            onChange={formik.handleChange}
+            value={values.vat}
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -125,8 +137,8 @@ export const ProductOfferForm: FC = () => {
             id="address"
             name="address"
             className={classes.field}
-            value={formik.values.address}
-            onChange={formik.handleChange}
+            value={values.address}
+            onChange={onChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -142,6 +154,6 @@ export const ProductOfferForm: FC = () => {
           </Box>
         </Grid>
       </Grid>
-    </form>
+    </Box>
   );
 };

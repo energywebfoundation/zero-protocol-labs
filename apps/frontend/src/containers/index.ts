@@ -3,5 +3,5 @@ export * from './form-wizard-item-email';
 export * from './form-wizard-item-protocol';
 export * from './form-wizard-item-user-type';
 export * from './product-summary-block';
-export * from './crypto-payment-instructions';
+export * from './wire-transfer-instructions';
 export * from './modals';

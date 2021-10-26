@@ -1,12 +1,20 @@
 import { FC } from 'react';
 import { Box } from '@material-ui/core';
 import SwitchLabels from '../../components/switch-label/switch-label';
-import { WireTransferInstructions } from '../../components/wire-transfer-instructions';
-import { CryptoPaymentInstructions } from '../crypto-payment-instructions';
+import { WireTransferInstructions } from '../wire-transfer-instructions';
+import { CryptoPaymentInstructions } from '../../components/crypto-payment-instructions';
 import { useProductOfferPaymentEffects } from './product-offer-payment.effects';
 import { useStyles } from './product-offer-payment.style';
 
-export const ProductOfferPayment: FC = () => {
+interface ProductOfferPaymentProps {
+  paymentTransactionUrl: string;
+  handleTransactionUrlChange: (e: React.ChangeEvent<any>) => void;
+}
+
+export const ProductOfferPayment: FC<ProductOfferPaymentProps> = ({
+  paymentTransactionUrl,
+  handleTransactionUrlChange,
+}) => {
   const classes = useStyles();
 
   const { wirePayment, cryptoPayment, handleWirePayment, handleCryptoPayment } =
@@ -29,7 +37,12 @@ export const ProductOfferPayment: FC = () => {
         />
       </Box>
       {wirePayment && <WireTransferInstructions />}
-      {cryptoPayment && <CryptoPaymentInstructions />}
+      {cryptoPayment && (
+        <CryptoPaymentInstructions
+          paymentTransactionUrl={paymentTransactionUrl}
+          handleTransactionUrlChange={handleTransactionUrlChange}
+        />
+      )}
     </Box>
   );
 };

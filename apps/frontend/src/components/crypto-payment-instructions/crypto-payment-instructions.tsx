@@ -1,12 +1,19 @@
 import { FC } from 'react';
 import { Grid, Box, Typography, FormLabel, TextField } from '@material-ui/core';
 import { CryptoPaymentInformation } from '../../components/crypto-payment-information';
-import { useCryptoPaymentInstructionsEffects } from './crypto-payment-instructions.effects';
 import { useStyles } from './crypto-payment-instructions.style';
+import { cryptoPaymentDataMock } from '../../__mock__';
 
-export const CryptoPaymentInstructions: FC = () => {
+interface CryptoPaymentInstructionsProps {
+  paymentTransactionUrl: string;
+  handleTransactionUrlChange: (e: React.ChangeEvent<any>) => void;
+}
+
+export const CryptoPaymentInstructions: FC<CryptoPaymentInstructionsProps> = ({
+  paymentTransactionUrl,
+  handleTransactionUrlChange,
+}) => {
   const classes = useStyles();
-  const { form } = useCryptoPaymentInstructionsEffects();
 
   return (
     <>
@@ -26,8 +33,8 @@ export const CryptoPaymentInstructions: FC = () => {
               id="crypto"
               name="crypto"
               className={classes.field}
-              value={form.values.crypto}
-              onChange={form.handleChange}
+              value={paymentTransactionUrl}
+              onChange={handleTransactionUrlChange}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -44,14 +51,14 @@ export const CryptoPaymentInstructions: FC = () => {
         </Grid>
         <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
           <CryptoPaymentInformation
-            blockchain="Ethereum or EnergyWebChain"
-            address="0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
-            transferConcept="Zero Offer #ABC4567DEF"
+            blockchain={cryptoPaymentDataMock.blockchain}
+            address={cryptoPaymentDataMock.address}
+            transferConcept={cryptoPaymentDataMock.transferConcept}
             amountAndCurrency={
               <>
-                <span>15 DAI or USDC or USDT</span> <br />
-                <span>0,004647732835923 ETH (@3227.41 USD/ETH)</span>{' '}
-                <span>1,832844574780059 EWT ( @8.25 USD/EWT)</span>
+                {cryptoPaymentDataMock.amountAndCurrency.map((item) => (
+                  <span key={item}>{item} </span>
+                ))}
               </>
             }
             boxProps={{ sx: { mt: { xs: 0, md: 2 } } }}

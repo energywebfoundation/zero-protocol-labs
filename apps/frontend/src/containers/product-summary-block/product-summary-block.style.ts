@@ -72,9 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: '12px 20px',
     display: 'flex',
-    [theme.breakpoints.down('md')]: {
-      minWidth: 158,
-    },
+    minWidth: 158,
     '& .MuiSvgIcon-root': {
       marginLeft: 9,
       '& path': {

@@ -7,10 +7,19 @@ import PageSection from '../page-section/page-section';
 import FieldLabel from '../field-label/field-label';
 import FieldValue from '../field-value/field-value';
 import avatarImage from '../../assets/images/avatar.png';
+import { Unit } from '../../utils';
 import { useStyles } from './offer-summary-block.style';
+import { useOfferSummaryBlockEffects } from './offer-summary-block.effects';
+import { offerMockData } from '../../__mock__';
 
 export const OfferSummaryBlock: FC = () => {
   const classes = useStyles();
+  const { displayVolume, priceToPay, formattedReservedUntilDate } =
+    useOfferSummaryBlockEffects({
+      price: offerMockData.price,
+      quantity: offerMockData.quantity,
+      reservedUntil: offerMockData.reservedUntil,
+    });
 
   return (
     <PageSection
@@ -30,9 +39,9 @@ export const OfferSummaryBlock: FC = () => {
           >
             <UserAvatar
               image={avatarImage}
-              name="John Smith"
-              name2="Monsoon Carbon"
-              position="Sales manager"
+              name={offerMockData.createdBy}
+              name2={offerMockData.manager}
+              position={offerMockData.position}
             />
             <Box className={classes.mainInfo}>
               <Box className={classes.infoItem}>
@@ -42,7 +51,7 @@ export const OfferSummaryBlock: FC = () => {
                   sx={{ marginBottom: '9px' }}
                 />
                 <Typography className={clsx(classes.value, classes.secondary)}>
-                  #1234567890
+                  {offerMockData.requestId}
                 </Typography>
               </Box>
               <Box className={classes.infoItem}>
@@ -52,7 +61,7 @@ export const OfferSummaryBlock: FC = () => {
                   className={classes.label}
                 />
                 <Typography className={clsx(classes.value, classes.secondary)}>
-                  #ABC4567DEF
+                  {offerMockData.offerId}
                 </Typography>
               </Box>
             </Box>
@@ -87,7 +96,7 @@ export const OfferSummaryBlock: FC = () => {
                   />
                 </Info>
                 <Typography className={classes.value}>
-                  EAC / I-REC / Future / France / Solar
+                  {offerMockData.productSummary}
                 </Typography>
               </Box>
               <Box className={classes.infoItem}>
@@ -97,7 +106,7 @@ export const OfferSummaryBlock: FC = () => {
                   className={classes.label}
                 />
                 <FieldValue
-                  valueText={'2021-08-01'}
+                  valueText={formattedReservedUntilDate}
                   className={classes.value}
                 />
               </Box>
@@ -111,7 +120,9 @@ export const OfferSummaryBlock: FC = () => {
                       labelText={'Quantity'}
                       className={classes.label}
                     />
-                    <Typography className={classes.value}>3 MWh</Typography>
+                    <Typography className={classes.value}>
+                      {displayVolume}
+                    </Typography>
                   </Box>
                 </Grid>
                 <Grid item>
@@ -127,7 +138,8 @@ export const OfferSummaryBlock: FC = () => {
                       />
                     </Info>
                     <Typography className={classes.value}>
-                      5 <span>$ / MWh</span>
+                      {offerMockData.price}
+                      <span>$ / {Unit.MWh}</span>
                     </Typography>
                   </Box>
                 </Grid>
@@ -138,7 +150,9 @@ export const OfferSummaryBlock: FC = () => {
                       labelText={'Total to Pay'}
                       className={classes.label}
                     />
-                    <Typography className={classes.value}>15 $</Typography>
+                    <Typography className={classes.value}>
+                      {priceToPay} $
+                    </Typography>
                   </Box>
                 </Grid>
               </Grid>
@@ -149,8 +163,8 @@ export const OfferSummaryBlock: FC = () => {
                   className={classes.label}
                 />
                 <Typography className={clsx(classes.value, classes.payment)}>
-                  Wire Tranfer (SEPA-EU) <br />
-                  Crypto: DAI, USDC, USDT, ETH, EWT
+                  Wire Tranfer: {offerMockData.paymentMethods.wire} <br />
+                  Crypto: {offerMockData.paymentMethods.crypto}
                 </Typography>
               </Box>
             </Grid>

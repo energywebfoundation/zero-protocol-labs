@@ -9,6 +9,7 @@ import {
   IconButton,
   Collapse,
 } from '@material-ui/core';
+import { Unit } from '../../utils';
 import { ReactComponent as Arrow } from '../../assets/svg/arrow-up.svg';
 import { ReactComponent as CalendarIconLight } from '../../assets/svg/calendarIconDark.svg';
 import { useProductSummaryBlockEffects } from './product-summary-block.effects';
@@ -16,7 +17,8 @@ import { useStyles } from './product-summary-block.style';
 
 export const ProductSummaryBlock: FC = () => {
   const classes = useStyles();
-  const { isMobile, expanded, handleExpand } = useProductSummaryBlockEffects();
+  const { isMobile, expanded, handleExpand, products } =
+    useProductSummaryBlockEffects();
 
   return (
     <Paper className={classes.paper}>
@@ -37,106 +39,68 @@ export const ProductSummaryBlock: FC = () => {
       </Box>
       <Collapse in={isMobile ? true : expanded} unmountOnExit>
         <Paper className={classes.paperInner}>
-          <Grid container className={classes.grid}>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Miner IDs / Address
-                </Typography>
-                <Box
-                  sx={{ minWidth: { xs: 158, md: 'initial' } }}
-                  className={classes.valueWrapper}
-                >
-                  <Typography className={classes.value}>f0112027</Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Generation start date
-                </Typography>
-                <Box className={classes.valueWrapper} minWidth={158}>
-                  <Typography className={classes.value}>2020/11/01</Typography>
-                  <SvgIcon component={CalendarIconLight} />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Generation end date
-                </Typography>
-                <Box className={classes.valueWrapper} minWidth={158}>
-                  <Typography className={classes.value}>2020/12/31</Typography>
-                  <SvgIcon component={CalendarIconLight} />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography
-                  sx={{ textAlign: { xs: 'right', md: 'left' } }}
-                  className={classes.label}
-                >
-                  Mwh
-                </Typography>
-                <Box className={classes.valueWrapper}>
-                  <Typography className={classes.value}>3 MWh</Typography>
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid container className={classes.grid}>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Miner IDs / Address
-                </Typography>
-                <Box
-                  sx={{ minWidth: { xs: 158, md: 'initial' } }}
-                  className={classes.valueWrapper}
-                >
-                  <Typography className={classes.value}>f0212014</Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Generation start date
-                </Typography>
-                <Box className={classes.valueWrapper} minWidth={158}>
-                  <Typography className={classes.value}>2020/11/01</Typography>
-                  <SvgIcon component={CalendarIconLight} />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography className={classes.label}>
-                  Generation end date
-                </Typography>
-                <Box className={classes.valueWrapper} minWidth={158}>
-                  <Typography className={classes.value}>2020/12/31</Typography>
-                  <SvgIcon component={CalendarIconLight} />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item className={classes.gridItem}>
-              <Box display="flex" className={classes.item}>
-                <Typography
-                  sx={{ textAlign: { xs: 'right', md: 'left' } }}
-                  className={classes.label}
-                >
-                  Mwh
-                </Typography>
-                <Box className={classes.valueWrapper}>
-                  <Typography className={classes.value}>6 MWh</Typography>
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
+          {products.map((product) => {
+            return (
+              <Grid container key={product.address} className={classes.grid}>
+                <Grid item className={classes.gridItem}>
+                  <Box display="flex" className={classes.item}>
+                    <Typography className={classes.label}>
+                      Miner IDs / Address
+                    </Typography>
+                    <Box
+                      sx={{ minWidth: { xs: 158, md: 'initial' } }}
+                      className={classes.valueWrapper}
+                    >
+                      <Typography className={classes.value}>
+                        {product.address}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item className={classes.gridItem}>
+                  <Box display="flex" className={classes.item}>
+                    <Typography className={classes.label}>
+                      Generation start date
+                    </Typography>
+                    <Box className={classes.valueWrapper} minWidth={158}>
+                      <Typography className={classes.value}>
+                        {product.startDate}
+                      </Typography>
+                      <SvgIcon component={CalendarIconLight} />
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item className={classes.gridItem}>
+                  <Box display="flex" className={classes.item}>
+                    <Typography className={classes.label}>
+                      Generation end date
+                    </Typography>
+                    <Box className={classes.valueWrapper} minWidth={158}>
+                      <Typography className={classes.value}>
+                        {product.endDate}
+                      </Typography>
+                      <SvgIcon component={CalendarIconLight} />
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item className={classes.gridItem}>
+                  <Box display="flex" className={classes.item}>
+                    <Typography
+                      sx={{ textAlign: { xs: 'right', md: 'left' } }}
+                      className={classes.label}
+                    >
+                      {Unit.MWh}
+                    </Typography>
+                    <Box className={classes.valueWrapper}>
+                      <Typography className={classes.value}>
+                        {product.volume}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+            );
+          })}
         </Paper>
       </Collapse>
     </Paper>

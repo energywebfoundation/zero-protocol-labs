@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import { Grid, Box, Typography, Button } from '@material-ui/core';
-import { WireTransferInformation } from '../wire-transfer-information';
+import { Grid, Box, Typography } from '@material-ui/core';
+import { StyledButton } from '../../components/buttons';
+import { WireTransferInformation } from '../../components/wire-transfer-information';
 import { ReactComponent as AddNoteIcon } from '../../assets/svg/add-note.svg';
 import { useWireTransferInstructionsEffects } from './wire-transfer-instructions.effects';
 import { useStyles } from './wire-transfer-instructions.style';
+import { wireTransferDataMock } from '../../__mock__';
 
 export const WireTransferInstructions: FC = () => {
   const classes = useStyles();
@@ -20,12 +22,7 @@ export const WireTransferInstructions: FC = () => {
       <Grid container>
         <Grid item xs={12} md={6} sx={{ pr: { xs: 0, md: 1, lg: 7.2 } }}>
           <WireTransferInformation
-            accountHolder="Monsoon Carbon LTD"
-            iban="FR12500A08170648489890"
-            swift="FRECR/23"
-            amount="15"
-            currency="USD"
-            transferConcept="Zero Offer #ABC4567DEF"
+            {...wireTransferDataMock}
             boxProps={{ sx: { mt: { xs: 2 }, mb: { xs: 2 } } }}
           />
         </Grid>
@@ -54,14 +51,15 @@ export const WireTransferInstructions: FC = () => {
             >
               or
             </Typography>
-            <Button
+            <StyledButton
               variant="contained"
+              color="primary"
               className={classes.uploadButton}
               classes={{ endIcon: classes.endIcon }}
               endIcon={<AddNoteIcon />}
             >
               {uploadButtonText}
-            </Button>
+            </StyledButton>
             {acceptedFileItems}
           </Box>
         </Grid>

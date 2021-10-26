@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 
-export const useCryptoPaymentInstructionsEffects = () => {
+export const useAcceptedOfferEffects = () => {
   const form = useFormik({
     initialValues: {
       recAddress: '',
