@@ -75,6 +75,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     [theme.breakpoints.down('md')]: {
       width: 158,
+      justifyContent: 'space-between',
     },
     '& .MuiSvgIcon-root': {
       marginLeft: 9,
