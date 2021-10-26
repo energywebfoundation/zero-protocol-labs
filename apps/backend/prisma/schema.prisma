@@ -65,6 +65,7 @@ model FilecoinNode {
 
 model Purchase {
   id               String                     @id @default(uuid())
+  txHash           String?
   certificate      Certificate                @relation(fields: [certificateId], references: [id])
   certificateId    String
   buyer            Buyer?                     @relation(fields: [buyerId], references: [id])
