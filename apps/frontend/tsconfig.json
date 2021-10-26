@@ -1,12 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    // "baseUrl": "src",
-    // "paths": {
-    //   "@energyweb/zero-protocol-labs-api-client": [
-    //     "../../../libs/api-client/src/index.ts"
-    //   ]
-    // },
     "jsx": "react-jsx",
     "allowJs": true,
     "esModuleInterop": true,

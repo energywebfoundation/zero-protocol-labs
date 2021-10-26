@@ -1,10 +1,12 @@
 import { makeStyles } from '@material-ui/styles';
+import { alpha } from '@material-ui/core';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.dark,
-    boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
     borderRadius: 5,
     fontSize: 16,
     lineHeight: '21px',
@@ -25,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+      boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
       '& svg path': {
         fill: theme.palette.primary.main,
       },
@@ -40,7 +42,7 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
-      boxShadow: '0px 4px 10px rgba(160, 154, 198, 0.2)',
+      boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
     },
   },
 }));

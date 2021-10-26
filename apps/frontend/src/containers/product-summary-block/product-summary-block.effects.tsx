@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { formatPower, Unit } from '../../utils';
 import { offerMockData } from '../../__mock__';
+
+dayjs.extend(utc);
 
 export const useProductSummaryBlockEffects = () => {
   const theme = useTheme();
@@ -18,8 +21,8 @@ export const useProductSummaryBlockEffects = () => {
   const products = offerMockData.products.map((product) => {
     return {
       address: product.address,
-      startDate: dayjs(product.generationStart).format('YYYY-MM-DD'),
-      endDate: dayjs(product.generationEnd).format('YYYY-MM-DD'),
+      startDate: dayjs(product.generationStart).utc().format('YYYY-MM-DD'),
+      endDate: dayjs(product.generationEnd).utc().format('YYYY-MM-DD'),
       volume: formatPower(product.volume, {
         unit: Unit.MWh,
         includeUnit: true,

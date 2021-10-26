@@ -32,7 +32,7 @@ export const App = () => {
               element={<PurchasePage />}
             />
             <Route
-              path={'/crypto-journey/:productId'}
+              path={'/product-offer/:productId'}
               element={<ProductOfferPage />}
             />
             <Route

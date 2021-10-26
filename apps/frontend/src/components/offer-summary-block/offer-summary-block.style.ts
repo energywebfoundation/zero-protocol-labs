@@ -4,7 +4,7 @@ import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export const useStyles = makeStyles((theme) => ({
   sectionPaper: {
-    backgroundColor: '#421d77',
+    backgroundColor: theme.palette.primary.dark,
     padding: '16px 23px 43px 23px',
     boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
     [theme.breakpoints.down('md')]: {
@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   helperText: {
-    color: '#f6efff',
+    color: variables.purpleExtraLightSecondary,
     fontSize: 14,
     lineHeight: '16px',
     fontWeight: 700,
