@@ -21,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   productSummarySection: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
+    boxShadow: `0px 4px 10px ${alpha(variables.boxShadowColor, 0.2)}`,
     minHeight: 239,
     position: 'relative',
   },

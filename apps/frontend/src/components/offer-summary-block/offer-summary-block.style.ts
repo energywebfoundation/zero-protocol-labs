@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
   sectionPaper: {
     backgroundColor: theme.palette.primary.dark,
     padding: '16px 23px 43px 23px',
-    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
+    boxShadow: `0px 4px 10px ${alpha(variables.boxShadowColor, 0.2)}`,
     [theme.breakpoints.down('md')]: {
       padding: '16px 25px 43px 25px',
     },

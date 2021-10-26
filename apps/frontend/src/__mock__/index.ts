@@ -23,7 +23,7 @@ export const offerMockData = {
       address: 'f0212014',
       generationStart: '2020-11-01T05:49:40.971Z',
       generationEnd: '2020-12-31T05:49:40.971Z',
-      volume: '600000000',
+      volume: '6000000',
     },
   ],
 };

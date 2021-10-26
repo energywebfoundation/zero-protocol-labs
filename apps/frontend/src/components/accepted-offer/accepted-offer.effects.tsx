@@ -1,6 +1,9 @@
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router';
 
 export const useAcceptedOfferEffects = () => {
+  const navigate = useNavigate();
+
   const form = useFormik({
     initialValues: {
       recAddress: '',
@@ -12,6 +15,7 @@ export const useAcceptedOfferEffects = () => {
     },
     onSubmit: (values) => {
       console.log(values);
+      navigate('/thank-you');
     },
   });
 

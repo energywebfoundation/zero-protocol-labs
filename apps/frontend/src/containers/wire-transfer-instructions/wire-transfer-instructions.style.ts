@@ -47,7 +47,7 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.background.paper,
-      boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
+      boxShadow: `0px 4px 10px ${alpha(variables.boxShadowColor, 0.2)}`,
       '& svg path': {
         fill: theme.palette.primary.main,
       },

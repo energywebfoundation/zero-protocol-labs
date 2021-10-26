@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: '24px 24px 20px 24px',
     borderRadius: 10,
-    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
+    boxShadow: `0px 4px 10px ${alpha(variables.boxShadowColor, 0.2)}`,
     marginTop: 16,
     [theme.breakpoints.down('md')]: {
       padding: '24px 24px 29px 24px',
@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: '40px 30px 48px 48px',
     borderRadius: 10,
-    boxShadow: `0px 4px 10px rgba(${alpha(variables.boxShadowColor, 0.2)})`,
+    boxShadow: `0px 4px 10px ${alpha(variables.boxShadowColor, 0.2)}`,
     marginTop: 8,
     [theme.breakpoints.down('lg')]: {
       padding: '48px 16px',
