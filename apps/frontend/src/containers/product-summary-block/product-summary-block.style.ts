@@ -26,15 +26,21 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       borderRadius: 10,
       marginBottom: 8,
-      padding: '16px 24px 8px 24px',
-      flexDirection: 'column',
+      padding: '16px 16px 8px 16px',
       alignItems: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
     },
   },
   gridItem: {
     [theme.breakpoints.down('md')]: {
       marginBottom: 8,
       maxWidth: 350,
+      width: '50%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
     },
   },
   title: {
@@ -47,6 +53,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   item: {
     alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'center',
+    },
   },
   label: {
     fontSize: 14,
