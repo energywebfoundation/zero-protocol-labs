@@ -1,15 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { PrismaService } from "../prisma/prisma.service";
-import { PurchaseDto } from "./dto/purchase.dto";
-import { ConfigService } from "@nestjs/config";
+import { PrismaService } from '../prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
+import { IssuerService } from '../issuer/issuer.service';
+import { CertificatesService } from '../certificates/certificates.service';
+import { BuyersService } from '../buyers/buyers.service';
 
 @Injectable()
 export class PurchasesService {
+  private readonly logger = new Logger(CertificatesService.name, { timestamp: true });
+
   constructor(
     private prisma: PrismaService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private certificatesService: CertificatesService,
+    private issuerService: IssuerService,
+    private buyersService: BuyersService
   ) {}
 
   async create(createPurchaseDto: CreatePurchaseDto) {
@@ -28,13 +35,47 @@ export class PurchasesService {
         });
       }
 
+      const certData = await this.certificatesService.findOne(purchase.certificateId);
+
+      const chainCertData = await this.issuerService.getCertificateByTransactionHash(certData.txHash);
+
+      if (!chainCertData) {
+        throw new NotFoundException(`no chain data for certificate ${certData.id} (txHash=${certData.txHash})`);
+      }
+
+      this.logger.debug(`fetched certificate chain data: ${JSON.stringify(chainCertData)}`);
+
+      if (!chainCertData.isOwned) {
+        throw new Error(`certificate on blockchain is not owned by the platform operator account`);
+      }
+
+      const buyerData = await this.buyersService.findOne(purchase.buyerId);
+
+      if (!buyerData.blockchainAddress) {
+        throw new Error(`buyer ${purchase.buyerId} has no blockchain address assigned`);
+      }
+
+      const { txHash } = await this.issuerService.transferCertificate({
+        id: chainCertData.id,
+        amount: purchase.recsSold.toString(),
+        fromAddress: this.configService.get('ISSUER_CHAIN_ADDRESS'),
+        toAddress: buyerData.blockchainAddress
+      })
+
+      this.logger.debug(`purchase saved on blockchain, txHash=${txHash}`);
+
+      await prisma.purchase.update({
+        data: {txHash},
+        where: {id: newRecord.id}
+      })
+
       const data = await prisma.purchase.findUnique({
         where: { id: newRecord.id },
         include: { filecoinNodes: { select: { filecoinNode: true } } }
       });
 
       return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
-    });
+    }, {timeout: 10000});
   }
 
   async findAll() {

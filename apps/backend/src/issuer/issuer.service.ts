@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { pick } from 'lodash';
@@ -8,6 +8,13 @@ interface IssueCertificateDTO {
   energy: string;
   fromTime: Date;
   toTime: Date;
+}
+
+interface TransferCertificateDTO {
+  id: number;
+  fromAddress: string;
+  toAddress: string;
+  amount: string;
 }
 
 @Injectable()
@@ -73,6 +80,38 @@ export class IssuerService {
 
       this.logger.error(`error getting certificate by transaction hash: ${err}`);
 
+      throw err;
+    }
+  }
+
+  async transferCertificate(transferCertificateDTO: TransferCertificateDTO) {
+    const { id, fromAddress } = transferCertificateDTO;
+
+    try {
+      const res = await this.axiosInstance.put(
+        `/certificate/${id}/transfer`,
+        {
+          to: transferCertificateDTO.toAddress,
+          amount: transferCertificateDTO.amount
+        },
+        { params: { fromAddress } }
+      );
+
+      return res.data;
+    } catch (err) {
+      if (err.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (axiosError.response) {
+          if (axiosError.response.status === 404) {
+            this.logger.error(`cert. transfer error: no on-chain certificate data for certificate id=${id} and fromAddress=${fromAddress}`);
+            throw new NotFoundException(`no on-chain certificate data for certificate id=${id}`);
+          }
+        }
+      }
+
+      this.logger.error(`error transferring certificate: ${err}`);
+      this.logger.error(`payload: ${JSON.stringify(transferCertificateDTO)}`);
       throw err;
     }
   }
