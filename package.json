@@ -74,6 +74,7 @@
     "joi": "^17.4.2",
     "passport": "^0.4.1",
     "passport-headerapikey": "^1.2.2",
+    "polly-js": "^1.8.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-dropzone": "^11.4.2",

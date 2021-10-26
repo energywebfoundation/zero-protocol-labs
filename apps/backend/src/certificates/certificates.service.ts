@@ -56,7 +56,7 @@ export class CertificatesService {
         this.logger.error(`error setting transaction hash for the certificate: ${newCertificate.id}: ${err}`);
         throw err;
       }
-    }).catch((err) => {
+    }, {maxWait: 1000, timeout: 10000}).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });

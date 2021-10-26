@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { pick } from 'lodash';
+import polly from 'polly-js';
 
 interface IssueCertificateDTO {
   deviceId: string;
@@ -50,7 +51,22 @@ export class IssuerService {
     };
 
     try {
-      return (await this.axiosInstance.post('/certificate', issuerApiIssueCertDTO)).data;
+      const responseData = (await this.axiosInstance.post('/certificate', issuerApiIssueCertDTO)).data;
+
+      // waiting for transaction to be mined
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await polly()
+        .waitAndRetry(5)
+        .executeForPromise(async (): Promise<void> => {
+          const certData = await this.getCertificateByTransactionHash(responseData.txHash);
+          if (!certData) {
+            this.logger.debug('not mined yet');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            throw new Error('not mined yet');
+          }
+        });
+
+      return responseData;
     } catch (err) {
       this.logger.error(`error issuing certificate: ${err}`);
       this.logger.error(`payload: ${JSON.stringify(issuerApiIssueCertDTO)}`);
