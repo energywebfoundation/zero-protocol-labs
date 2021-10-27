@@ -58,10 +58,11 @@ model Certificate {
 }
 
 model FilecoinNode {
-  id        String                     @id
-  Buyer     Buyer?                     @relation(fields: [buyerId], references: [id])
-  buyerId   String
-  purchases FilecoinNodesOnPurchases[]
+  id                String                     @id
+  Buyer             Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId           String
+  blockchainAddress String?
+  purchases         FilecoinNodesOnPurchases[]
 
   @@unique([id, buyerId])
 }
