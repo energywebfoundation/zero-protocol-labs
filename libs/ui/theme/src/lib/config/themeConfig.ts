@@ -21,6 +21,8 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
   palette: {
     primary: {
       main: styleConfig.PRIMARY_COLOR,
+      dark: styleConfig.PRIMARY_COLOR_DARK,
+      light: styleConfig.PRIMARY_COLOR_LIGHT,
       contrastText: styleConfig.SIMPLE_TEXT_COLOR,
     },
     secondary: {
@@ -29,6 +31,7 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
     },
     background: {
       paper: styleConfig.MAIN_BACKGROUND_COLOR,
+      default: styleConfig.DEFAULT_BACKGROUND_COLOR,
     },
     text: {
       primary: styleConfig.SIMPLE_TEXT_COLOR,
@@ -86,7 +89,7 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
               outline: 'none',
             },
             border: 'none',
-          }
+          },
         },
       },
     },
@@ -182,8 +185,8 @@ const getThemeConfig = (styleConfig: IStyleConfig): ThemeOptions => ({
         root: {
           color: styleConfig.PRIMARY_COLOR,
           '&.Mui-selected': {
-            background: 'none'
-           },
+            background: 'none',
+          },
         },
       },
     },

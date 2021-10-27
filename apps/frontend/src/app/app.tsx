@@ -4,44 +4,55 @@ import { Header } from '../components/header/header';
 import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
+import { ProductOfferPage } from '../pages/product-offer-page/product-offer-page';
 import { WizardPage } from '../pages/wizard-page/WizardPage';
+import { ThankYouPage } from '../pages/thank-you-page/thank-you-page';
 import { AddressMappingProvider, SelectedProtocolProvider } from '../context';
 import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';
 import { useAxiosDefaults } from '../hooks';
 
 const StyledDiv = styled.div`
   background-color: #f6f3f9;
+  min-height: 100vh;
 `;
 
 export const App = () => {
-  useAxiosDefaults()
-  return(
+  useAxiosDefaults();
+  return (
     <SelectedProtocolProvider>
-    <StyledDiv>
-      <Header />
-      <main>
-        <Routes>
-          <Route
-            path={'/partners/filecoin/purchases/:productId'}
-            element={<ProductPage />}
-          />
-          <Route
-            path={'/partners/filecoin/nodes/:productId/transactions'}
-            element={<PurchasePage />}
-          />
-          <Route path={'/wizard'} element={
-            <AddressMappingProvider>
-              <WizardPage />
-            </AddressMappingProvider>
-          } />
-          <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
-          <Route path={'/404'} element={<NotFoundPage />} />
-          <Route path={'*'} element={<Navigate to={'/wizard'} />} />
-        </Routes>
-      </main>
-    </StyledDiv>
-  </SelectedProtocolProvider>
-  )
-}
+      <StyledDiv>
+        <Header />
+        <main>
+          <Routes>
+            <Route
+              path={'/partners/filecoin/purchases/:productId'}
+              element={<ProductPage />}
+            />
+            <Route
+              path={'/partners/filecoin/nodes/:productId/transactions'}
+              element={<PurchasePage />}
+            />
+            <Route
+              path={'/product-offer/:productId'}
+              element={<ProductOfferPage />}
+            />
+            <Route
+              path={'/wizard'}
+              element={
+                <AddressMappingProvider>
+                  <WizardPage />
+                </AddressMappingProvider>
+              }
+            />
+            <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
+            <Route path={'/thank-you'} element={<ThankYouPage />} />
+            <Route path={'/404'} element={<NotFoundPage />} />
+            <Route path={'*'} element={<Navigate to={'/wizard'} />} />
+          </Routes>
+        </main>
+      </StyledDiv>
+    </SelectedProtocolProvider>
+  );
+};
 
 export default App;

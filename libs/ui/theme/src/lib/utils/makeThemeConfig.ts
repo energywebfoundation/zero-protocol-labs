@@ -6,6 +6,7 @@ import createMaterialThemeFor from '../config/themeConfig';
 export interface IStyleConfig {
   PRIMARY_COLOR: string;
   PRIMARY_COLOR_DARK: string;
+  PRIMARY_COLOR_LIGHT: string;
   PRIMARY_COLOR_DIM: string;
   TEXT_COLOR_DEFAULT: string;
   SIMPLE_TEXT_COLOR: string;
@@ -13,6 +14,7 @@ export interface IStyleConfig {
   SECONDARY_COLOR_LIGHT: string;
 
   MAIN_BACKGROUND_COLOR: string;
+  DEFAULT_BACKGROUND_COLOR: string;
   FIELD_ICON_COLOR: string;
   WHITE: string;
   FONT_FAMILY_PRIMARY: string;
@@ -32,12 +34,14 @@ export function createStyleConfig(
   return {
     PRIMARY_COLOR: themeVariables.primaryColor,
     PRIMARY_COLOR_DARK: themeVariables.primaryColorDark,
+    PRIMARY_COLOR_LIGHT: themeVariables.purpleLight,
     PRIMARY_COLOR_DIM: themeVariables.primaryColorDim,
     SECONDARY_COLOR: themeVariables.secondaryColor,
     SECONDARY_COLOR_LIGHT: themeVariables.secondaryColorLight,
     TEXT_COLOR_DEFAULT: themeVariables.textColorDefault,
     SIMPLE_TEXT_COLOR: themeVariables.simpleTextColor,
     MAIN_BACKGROUND_COLOR: themeVariables.mainBackgroundColor,
+    DEFAULT_BACKGROUND_COLOR: themeVariables.defaultBackgroundColor,
     FIELD_ICON_COLOR: themeVariables.fieldIconColor,
     WHITE: 'rgb(255,255,255)',
     FONT_FAMILY_PRIMARY: themeVariables.fontFamilyPrimary,
