@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -21,6 +21,10 @@ export class PurchasesService {
 
   async create(createPurchaseDto: CreatePurchaseDto) {
     const { filecoinNodes, ...purchase } = createPurchaseDto;
+
+    if (filecoinNodes.length > 1) {
+      throw new BadRequestException('only one filecoin node per transaction allowed');
+    }
 
     return await this.prisma.$transaction(async (prisma) => {
       const newRecord = await prisma.purchase.create({ data: purchase });
@@ -51,19 +55,45 @@ export class PurchasesService {
         throw new Error(`buyer ${purchase.buyerId} has no blockchain address assigned`);
       }
 
-      const { txHash } = await this.issuerService.transferCertificate({
+      this.logger.debug(`transferring on-chain certificate (id=${purchase.certificateId}, issuerApiId=${chainCertData.id}) to buyer (id=${buyerData.id}, blockchainAddress=${buyerData.blockchainAddress})`);
+      const { txHash: txHash1 } = await this.issuerService.transferCertificate({
         id: chainCertData.id,
         amount: purchase.recsSold.toString(),
         fromAddress: this.configService.get('ISSUER_CHAIN_ADDRESS'),
         toAddress: buyerData.blockchainAddress
       })
 
-      this.logger.debug(`purchase saved on blockchain, txHash=${txHash}`);
+      this.logger.debug(`certificate transfer initiated, txHash=${txHash1}`);
 
-      await prisma.purchase.update({
-        data: {txHash},
-        where: {id: newRecord.id}
-      })
+      const filecoinNode = filecoinNodes[0];
+
+      if (filecoinNode) {
+        const filecoinNodeData = await this.prisma.filecoinNode.findUnique({ where: { id: filecoinNode.id } });
+
+        if (!filecoinNodeData.blockchainAddress) {
+          throw new Error(`filecoin node ${filecoinNode.id} has no blockchain address assigned`);
+        }
+
+        this.logger.debug(`transferring on-chain certificate (id=${purchase.certificateId}, issuerApiId=${chainCertData.id}) to filecoin node (id=${buyerData.id}, blockchainAddress=${buyerData.blockchainAddress})`);
+        const { txHash: txHash2 } = await this.issuerService.transferCertificate({
+          id: chainCertData.id,
+          amount: purchase.recsSold.toString(),
+          fromAddress: buyerData.blockchainAddress,
+          toAddress: filecoinNodeData.blockchainAddress
+        });
+        this.logger.debug(`certificate transfer initiated, txHash=${txHash2}`);
+
+        await prisma.purchase.update({
+          data: { txHash: txHash2 },
+          where: { id: newRecord.id }
+        });
+      } else {
+        this.logger.debug(`no fielcoin node defined for purchase`);
+        await prisma.purchase.update({
+          data: { txHash: txHash1 },
+          where: { id: newRecord.id }
+        });
+      }
 
       const data = await prisma.purchase.findUnique({
         where: { id: newRecord.id },
