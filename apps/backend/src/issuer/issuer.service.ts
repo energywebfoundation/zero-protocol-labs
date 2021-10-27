@@ -221,4 +221,26 @@ export class IssuerService {
       throw err;
     }
   }
+
+  async getCertificateEvents(certificateId: number) {
+    try {
+      this.logger.debug(`getting events for certificateId=${certificateId}`);
+      return (await this.axiosInstance.get(`/certificate/${certificateId}/events`)).data
+    } catch (err) {
+      if (err.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (axiosError.response) {
+          if (axiosError.response.status === 404) {
+            this.logger.warn(`no events for certificateId=${certificateId}`);
+            return null;
+          }
+        }
+      }
+
+      this.logger.error(`error getting certificate by transaction hash: ${err}`);
+
+      throw err;
+    }
+  }
 }

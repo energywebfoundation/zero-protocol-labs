@@ -13,10 +13,11 @@ import {
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "@nestjs/passport";
-import { PurchaseDto } from "./dto/purchase.dto";
-import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
+import { ApiOkResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { PurchaseDto } from './dto/purchase.dto';
+import { NoDataInterceptor } from '../interceptors/NoDataInterceptor';
+import { purchaseEventsSchema } from './purchases.service';
 
 @Controller('/partners/filecoin/purchases')
 @ApiTags('Filecoin purchases')
@@ -75,5 +76,11 @@ export class PurchasesController {
   @ApiSecurity('api-key', ['api-key'])
   remove(@Param('id') id: string) {
     return this.purchasesService.remove(id);
+  }
+
+  @Get(':id/blockchain-events')
+  @ApiOkResponse({ schema: purchaseEventsSchema })
+  async getBlockchainEvents(@Param('id') id: string) {
+    return this.purchasesService.getChainEvents(id);
   }
 }
