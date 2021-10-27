@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
-const mobResp = window.innerWidth < 600;
+const mobResp = window.innerWidth < 630;
 
 export const useStyles = makeStyles({
   tab: {
@@ -24,45 +24,18 @@ export const useStyles = makeStyles({
       width: '50px',
       height: '50px',
       zIndex: '9999',
-      left: `${mobResp ? '40%' : '80%'}`,
+      right: `${mobResp ? '55%' : '105px'}`,
       '& .MuiSvgIcon-root ': {
         fill: variables.secondaryColor,
       },
     },
     '& .MuiTabScrollButton-root:last-of-type': {
       position: 'absolute',
-      right: `${mobResp ? '40%' : '100px'}`,
+      right: `${mobResp ? '40%' : '55px'}`,
       top: `${mobResp ? '50px' : '0'}`,
       width: '50px',
       height: '50px',
       zIndex: '9999',
-      '& .MuiSvgIcon-root ': {
-        fill: variables.secondaryColor,
-      },
-    },
-  },
-  mobTabs: {
-    '& .MuiTabs-indicator ': {
-      backgroundColor: 'transparent',
-    },
-    '& .MuiTabScrollButton-root:first-of-type': {
-      position: 'absolute',
-      top: '50px',
-      width: '50px',
-      height: '50px',
-      zIndex: '9999',
-      backgroundColor: 'red',
-      '& .MuiSvgIcon-root ': {
-        fill: variables.secondaryColor,
-      },
-    },
-    '& .MuiTabScrollButton-root:last-of-type': {
-      position: 'absolute',
-      top: '50px',
-      width: '50px',
-      height: '50px',
-      zIndex: '9999',
-      backgroundColor: 'red',
       '& .MuiSvgIcon-root ': {
         fill: variables.secondaryColor,
       },
