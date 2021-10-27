@@ -9,6 +9,7 @@ interface IssueCertificateDTO {
   energy: string;
   fromTime: Date;
   toTime: Date;
+  toSeller: string;
 }
 
 interface TransferCertificateDTO {
@@ -45,7 +46,7 @@ export class IssuerService {
   async issueCertificate(issueCertificateDTO: IssueCertificateDTO) {
     const issuerApiIssueCertDTO = {
       ...issueCertificateDTO,
-      to: this.configService.get('ISSUER_CHAIN_ADDRESS'),
+      to: issueCertificateDTO.toSeller,
       fromTime: Math.floor(issueCertificateDTO.fromTime.getTime() / 1000),
       toTime: Math.floor(issueCertificateDTO.toTime.getTime() / 1000)
     };
@@ -65,6 +66,15 @@ export class IssuerService {
             throw new Error('not mined yet');
           }
         });
+
+      const certificate = await this.getCertificateByTransactionHash(responseData.txHash);
+
+      await this.transferCertificate({
+        id: certificate.id,
+        fromAddress: issueCertificateDTO.toSeller,
+        toAddress: this.configService.get('ISSUER_CHAIN_ADDRESS'),
+        amount: issueCertificateDTO.energy
+      });
 
       return responseData;
     } catch (err) {

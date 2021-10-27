@@ -45,10 +45,6 @@ export class PurchasesService {
 
       this.logger.debug(`fetched certificate chain data: ${JSON.stringify(chainCertData)}`);
 
-      if (!chainCertData.isOwned) {
-        throw new Error(`certificate on blockchain is not owned by the platform operator account`);
-      }
-
       const buyerData = await this.buyersService.findOne(purchase.buyerId);
 
       if (!buyerData.blockchainAddress) {

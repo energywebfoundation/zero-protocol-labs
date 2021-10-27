@@ -29,10 +29,13 @@ export class CertificatesService {
         throw err;
       }
 
+      const seller = await this.prisma.seller.findUnique({ where: { id: createCertificateDto.initialSellerId } });
+
       let txHash: string;
 
       try {
         ({ txHash } = await this.issuerService.issueCertificate({
+          toSeller: seller.blockchainAddress,
           deviceId: createCertificateDto.generatorId,
           energy,
           fromTime: createCertificateDto.generationStart,
