@@ -55,6 +55,8 @@ export class PurchasesService {
         throw new Error(`buyer ${purchase.buyerId} has no blockchain address assigned`);
       }
 
+      let accountToRedeemFrom: string;
+
       this.logger.debug(`transferring on-chain certificate (id=${purchase.certificateId}, issuerApiId=${chainCertData.id}) to buyer (id=${buyerData.id}, blockchainAddress=${buyerData.blockchainAddress})`);
       const { txHash: txHash1 } = await this.issuerService.transferCertificate({
         id: chainCertData.id,
@@ -87,13 +89,38 @@ export class PurchasesService {
           data: { txHash: txHash2 },
           where: { id: newRecord.id }
         });
+
+        accountToRedeemFrom = filecoinNodeData.blockchainAddress;
       } else {
         this.logger.debug(`no fielcoin node defined for purchase`);
         await prisma.purchase.update({
           data: { txHash: txHash1 },
           where: { id: newRecord.id }
         });
+
+        accountToRedeemFrom = buyerData.blockchainAddress;
       }
+
+      this.logger.debug(`claiming certificate (id=${purchase.certificateId}, issuerApiId=${chainCertData.id}) from blockchainAddress=${accountToRedeemFrom}`);
+      const { txHash: txHashClaiming } = await this.issuerService.claimCertificate({
+        id: chainCertData.id,
+        fromAddress: accountToRedeemFrom,
+        amount: purchase.recsSold.toString(),
+        claimData: {
+          'beneficiary': '',
+          'location': '',
+          'countryCode': '',
+          'periodStartDate': '',
+          'periodEndDate': '',
+          'purpose': 'Claiming'
+        }
+      });
+      this.logger.debug(`certificate claiming initiated, txHash=${txHashClaiming}`);
+
+      await prisma.purchase.update({
+        data: { txHash: txHashClaiming },
+        where: { id: newRecord.id }
+      });
 
       const data = await prisma.purchase.findUnique({
         where: { id: newRecord.id },
@@ -101,7 +128,7 @@ export class PurchasesService {
       });
 
       return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
-    }, {timeout: 10000});
+    }, { timeout: 30000 });
   }
 
   async findAll() {
