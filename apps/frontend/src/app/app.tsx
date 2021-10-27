@@ -39,10 +39,9 @@ export const App = () => {
                 </AddressMappingProvider>
               }
             />
-            <Route path={'/welcome'} element={<WelcomePage />} />
             <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
             <Route path={'/404'} element={<NotFoundPage />} />
-            <Route path={'*'} element={<Navigate to={'/welcome'} />} />
+            <Route path={'*'} element={<Navigate to={'/'} />} />
           </Routes>
         </main>
       </StyledDiv>

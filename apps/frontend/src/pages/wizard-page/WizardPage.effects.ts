@@ -39,7 +39,7 @@ export const useWizardPageEffects = () => {
 
   const handleBackStep = () =>{
     if(step === 0){
-      navigate('/welcome')
+      navigate('/')
     }
     else {
       setStep((s) => s - 1)
