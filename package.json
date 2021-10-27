@@ -37,6 +37,7 @@
     "build:api-client": "cd libs/api-client && yarn build",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migrate:issuer-api": "yarn typeorm migration:run --config apps/issuer-api/ormconfig.ts",
+    "migrate:all": "yarn migrate:issuer-api && yarn db:migrate:deploy",
     "seed:all:dev": "./seed-dev.sh"
   },
   "private": true,
