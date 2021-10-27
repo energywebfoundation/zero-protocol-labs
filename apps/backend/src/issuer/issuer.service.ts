@@ -19,6 +19,20 @@ interface TransferCertificateDTO {
   amount: string;
 }
 
+interface ClaimCertificateDTO {
+  id: number,
+  fromAddress: string,
+  amount: string,
+  claimData: {
+    beneficiary?: string,
+    location?: string,
+    countryCode?: string,
+    periodStartDate?: string,
+    periodEndDate?: string,
+    purpose?: string,
+  }
+}
+
 @Injectable()
 export class IssuerService {
   private readonly logger = new Logger(IssuerService.name, { timestamp: true });
@@ -138,6 +152,64 @@ export class IssuerService {
 
       this.logger.error(`error transferring certificate: ${err}`);
       this.logger.error(`payload: ${JSON.stringify(transferCertificateDTO)}`);
+      throw err;
+    }
+  }
+
+  async claimCertificate(claimCertificateDTO: ClaimCertificateDTO) {
+    let lastAttempt: number = Date.now();
+    const timeout = 25000;
+    const checkingInterval = 1000;
+    const numberOfRetries = Math.floor((lastAttempt - Date.now() + timeout) / checkingInterval);
+
+    const { id, fromAddress, ...requestPayload } = claimCertificateDTO;
+
+    try {
+      this.logger.debug(`requesting /certificate/${id}/claim with ${JSON.stringify(requestPayload)}`);
+
+      const res = await polly()
+        .logger((err) => {
+          this.logger.debug(err.response?.data?.message || err);
+        })
+        .handle((err) => {
+          return !!(
+            err.isAxiosError &&
+            err.response &&
+            err.response.status === 400 &&
+            err.response.data.message.match(/has a balance of [0-9]+ but wants to claim [0-9]+/)
+          );
+        })
+        .retry(numberOfRetries)
+        .executeForPromise(async () => {
+          await new Promise(resolve => setTimeout(resolve, Math.max(0, checkingInterval - (Date.now() - lastAttempt))));
+
+          lastAttempt = Date.now();
+          return await this.axiosInstance.put(
+            `/certificate/${id}/claim`,
+            requestPayload,
+            { params: { fromAddress } }
+          );
+        });
+
+      return res.data;
+    } catch (err) {
+      if (err.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (axiosError.response) {
+          switch (axiosError.response.status) {
+            case 400:
+              this.logger.error(`issuer API error: ${JSON.stringify(axiosError.response.data)}`);
+              throw new Error(`issuer API error: ${JSON.stringify(axiosError.response.data)}`);
+            case 404:
+              this.logger.error(`cert. claim error: no on-chain certificate data for certificate id=${id} to claim from address ${fromAddress}`);
+              throw new NotFoundException(`certificate id=${id} not available for claiming from address ${fromAddress}`);
+          }
+        }
+      }
+
+      this.logger.error(`error transferring certificate: ${err}`);
+      this.logger.error(`payload: ${JSON.stringify(claimCertificateDTO)}`);
       throw err;
     }
   }

@@ -1,5 +1,6 @@
 import { BigNumber } from 'ethers';
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -186,6 +187,9 @@ export class CertificateController {
             // TODO: investigate why this workaround is needed
             if (err.name === 'NotFoundException') {
                 throw new NotFoundException(err.message);
+            }
+            if (err.name === 'BadRequestException') {
+                throw new BadRequestException(err.message);
             }
 
             throw err;
