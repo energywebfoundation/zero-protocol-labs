@@ -58,6 +58,10 @@ export class IssuerService {
   }
 
   async issueCertificate(issueCertificateDTO: IssueCertificateDTO) {
+    let lastAttempt: number = Date.now();
+    const timeout = 25000;
+    const checkingInterval = 2000;
+
     const issuerApiIssueCertDTO = {
       ...issueCertificateDTO,
       to: issueCertificateDTO.toSeller,
@@ -65,23 +69,27 @@ export class IssuerService {
       toTime: Math.floor(issueCertificateDTO.toTime.getTime() / 1000)
     };
 
+    const numberOfRetries = Math.floor((lastAttempt - Date.now() + timeout) / checkingInterval);
+    lastAttempt += Math.floor((Date.now() - lastAttempt) / checkingInterval) * checkingInterval;
+
     try {
       const responseData = (await this.axiosInstance.post('/certificate', issuerApiIssueCertDTO)).data;
 
       // waiting for transaction to be mined
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      await polly()
-        .waitAndRetry(5)
-        .executeForPromise(async (): Promise<void> => {
+      const certificate = await polly()
+        .retry(numberOfRetries)
+        .executeForPromise(async () => {
+          await new Promise(resolve => setTimeout(resolve, Math.max(0, checkingInterval - (Date.now() - lastAttempt))));
+
+          lastAttempt = Date.now();
           const certData = await this.getCertificateByTransactionHash(responseData.txHash);
           if (!certData) {
-            this.logger.debug('not mined yet');
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.logger.debug(`transaction ${responseData.txHash} not mined yet`);
             throw new Error('not mined yet');
           }
-        });
 
-      const certificate = await this.getCertificateByTransactionHash(responseData.txHash);
+          return certData;
+        });
 
       await this.transferCertificate({
         id: certificate.id,
