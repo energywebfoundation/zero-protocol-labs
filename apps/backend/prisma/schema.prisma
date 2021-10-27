@@ -31,13 +31,14 @@ model Buyer {
 }
 
 model Seller {
-  id                String     @id @default(uuid())
+  id                String        @id @default(uuid())
   name              String
   addressLine1      String
   addressLine2      String?
   contactPerson     String?
   blockchainAddress String?
   purchase          Purchase[]
+  certificates      Certificate[]
 
   @@unique([blockchainAddress])
 }
@@ -52,6 +53,8 @@ model Certificate {
   generationEnd   DateTime?
   txHash          String?
   purchase        Purchase[]
+  seller          Seller     @relation(fields: [initialSellerId], references: [id])
+  initialSellerId String
 }
 
 model FilecoinNode {

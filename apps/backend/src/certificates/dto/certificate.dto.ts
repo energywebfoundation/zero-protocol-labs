@@ -11,6 +11,9 @@ export class CertificateDto implements Certificate {
   @ApiProperty({ example: 'NA' })
   generatorId: string;
 
+  @ApiProperty({ example: '00000000-0000-0000-0000-000000000000' })
+  initialSellerId: string;
+
   @ApiProperty({ example: 'China' })
   country: string;
 
