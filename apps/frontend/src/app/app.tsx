@@ -22,6 +22,7 @@ export const App = () => {
         <Header />
         <main>
           <Routes>
+          <Route path={'/'} element={<WelcomePage />} />
             <Route
               path={'/partners/filecoin/purchases/:productId'}
               element={<ProductPage />}

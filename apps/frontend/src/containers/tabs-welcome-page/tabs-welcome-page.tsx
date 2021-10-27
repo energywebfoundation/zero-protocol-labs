@@ -35,7 +35,7 @@ const tabsData = [
   },
   {
     img: integrationIcon,
-    label: 'Purchase on digital platforms',
+    label: 'Open integration protocol',
     value:
       'A standardized API enables any digitized renewable energy platform—including those built with EW Origin—to connect and post available supplies for buyers.',
   },
@@ -86,14 +86,13 @@ export const TabsWelcomePage = () => {
       >
         {tabsData.map((el) => {
           return (
-            <Tab
+            <Tab key={el.label}
               label={
                 <React.Fragment>
                   <Box
                     minWidth="289px"
                     height="385px"
                     className={styles.tab}
-                    key={el.value}
                   >
                     <img src={el.img} alt="tabs-img" />
                     <Typography
