@@ -13,6 +13,7 @@ export interface IGenericQuestionSectionProps {
   desc: string;
   btnName: string;
   icon: SvgIconProps;
+  onClick?: () => void;
 }
 
 export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
@@ -22,6 +23,7 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
   btnName,
   icon,
   title,
+  onClick
 }) => {
   const styles = useStyles();
   const windowRespWidth = useMediaQuery((theme: Theme) =>
@@ -81,7 +83,7 @@ export const GenericQuestionSection: React.FC<IGenericQuestionSectionProps> = ({
           bgcolor={variables.primaryColor}
         >
           <Box width={windowRespWidth ? '280px' : '340px'}>
-            <WelcomePageSubmitButton name={btnName} icon={icon} />
+            <WelcomePageSubmitButton name={btnName} icon={icon} onClick={onClick} />
           </Box>
         </Box>
       </Box>
