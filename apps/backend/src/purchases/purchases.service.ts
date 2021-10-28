@@ -27,6 +27,12 @@ export class PurchasesService {
       throw new BadRequestException('only one filecoin node per transaction allowed');
     }
 
+    const certData = await this.certificatesService.findOne(purchase.certificateId);
+
+    if (certData.initialSellerId !== createPurchaseDto.sellerId) {
+      throw new BadRequestException(`certificate has to be owned by transaction seller`);
+    }
+
     return await this.prisma.$transaction(async (prisma) => {
       const newRecord = await prisma.purchase.create({ data: purchase });
 
@@ -39,8 +45,6 @@ export class PurchasesService {
           }))
         });
       }
-
-      const certData = await this.certificatesService.findOne(purchase.certificateId);
 
       const chainCertData = await this.issuerService.getCertificateByTransactionHash(certData.txHash);
 
