@@ -1,9 +1,10 @@
 X_API_KEY=$(grep API_KEY .env | cut -d "=" -f2 | tr -d '"');
+PORT=$(grep -e "^PORT=" .env | cut -d "=" -f2 | tr -d '"');
 
 echo
 echo "creating sellerId=00000000-0000-0000-0000-000000000001"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/sellers' \
+  "http://localhost:$PORT/api/partners/filecoin/sellers" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -17,7 +18,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating buyerId=00000000-0000-0000-0000-000000000002"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/buyers' \
+  "http://localhost:$PORT/api/partners/filecoin/buyers" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -28,7 +29,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating buyerId=00000000-0000-0000-0000-000000000003"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/buyers' \
+  "http://localhost:$PORT/api/partners/filecoin/buyers" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -39,7 +40,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating nodeId=f00001 for buyerId=00000000-0000-0000-0000-000000000002"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/nodes' \
+  "http://localhost:$PORT/api/partners/filecoin/nodes" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -50,7 +51,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating nodeId=f00002 for buyerId=00000000-0000-0000-0000-000000000003"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/nodes' \
+  "http://localhost:$PORT/api/partners/filecoin/nodes" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -61,7 +62,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating certificateId=00000000-0000-0000-0000-000000000333"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/certificates' \
+  "http://localhost:$PORT/api/partners/filecoin/certificates" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -79,7 +80,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating purchase of certificateId=00000000-0000-0000-0000-000000000333, 00000000-0000-0000-0000-000000000001 -> 00000000-0000-0000-0000-000000000002"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/purchases' \
+  "http://localhost:$PORT/api/partners/filecoin/purchases" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -104,7 +105,7 @@ curl -w "\n" -s -X 'POST' \
 echo
 echo "creating purchase of certificateId=00000000-0000-0000-0000-000000000333, 00000000-0000-0000-0000-000000000001 -> 00000000-0000-0000-0000-000000000003"
 curl -w "\n" -s -X 'POST' \
-  'http://localhost:3333/api/partners/filecoin/purchases' \
+  "http://localhost:$PORT/api/partners/filecoin/purchases" \
   -H "X-API-KEY: $X_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
