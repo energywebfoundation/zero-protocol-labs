@@ -23,7 +23,7 @@ export class PurchasesService {
   async create(createPurchaseDto: CreatePurchaseDto) {
     const { filecoinNodes, ...purchase } = createPurchaseDto;
 
-    if (filecoinNodes.length > 1) {
+    if (filecoinNodes && filecoinNodes.length > 1) {
       throw new BadRequestException('only one filecoin node per transaction allowed');
     }
 
@@ -68,9 +68,9 @@ export class PurchasesService {
 
       this.logger.debug(`certificate transfer initiated, txHash=${txHash1}`);
 
-      const filecoinNode = filecoinNodes[0];
+      if (filecoinNodes && filecoinNodes[0]) {
+        const filecoinNode = filecoinNodes[0];
 
-      if (filecoinNode) {
         const filecoinNodeData = await this.prisma.filecoinNode.findUnique({ where: { id: filecoinNode.id } });
 
         if (!filecoinNodeData.blockchainAddress) {
