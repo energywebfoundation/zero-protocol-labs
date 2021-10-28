@@ -5,6 +5,5 @@ export function getSwaggerDocumentationConfig() {
     .setTitle('Energy Web Zero API')
     .setVersion('0.3')
     .addApiKey({ type: 'apiKey', name: 'X-API-KEY' }, 'api-key')
-    .addServer(`http://localhost:${process.env.PORT}`)
     .build();
 }

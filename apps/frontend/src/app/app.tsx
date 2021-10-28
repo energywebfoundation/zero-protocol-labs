@@ -4,14 +4,17 @@ import { Header } from '../components/header/header';
 import ProductPage from '../pages/product-page/product-page';
 import NotFoundPage from '../pages/not-found-page/not-found-page';
 import PurchasePage from '../pages/purchase-page/purchase-page';
+import { ProductOfferPage } from '../pages/product-offer-page/product-offer-page';
 import { WizardPage } from '../pages/wizard-page/WizardPage';
 import { WelcomePage } from '../pages/welcome-page/welcome-page';
+import { ThankYouPage } from '../pages/thank-you-page/thank-you-page';
 import { AddressMappingProvider, SelectedProtocolProvider } from '../context';
 import WizardThankPage from '../pages/wizard-thank-page/wizard-thank-page';
 import { useAxiosDefaults } from '../hooks';
 
 const StyledDiv = styled.div`
   background-color: #f6f3f9;
+  min-height: 100vh;
 `;
 
 export const App = () => {
@@ -22,7 +25,7 @@ export const App = () => {
         <Header />
         <main>
           <Routes>
-          <Route path={'/'} element={<WelcomePage />} />
+            <Route path={'/'} element={<WelcomePage />} />
             <Route
               path={'/partners/filecoin/purchases/:productId'}
               element={<ProductPage />}
@@ -30,6 +33,10 @@ export const App = () => {
             <Route
               path={'/partners/filecoin/nodes/:productId/transactions'}
               element={<PurchasePage />}
+            />
+            <Route
+              path={'/product-offer/:productId'}
+              element={<ProductOfferPage />}
             />
             <Route
               path={'/wizard'}
@@ -40,6 +47,7 @@ export const App = () => {
               }
             />
             <Route path={'/wizard/thank-you'} element={<WizardThankPage />} />
+            <Route path={'/thank-you'} element={<ThankYouPage />} />
             <Route path={'/404'} element={<NotFoundPage />} />
             <Route path={'*'} element={<Navigate to={'/'} />} />
           </Routes>

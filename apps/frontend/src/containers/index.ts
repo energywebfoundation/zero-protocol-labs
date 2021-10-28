@@ -4,3 +4,6 @@ export * from './form-wizard-item-protocol';
 export * from './form-wizard-item-user-type';
 export * from './tabs-welcome-page';
 export * from './question-section-welcome-page';
+export * from './product-summary-block';
+export * from './wire-transfer-instructions';
+export * from './modals';
