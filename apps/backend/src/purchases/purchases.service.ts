@@ -301,6 +301,10 @@ export const purchaseEventsSchema = {
       to: {
         type: 'string',
         example: '0xd46aC0Bc23dB5e8AfDAAB9Ad35E9A3bA05E092E8'
+      },
+      recs: {
+        type: 'string',
+        example: '10000'
       }
     },
     required: ['name']
