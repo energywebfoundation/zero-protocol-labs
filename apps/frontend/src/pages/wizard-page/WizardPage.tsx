@@ -147,10 +147,8 @@ export const WizardPage = () => {
                   mt={'24px'}
                   className={styles.btn}
                 >
-                  {step !== 0 ? (
                     <Button
                       sx={{ height: '48px' }}
-                      disabled={step === 0}
                       variant="contained"
                       onClick={handleBackStep}
                       startIcon={
@@ -163,9 +161,6 @@ export const WizardPage = () => {
                     >
                       Back
                     </Button>
-                  ) : (
-                    <div></div>
-                  )}
                   <Button
                     sx={{ height: '48px' }}
                     disabled={isSubmitting}
