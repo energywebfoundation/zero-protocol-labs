@@ -37,7 +37,14 @@ export const useWizardPageEffects = () => {
     }
   }});
 
-  const handleBackStep = () => setStep((s) => s - 1);
+  const handleBackStep = () =>{
+    if(step === 0){
+      navigate('/')
+    }
+    else {
+      setStep((s) => s - 1)
+    };
+  }
 
   const addressMapping = useAddressMappingState();
 
