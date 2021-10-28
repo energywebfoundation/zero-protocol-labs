@@ -29,6 +29,4 @@ const config: ConnectionOptions = {
   migrationsTableName: 'migrations_issuer_api'
 };
 
-console.log(config);
-
 export = config;
