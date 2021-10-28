@@ -73,7 +73,13 @@ export class IssuerService {
     lastAttempt += Math.floor((Date.now() - lastAttempt) / checkingInterval) * checkingInterval;
 
     try {
-      const responseData = (await this.axiosInstance.post('/certificate', issuerApiIssueCertDTO)).data;
+      const responseData = (
+        await this.axiosInstance.post('/certificate', issuerApiIssueCertDTO).catch((err) => {
+          this.logger.error(`POST /certificate error response: ${err}`);
+          this.logger.error(`error response body: ${JSON.stringify(err.response.data)}`);
+          throw err;
+        })
+      ).data;
 
       // waiting for transaction to be mined
       const certificate = await polly()
@@ -143,7 +149,11 @@ export class IssuerService {
           amount: transferCertificateDTO.amount
         },
         { params: { fromAddress } }
-      );
+      ).catch((err) => {
+        this.logger.error(`PUT /certificate/${id}/transfer error response: ${err}`);
+        this.logger.error(`error response body: ${JSON.stringify(err.response.data)}`);
+        throw err;
+      });
 
       return res.data;
     } catch (err) {
