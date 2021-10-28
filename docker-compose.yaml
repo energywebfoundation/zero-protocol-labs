@@ -20,6 +20,7 @@ services:
       - db
     ports:
       - '3333:3333'
+    command: "/bin/sh -c \"prisma migrate deploy && node main.js\""
     environment:
       LOG_LEVELS: "log,error,warn,debug,verbose"
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/zero-protocol-labs"
@@ -39,9 +40,12 @@ services:
 
   issuer-api:
     image: zero-pl-issuer-api
+    restart: unless-stopped
     depends_on:
       - db-issuer
       - ganache
+    ports:
+      - '127.0.0.1:3334:3333'
     environment:
       PORT: 3333
       LOG_LEVELS: "log,error,warn,debug,verbose"
@@ -55,6 +59,7 @@ services:
 
   ganache:
     image: trufflesuite/ganache-cli
+    restart: unless-stopped
     command: |
       ganache-cli \
         --db /data
@@ -71,6 +76,8 @@ services:
   db:
     image: postgres:13-alpine
     restart: unless-stopped
+    ports:
+      - '127.0.0.1:5432:5432'
     volumes:
     - zero-pl-pg-data:/var/lib/postgresql/data
     environment:
@@ -83,6 +90,8 @@ services:
   db-issuer:
     image: postgres:13-alpine
     restart: unless-stopped
+    ports:
+      - '127.0.0.1:5433:5432'
     volumes:
     - zero-pl-pg-data-issuer:/var/lib/postgresql/data
     environment:
