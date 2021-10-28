@@ -4,7 +4,7 @@ import BuyerSellerInformation from '../../components/buyer-seller-information/bu
 import PageSection from '../../components/page-section/page-section';
 import DownloadSection from '../../components/download-section/download-section';
 import TableList from '../../components/table-list/table-list';
-import TableListProofs from '../../components/table-list-proofs/table-list-proofs';
+import TableListProofs from '../../components/table-list-proofs/TableListProofs';
 import Info from '../../components/info/info';
 import Loading from '../../components/loading/loading';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -17,7 +17,7 @@ export const useStyles = makeStyles({
 });
 
 export const ProductPage = () => {
-  const { data, isLoading, isFetched } = useProductPageEffects();
+  const { data, isLoading, isFetched, purchaseId } = useProductPageEffects();
   const classes = useStyles();
 
   return !isLoading && isFetched && data ? (
@@ -90,7 +90,7 @@ and consumption, and are widely used for renewable energy procurement.`}
           </Grid>
         </Box>
         <Box width={'100%'}>
-          <TableListProofs />
+          <TableListProofs purchaseId={purchaseId} />
         </Box>
       </Grid>
     </Container>

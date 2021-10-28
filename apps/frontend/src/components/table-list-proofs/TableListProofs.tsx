@@ -1,79 +1,29 @@
 import {
   Box,
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { useStyles } from './table-list-proofs-styles';
+import dayjs from 'dayjs';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
+import { FC } from 'react';
+import { useStyles } from './TableListProofs.styles';
 import { ReactComponent as TickIcon } from '../../assets/svg/tick.svg';
 import { ReactComponent as DownloadIcon } from '../../assets/svg/download.svg';
-import ButtonDetails from '../button-details/button-details';
-import { useState } from 'react';
+import { useTableListProofsEffects } from './TableListProofs.effects';
 
-
-interface ProofsType {
-  id: string;
-  date: string;
-  type: string;
-  amount: string;
-  sellerAddress: string;
-  buyerAddress: string;
-  proofTransaction: string;
+interface TableListProofsProps {
+  purchaseId: string;
 }
 
-//mock data will be deleted after backend is created
-const tableData: ProofsType[] = [
-  {
-    id: '04a7155d-ced1-4981-8660-48670a0735dd',
-    date: '2020.12.11',
-    type: 'Requested Certification',
-    amount: '740 RECs',
-    sellerAddress: '0xABC...XYZ',
-    buyerAddress: '0xQU3R...ACT2',
-    proofTransaction: '0xQU3R...ACT2',
-  },
-
-  {
-    id: '04a7155d-ced1-4981-8660-48670a0735rt',
-    date: '2025.12.11',
-    type: 'Transferred ownership',
-    amount: '200 RECs',
-    sellerAddress: '0xABC...www',
-    buyerAddress: '0xQU3R...ACT2',
-    proofTransaction: '0xQU3R...ACT2',
-  },
-
-  {
-    id: '04a7155d-ced1-4981-8660-48670a073yut',
-    date: '2025.12.11',
-    type: 'Certificates issued',
-    amount: '350 RECs',
-    sellerAddress: '0xABC...www',
-    buyerAddress: '0xQU3R...ACT2',
-    proofTransaction: '0xQU3R...ACT2',
-  },
-  {
-    id: '04a7155d-ced1-4981-8660-48670a073uop',
-    date: '2025.12.11',
-    type: 'Certificates requested',
-    amount: '600 RECs',
-    sellerAddress: '0xABC...www',
-    buyerAddress: '0xQU3R...ACT2',
-    proofTransaction: '0xQU3R...ACT2',
-  },
-];
-
-export const TableListProofs = () => {
+export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
   const styles = useStyles();
+  const { blockchainEvents, isLoading } = useTableListProofsEffects(purchaseId);
 
-  const [isButtonUp, setIsButtonUp] = useState(false);
-
-  const showTable = () => {
-    setIsButtonUp(!isButtonUp);
-  };
+  if (isLoading) return <CircularProgress />
 
   return (
     <Box>
@@ -88,22 +38,15 @@ export const TableListProofs = () => {
         >
           BLOCKCHAIN PROOFS {'&'} HISTORY
         </Typography>
-        <Box mr="40px" width="100px" height="50px">
-          <ButtonDetails
-            name="Details"
-            onClick={showTable}
-            isButtonUp={isButtonUp}
-          />
-        </Box>
       </Box>
-      {isButtonUp && (
         <Box className={styles.wrapper}>
           <Table className={styles.table}>
             <TableBody>
-              {tableData.map((el: ProofsType) => {
+              {blockchainEvents ?
+              blockchainEvents.map((event) => {
                 return (
                   <TableRow
-                    key={el.id}
+                    key={event.transactionHash}
                     sx={{ backgroundColor: variables.inputBackgroundColor }}
                   >
                     <Box
@@ -117,14 +60,14 @@ export const TableListProofs = () => {
                         </span>
                         <span className={styles.dateCell}>
                           <span className={styles.thCell}>Date</span>
-                          <span>{el.date}</span>
+                          <span>{dayjs(event.timestamp!*1000).format('YYYY.MM.DD')}</span>
                         </span>
                       </TableCell>
                       <TableCell
                         className={styles.tbCell}
                         sx={{ display: 'flex', alignItems: 'center' }}
                       >
-                        <span className={styles.nameType}>{el.type}</span>
+                        <span className={styles.nameType}>{event.name}</span>
                       </TableCell>
                     </Box>
                     <Box
@@ -137,7 +80,8 @@ export const TableListProofs = () => {
                         sx={{ display: 'flex', flexDirection: 'column' }}
                       >
                         <span className={styles.thCell}>Amount</span>
-                        <span>{el.amount}</span>
+                        {/* have to clarify where to get it from */}
+                        <span>{'0000'}</span>
                       </TableCell>
                       <TableCell
                         className={styles.tbCell}
@@ -148,14 +92,14 @@ export const TableListProofs = () => {
                         }}
                       >
                         <span className={styles.thCell}>Seller Address</span>
-                        <span>{el.sellerAddress}</span>
+                        <span>{event.from}</span>
                       </TableCell>
                       <TableCell
                         className={styles.tbCell}
                         sx={{ display: 'flex', flexDirection: 'column' }}
                       >
                         <span className={styles.thCell}>Buyer Address</span>
-                        <span>{el.buyerAddress}</span>
+                        <span>{event.to}</span>
                       </TableCell>
                     </Box>
                     <Box>
@@ -167,7 +111,7 @@ export const TableListProofs = () => {
                           <span className={styles.thCell}>
                             Transaction proof
                           </span>
-                          <span>{el.proofTransaction}</span>
+                          <span>{event.transactionHash}</span>
                         </span>
                         <span className={styles.endIcon}>
                           <DownloadIcon />
@@ -176,11 +120,11 @@ export const TableListProofs = () => {
                     </Box>
                   </TableRow>
                 );
-              })}
+              })
+              : null}
             </TableBody>
           </Table>
         </Box>
-      )}
     </Box>
   );
 };
