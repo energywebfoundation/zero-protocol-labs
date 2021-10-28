@@ -32,8 +32,6 @@ export class FilecoinNodesController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('api-key'))
-  @ApiSecurity('api-key', ['api-key'])
   @ApiOkResponse({ type: [FilecoinNodeDto] })
   findAll() {
     return this.filecoinNodesService.findAll();

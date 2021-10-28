@@ -5,17 +5,19 @@ import { Box } from '@material-ui/core';
 export interface EthereumAddressProps {
   address: string;
   shortify?: boolean;
+  clipboard?: boolean;
 }
 
 export const EthereumAddress = ({
   shortify,
   address,
+  clipboard,
 }: EthereumAddressProps) => {
   if (address) {
     return (
       <Box title={address}>
         {shortify ? shortifyEthAddr(address) : address}
-        <CopyToClipboard value={address} />
+        {clipboard && <CopyToClipboard value={address} />}
       </Box>
     );
   } else return <div>NA</div>;

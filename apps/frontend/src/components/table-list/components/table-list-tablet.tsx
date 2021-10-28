@@ -13,6 +13,7 @@ import utc from 'dayjs/plugin/utc';
 import Info from '../../info/info';
 import { CertificateDto } from '@energyweb/zero-protocol-labs-api-client';
 import EthereumAddress from '../../ethereum-address/ethereum-address';
+import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 dayjs.extend(utc);
 
@@ -33,7 +34,7 @@ export const TableListTablet = ({
     <Box
       boxShadow={'none'}
       borderRadius={'5px'}
-      bgcolor={'#F6F3F9'}
+      bgcolor={variables.defaultBackgroundColor}
       mb={2}
       p={2}
       pt={0}
@@ -70,10 +71,15 @@ export const TableListTablet = ({
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
+        <TableBody
+          sx={{
+            borderRadius: '5px',
+            backgroundColor: variables.mainBackgroundColor,
+          }}
+        >
           <TableRow>
             <TableCell className={styles.tbCell}>
-              <EthereumAddress shortify address={sellerId} />
+              <EthereumAddress shortify clipboard address={sellerId} />
             </TableCell>
             <TableCell className={styles.tbCell}>
               {data.generatorName ?? '-'}
@@ -116,7 +122,12 @@ export const TableListTablet = ({
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody sx={{ borderRadius: '5px', backgroundColor: '#fff' }}>
+        <TableBody
+          sx={{
+            borderRadius: '5px',
+            backgroundColor: variables.mainBackgroundColor,
+          }}
+        >
           <TableRow>
             <TableCell className={styles.tbCell}>
               <FuelType fuelType={data.energySource as FuelTypeEnum} />

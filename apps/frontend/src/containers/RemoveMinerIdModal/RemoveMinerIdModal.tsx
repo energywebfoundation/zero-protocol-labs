@@ -1,7 +1,7 @@
-import { Box, Button, Modal, Paper, Typography } from '@material-ui/core';
+import { ProtocolTypeEnumType } from '@energyweb/zero-protocol-labs-api-client';
+import { Box, Button, Modal, Paper, Typography, useTheme} from '@material-ui/core';
 import { FC } from 'react';
 import { useSelectedProtocolStore } from '../../context';
-import { ProtocolsEnum } from '../../utils';
 import { useStyles } from './RemoveMinerIdModal.styles';
 
 interface RemoveMinerIdModalProps {
@@ -12,20 +12,30 @@ interface RemoveMinerIdModalProps {
 }
 
 export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
-  open, id, handleClose, handleRemove
+  open,
+  id,
+  handleClose,
+  handleRemove,
 }) => {
   const selectedProtocol = useSelectedProtocolStore();
-  const isFilecoin = selectedProtocol === ProtocolsEnum.Filecoin;
+  const isFilecoin = selectedProtocol === ProtocolTypeEnumType.FILECOIN;
   const classes = useStyles({ isFilecoin });
+  const theme = useTheme();
   return (
     <Modal open={open} onClose={handleClose}>
       <Paper className={classes.wrapper}>
-        <Typography color="primary" variant="h5" component="span" textAlign='center'>
+        <Typography
+          color="primary"
+          variant="h5"
+          component="span"
+          textAlign="center"
+          fontSize={theme.breakpoints.down('sm') ? '16px' : undefined}
+        >
           Are you sure you want to remove this Miner ID / Address ?
         </Typography>
-        <Box mt={'20px'}>
+        <Box className={classes.buttonGroup}>
           <Button
-            sx={{ mr: '15px' }}
+            className={classes.buttonCancel}
             variant="contained"
             onClick={handleClose}
             classes={{ contained: classes.button }}
@@ -42,5 +52,5 @@ export const RemoveMinerIdModal: FC<RemoveMinerIdModalProps> = ({
         </Box>
       </Paper>
     </Modal>
-  )
-}
+  );
+};

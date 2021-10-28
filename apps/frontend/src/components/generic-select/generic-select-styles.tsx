@@ -37,6 +37,16 @@ export const useStyles = makeStyles({
       outline: 'none',
     },
   },
+  iconStyles: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: '8px',
+    width: '31px',
+    height: '31px',
+    borderRadius: '50%',
+    backgroundColor: variables.white,
+  },
 });
 
 export default useStyles;

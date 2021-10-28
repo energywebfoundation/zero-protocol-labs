@@ -1,7 +1,7 @@
 import HelpOutline from '@material-ui/icons/HelpOutline';
 import { ReactElement, ReactNode } from 'react';
 import PopOver from '../pop-over/pop-over';
-import { Box } from '@material-ui/core';
+import { Box, BoxProps } from '@material-ui/core';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 
 export interface InfoProps {
@@ -10,10 +10,8 @@ export interface InfoProps {
   popoverContent?: string;
   children: ReactNode;
   hideTimeout?: number;
-  fontSize?: number;
-  color?: string;
-  fontWeight?: number;
   isFilecoin?: boolean;
+  boxProps?: BoxProps;
 }
 
 export const Info = ({
@@ -22,18 +20,11 @@ export const Info = ({
   popoverContent,
   children,
   hideTimeout,
-  fontSize,
-  color,
-  fontWeight,
   isFilecoin,
+  boxProps,
 }: InfoProps) => {
   return !noIcon ? (
-    <Box
-      component={'span'}
-      fontSize={fontSize}
-      color={color}
-      fontWeight={fontWeight}
-    >
+    <Box component={'span'} {...boxProps}>
       {children}
       {
         <PopOver

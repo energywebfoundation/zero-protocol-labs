@@ -5,9 +5,9 @@ import {
   TextField,
   Button,
   IconButton,
+  Box,
 } from '@material-ui/core';
 import useStyles from './form-user-type.styles';
-import { Box } from '@material-ui/system';
 import { Countries } from '@energyweb/utils-general';
 import React from 'react';
 import BasicDatePicker from 'apps/frontend/src/components/date-picker/date-picker';
@@ -34,43 +34,50 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
   setFieldValue,
   id,
   values,
-  handleSectionRemove
+  handleSectionRemove,
 }) => {
   const styles = useStyles();
   const [sectionOpen, setSectionOpen] = React.useState<boolean>(false);
 
   const amountOfEnergyFields =
     values[`generalEndDate_${id}`] && values[`generalStartDate_${id}`]
-    ? (values[`generalEndDate_${id}`] as Dayjs).year()
-      - (values[`generalStartDate_${id}`] as Dayjs).year()
-    : -1;
+      ? (values[`generalEndDate_${id}`] as Dayjs).year() -
+        (values[`generalStartDate_${id}`] as Dayjs).year()
+      : -1;
 
   const buttonClick = () => {
-    if(amountOfEnergyFields >= 0) {
-      setSectionOpen(!sectionOpen)
+    if (amountOfEnergyFields >= 0) {
+      setSectionOpen(!sectionOpen);
     }
     return;
   };
 
   return (
-      <FormControl className={styles.form}>
-        <Box p={"13px 16px 20px 16px"}>
-        <Box >
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+    <FormControl className={styles.form}>
+      <Box p={'16px'}>
+        <Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Info
               isFilecoin={isFilecoin}
-              color={variables.black}
-              fontSize={variables.fontSize}
-              fontWeight={600}
               hideTimeout={1000}
+              boxProps={{
+                fontSize: variables.fontSize,
+                fontWeight: 600,
+                color: variables.black,
+              }}
               popoverContentElement={<div>Miner IDs / Address </div>}
             >
               {isFilecoin && 'Miner IDs /'} Address
             </Info>
-            {handleSectionRemove ?
-            <IconButton onClick={() => handleSectionRemove(id)}>
-              <Clear fontSize="small" />
-            </IconButton> : null}
+            {handleSectionRemove ? (
+              <IconButton onClick={() => handleSectionRemove(id)}>
+                <Clear fontSize="small" />
+              </IconButton>
+            ) : null}
           </Box>
           <TextField
             fullWidth
@@ -91,22 +98,20 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
           >
             Country
           </Typography>
-          <Box width={464} maxWidth={'100%'}>
+          <Box maxWidth={'100%'}>
             <SelectAutocomplete
               value={values[`country_${id}`]}
               handleChange={(value) => setFieldValue(`country_${id}`, value)}
-              options={Countries.map(country => ({ value: country.code, title: country.name }))}
-              placeholder='Select country'
+              options={Countries.map((country) => ({
+                value: country.code,
+                title: country.name,
+              }))}
+              placeholder="Select country"
               isFilecoin={!!isFilecoin}
             />
           </Box>
-          <Box
-            display={'flex'}
-            mt={'24px'}
-            alignItems={'flex-end'}
-            justifyContent={'space-between'}
-          >
-            <Box width={'192px'}>
+          <Box className={styles.wrapperDate}>
+            <Box className={styles.blockDate}>
               <Typography
                 color={variables.black}
                 fontSize={variables.fontSize}
@@ -119,10 +124,12 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
               <BasicDatePicker
                 isFilecoin={isFilecoin}
                 value={values[`generalStartDate_${id}`] || ''}
-                setValue={(value) => setFieldValue(`generalStartDate_${id}`, value)}
+                setValue={(value) =>
+                  setFieldValue(`generalStartDate_${id}`, value)
+                }
               />
             </Box>
-            <Box width={'192px'}>
+            <Box className={styles.blockDate}>
               <Typography
                 color={variables.black}
                 fontSize={variables.fontSize}
@@ -135,10 +142,12 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
               <BasicDatePicker
                 isFilecoin={isFilecoin}
                 value={values[`generalEndDate_${id}`] || ''}
-                setValue={(value) => setFieldValue(`generalEndDate_${id}`, value)}
+                setValue={(value) =>
+                  setFieldValue(`generalEndDate_${id}`, value)
+                }
               />
             </Box>
-            <Box>
+            <Box className={styles.blockBtn}>
               <Button
                 onClick={buttonClick}
                 className={
@@ -153,21 +162,36 @@ export const FormUserType: React.FC<FormUserTypeProps> = ({
             </Box>
           </Box>
         </Box>
-        </Box>
-        <Box bgcolor={variables.white}>
-          {sectionOpen && (
-            <Box p={' 0 8px 8px 8px'}>
-              <DateEnergySection
-                id={id}
-                handleFormikChange={handleFormikChange}
-                isFilecoin={isFilecoin}
-                setFieldValue={setFieldValue}
-                amountOfFields={amountOfEnergyFields}
-                values={values}
-              />
-            </Box>
-          )}
       </Box>
-      </FormControl>
+      <Box p={' 0 8px 8px 8px'} bgcolor={variables.white}>
+        <Box className={styles.sectionBtn}>
+          <Button
+            onClick={buttonClick}
+            sx={{
+              borderRadius: `${
+                sectionOpen && !isFilecoin && '5px 5px 0 0 !important'
+              }`,
+            }}
+            className={
+              isFilecoin ? styles.buttonStyle : styles.buttonGreenStyle
+            }
+          >
+            <img className={`${sectionOpen && styles.icon}`} src={ButtonIcon} />
+          </Button>
+        </Box>
+        {sectionOpen && (
+          <Box>
+            <DateEnergySection
+              id={id}
+              handleFormikChange={handleFormikChange}
+              isFilecoin={isFilecoin}
+              setFieldValue={setFieldValue}
+              amountOfFields={amountOfEnergyFields}
+              values={values}
+            />
+          </Box>
+        )}
+      </Box>
+    </FormControl>
   );
 };

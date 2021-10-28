@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Buyer } from "@prisma/client";
 import { FilecoinNodeDto } from "../../filecoin-nodes/dto/filecoin-node.dto";
 
@@ -8,6 +8,9 @@ export class BuyerDto implements Buyer{
 
   @ApiProperty({ example: '-' })
   name: string;
+
+  @ApiPropertyOptional({ example: '0x9442ED348b161af888e6cB999951aE8b961F7B4B' })
+  blockchainAddress: string;
 
   @ApiProperty({ type: [FilecoinNodeDto] })
   filecoinNodes: FilecoinNodeDto[]
