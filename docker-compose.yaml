@@ -31,6 +31,7 @@ services:
       API_BASE_URL: http://localhost:3333
       ISSUER_API_BASE_URL: http://issuer-api:3333
       FILES_BASE_URL: http://localhost:3333/api/files
+      ISSUER_CHAIN_ADDRESS: "0xD173313A51f8fc37BcF67569b463abd89d81844f"
     volumes:
       - 'zero-pl-backend-tmp:/tmp'
     networks:
@@ -48,6 +49,7 @@ services:
       DATABASE_URL: "postgresql://postgres:postgres@db-issuer:5432/issuer"
       WEB3: http://ganache:8545
       MNEMONIC: "chalk park staff buzz chair purchase wise oak receive avoid avoid home"
+      ISSUER_CHAIN_ADDRESS: "0xD173313A51f8fc37BcF67569b463abd89d81844f"
     networks:
       zero-pl:
 
