@@ -23,7 +23,7 @@ export const ProductPage = () => {
   return !isLoading && isFetched && data ? (
     <Container maxWidth={'xl'}>
       <Grid container>
-        <Box>
+        <Box sx={{ width: '100%' }}>
           <Grid item xs={12}>
             <Breadcrumbs
               breadcrumbList={[

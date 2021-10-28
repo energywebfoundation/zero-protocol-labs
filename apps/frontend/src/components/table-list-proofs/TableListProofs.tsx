@@ -10,10 +10,11 @@ import {
 import dayjs from 'dayjs';
 import { variables } from '@energyweb/zero-protocol-labs-theme';
 import { FC } from 'react';
-import { useStyles } from './TableListProofs.styles';
+import EthereumAddress from '../ethereum-address/ethereum-address';
 import { ReactComponent as TickIcon } from '../../assets/svg/tick.svg';
-import { ReactComponent as DownloadIcon } from '../../assets/svg/download.svg';
+import clsx from 'clsx';
 import { useTableListProofsEffects } from './TableListProofs.effects';
+import { useStyles } from './TableListProofs.styles';
 
 interface TableListProofsProps {
   purchaseId: string;
@@ -26,8 +27,8 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
   if (isLoading) return <CircularProgress />
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+    <Box mb={4}>
+      <Box display="flex" alignItems="center">
         <Typography
           mt={'30px'}
           mb={'18px'}
@@ -49,11 +50,6 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                     key={event.transactionHash}
                     sx={{ backgroundColor: variables.inputBackgroundColor }}
                   >
-                    <Box
-                      minWidth="460px"
-                      display="flex"
-                      justifyContent="flex-start"
-                    >
                       <TableCell className={styles.tbCell}>
                         <span className={styles.startIcon}>
                           <TickIcon />
@@ -64,24 +60,17 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                         </span>
                       </TableCell>
                       <TableCell
-                        className={styles.tbCell}
+                        className={clsx(styles.tbCell, styles.nameCell)}
                         sx={{ display: 'flex', alignItems: 'center' }}
                       >
                         <span className={styles.nameType}>{event.name}</span>
                       </TableCell>
-                    </Box>
-                    <Box
-                      minWidth="500px"
-                      display="flex"
-                      justifyContent="space-between"
-                    >
                       <TableCell
-                        className={styles.tbCell}
+                        className={clsx(styles.tbCell, styles.amountCell)}
                         sx={{ display: 'flex', flexDirection: 'column' }}
                       >
                         <span className={styles.thCell}>Amount</span>
-                        {/* have to clarify where to get it from */}
-                        <span>{'0000'}</span>
+                        <span>{event.recs} RECs</span>
                       </TableCell>
                       <TableCell
                         className={styles.tbCell}
@@ -91,18 +80,18 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                           minWidth: '140px',
                         }}
                       >
-                        <span className={styles.thCell}>Seller Address</span>
-                        <span>{event.from}</span>
+                        <span className={clsx(styles.thCell, styles.sellerCell)}>
+                          Seller Address
+                        </span>
+                        <EthereumAddress shortify clipboard address={event.from ?? ''} />
                       </TableCell>
                       <TableCell
                         className={styles.tbCell}
                         sx={{ display: 'flex', flexDirection: 'column' }}
                       >
                         <span className={styles.thCell}>Buyer Address</span>
-                        <span>{event.to}</span>
+                        <EthereumAddress shortify clipboard address={event.to ?? ''} />
                       </TableCell>
-                    </Box>
-                    <Box>
                       <TableCell
                         className={styles.tbCell}
                         sx={{ marginRight: '22px' }}
@@ -111,13 +100,9 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                           <span className={styles.thCell}>
                             Transaction proof
                           </span>
-                          <span>{event.transactionHash}</span>
-                        </span>
-                        <span className={styles.endIcon}>
-                          <DownloadIcon />
+                          <EthereumAddress shortify clipboard address={event.transactionHash ?? ''} />
                         </span>
                       </TableCell>
-                    </Box>
                   </TableRow>
                 );
               })

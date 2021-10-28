@@ -41,6 +41,15 @@ export const useStyles = makeStyles({
     marginLeft: '22px',
     marginTop: '20px',
   },
+  amountCell: {
+    width: 130
+  },
+  sellerCell: {
+    width: 130
+  },
+  nameCell: {
+    width: 230
+  },
   startIcon: {
     marginLeft: '34px',
     marginTop: '5px',
