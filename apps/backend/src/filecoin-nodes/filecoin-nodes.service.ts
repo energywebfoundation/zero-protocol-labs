@@ -1,56 +1,15 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateFilecoinNodeDto } from './dto/create-filecoin-node.dto';
 import { UpdateFilecoinNodeDto } from './dto/update-filecoin-node.dto';
-import { PrismaService } from '../prisma/prisma.service';
-import { FilecoinNodeDto } from './dto/filecoin-node.dto';
-import { FilecoinNode } from '@prisma/client';
-import { IssuerService } from '../issuer/issuer.service';
+import { PrismaService } from "../prisma/prisma.service";
+import { FilecoinNodeDto } from "./dto/filecoin-node.dto";
 
 @Injectable()
 export class FilecoinNodesService {
-  private readonly logger = new Logger(FilecoinNodesService.name, { timestamp: true });
-
-  constructor(
-    private prisma: PrismaService,
-    private issuerService: IssuerService
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createFilecoinNodeDto: CreateFilecoinNodeDto) {
-    let newFilecoinNode: FilecoinNode;
-    await this.prisma.$transaction(async (prisma) => {
-      try {
-        newFilecoinNode = await prisma.filecoinNode.create({ data: createFilecoinNodeDto });
-      } catch (err) {
-        this.logger.error(`error creating a new filecoin node: ${err}`);
-        throw err;
-      }
-
-      let blockchainAddress: string;
-
-      try {
-        blockchainAddress = (await this.issuerService.getAccount()).blockchainAddress;
-        this.logger.debug(`gathered blockchainAddress: ${blockchainAddress} for filecoin node (${newFilecoinNode.id})`);
-      } catch (err) {
-        this.logger.error(`error gathering blockchain account: ${err}`);
-        throw err;
-      }
-
-      try {
-        await prisma.filecoinNode.update({
-          data: { blockchainAddress },
-          where: { id: newFilecoinNode.id }
-        });
-      } catch (err) {
-        this.logger.error(`error setting blockchain address for buyer ${newFilecoinNode.id}: ${err}`);
-        throw err;
-      }
-
-    }, { timeout: 60000 }).catch((err) => {
-      this.logger.error('rolling back transaction');
-      throw err;
-    });
-
-    return new FilecoinNodeDto(await this.prisma.filecoinNode.findUnique({ where: { id: newFilecoinNode.id } }));
+    return new FilecoinNodeDto(await this.prisma.filecoinNode.create({ data: createFilecoinNodeDto }));
   }
 
   async findAll() {
