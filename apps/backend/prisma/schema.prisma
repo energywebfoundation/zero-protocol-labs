@@ -21,19 +21,26 @@ model File {
 }
 
 model Buyer {
-  id            String         @id @default(uuid())
-  name          String?
-  purchase      Purchase[]
-  filecoinNodes FilecoinNode[]
+  id                String         @id @default(uuid())
+  name              String?
+  blockchainAddress String?
+  purchase          Purchase[]
+  filecoinNodes     FilecoinNode[]
+
+  @@unique([blockchainAddress])
 }
 
 model Seller {
-  id            String     @id @default(uuid())
-  name          String
-  addressLine1  String
-  addressLine2  String?
-  contactPerson String?
-  purchase      Purchase[]
+  id                String        @id @default(uuid())
+  name              String
+  addressLine1      String
+  addressLine2      String?
+  contactPerson     String?
+  blockchainAddress String?
+  purchase          Purchase[]
+  certificates      Certificate[]
+
+  @@unique([blockchainAddress])
 }
 
 model Certificate {
@@ -44,20 +51,25 @@ model Certificate {
   energySource    String
   generationStart DateTime?
   generationEnd   DateTime?
+  txHash          String?
   purchase        Purchase[]
+  seller          Seller     @relation(fields: [initialSellerId], references: [id])
+  initialSellerId String
 }
 
 model FilecoinNode {
-  id        String                     @id
-  Buyer     Buyer?                     @relation(fields: [buyerId], references: [id])
-  buyerId   String
-  purchases FilecoinNodesOnPurchases[]
+  id                String                     @id
+  Buyer             Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId           String
+  blockchainAddress String?
+  purchases         FilecoinNodesOnPurchases[]
 
   @@unique([id, buyerId])
 }
 
 model Purchase {
   id               String                     @id @default(uuid())
+  txHash           String?
   certificate      Certificate                @relation(fields: [certificateId], references: [id])
   certificateId    String
   buyer            Buyer?                     @relation(fields: [buyerId], references: [id])
@@ -81,6 +93,7 @@ model FilecoinNodesOnPurchases {
   buyerId        String
 
   @@id([purchaseId, filecoinNodeId, buyerId])
+  @@unique([purchaseId, filecoinNodeId])
 }
 
 model Order {
