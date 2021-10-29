@@ -22,9 +22,6 @@ export class PurchaseDto { // TODO: should implement Purchase interface
   @ApiProperty({ example: '4bfce36e-3fcd-4a41-b752-94a5298b8eb6' })
   id: string;
 
-  @ApiProperty({ example: '0x8a65e2f074e08dbf23de0e757a63b5aab53fe38109084d1be7e15943263a90d0' })
-  txHash: string;
-
   @ApiProperty({ example: 'https://zero.energyweb.org/partners/filecoin/purchases/4bfce36e-3fcd-4a41-b752-94a5298b8eb6' })
   pageUrl: string;
 

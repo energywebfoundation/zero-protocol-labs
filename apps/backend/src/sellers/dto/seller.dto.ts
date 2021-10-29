@@ -1,7 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Seller } from '@prisma/client';
+import { ApiProperty } from "@nestjs/swagger";
+import { Seller } from "@prisma/client";
 
-export class SellerDto implements Seller {
+export class SellerDto implements Seller{
   @ApiProperty({ example: '59f4b540-373b-452f-9145-dae41afa1977' })
   id: string;
 
@@ -16,9 +16,6 @@ export class SellerDto implements Seller {
 
   @ApiProperty({ example: 'Paul Atreides' })
   contactPerson: string;
-
-  @ApiPropertyOptional({ example: '0xd46aC0Bc23dB5e8AfDAAB9Ad35E9A3bA05E092E8' })
-  blockchainAddress: string;
 
   constructor(partial: Partial<SellerDto>) {
     Object.assign(this, partial);

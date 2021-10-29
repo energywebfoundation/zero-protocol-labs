@@ -1,61 +1,16 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateBuyerDto } from './dto/create-buyer.dto';
 import { UpdateBuyerDto } from './dto/update-buyer.dto';
-import { BuyerDto } from './dto/buyer.dto';
-import { PrismaService } from '../prisma/prisma.service';
-import { FilecoinNodeDto } from '../filecoin-nodes/dto/filecoin-node.dto';
-import { IssuerService } from '../issuer/issuer.service';
-import { Buyer } from '@prisma/client';
+import { BuyerDto } from "./dto/buyer.dto";
+import { PrismaService } from "../prisma/prisma.service";
+import { FilecoinNodeDto } from "../filecoin-nodes/dto/filecoin-node.dto";
 
 @Injectable()
 export class BuyersService {
-  private readonly logger = new Logger(BuyersService.name, { timestamp: true });
-
-  constructor(
-    private prisma: PrismaService,
-    private issuerService: IssuerService
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createBuyerDto: CreateBuyerDto) {
-    let newBuyer: Buyer;
-
-    this.logger.debug(`payload: ${JSON.stringify(createBuyerDto)}`);
-
-    await this.prisma.$transaction(async (prisma) => {
-      try {
-        newBuyer = await prisma.buyer.create({ data: createBuyerDto });
-        this.logger.debug(`created a new buyer instance: ${newBuyer.id}`);
-      } catch (err) {
-        this.logger.error(`error creating a new buyer: ${err}`);
-        throw err;
-      }
-
-      let blockchainAddress: string;
-
-      try {
-        blockchainAddress = (await this.issuerService.getAccount()).blockchainAddress;
-        this.logger.debug(`gathered blockchainAddress: ${blockchainAddress} for buyer (${newBuyer.id})`);
-      } catch (err) {
-        this.logger.error(`error gathering blockchain account: ${err}`);
-        throw err;
-      }
-
-      try {
-        await prisma.buyer.update({
-          data: { blockchainAddress },
-          where: { id: newBuyer.id }
-        });
-      } catch (err) {
-        this.logger.error(`error setting blockchain address for buyer ${newBuyer.id}: ${err}`);
-        throw err;
-      }
-
-    }, { timeout: 60000 }).catch((err) => {
-      this.logger.error('rolling back transaction');
-      throw err;
-    });
-
-    return new BuyerDto(await this.prisma.buyer.findUnique({ where: { id: newBuyer.id } }));
+    return new BuyerDto(await this.prisma.buyer.create({ data: createBuyerDto }));
   }
 
   async findAll() {
