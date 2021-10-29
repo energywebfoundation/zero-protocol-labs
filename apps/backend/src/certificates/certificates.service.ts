@@ -59,10 +59,12 @@ export class CertificatesService {
         this.logger.error(`error setting transaction hash for the certificate: ${newCertificate.id}: ${err}`);
         throw err;
       }
-    }, { maxWait: 1000, timeout: 30000 }).catch((err) => {
+    }, { timeout: 120000 }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });
+
+    // TODO: we need criteria to know it is possible to go to a next cert. issuance
 
     return new CertificateDto(await this.prisma.certificate.findUnique({ where: { id: newCertificate.id } }));
   }

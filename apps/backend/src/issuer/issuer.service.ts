@@ -59,7 +59,7 @@ export class IssuerService {
 
   async issueCertificate(issueCertificateDTO: IssueCertificateDTO) {
     let lastAttempt: number = Date.now();
-    const timeout = 25000;
+    const timeout = 90000;
     const checkingInterval = 2000;
 
     const issuerApiIssueCertDTO = {
@@ -176,7 +176,7 @@ export class IssuerService {
 
   async claimCertificate(claimCertificateDTO: ClaimCertificateDTO) {
     let lastAttempt: number = Date.now();
-    const timeout = 25000;
+    const timeout = 60000;
     const checkingInterval = 1000;
     const numberOfRetries = Math.floor((lastAttempt - Date.now() + timeout) / checkingInterval);
 

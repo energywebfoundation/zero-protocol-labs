@@ -50,7 +50,7 @@ export class BuyersService {
         throw err;
       }
 
-    }).catch((err) => {
+    }, { timeout: 60000 }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });

@@ -46,7 +46,7 @@ export class SellersService {
         this.logger.error(`error setting blockchain address for seller ${newSeller.id}: ${err}`);
         throw err;
       }
-    }).catch((err) => {
+    }, { timeout: 60000 }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });
