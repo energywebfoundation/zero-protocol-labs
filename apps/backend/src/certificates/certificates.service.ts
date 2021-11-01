@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CertificateDto } from './dto/certificate.dto';
 import { IssuerService } from '../issuer/issuer.service';
 import { Certificate } from '@prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CertificatesService {
@@ -12,7 +13,8 @@ export class CertificatesService {
 
   constructor(
     private prisma: PrismaService,
-    private issuerService: IssuerService
+    private issuerService: IssuerService,
+    private readonly configService: ConfigService
   ) {}
 
   async create(createCertificateDto: CreateCertificateDto) {
@@ -59,7 +61,7 @@ export class CertificatesService {
         this.logger.error(`error setting transaction hash for the certificate: ${newCertificate.id}: ${err}`);
         throw err;
       }
-    }, { timeout: 120000 }).catch((err) => {
+    }, { timeout: this.configService.get('PG_TRANSACTION_TIMEOUT') }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });

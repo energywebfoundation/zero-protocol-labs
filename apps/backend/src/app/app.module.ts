@@ -37,7 +37,8 @@ import { OrdersModule } from "../orders/orders.module";
         API_BASE_URL: Joi.string().uri().default('http://localhost:3333'),
         FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files'),
         ISSUER_API_BASE_URL: Joi.string().default('http://localhost:3334'),
-        ISSUER_CHAIN_ADDRESS: Joi.string().required()
+        ISSUER_CHAIN_ADDRESS: Joi.string().required(),
+        PG_TRANSACTION_TIMEOUT: Joi.number().default(120000)
       })
     }),
     PrismaModule,

@@ -133,7 +133,7 @@ export class PurchasesService {
       });
 
       return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
-    }, { timeout: 120000 }).catch((err) => {
+    }, { timeout: this.configService.get('PG_TRANSACTION_TIMEOUT') }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });
