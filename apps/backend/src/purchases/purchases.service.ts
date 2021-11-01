@@ -133,7 +133,10 @@ export class PurchasesService {
       });
 
       return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
-    }, { timeout: 120000 });
+    }, { timeout: 120000 }).catch((err) => {
+      this.logger.error('rolling back transaction');
+      throw err;
+    });
   }
 
   async findAll() {
