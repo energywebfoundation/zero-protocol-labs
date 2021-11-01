@@ -39,7 +39,8 @@ import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
         FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files'),
         ISSUER_API_BASE_URL: Joi.string().default('http://localhost:3334'),
         ISSUER_CHAIN_ADDRESS: Joi.string().required(),
-        PG_TRANSACTION_TIMEOUT: Joi.number().default(120000)
+        PG_TRANSACTION_TIMEOUT: Joi.number().default(120000),
+        CHAIN_EVENTS_TTL: Joi.number().default(300)
       })
     }),
     PrismaModule,
