@@ -9,6 +9,7 @@
     "serve:backend": "nx serve backend",
     "serve:issuer-api": "PORT=$(grep ISSUER_API_PORT .env | cut -d \"=\" -f2 | tr -d '\"') DATABASE_URL=$(grep ISSUER_DATABASE_URL .env | cut -d \"=\" -f2 | tr -d '\"') nx serve issuer-api",
     "serve:frontend": "nx serve frontend --port=3000",
+    "start:no-frontend": "concurrently --names 'BACKEND,ISSUER_API' -c 'yellow,cyan' 'yarn serve:backend' 'yarn serve:issuer-api'",
     "build": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html  && nx run-many --target=build --projects=backend,frontend,issuer-api --parallel",
     "build:prod": "yarn swagger:schema:generate && yarn build:api-client && cp apps/frontend/src/index.html.template apps/frontend/src/index.html  && nx run-many --target=build --projects=backend,frontend,issuer-api --parallel --prod",
     "build:docker": "yarn build:prod && nx run-many --target=docker-image-build --projects=backend,frontend,issuer-api",
