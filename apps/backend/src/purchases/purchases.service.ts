@@ -224,7 +224,17 @@ export class PurchasesService {
 
   async getChainEvents(id: string) {
     const purchase = await this.prisma.purchase.findUnique({ where: { id } });
+
+    if (!purchase) {
+      throw new NotFoundException(`${id} purchase not found`);
+    }
+
     const certificate = await this.prisma.certificate.findUnique({ where: { id: purchase.certificateId } });
+
+    if (!certificate) {
+      throw new NotFoundException(`${purchase.certificateId} certificate not found`);
+    }
+
     const issuerApiCerData = await this.issuerService.getCertificateByTransactionHash(certificate.txHash);
 
     const events = (await this.issuerService.getCertificateEvents(issuerApiCerData.id))
