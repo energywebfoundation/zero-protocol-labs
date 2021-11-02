@@ -1,4 +1,5 @@
 FROM node:lts-alpine
+ENV NODE_ENV=production
 ENV FILES_STORAGE=/uploaded-files
 VOLUME ["/tmp"]
 WORKDIR /app

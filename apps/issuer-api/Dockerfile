@@ -1,4 +1,5 @@
 FROM node:lts-alpine
+ENV NODE_ENV=production
 ENV PORT=3333
 EXPOSE 3333/tcp
 WORKDIR /app
