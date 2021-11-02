@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -7,6 +7,7 @@ import { IssuerService } from '../issuer/issuer.service';
 import { CertificatesService } from '../certificates/certificates.service';
 import { BuyersService } from '../buyers/buyers.service';
 import { pick } from 'lodash';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class PurchasesService {
@@ -17,7 +18,8 @@ export class PurchasesService {
     private configService: ConfigService,
     private certificatesService: CertificatesService,
     private issuerService: IssuerService,
-    private buyersService: BuyersService
+    private buyersService: BuyersService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) {}
 
   async create(createPurchaseDto: CreatePurchaseDto) {
@@ -133,7 +135,10 @@ export class PurchasesService {
       });
 
       return { ...data, filecoinNodes: data.filecoinNodes.map(n => n.filecoinNode) };
-    }, { timeout: 120000 });
+    }, { timeout: this.configService.get('PG_TRANSACTION_TIMEOUT') }).catch((err) => {
+      this.logger.error('rolling back transaction');
+      throw err;
+    });
   }
 
   async findAll() {
@@ -221,59 +226,84 @@ export class PurchasesService {
 
   async getChainEvents(id: string) {
     const purchase = await this.prisma.purchase.findUnique({ where: { id } });
-    const certificate = await this.prisma.certificate.findUnique({ where: { id: purchase.certificateId } });
-    const issuerApiCerData = await this.issuerService.getCertificateByTransactionHash(certificate.txHash);
 
-    const events = (await this.issuerService.getCertificateEvents(issuerApiCerData.id))
-      .filter((event) => event.name === 'TransferSingle')
-      .map(e => ({
-        ...e,
-        date: new Date(e.timestamp * 1000),
-        recs: e.value ? BigInt(e.value.hex).toString() : undefined
-      }))
-      .map((event) => pick(event, [
-        'name',
-        'timestamp',
-        'transactionHash',
-        'blockHash',
-        'from',
-        'to',
-        'recs'
-      ]));
-
-    const lastTransactionHash = purchase.txHash;
-
-    const indexOfClaimTransaction = events.findIndex((event) => {
-      return event.to === '0x0000000000000000000000000000000000000000' && event.transactionHash === lastTransactionHash;
-    });
-
-    const purchaseEvents = [];
-
-    if (indexOfClaimTransaction > -1) {
-      events[indexOfClaimTransaction].name = 'Certificate Redemption';
-      purchaseEvents.unshift(events[indexOfClaimTransaction]);
+    if (!purchase) {
+      throw new NotFoundException(`${id} purchase not found`);
     }
 
-    let cursor = indexOfClaimTransaction - 1;
+    const cacheKey = `purchase:${id}:chain-events`;
 
-    while (cursor > -1) {
-      const currentEvent = events[cursor];
-      const lastMatchedEvent = purchaseEvents[0];
+    const purchaseEventsCached = await this.cacheManager.get(cacheKey);
 
-      if (currentEvent.recs === events[indexOfClaimTransaction].recs && currentEvent.to === lastMatchedEvent.from) {
-        currentEvent.name = 'Transfer of Ownership';
-        purchaseEvents.unshift(currentEvent);
+    const certificate = await this.prisma.certificate.findUnique({ where: { id: purchase.certificateId } });
+
+    if (!certificate) {
+      throw new NotFoundException(`${purchase.certificateId} certificate not found`);
+    }
+
+    if (purchaseEventsCached) {
+      this.logger.debug(`cache hit (cacheKey=${cacheKey})`);
+      return purchaseEventsCached;
+    } else {
+      this.logger.debug(`cache miss (cacheKey=${cacheKey})`);
+
+      const issuerApiCerData = await this.issuerService.getCertificateByTransactionHash(certificate.txHash);
+
+      const events = (await this.issuerService.getCertificateEvents(issuerApiCerData.id))
+        .filter((event) => event.name === 'TransferSingle')
+        .map(e => ({
+          ...e,
+          date: new Date(e.timestamp * 1000),
+          recs: e.value ? BigInt(e.value.hex).toString() : undefined
+        }))
+        .map((event) => pick(event, [
+          'name',
+          'timestamp',
+          'transactionHash',
+          'blockHash',
+          'from',
+          'to',
+          'recs'
+        ]));
+
+      const lastTransactionHash = purchase.txHash;
+
+      const indexOfClaimTransaction = events.findIndex((event) => {
+        return event.to === '0x0000000000000000000000000000000000000000' && event.transactionHash === lastTransactionHash;
+      });
+
+      const purchaseEvents = [];
+
+      if (indexOfClaimTransaction > -1) {
+        events[indexOfClaimTransaction].name = 'Certificate Redemption';
+        purchaseEvents.unshift(events[indexOfClaimTransaction]);
       }
 
-      cursor--;
+      let cursor = indexOfClaimTransaction - 1;
+
+      while (cursor > -1) {
+        const currentEvent = events[cursor];
+        const lastMatchedEvent = purchaseEvents[0];
+
+        if (currentEvent.recs === events[indexOfClaimTransaction].recs && currentEvent.to === lastMatchedEvent.from) {
+          currentEvent.name = 'Transfer of Ownership';
+          purchaseEvents.unshift(currentEvent);
+        }
+
+        cursor--;
+      }
+
+      events[1].name = 'Transfer of Ownership';
+      purchaseEvents.unshift(events[1]); // transfer to escrow
+      events[0].name = 'On Chain Registration';
+      purchaseEvents.unshift(events[0]); // cert. issuance
+
+      const ttl = this.configService.get('CHAIN_EVENTS_TTL');
+      this.logger.debug(`saving data to cache (cacheKey=${cacheKey}, ttl=${ttl}s)`);
+      this.cacheManager.set(cacheKey, purchaseEvents, { ttl });
+
+      return purchaseEvents;
     }
-
-    events[1].name = 'Transfer of Ownership';
-    purchaseEvents.unshift(events[1]); // transfer to escrow
-    events[0].name = 'On Chain Registration';
-    purchaseEvents.unshift(events[0]); // cert. issuance
-
-    return purchaseEvents;
   }
 }
 

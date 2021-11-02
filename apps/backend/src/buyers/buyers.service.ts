@@ -6,6 +6,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { FilecoinNodeDto } from '../filecoin-nodes/dto/filecoin-node.dto';
 import { IssuerService } from '../issuer/issuer.service';
 import { Buyer } from '@prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BuyersService {
@@ -13,7 +14,8 @@ export class BuyersService {
 
   constructor(
     private prisma: PrismaService,
-    private issuerService: IssuerService
+    private issuerService: IssuerService,
+    private readonly configService: ConfigService
   ) {}
 
   async create(createBuyerDto: CreateBuyerDto) {
@@ -50,7 +52,7 @@ export class BuyersService {
         throw err;
       }
 
-    }, { timeout: 60000 }).catch((err) => {
+    }, { timeout: this.configService.get('PG_TRANSACTION_TIMEOUT') }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });

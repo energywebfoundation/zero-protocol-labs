@@ -81,7 +81,7 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                         }}
                       >
                         <span className={clsx(styles.thCell, styles.sellerCell)}>
-                          Seller Address
+                          From Address
                         </span>
                         <EthereumAddress shortify clipboard address={event.from ?? ''} />
                       </TableCell>
@@ -89,7 +89,7 @@ export const TableListProofs: FC<TableListProofsProps> = ({ purchaseId }) => {
                         className={styles.tbCell}
                         sx={{ display: 'flex', flexDirection: 'column' }}
                       >
-                        <span className={styles.thCell}>Buyer Address</span>
+                        <span className={styles.thCell}>To Address</span>
                         <EthereumAddress shortify clipboard address={event.to ?? ''} />
                       </TableCell>
                       <TableCell

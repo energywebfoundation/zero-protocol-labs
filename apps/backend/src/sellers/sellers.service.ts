@@ -5,6 +5,7 @@ import { SellerDto } from './dto/seller.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { IssuerService } from '../issuer/issuer.service';
 import { Seller } from '@prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class SellersService {
@@ -12,7 +13,8 @@ export class SellersService {
 
   constructor(
     private prisma: PrismaService,
-    private issuerService: IssuerService
+    private issuerService: IssuerService,
+    private readonly configService: ConfigService
   ) {}
 
   async create(createSellerDto: CreateSellerDto) {
@@ -46,7 +48,7 @@ export class SellersService {
         this.logger.error(`error setting blockchain address for seller ${newSeller.id}: ${err}`);
         throw err;
       }
-    }, { timeout: 60000 }).catch((err) => {
+    }, { timeout: this.configService.get('PG_TRANSACTION_TIMEOUT') }).catch((err) => {
       this.logger.error('rolling back transaction');
       throw err;
     });

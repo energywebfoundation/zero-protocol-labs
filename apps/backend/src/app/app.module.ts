@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +13,7 @@ import { SellersModule } from "../sellers/sellers.module";
 import { CertificatesModule } from "../certificates/certificates.module";
 import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
 import { OrdersModule } from "../orders/orders.module";
+import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
 
 @Module({
   imports: [
@@ -37,7 +38,9 @@ import { OrdersModule } from "../orders/orders.module";
         API_BASE_URL: Joi.string().uri().default('http://localhost:3333'),
         FILES_BASE_URL: Joi.string().uri().default('http://localhost:3333/api/files'),
         ISSUER_API_BASE_URL: Joi.string().default('http://localhost:3334'),
-        ISSUER_CHAIN_ADDRESS: Joi.string().required()
+        ISSUER_CHAIN_ADDRESS: Joi.string().required(),
+        PG_TRANSACTION_TIMEOUT: Joi.number().default(120000),
+        CHAIN_EVENTS_TTL: Joi.number().default(300)
       })
     }),
     PrismaModule,
@@ -53,4 +56,10 @@ import { OrdersModule } from "../orders/orders.module";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(HttpLoggerMiddleware)
+      .forRoutes('*');
+  }
+}

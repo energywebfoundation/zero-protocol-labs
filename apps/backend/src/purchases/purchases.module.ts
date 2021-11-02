@@ -1,12 +1,18 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
 import { PurchasesController } from './purchases.controller';
-import { IssuerService } from '../issuer/issuer.service';
-import { CertificatesService } from '../certificates/certificates.service';
-import { BuyersService } from '../buyers/buyers.service';
+import { CertificatesModule } from '../certificates/certificates.module';
+import { BuyersModule } from '../buyers/buyers.module';
+import { IssuerModule } from '../issuer/issuer.module';
 
 @Module({
+  imports: [
+    BuyersModule,
+    CacheModule.register(),
+    CertificatesModule,
+    IssuerModule
+  ],
   controllers: [PurchasesController],
-  providers: [PurchasesService, IssuerService, CertificatesService, BuyersService]
+  providers: [PurchasesService]
 })
 export class PurchasesModule {}
