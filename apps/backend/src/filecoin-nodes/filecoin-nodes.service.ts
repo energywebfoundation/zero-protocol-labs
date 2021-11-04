@@ -6,6 +6,7 @@ import { FilecoinNodeDto } from './dto/filecoin-node.dto';
 import { FilecoinNode } from '@prisma/client';
 import { IssuerService } from '../issuer/issuer.service';
 import { pick } from 'lodash';
+import { DateTime, Duration } from "luxon";
 
 @Injectable()
 export class FilecoinNodesService {
@@ -123,7 +124,9 @@ export class FilecoinNodesService {
               'generationEndTimezoneOffset',
               // 'txHash',
               // 'initialSellerId',
-            ])
+            ]),
+            generationStartWithOffset: toDateStringWithOffset(p.purchase.certificate.generationStart, p.purchase.certificate.generationStartTimezoneOffset),
+            generationEndWithOffset: toDateStringWithOffset(p.purchase.certificate.generationEnd, p.purchase.certificate.generationEndTimezoneOffset)
           }
         };
       })
@@ -173,9 +176,10 @@ export const transactionsSchema = {
               "generatorId": {type: "string"},
               "generatorName": {type: "string"},
               "generationStart": {type: "string", example: "2020-10-31T16:00:00.000Z"},
-              "generationStartTimezoneOffset": {type: "number"},
-              "generationEnd": {type: "string", example: "2021-06-01T15:59:59.999ZZ"},
-              "generationEndTimezoneOffset": {type: "number"},
+              "generationStartWithOffset": {type: "string", example: "2020-11-01T00:00:00.000+08:00"},
+              "generationStartTimezoneOffset": {type: "number", example: 480},
+              "generationEndWithOffset": {type: "string", example: "2021-06-02T23:59:59.999+08:00"},
+              "generationEndTimezoneOffset": {type: "number", example: 480},
             }
           }
         }
@@ -183,3 +187,19 @@ export const transactionsSchema = {
     }
   }
 };
+
+function toDateStringWithOffset(date: Date, offsetInMinutes: number): string {
+  return DateTime.fromJSDate(date).setZone(offsetToOffsetString(offsetInMinutes)).toISO();
+}
+
+function offsetToOffsetString(offsetInMinutes: number): string {
+  if (offsetInMinutes === 0) {
+    return 'UTC';
+  }
+
+  const dur = Duration.fromObject({ minutes: offsetInMinutes });
+
+  const { hours, minutes } = dur.shiftTo('hours', 'minutes').toObject();
+
+  return `UTC${offsetInMinutes > 0 ? '+' : '-'}${Math.abs(hours).toString()}:${Math.abs(minutes).toString().padStart(2, '0')}`;
+}
