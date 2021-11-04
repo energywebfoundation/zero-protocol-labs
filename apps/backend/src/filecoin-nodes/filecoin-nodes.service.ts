@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { FilecoinNodeDto } from './dto/filecoin-node.dto';
 import { FilecoinNode } from '@prisma/client';
 import { IssuerService } from '../issuer/issuer.service';
+import { pick } from 'lodash';
 
 @Injectable()
 export class FilecoinNodesService {
@@ -76,9 +77,19 @@ export class FilecoinNodesService {
   }
 
   async getTransactions(id: string) {
-    let data = await this.prisma.filecoinNode.findUnique({
+    const data = await this.prisma.filecoinNode.findUnique({
       where: { id },
-      include: { purchases: { include: { purchase: true } } }
+      include: {
+        purchases: {
+          include: {
+            purchase: {
+              include: {
+                certificate: true
+              }
+            }
+          }
+        }
+      }
     });
 
     if (!data) {
@@ -98,7 +109,22 @@ export class FilecoinNodesService {
           dataUrl: `${process.env.API_BASE_URL}/api/partners/filecoin/purchases/${p.purchase.id}`,
           sellerId: p.purchase.sellerId,
           recsSold: p.purchase.recsSold,
-          annually: p.purchase.recsTransactions
+          annually: p.purchase.recsTransactions,
+          generation: {
+            ...pick(p.purchase.certificate, [
+              // 'id',
+              'country',
+              'energySource',
+              'generatorId',
+              'generatorName',
+              'generationStart',
+              'generationStartTimezoneOffset',
+              'generationEnd',
+              'generationEndTimezoneOffset',
+              // 'txHash',
+              // 'initialSellerId',
+            ])
+          }
         };
       })
     };
@@ -137,6 +163,19 @@ export const transactionsSchema = {
                 year: { type: "number", example: 2020 },
                 amount: { type: "number", example: 3 }
               }
+            }
+          },
+          generation: {
+            type: "object",
+            properties: {
+              "country": {type: "string"},
+              "energySource": {type: "string"},
+              "generatorId": {type: "string"},
+              "generatorName": {type: "string"},
+              "generationStart": {type: "string", example: "2020-10-31T16:00:00.000Z"},
+              "generationStartTimezoneOffset": {type: "number"},
+              "generationEnd": {type: "string", example: "2021-06-01T15:59:59.999ZZ"},
+              "generationEndTimezoneOffset": {type: "number"},
             }
           }
         }
