@@ -1,13 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  ClassSerializerInterceptor,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
   UseInterceptors,
-  ClassSerializerInterceptor, UseGuards
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { FilecoinNodesService, transactionsSchema } from './filecoin-nodes.service';
 import { CreateFilecoinNodeDto } from './dto/create-filecoin-node.dto';
@@ -20,6 +23,7 @@ import { AuthGuard } from "@nestjs/passport";
 @Controller('/partners/filecoin/nodes')
 @ApiTags('Filecoin nodes')
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class FilecoinNodesController {
   constructor(private readonly filecoinNodesService: FilecoinNodesService) {}
 
