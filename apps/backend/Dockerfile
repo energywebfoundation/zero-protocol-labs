@@ -3,7 +3,7 @@ ENV NODE_ENV=production
 ENV FILES_STORAGE=/uploaded-files
 VOLUME ["/tmp"]
 WORKDIR /app
-RUN yarn global add prisma
+RUN yarn global add prisma@3.4.1
 COPY ./package.json .
 RUN yarn install
 COPY . .
