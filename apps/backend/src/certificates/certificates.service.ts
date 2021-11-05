@@ -41,8 +41,8 @@ export class CertificatesService {
           toSeller: seller.blockchainAddress,
           deviceId: createCertificateDto.generatorId,
           energy,
-          fromTime: createCertificateDto.generationStart,
-          toTime: createCertificateDto.generationEnd
+          fromTime: new Date(createCertificateDto.generationStart),
+          toTime: new Date(createCertificateDto.generationEnd)
         }));
 
         this.logger.debug(`issued a new certificate on chain: txHash=${txHash}`);
@@ -69,19 +69,44 @@ export class CertificatesService {
 
     // TODO: we need criteria to know it is possible to go to a next cert. issuance
 
-    return new CertificateDto(await this.prisma.certificate.findUnique({ where: { id: newCertificate.id } }));
+    const dbRecord = await this.prisma.certificate.findUnique({ where: { id: newCertificate.id } });
+
+    return new CertificateDto({
+      ...dbRecord,
+      generationStart: dbRecord.generationStart.toISOString(),
+      generationEnd: dbRecord.generationEnd.toISOString()
+    });
   }
 
   async findAll() {
-    return (await this.prisma.certificate.findMany()).map((r) => new CertificateDto(r));
+    return (await this.prisma.certificate.findMany()).map((dbRecord) => new CertificateDto({
+      ...dbRecord,
+      generationStart: dbRecord.generationStart.toISOString(),
+      generationEnd: dbRecord.generationEnd.toISOString()
+    }));
   }
 
-  async findOne(id: string) {
-    return new CertificateDto(await this.prisma.certificate.findUnique({ where: { id } }));
+  async findOne(id: string): Promise<CertificateDto | null> {
+    const dbRecord = await this.prisma.certificate.findUnique({
+      where: { id },
+      rejectOnNotFound: () => new NotFoundException(`certificateId=${id} not found`)
+    });
+
+    return new CertificateDto({
+      ...dbRecord,
+      generationStart: dbRecord.generationStart.toISOString(),
+      generationEnd: dbRecord.generationEnd.toISOString()
+    });
   }
 
   async update(id: string, updateCertificateDto: UpdateCertificateDto) {
-    return new CertificateDto(await this.prisma.certificate.update({ where: { id }, data: updateCertificateDto }));
+    const dbRecord = await this.prisma.certificate.update({ where: { id }, data: updateCertificateDto });
+
+    return new CertificateDto({
+      ...dbRecord,
+      generationStart: dbRecord.generationStart.toISOString(),
+      generationEnd: dbRecord.generationEnd.toISOString()
+    });
   }
 
   remove(id: string) {
