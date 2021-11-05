@@ -8,7 +8,9 @@ import {
   Patch,
   Post,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
@@ -22,6 +24,7 @@ import { purchaseEventsSchema } from './purchases.service';
 @Controller('/partners/filecoin/purchases')
 @ApiTags('Filecoin purchases')
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
 
