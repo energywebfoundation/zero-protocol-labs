@@ -1,19 +1,21 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Exclude, Expose } from "class-transformer";
-import { File } from '@prisma/client'
+import { IsMimeType, IsOptional, IsString, IsUUID } from 'class-validator';
 
-@Exclude()
 export class UpdateFileMetadataDto {
-  @ApiProperty({ example: 'certificate.pdf' })
-  @Expose()
+  @ApiPropertyOptional({ example: 'certificate.pdf' })
+  @IsString()
+  @IsOptional()
   fileName: string;
 
   @ApiProperty({ example: 'application/pdf' })
-  @Expose()
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsMimeType()
   mimeType: string;
 
-  @ApiPropertyOptional( { example: "3fc9c8da-4b6f-4976-be25-facfd13c5787" })
-  @Expose()
+  @ApiPropertyOptional({ example: '3fc9c8da-4b6f-4976-be25-facfd13c5787' })
+  @IsUUID()
+  @IsOptional()
   purchaseId: string;
 
   constructor(partial: Partial<UpdateFileMetadataDto>) {
