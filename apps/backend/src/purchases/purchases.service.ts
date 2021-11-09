@@ -20,9 +20,12 @@ export class PurchasesService {
     private issuerService: IssuerService,
     private buyersService: BuyersService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache
-  ) {}
+  ) {
+    this.logger.debug(`PG_TRANSACTION_TIMEOUT=${this.configService.get('PG_TRANSACTION_TIMEOUT') / 1000}s`);
+  }
 
   async create(createPurchaseDto: CreatePurchaseDto) {
+    this.logger.log(`received request to create a purchase: ${JSON.stringify(createPurchaseDto)}`);
     const { filecoinNodes, ...purchase } = createPurchaseDto;
 
     if (filecoinNodes && filecoinNodes.length > 1) {
@@ -36,7 +39,10 @@ export class PurchasesService {
     }
 
     return await this.prisma.$transaction(async (prisma) => {
-      const newRecord = await prisma.purchase.create({ data: purchase });
+      const newRecord = await prisma.purchase.create({ data: purchase }).catch(err => {
+        this.logger.error(`error creating a new purchase: ${err}`);
+        throw err;
+      });
 
       if (filecoinNodes) {
         await prisma.filecoinNodesOnPurchases.createMany({
@@ -45,6 +51,9 @@ export class PurchasesService {
             purchaseId: newRecord.id,
             filecoinNodeId: n.id
           }))
+        }).catch(err => {
+          this.logger.error(`error linking filecoin nodes to the new purchase: ${err}`);
+          throw err;
         });
       }
 
@@ -95,6 +104,9 @@ export class PurchasesService {
         await prisma.purchase.update({
           data: { txHash: txHash2 },
           where: { id: newRecord.id }
+        }).catch(err => {
+          this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+          throw err;
         });
 
         accountToRedeemFrom = filecoinNodeData.blockchainAddress;
@@ -103,6 +115,9 @@ export class PurchasesService {
         await prisma.purchase.update({
           data: { txHash: txHash1 },
           where: { id: newRecord.id }
+        }).catch(err => {
+          this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+          throw err;
         });
 
         accountToRedeemFrom = buyerData.blockchainAddress;
@@ -127,6 +142,9 @@ export class PurchasesService {
       await prisma.purchase.update({
         data: { txHash: txHashClaiming },
         where: { id: newRecord.id }
+      }).catch(err => {
+        this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+        throw err;
       });
 
       const data = await prisma.purchase.findUnique({

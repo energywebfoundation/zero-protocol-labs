@@ -97,12 +97,16 @@ export class IssuerService {
           return certData;
         });
 
+      this.logger.debug(`submitting ${certificate.id} certificate transfer: ${issueCertificateDTO.toSeller} -> ${this.configService.get('ISSUER_CHAIN_ADDRESS')}`);
+
       await this.transferCertificate({
         id: certificate.id,
         fromAddress: issueCertificateDTO.toSeller,
         toAddress: this.configService.get('ISSUER_CHAIN_ADDRESS'),
         amount: issueCertificateDTO.energy
       });
+
+      this.logger.debug(`submitted ${certificate.id} certificate transfer: ${issueCertificateDTO.toSeller} -> ${this.configService.get('ISSUER_CHAIN_ADDRESS')}`);
 
       return responseData;
     } catch (err) {
@@ -141,13 +145,17 @@ export class IssuerService {
   async transferCertificate(transferCertificateDTO: TransferCertificateDTO) {
     const { id, fromAddress } = transferCertificateDTO;
 
+    const requestPayload = {
+      to: transferCertificateDTO.toAddress,
+      amount: transferCertificateDTO.amount
+    };
+
     try {
+      this.logger.debug(`requesting PUT /certificate/${id}/transfer with ${JSON.stringify(requestPayload)}, fromAddress=${fromAddress}`);
+
       const res = await this.axiosInstance.put(
         `/certificate/${id}/transfer`,
-        {
-          to: transferCertificateDTO.toAddress,
-          amount: transferCertificateDTO.amount
-        },
+        requestPayload,
         { params: { fromAddress } }
       ).catch((err) => {
         this.logger.error(`PUT /certificate/${id}/transfer error response: ${err}`);
@@ -183,7 +191,7 @@ export class IssuerService {
     const { id, fromAddress, ...requestPayload } = claimCertificateDTO;
 
     try {
-      this.logger.debug(`requesting /certificate/${id}/claim with ${JSON.stringify(requestPayload)}`);
+      this.logger.debug(`requesting PUT /certificate/${id}/claim with ${JSON.stringify(requestPayload)}`);
 
       const res = await polly()
         .logger((err) => {

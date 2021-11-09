@@ -18,6 +18,7 @@ export class CertificatesService {
   ) {}
 
   async create(createCertificateDto: CreateCertificateDto) {
+    this.logger.log(`received request to create a certificate: ${JSON.stringify(createCertificateDto)}`);
     let newCertificate: Certificate;
 
     const { energy, ...newCertificateData } = createCertificateDto;
