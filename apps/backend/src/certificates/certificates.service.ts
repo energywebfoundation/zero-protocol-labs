@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
 import { UpdateCertificateDto } from './dto/update-certificate.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -22,6 +22,11 @@ export class CertificatesService {
     let newCertificate: Certificate;
 
     const { energy, ...newCertificateData } = createCertificateDto;
+
+    if (!(await this.prisma.seller.findUnique({ where: { id: newCertificateData.initialSellerId } }))) {
+      this.logger.warn(`attempt to create a certificate for non-existing sellerId=${newCertificateData.initialSellerId}`);
+      throw new NotFoundException(`sellerId=${newCertificateData.initialSellerId} not found`);
+    }
 
     await this.prisma.$transaction(async (prisma) => {
       try {
