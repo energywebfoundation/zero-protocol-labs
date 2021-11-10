@@ -5,6 +5,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { FilecoinNodeDto } from './dto/filecoin-node.dto';
 import { FilecoinNode } from '@prisma/client';
 import { IssuerService } from '../issuer/issuer.service';
+import { pick } from 'lodash';
+import { DateTime, Duration } from "luxon";
 
 @Injectable()
 export class FilecoinNodesService {
@@ -76,9 +78,19 @@ export class FilecoinNodesService {
   }
 
   async getTransactions(id: string) {
-    let data = await this.prisma.filecoinNode.findUnique({
+    const data = await this.prisma.filecoinNode.findUnique({
       where: { id },
-      include: { purchases: { include: { purchase: true } } }
+      include: {
+        purchases: {
+          include: {
+            purchase: {
+              include: {
+                certificate: true
+              }
+            }
+          }
+        }
+      }
     });
 
     if (!data) {
@@ -98,7 +110,24 @@ export class FilecoinNodesService {
           dataUrl: `${process.env.API_BASE_URL}/api/partners/filecoin/purchases/${p.purchase.id}`,
           sellerId: p.purchase.sellerId,
           recsSold: p.purchase.recsSold,
-          annually: p.purchase.recsTransactions
+          annually: p.purchase.recsTransactions,
+          generation: {
+            ...pick(p.purchase.certificate, [
+              // 'id',
+              'country',
+              'energySource',
+              'generatorId',
+              'generatorName',
+              'generationStart',
+              'generationStartTimezoneOffset',
+              'generationEnd',
+              'generationEndTimezoneOffset',
+              // 'txHash',
+              // 'initialSellerId',
+            ]),
+            generationStartWithOffset: toDateStringWithOffset(p.purchase.certificate.generationStart, p.purchase.certificate.generationStartTimezoneOffset),
+            generationEndWithOffset: toDateStringWithOffset(p.purchase.certificate.generationEnd, p.purchase.certificate.generationEndTimezoneOffset)
+          }
         };
       })
     };
@@ -138,9 +167,39 @@ export const transactionsSchema = {
                 amount: { type: "number", example: 3 }
               }
             }
+          },
+          generation: {
+            type: "object",
+            properties: {
+              "country": {type: "string"},
+              "energySource": {type: "string"},
+              "generatorId": {type: "string"},
+              "generatorName": {type: "string"},
+              "generationStart": {type: "string", example: "2020-10-31T16:00:00.000Z"},
+              "generationStartWithOffset": {type: "string", example: "2020-11-01T00:00:00.000+08:00"},
+              "generationStartTimezoneOffset": {type: "number", example: 480},
+              "generationEndWithOffset": {type: "string", example: "2021-06-02T23:59:59.999+08:00"},
+              "generationEndTimezoneOffset": {type: "number", example: 480},
+            }
           }
         }
       }
     }
   }
 };
+
+function toDateStringWithOffset(date: Date, offsetInMinutes: number): string {
+  return DateTime.fromJSDate(date).setZone(offsetToOffsetString(offsetInMinutes)).toISO();
+}
+
+function offsetToOffsetString(offsetInMinutes: number): string {
+  if (offsetInMinutes === 0) {
+    return 'UTC';
+  }
+
+  const dur = Duration.fromObject({ minutes: offsetInMinutes });
+
+  const { hours, minutes } = dur.shiftTo('hours', 'minutes').toObject();
+
+  return `UTC${offsetInMinutes > 0 ? '+' : '-'}${Math.abs(hours).toString()}:${Math.abs(minutes).toString().padStart(2, '0')}`;
+}
