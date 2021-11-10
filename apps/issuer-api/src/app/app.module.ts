@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from "@nestjs/config";
-import * as Joi from "joi";
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
 import { CertificateModule, entities as CertificateEntities } from '../certificate';
 import { BlockchainPropertiesModule, entities as BlockchainPropertiesEntities } from '../blockchain';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountModule } from "../account/account.module";
+import { AccountModule } from '../account/account.module';
 import { Account } from '../account/account.entity';
+import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
 
 const OriginAppTypeOrmModule = () => {
   const entities = [Account, ...CertificateEntities, ...BlockchainPropertiesEntities];
@@ -51,4 +52,10 @@ const OriginAppTypeOrmModule = () => {
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(HttpLoggerMiddleware)
+      .forRoutes('*');
+  }
+}

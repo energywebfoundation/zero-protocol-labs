@@ -23,7 +23,7 @@ import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 @Controller('/partners/filecoin/certificates')
 @ApiTags('Filecoin certificates')
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
-@UsePipes(new ValidationPipe({ transform: true }))
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 

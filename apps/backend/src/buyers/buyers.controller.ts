@@ -1,13 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  ClassSerializerInterceptor,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
   UseInterceptors,
-  ClassSerializerInterceptor, UseGuards
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { BuyersService } from './buyers.service';
 import { CreateBuyerDto } from './dto/create-buyer.dto';
@@ -20,6 +23,7 @@ import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
 @Controller('/partners/filecoin/buyers')
 @ApiTags('Filecoin buyers')
 @UseInterceptors(ClassSerializerInterceptor, NoDataInterceptor)
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class BuyersController {
   constructor(private readonly buyersService: BuyersService) {}
 

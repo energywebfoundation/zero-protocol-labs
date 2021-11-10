@@ -20,13 +20,25 @@ export class PurchasesService {
     private issuerService: IssuerService,
     private buyersService: BuyersService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache
-  ) {}
+  ) {
+    this.logger.debug(`PG_TRANSACTION_TIMEOUT=${this.configService.get('PG_TRANSACTION_TIMEOUT') / 1000}s`);
+  }
 
   async create(createPurchaseDto: CreatePurchaseDto) {
+    this.logger.log(`received request to create a purchase: ${JSON.stringify(createPurchaseDto)}`);
     const { filecoinNodes, ...purchase } = createPurchaseDto;
 
     if (filecoinNodes && filecoinNodes.length > 1) {
       throw new BadRequestException('only one filecoin node per transaction allowed');
+    }
+
+    if (filecoinNodes && filecoinNodes.length > 0) {
+      const existingFilecoinNodes = await this.prisma.filecoinNode.findMany({ where: { id: { in: filecoinNodes.map(n => n.id) } } });
+      if (filecoinNodes.length !== existingFilecoinNodes.length) {
+        const nonExistingFilecoinNodes = filecoinNodes.filter(n => existingFilecoinNodes.findIndex((en) => en.id === n.id) < 0)
+        this.logger.warn(`purchase submitted for non-existing filecoin nodes: ${nonExistingFilecoinNodes.map(n=>n.id).join()}`);
+        throw new NotFoundException();
+      }
     }
 
     const certData = await this.certificatesService.findOne(purchase.certificateId);
@@ -35,8 +47,44 @@ export class PurchasesService {
       throw new BadRequestException(`certificate has to be owned by transaction seller`);
     }
 
+    const chainCertData = await this.issuerService.getCertificateByTransactionHash(certData.txHash);
+
+    if (!chainCertData) {
+      throw new NotFoundException(`no chain data for certificate ${certData.id} (txHash=${certData.txHash})`);
+    }
+
+    this.logger.debug(`fetched certificate chain data: ${JSON.stringify(chainCertData)}`);
+
+    const buyerData = await this.buyersService.findOne(purchase.buyerId);
+
+    if (!buyerData) {
+      this.logger.warn(`purchase submitted for non-existing buyerId=${purchase.buyerId}`);
+      throw new NotFoundException(`buyerId=${purchase.buyerId} not found`);
+    }
+
+    if (!buyerData.blockchainAddress) {
+      throw new Error(`buyer ${purchase.buyerId} has no blockchain address assigned`);
+    }
+
+    if (filecoinNodes && filecoinNodes[0]) {
+
+      const filecoinNodesNotOwned = (await this.prisma.filecoinNode.findMany({
+        where: {
+          id: { in: filecoinNodes.map(n => n.id) },
+          buyerId: { not: purchase.buyerId }
+        }
+      }));
+
+      if (filecoinNodesNotOwned.length > 0) {
+        throw new BadRequestException(`filecoin nodes (${filecoinNodesNotOwned.map(n => n.id)}) have to be owned by the buyer`);
+      }
+    }
+
     return await this.prisma.$transaction(async (prisma) => {
-      const newRecord = await prisma.purchase.create({ data: purchase });
+      const newRecord = await prisma.purchase.create({ data: purchase }).catch(err => {
+        this.logger.error(`error creating a new purchase: ${err}`);
+        throw err;
+      });
 
       if (filecoinNodes) {
         await prisma.filecoinNodesOnPurchases.createMany({
@@ -45,24 +93,11 @@ export class PurchasesService {
             purchaseId: newRecord.id,
             filecoinNodeId: n.id
           }))
+        }).catch(err => {
+          this.logger.error(`error linking filecoin nodes to the new purchase: ${err}`);
+          throw err;
         });
       }
-
-      const chainCertData = await this.issuerService.getCertificateByTransactionHash(certData.txHash);
-
-      if (!chainCertData) {
-        throw new NotFoundException(`no chain data for certificate ${certData.id} (txHash=${certData.txHash})`);
-      }
-
-      this.logger.debug(`fetched certificate chain data: ${JSON.stringify(chainCertData)}`);
-
-      const buyerData = await this.buyersService.findOne(purchase.buyerId);
-
-      if (!buyerData.blockchainAddress) {
-        throw new Error(`buyer ${purchase.buyerId} has no blockchain address assigned`);
-      }
-
-      let accountToRedeemFrom: string;
 
       this.logger.debug(`transferring on-chain certificate (id=${purchase.certificateId}, issuerApiId=${chainCertData.id}) to buyer (id=${buyerData.id}, blockchainAddress=${buyerData.blockchainAddress})`);
       const { txHash: txHash1 } = await this.issuerService.transferCertificate({
@@ -73,6 +108,8 @@ export class PurchasesService {
       })
 
       this.logger.debug(`certificate transfer initiated, txHash=${txHash1}`);
+
+      let accountToRedeemFrom: string;
 
       if (filecoinNodes && filecoinNodes[0]) {
         const filecoinNode = filecoinNodes[0];
@@ -95,6 +132,9 @@ export class PurchasesService {
         await prisma.purchase.update({
           data: { txHash: txHash2 },
           where: { id: newRecord.id }
+        }).catch(err => {
+          this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+          throw err;
         });
 
         accountToRedeemFrom = filecoinNodeData.blockchainAddress;
@@ -103,6 +143,9 @@ export class PurchasesService {
         await prisma.purchase.update({
           data: { txHash: txHash1 },
           where: { id: newRecord.id }
+        }).catch(err => {
+          this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+          throw err;
         });
 
         accountToRedeemFrom = buyerData.blockchainAddress;
@@ -127,6 +170,9 @@ export class PurchasesService {
       await prisma.purchase.update({
         data: { txHash: txHashClaiming },
         where: { id: newRecord.id }
+      }).catch(err => {
+        this.logger.error(`error setting a txHash on the new purchase: ${err}`);
+        throw err;
       });
 
       const data = await prisma.purchase.findUnique({

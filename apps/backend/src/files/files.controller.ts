@@ -12,7 +12,9 @@ import {
   Res,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { ApiBody, ApiConsumes, ApiCreatedResponse, ApiOkResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
@@ -28,6 +30,7 @@ import { UpdateFileMetadataDto } from "./dto/update-file-metadata.dto";
 @Controller('files')
 @ApiTags('files')
 @UseInterceptors(ClassSerializerInterceptor)
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class FilesController {
   private readonly logger = new Logger(FilesController.name, { timestamp: true });
 
