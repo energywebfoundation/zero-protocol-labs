@@ -46,6 +46,15 @@ services:
     ports:
       - '127.0.0.1:8545:8545'
 
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:1025:1025'
+      - '127.0.0.1:8025:8025'
+    networks:
+      - dev
+
 volumes:
   dev-pg-data-main:
   dev-pg-data-issuer:
