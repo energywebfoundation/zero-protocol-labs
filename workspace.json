@@ -108,7 +108,7 @@
             "commands": [
               "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
               "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
-              "docker build ./dist/apps/backend/ -t zero-pl-backend",
+              "docker build ./dist/apps/backend/ --pull -t zero-pl-backend",
               "rm -r ./dist/apps/backend/prisma ./dist/apps/backend/Dockerfile"
             ]
           }
@@ -190,7 +190,7 @@
               "cp ./apps/frontend/Dockerfile ./dist/apps/frontend/",
               "cp -R ./apps/frontend/nginx ./dist/apps/frontend/nginx",
               "cp ./prod-init.sh ./dist/apps/frontend",
-              "docker build ./dist/apps/frontend/ -t zero-pl-frontend",
+              "docker build ./dist/apps/frontend/ --pull -t zero-pl-frontend",
               "rm -r ./dist/apps/frontend/Dockerfile ./dist/apps/frontend/prod-init.sh ./dist/apps/frontend/nginx"
             ]
           }
@@ -288,7 +288,7 @@
               "mkdir -p ./dist/apps/issuer-api/typeorm",
               "cp -R ./apps/issuer-api/migrations ./dist/apps/issuer-api/typeorm",
               "cp ./apps/issuer-api/ormconfig-docker.ts ./dist/apps/issuer-api/typeorm/ormconfig.ts",
-              "docker build ./dist/apps/issuer-api/ -t zero-pl-issuer-api",
+              "docker build ./dist/apps/issuer-api/ --pull -t zero-pl-issuer-api",
               "rm -r ./dist/apps/issuer-api/Dockerfile ./dist/apps/issuer-api/typeorm"
             ]
           }
