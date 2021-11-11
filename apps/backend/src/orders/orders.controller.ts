@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Put,
   UseInterceptors,
   UsePipes,
   ValidationPipe
@@ -18,6 +19,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { OrderDto } from "./dto/order.dto";
 import { NoDataInterceptor } from "../interceptors/NoDataInterceptor";
+import { ConfirmOrderDto } from './dto/confirm-order.dto';
 
 @Controller('orders')
 @ApiTags('Orders')
@@ -30,6 +32,15 @@ export class OrdersController {
   @ApiCreatedResponse({ type: OrderDto })
   create(@Body() createOrderDto: CreateOrderDto): Promise<OrderDto> {
     return this.ordersService.create(createOrderDto);
+  }
+
+  @Put(':id/confirmations')
+  @ApiOkResponse({ type: OrderDto })
+  confirm(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() confirmOrderDto: ConfirmOrderDto
+  ): Promise<OrderDto> {
+    return this.ordersService.confirm(id, confirmOrderDto);
   }
 
   @Get()

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -7,9 +7,12 @@ import { OrderItemDto } from './dto/order-item.dto';
 import { OrderItemTimeframeDto } from './dto/order-item-timeframe.dto';
 import { EmailService } from '../email/email.service';
 import { ConfigService } from '@nestjs/config';
+import { ConfirmOrderDto } from './dto/confirm-order.dto';
 
 @Injectable()
 export class OrdersService {
+  private readonly logger = new Logger(OrdersService.name, { timestamp: true });
+
   constructor(
     private prisma: PrismaService,
     private emailService: EmailService,
@@ -54,6 +57,23 @@ export class OrdersService {
         timeFrames: item.timeFrames.map(timeFrame => new OrderItemTimeframeDto(timeFrame))
       }))
     });
+  }
+
+  async confirm(id, confirmOrderDto: ConfirmOrderDto) {
+    const existingOrder = await this.prisma.order.findUnique({
+      where: { id },
+      rejectOnNotFound: () => new NotFoundException(`orderId=${id} not found`)
+    });
+
+    if (existingOrder.confirmationToken !== confirmOrderDto.token) {
+      this.logger.warn(`orderId=${id} confirmation attempt with incorrect token`);
+      throw new ForbiddenException(`incorrect confirmation token`);
+    }
+
+    return new OrderDto(await this.prisma.order.update({
+      where: { id },
+      data: { confirmed: true }
+    }));
   }
 
   async findAll() {
