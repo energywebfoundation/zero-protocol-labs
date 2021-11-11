@@ -106,10 +106,11 @@
           "options": {
             "parallel": false,
             "commands": [
+              "cp yarn.lock ./dist/apps/backend/",
               "cp -R ./apps/backend/prisma ./dist/apps/backend/prisma",
               "cp ./apps/backend/Dockerfile ./dist/apps/backend/",
               "docker build ./dist/apps/backend/ --pull -t zero-pl-backend",
-              "rm -r ./dist/apps/backend/prisma ./dist/apps/backend/Dockerfile"
+              "rm -r ./dist/apps/backend/prisma ./dist/apps/backend/Dockerfile ./dist/apps/backend/yarn.lock"
             ]
           }
         },
@@ -284,12 +285,13 @@
           "options": {
             "parallel": false,
             "commands": [
+              "cp yarn.lock ./dist/apps/issuer-api/",
               "cp ./apps/issuer-api/Dockerfile ./dist/apps/issuer-api/",
               "mkdir -p ./dist/apps/issuer-api/typeorm",
               "cp -R ./apps/issuer-api/migrations ./dist/apps/issuer-api/typeorm",
               "cp ./apps/issuer-api/ormconfig-docker.ts ./dist/apps/issuer-api/typeorm/ormconfig.ts",
               "docker build ./dist/apps/issuer-api/ --pull -t zero-pl-issuer-api",
-              "rm -r ./dist/apps/issuer-api/Dockerfile ./dist/apps/issuer-api/typeorm"
+              "rm -r ./dist/apps/issuer-api/Dockerfile ./dist/apps/issuer-api/typeorm ./dist/apps/issuer-api/yarn.lock"
             ]
           }
         },

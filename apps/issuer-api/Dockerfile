@@ -5,7 +5,7 @@ EXPOSE 3333/tcp
 WORKDIR /app
 RUN apk --no-cache add bash
 RUN yarn global add ts-node typescript
-COPY ./package.json .
+COPY ["./package.json", "./yarn.lock", "./"]
 RUN yarn install
 COPY . .
 
