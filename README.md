@@ -61,3 +61,11 @@ yarn build
 ```shell
 yarn start
 ```
+
+## Receive email messages
+
+The `docker-compose-dev.yaml` file contains `mailhog` service definition. This a mock SMTP server that allows you to
+have insight into all email messages sent during development and testing. It exposes SMTP service on port 1025 and web
+user interface on port 8025. Backend during development accesses it when the following is set in your .env
+file: `SMTP_URL=smtp://localhost:1025`. To see emails sent, navigate to `http://localhost:8025/#`. SMTP mock service has
+no data persistence, so you will lose all the email messages when it is restarted.
