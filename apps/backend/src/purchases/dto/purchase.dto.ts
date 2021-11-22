@@ -1,13 +1,13 @@
-import { ApiProperty, PartialType, PickType } from "@nestjs/swagger";
-import { FileMetadataDto } from "../../files/dto/file-metadata.dto";
-import { BuyerDto } from "../../buyers/dto/buyer.dto";
-import { SellerDto } from "../../sellers/dto/seller.dto";
-import { CertificateDto } from "../../certificates/dto/certificate.dto";
-import { FilecoinNodeDto } from "../../filecoin-nodes/dto/filecoin-node.dto";
+import { ApiProperty, ApiPropertyOptional, PartialType, PickType } from '@nestjs/swagger';
+import { FileMetadataDto } from '../../files/dto/file-metadata.dto';
+import { BuyerDto } from '../../buyers/dto/buyer.dto';
+import { SellerDto } from '../../sellers/dto/seller.dto';
+import { CertificateDto } from '../../certificates/dto/certificate.dto';
+import { FilecoinNodeDto } from '../../filecoin-nodes/dto/filecoin-node.dto';
 
-class File extends PartialType(PickType(FileMetadataDto, ["id", "fileName", "mimeType"] as const)) {
-  @ApiProperty({ example: "https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60" })
-  url: string
+class File extends PartialType(PickType(FileMetadataDto, ['id', 'fileName', 'mimeType'] as const)) {
+  @ApiProperty({ example: 'https://zero.energyweb.org/api/files/5ff1cb39-da8b-4f0a-a17d-a5d00ea85a60' })
+  url: string;
 }
 
 class AnnualTransactionsDto {
@@ -43,11 +43,23 @@ export class PurchaseDto { // TODO: should implement Purchase interface
   @ApiProperty({ type: [AnnualTransactionsDto] })
   recsTransactions: AnnualTransactionsDto[];
 
+  @ApiPropertyOptional({ example: '2020-01-01T00:00:00.000Z' })
+  reportingStart: string;
+
+  @ApiPropertyOptional({ example: 180 })
+  reportingStartTimezoneOffset;
+
+  @ApiPropertyOptional({ example: '2020-12-31T23:59:59.999Z' })
+  reportingEnd: string;
+
+  @ApiPropertyOptional({ example: 180 })
+  reportingEndTimezoneOffset;
+
   @ApiProperty({ type: [FilecoinNodeDto] })
   filecoinNodes: FilecoinNodeDto[];
 
   @ApiProperty({ type: [File] })
-  files: File[]
+  files: File[];
 
   constructor(partial: Partial<PurchaseDto>) {
     Object.assign(this, partial);
