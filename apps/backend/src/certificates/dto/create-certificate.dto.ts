@@ -7,10 +7,8 @@ import {
   IsOptional,
   IsString,
   IsUUID,
-  registerDecorator,
-  ValidationArguments,
-  ValidationOptions
 } from 'class-validator';
+import { IsDateParseable } from '../../validators'
 
 export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiPropertyOptional({ example: '973d48bb-15da-4eaf-8040-b6cb66e22023' })
@@ -63,27 +61,4 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiProperty({ type: 'string', example: '10000' })
   @IsNumberString()
   energy: string
-}
-
-
-/**
- * validates if a string is parseable by the Date object constructor
- */
-function IsDateParseable(validationOptions?: ValidationOptions) {
-  return function(object: unknown, propertyName: string) {
-    registerDecorator({
-      name: 'IsDateParseable',
-      target: object.constructor,
-      propertyName: propertyName,
-      options: validationOptions,
-      validator: {
-        validate(value: string): boolean {
-          return (new Date(value).toString() !== 'Invalid Date');
-        },
-        defaultMessage(args?: ValidationArguments): string {
-          return `${args.property} should be parseable by the Date object constructor`;
-        }
-      }
-    });
-  };
 }
