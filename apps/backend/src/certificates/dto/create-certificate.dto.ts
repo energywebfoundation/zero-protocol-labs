@@ -1,6 +1,7 @@
 import { CertificateDto } from './certificate.dto';
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import {
+  IsInt,
   IsISO8601,
   IsNumberString,
   IsOptional,
@@ -44,10 +45,20 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @IsDateParseable()
   generationStart: string;
 
+  @ApiPropertyOptional({ example: 180 })
+  @IsInt()
+  @IsOptional()
+  generationStartTimezoneOffset: number;
+
   @ApiProperty({ example: new Date('2021-06-01T23:59:59.999Z') })
   @IsISO8601({ strict: true })
   @IsDateParseable()
   generationEnd: string;
+
+  @ApiPropertyOptional({ example: 180 })
+  @IsInt()
+  @IsOptional()
+  generationEndTimezoneOffset: number;
 
   @ApiProperty({ type: 'string', example: '10000' })
   @IsNumberString()
