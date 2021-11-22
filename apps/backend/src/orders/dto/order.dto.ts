@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Order, PaymentPreferencesEnumType, ProtocolTypeEnumType, UserTypeEnumType } from '@prisma/client';
 import { OrderItemDto } from "./order-item.dto";
+import { Exclude } from 'class-transformer';
 
 export class OrderDto implements Order {
   constructor(partial: Partial<OrderDto>) {
@@ -24,6 +25,12 @@ export class OrderDto implements Order {
 
   @ApiProperty({ type: [OrderItemDto] })
   items: OrderItemDto[];
+
+  @Exclude()
+  confirmationToken: string;
+
+  @ApiProperty({ example: false })
+  confirmed: boolean;
 
   @ApiProperty({ example: '2021-10-11T07:48:46.799Z' })
   createdAt: Date;

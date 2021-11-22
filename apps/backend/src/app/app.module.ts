@@ -14,6 +14,7 @@ import { CertificatesModule } from "../certificates/certificates.module";
 import { FilecoinNodesModule } from "../filecoin-nodes/filecoin-nodes.module";
 import { OrdersModule } from "../orders/orders.module";
 import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
@@ -40,7 +41,11 @@ import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
         ISSUER_API_BASE_URL: Joi.string().default('http://localhost:3334'),
         ISSUER_CHAIN_ADDRESS: Joi.string().required(),
         PG_TRANSACTION_TIMEOUT: Joi.number().default(120000),
-        CHAIN_EVENTS_TTL: Joi.number().default(300)
+        CHAIN_EVENTS_TTL: Joi.number().default(300),
+        SMTP_URL: Joi.string()
+          .uri({ allowRelative: false, scheme: 'smtp' })
+          .default('smtp://localhost:1025'),
+        SMTP_FROM: Joi.string().default('"EW Zero" <notification@energyweb.org>'),
       })
     }),
     PrismaModule,
@@ -51,7 +56,8 @@ import { HttpLoggerMiddleware } from '../middlewares/http-logger.middleware';
     SellersModule,
     CertificatesModule,
     FilecoinNodesModule,
-    OrdersModule
+    OrdersModule,
+    EmailModule
   ],
   controllers: [AppController],
   providers: [AppService],

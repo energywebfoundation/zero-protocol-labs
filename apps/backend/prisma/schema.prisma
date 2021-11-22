@@ -105,6 +105,8 @@ model Order {
   userType           UserTypeEnumType
   items              OrderItem[]
   paymentPreferences PaymentPreferencesEnumType[]
+  confirmationToken  String?                      @default(uuid())
+  confirmed          Boolean                      @default(false)
   createdAt          DateTime                     @default(now())
 }
 
