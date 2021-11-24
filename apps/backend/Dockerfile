@@ -4,7 +4,7 @@ ENV FILES_STORAGE=/uploaded-files
 VOLUME ["/tmp"]
 WORKDIR /app
 RUN yarn global add prisma@3.4.1
-COPY ./package.json .
+COPY ["./package.json", "./yarn.lock", "./"]
 RUN yarn install
 COPY . .
 RUN prisma generate || exit 0 # TODO: allow this to crash after schema is defined
