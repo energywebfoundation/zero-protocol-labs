@@ -124,5 +124,9 @@ curl -w "\n" -s -X 'POST' \
       "amount": 1
     }
   ],
+  "reportingStart": "2020-11-01T00:00:00.000+03:00",
+  "reportingStartTimezoneOffset": 180,
+  "reportingEnd": "2021-06-01T23:59:59.999+03:00",
+  "reportingEndTimezoneOffset": 180,
   "filecoinNodes": [{"id": "f00002"}]
 }'

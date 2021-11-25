@@ -108,9 +108,17 @@ export class FilecoinNodesService {
           id: p.purchase.id,
           pageUrl: `${process.env.UI_BASE_URL}/partners/filecoin/purchases/${p.purchase.id}`,
           dataUrl: `${process.env.API_BASE_URL}/api/partners/filecoin/purchases/${p.purchase.id}`,
-          sellerId: p.purchase.sellerId,
-          recsSold: p.purchase.recsSold,
-          annually: p.purchase.recsTransactions,
+          ...pick(p.purchase, [
+            'sellerId',
+            'recsSold',
+            'annually',
+            'reportingStart',
+            'reportingStartTimezoneOffset',
+            'reportingEnd',
+            'reportingEndTimezoneOffset',
+          ]),
+          reportingStartLocal: toDateStringWithOffset(p.purchase.reportingStart, p.purchase.reportingStartTimezoneOffset),
+          reportingEndLocal: toDateStringWithOffset(p.purchase.reportingEnd, p.purchase.reportingEndTimezoneOffset),
           generation: {
             ...pick(p.purchase.certificate, [
               // 'id',
@@ -168,6 +176,12 @@ export const transactionsSchema = {
               }
             }
           },
+          reportingStart : {type: "string", example: "2019-12-31T21:00:00.000Z"},
+          reportingStartTimezoneOffset : {type: "number", example: 180},
+          reportingEnd : {type: "string", example: "2020-12-31T20:59:59.999Z"},
+          reportingEndTimezoneOffset : {type: "number", example: 180},
+          reportingStartLocal : {type: "string", example: "2020-01-01T00:00:00.000+03:00"},
+          reportingEndLocal : {type: "string", example: "2020-12-31T23:59:59.999+03:00"},
           generation: {
             type: "object",
             properties: {

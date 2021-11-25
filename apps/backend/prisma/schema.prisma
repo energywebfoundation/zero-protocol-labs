@@ -70,18 +70,22 @@ model FilecoinNode {
 }
 
 model Purchase {
-  id               String                     @id @default(uuid())
-  txHash           String?
-  certificate      Certificate                @relation(fields: [certificateId], references: [id])
-  certificateId    String
-  buyer            Buyer?                     @relation(fields: [buyerId], references: [id])
-  buyerId          String?
-  seller           Seller?                    @relation(fields: [sellerId], references: [id])
-  sellerId         String?
-  files            File[]
-  recsSold         Int
-  recsTransactions Json
-  filecoinNodes    FilecoinNodesOnPurchases[]
+  id                           String                     @id @default(uuid())
+  txHash                       String?
+  certificate                  Certificate                @relation(fields: [certificateId], references: [id])
+  certificateId                String
+  buyer                        Buyer?                     @relation(fields: [buyerId], references: [id])
+  buyerId                      String?
+  seller                       Seller?                    @relation(fields: [sellerId], references: [id])
+  sellerId                     String?
+  files                        File[]
+  recsSold                     Int
+  recsTransactions             Json
+  reportingStart               DateTime?
+  reportingStartTimezoneOffset Int?
+  reportingEnd                 DateTime?
+  reportingEndTimezoneOffset   Int?
+  filecoinNodes                FilecoinNodesOnPurchases[]
 
   @@unique([id, buyerId])
 }

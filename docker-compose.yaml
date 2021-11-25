@@ -33,6 +33,8 @@ services:
       ISSUER_API_BASE_URL: http://issuer-api:3333
       FILES_BASE_URL: http://localhost:3333/api/files
       ISSUER_CHAIN_ADDRESS: "0xD173313A51f8fc37BcF67569b463abd89d81844f"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     volumes:
       - 'zero-pl-backend-tmp:/tmp'
     networks:
@@ -101,6 +103,16 @@ services:
     networks:
       zero-pl:
 
+  redis:
+    image: redis:6-alpine
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:6379:6379'
+    networks:
+      zero-pl:
+    volumes:
+      - redis-data:/data
+
   mailhog:
     image: mailhog/mailhog:latest
     restart: unless-stopped
@@ -115,6 +127,7 @@ volumes:
   zero-pl-pg-data-issuer:
   zero-pl-backend-tmp:
   ganache-data:
+  redis-data:
 
 networks:
   zero-pl:

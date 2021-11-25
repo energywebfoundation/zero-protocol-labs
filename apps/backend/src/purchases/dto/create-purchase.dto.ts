@@ -1,7 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, IsUUID, Min, ValidateNested } from 'class-validator';
+import {
+  IsInt,
+  IsISO8601,
+  IsNotEmpty,
+  IsOptional,
+  IsPositive,
+  IsString,
+  IsUUID,
+  Min,
+  ValidateNested
+} from 'class-validator';
+import { IsDateParseable } from '../../validators';
 
 class FilecoinNodeSimple {
   @ApiProperty({ example: 'f0112027' })
@@ -55,6 +66,28 @@ export class CreatePurchaseDto {
   @ValidateNested()
   @Type(() => RecsAnnuallyDTO)
   recsTransactions: Prisma.JsonValue;
+
+  @ApiPropertyOptional({ example: '2020-01-01T00:00:00.000Z' })
+  @IsISO8601({ strict: true })
+  @IsDateParseable()
+  @IsOptional()
+  reportingStart: string;
+
+  @ApiPropertyOptional({ example: 180 })
+  @IsInt()
+  @IsOptional()
+  reportingStartTimezoneOffset;
+
+  @ApiPropertyOptional({ example: '2020-12-31T23:59:59.999Z' })
+  @IsISO8601({ strict: true })
+  @IsDateParseable()
+  @IsOptional()
+  reportingEnd: string;
+
+  @ApiPropertyOptional({ example: 180 })
+  @IsInt()
+  @IsOptional()
+  reportingEndTimezoneOffset;
 
   @ApiPropertyOptional({ type: [FilecoinNodeSimple] })
   @ValidateNested()
