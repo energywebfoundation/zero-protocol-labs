@@ -12,7 +12,7 @@ import {
   Min,
   ValidateNested
 } from 'class-validator';
-import { IsDateParseable } from '../../validators';
+import { IsDatetimePrismaCompatible } from '../../validators';
 
 class FilecoinNodeSimple {
   @ApiProperty({ example: 'f0112027' })
@@ -69,7 +69,7 @@ export class CreatePurchaseDto {
 
   @ApiPropertyOptional({ example: '2020-01-01T00:00:00.000Z' })
   @IsISO8601({ strict: true })
-  @IsDateParseable()
+  @IsDatetimePrismaCompatible()
   @IsOptional()
   reportingStart: string;
 
@@ -80,7 +80,7 @@ export class CreatePurchaseDto {
 
   @ApiPropertyOptional({ example: '2020-12-31T23:59:59.999Z' })
   @IsISO8601({ strict: true })
-  @IsDateParseable()
+  @IsDatetimePrismaCompatible()
   @IsOptional()
   reportingEnd: string;
 

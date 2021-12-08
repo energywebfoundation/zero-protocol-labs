@@ -8,7 +8,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { IsDateParseable } from '../../validators'
+import { IsDatetimePrismaCompatible } from '../../validators'
 
 export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiPropertyOptional({ example: '973d48bb-15da-4eaf-8040-b6cb66e22023' })
@@ -40,7 +40,7 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
 
   @ApiProperty({ example: new Date('2020-11-01T00:00:00.000Z') })
   @IsISO8601({ strict: true })
-  @IsDateParseable()
+  @IsDatetimePrismaCompatible()
   generationStart: string;
 
   @ApiPropertyOptional({ example: 180 })
@@ -50,7 +50,7 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
 
   @ApiProperty({ example: new Date('2021-06-01T23:59:59.999Z') })
   @IsISO8601({ strict: true })
-  @IsDateParseable()
+  @IsDatetimePrismaCompatible()
   generationEnd: string;
 
   @ApiPropertyOptional({ example: 180 })
