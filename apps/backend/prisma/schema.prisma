@@ -47,6 +47,7 @@ model Certificate {
   id                            String     @id @default(uuid())
   generatorName                 String?
   generatorId                   String?
+  region                        String?
   country                       String
   energySource                  String
   generationStart               DateTime?

@@ -3,6 +3,7 @@ import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import {
   IsInt,
   IsISO8601,
+  IsNotEmpty,
   IsNumberString,
   IsOptional,
   IsString,
@@ -29,6 +30,11 @@ export class CreateCertificateDto extends OmitType(CertificateDto, ['txHash']) {
   @ApiProperty({ example: '00000000-0000-0000-0000-000000000000' })
   @IsUUID()
   initialSellerId: string;
+
+  @ApiPropertyOptional({ example: 'NE' })
+  @IsString()
+  @IsOptional()
+  region: string;
 
   @ApiProperty({ example: 'China' })
   @IsString()
