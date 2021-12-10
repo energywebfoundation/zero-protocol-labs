@@ -13,6 +13,9 @@ export class CertificateDto {
   @ApiProperty({ example: '00000000-0000-0000-0000-000000000000' })
   initialSellerId: string;
 
+  @ApiProperty({ example: 'NE' })
+  region: string;
+
   @ApiProperty({ example: 'China' })
   country: string;
 
