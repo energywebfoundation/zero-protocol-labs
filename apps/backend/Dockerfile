@@ -7,7 +7,7 @@ RUN yarn global add prisma@3.4.1
 COPY ["./package.json", "./yarn.lock", "./"]
 RUN yarn install
 COPY . .
-RUN prisma generate || exit 0 # TODO: allow this to crash after schema is defined
+RUN prisma generate
 RUN rm -rf /tmp/*
 
 CMD node ./main.js
