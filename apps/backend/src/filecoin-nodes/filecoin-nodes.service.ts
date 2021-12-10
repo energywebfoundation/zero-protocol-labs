@@ -122,6 +122,7 @@ export class FilecoinNodesService {
           generation: {
             ...pick(p.purchase.certificate, [
               // 'id',
+              'region',
               'country',
               'energySource',
               'generatorId',
@@ -185,7 +186,8 @@ export const transactionsSchema = {
           generation: {
             type: "object",
             properties: {
-              "country": {type: "string"},
+              "region": {type: "string", example: "north_china"},
+              "country": {type: "string", example: "China"},
               "energySource": {type: "string"},
               "generatorId": {type: "string"},
               "generatorName": {type: "string"},
